@@ -5,17 +5,16 @@
 	"compatibility_date": "2026-10-01",
 	"compatibility_flags": ["nodejs_compat"],
 	"observability": { "enabled": true },
-	"d1_databases": [
-		{
-			"binding": "DB",
-			"database_name": "sps-trutnov"
-		}
-	],
+	"workers_dev": true,
+	"preview_urls": true,
+	// EmDash CMS database: one SQLite-backed Durable Object
+	"durable_objects": {
+		"bindings": [{ "name": "EMDASH_DB", "class_name": "EmDashDB" }]
+	},
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["EmDashDB"] }],
 	"r2_buckets": [
-		{
-			"binding": "MEDIA",
-			"bucket_name": "sps-trutnov-media"
-		}
+		{ "binding": "MEDIA", "bucket_name": "sps-trutnov-media" },
+		{ "binding": "SESSIONS", "bucket_name": "sps-trutnov-sessions" }
 	],
 	// Scheduled publishing + maintenance for EmDash
 	"triggers": {

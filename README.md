@@ -96,11 +96,19 @@ Stav při odevzdání: `astro check` 0 chyb, token lint OK, **104/104 Playwright
 
 ## Nasazení na Cloudflare
 
+Dev nasazení: **https://sps-trutnov.marketing-830.workers.dev**
+
+Databáze CMS běží v **Durable Objectu se SQLite** (`EmDashDB`, binding `EMDASH_DB`), média v R2
+(`sps-trutnov-media`), Astro session pro přihlášení do EmDash v R2 (`sps-trutnov-sessions`).
+Stačí tedy API token s právy *Workers Scripts* a *R2* — D1 ani KV potřeba nejsou.
+(Až bude token mít práva na D1, lze v `astro.config.mjs` přepnout na `d1({ binding: "DB" })`.)
+
 ```bash
-npx wrangler d1 create sps-trutnov          # doplňte database_id do wrangler.jsonc
 npx wrangler r2 bucket create sps-trutnov-media
+npx wrangler r2 bucket create sps-trutnov-sessions
 pnpm deploy                                 # astro build && wrangler deploy
 ```
 
 Po nasazení otevřete `/_emdash/admin`, dokončete průvodce (vč. „ukázkového obsahu“) a vytvořte účty
-editorů. Typy prostředí: `npx wrangler types --include-runtime=false`.
+editorů. Dokud průvodce není dokončen, web zobrazuje obsah z přibaleného seedu.
+Typy prostředí: `npx wrangler types --include-runtime=false`.

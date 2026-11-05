@@ -1,14 +1,24 @@
 // @ts-check
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import { d1, r2 } from "@emdash-cms/cloudflare";
-import { defineConfig } from "astro/config";
+import { durableObjects, r2 } from "@emdash-cms/cloudflare";
+import { defineConfig, sessionDrivers } from "astro/config";
 import emdash from "emdash/astro";
 
+/**
+ * Storage choices (all bound in wrangler.jsonc):
+ * - CMS database: a SQLite-backed Durable Object (`EmDashDB`, binding EMDASH_DB).
+ *   Swap to `d1({ binding: "DB", session: "auto" })` once the API token has D1 rights.
+ * - Media: R2 bucket (binding MEDIA).
+ * - Astro sessions (EmDash admin auth): R2 bucket (binding SESSIONS) instead of KV.
+ */
 export default defineConfig({
 	site: "https://www.spstrutnov.cz",
 	output: "server",
-	adapter: cloudflare(),
+	adapter: cloudflare({ imageService: "passthrough" }),
+	session: {
+		driver: sessionDrivers.cloudflareR2Binding({ binding: "SESSIONS", base: "astro-sessions" }),
+	},
 	prefetch: { prefetchAll: true, defaultStrategy: "hover" },
 	image: {
 		layout: "constrained",
@@ -18,7 +28,7 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
-			database: d1({ binding: "DB", session: "auto", coalesce: true }),
+			database: durableObjects({ binding: "EMDASH_DB" }),
 			storage: r2({ binding: "MEDIA" }),
 		}),
 	],
