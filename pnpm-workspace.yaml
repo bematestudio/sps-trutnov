@@ -1,0 +1,5 @@
+# Build scripts: allow only what each runtime needs.
+allowBuilds:
+  esbuild: true
+  workerd: true
+  sharp: false

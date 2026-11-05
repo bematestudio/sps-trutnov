@@ -1,0 +1,88 @@
+---
+import ContactForm from "../../components/ContactForm.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Workplaces from "../../components/Workplaces.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const workplaces = await cms.workplaces();
+const quick = [
+	{ icon: "phone", label: "Sekretariát", value: "+420 499 813 071", href: "tel:+420499813071" },
+	{ icon: "mail", label: "E-mail", value: "skola@spstrutnov.cz", href: "mailto:skola@spstrutnov.cz", copy: true },
+	{ icon: "file", label: "Datová schránka", value: "j4px8nw", copy: true },
+	{ icon: "clock", label: "Úřední hodiny", value: "Po–Pá 7:00–14:00" },
+] as const;
+---
+
+<Base title="Kontakty" description="Kontakty na SPŠ Trutnov: sekretariát, pracoviště, e-mail, datová schránka a kontaktní formulář.">
+	<PageHero eyebrow="Kontakty / Sídlo a pracoviště" title="Jsme tu pro vás." lead="Střední průmyslová škola, Trutnov, Školní 101, 541 01 Trutnov · IČ 69174415" crumbs={[{ label: "Kontakty" }]}>
+		<ul class="quick" role="list" data-reveal-group>
+			{
+				quick.map((q) => (
+					<li class="quick__item" data-reveal>
+						<span class="quick__icon"><Icon name={q.icon} /></span>
+						<span class="meta">{q.label}</span>
+						{"href" in q ? <a class="quick__value" href={q.href}>{q.value}</a> : <span class="quick__value">{q.value}</span>}
+						{"copy" in q && (
+							<button class="btn btn--ghost btn--icon quick__copy" type="button" data-copy={q.value} aria-label={`Zkopírovat ${q.value}`}>
+								<Icon name="copy" size="s" />
+							</button>
+						)}
+					</li>
+				))
+			}
+		</ul>
+	</PageHero>
+	<section class="section">
+		<div class="container"><Workplaces items={workplaces} /></div>
+	</section>
+	<section class="section section--surface" id="formular">
+		<div class="container split split--center">
+			<div class="stack">
+				<h2 class="h-section">Máte dotaz ke studiu nebo přijímacímu řízení?</h2>
+				<p class="meta">Napište nám</p>
+				<p class="lead">Odpovíme obvykle do dvou pracovních dnů. Kontakty na konkrétní vyučující najdete v adresáři.</p>
+				<a class="link-arrow" href="/kontakty/lide">Adresář zaměstnanců <Icon name="arrow" size="s" /></a>
+			</div>
+			<ContactForm />
+		</div>
+	</section>
+</Base>
+
+<style>
+	.quick {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+		gap: var(--grid-gap);
+		padding: 0;
+	}
+	.quick__item {
+		position: relative;
+		display: grid;
+		gap: var(--space-2xs);
+		padding: var(--space-m);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-xs);
+		transition: border-color var(--duration-base) var(--ease-out);
+	}
+	.quick__item:hover {
+		border-color: var(--color-border-strong);
+	}
+	.quick__icon {
+		color: var(--color-accent-text);
+		margin-bottom: var(--space-s);
+	}
+	.quick__value {
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+		text-decoration: none;
+		overflow-wrap: anywhere;
+	}
+	.quick__copy {
+		position: absolute;
+		inset-block-start: var(--space-2xs);
+		inset-inline-end: var(--space-2xs);
+	}
+</style>

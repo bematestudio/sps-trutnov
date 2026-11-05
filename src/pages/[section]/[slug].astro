@@ -1,0 +1,109 @@
+---
+import { PortableText } from "emdash/ui";
+import HubCard from "../../components/HubCard.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms, type Section } from "../../lib/cms";
+import { sectionLabel } from "../../lib/format";
+
+const SECTIONS = ["o-skole", "studium", "kontakty", "vice"] as const;
+const { section, slug } = Astro.params;
+if (!section || !slug || !SECTIONS.includes(section as Section)) return Astro.rewrite("/404");
+
+const cms = createCms(Astro.locals);
+const siblings = await cms.pages(section as Section);
+const page = siblings.find((p) => p.slug === slug);
+if (!page) return Astro.rewrite("/404");
+const others = siblings.filter((p) => p.slug !== slug).slice(0, 3);
+const headings = page.content
+	.filter((b: any) => b.style === "h2")
+	.map((b: any) => (b.children ?? []).map((c: any) => c.text).join("") as string);
+---
+
+<Base title={page.title} description={page.lead} content={{ collection: "pages", id: page.slug, slug: page.slug }}>
+	<PageHero eyebrow={sectionLabel[section]} title={page.title} lead={page.lead} crumbs={[{ label: sectionLabel[section], href: `/${section}` }, { label: page.title }]} />
+	<section class="section">
+		<div class="container sidebar-layout">
+			<div class="prose" data-prose data-reveal><PortableText value={page.content} /></div>
+			<aside class="sidebar-layout__aside stack">
+				{
+					headings.length > 1 && (
+						<nav class="panel toc" aria-label="Obsah stránky">
+							<p class="meta">Na této stránce</p>
+							<ol role="list">
+								{headings.map((h, i) => (
+									<li>
+										<a href={`#cast-${i + 1}`}>{h}</a>
+									</li>
+								))}
+							</ol>
+						</nav>
+					)
+				}
+				<div class="panel panel--inverse panel--plus help">
+					<p class="h-card">Máte dotaz?</p>
+					<p class="muted">Sekretariát školy vám rád pomůže v pracovní dny 7:00–14:00.</p>
+					<a class="link-arrow help__link" href="tel:+420499813071"><Icon name="phone" size="s" /> 499 813 071</a>
+					<a class="link-arrow help__link" href="mailto:skola@spstrutnov.cz"><Icon name="mail" size="s" /> skola@spstrutnov.cz</a>
+				</div>
+			</aside>
+		</div>
+	</section>
+	{
+		others.length > 0 && (
+			<section class="section section--surface">
+				<div class="container">
+					<h2 class="h-section section-head">Další v sekci {sectionLabel[section]}</h2>
+					<div class="grid grid--s" data-reveal-group>
+						{others.map((p, i) => (
+							<HubCard href={`/${section}/${p.slug}`} title={p.title} text={p.lead} index={i} />
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</Base>
+
+<script>
+	document.querySelectorAll("[data-prose] h2").forEach((h, i) => (h.id = `cast-${i + 1}`));
+</script>
+
+<style>
+	.toc ol {
+		display: grid;
+		gap: var(--space-3xs);
+		margin-top: var(--space-s);
+		padding: 0;
+		counter-reset: toc;
+	}
+	.toc li {
+		counter-increment: toc;
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-xs);
+	}
+	.toc li::before {
+		content: counter(toc, decimal-leading-zero);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		color: var(--color-accent-text);
+	}
+	.toc a {
+		display: block;
+		padding-block: var(--space-3xs);
+		text-decoration: none;
+		transition: color var(--duration-fast) var(--ease-out);
+	}
+	.toc a:hover {
+		color: var(--color-accent-text);
+	}
+	.help {
+		display: grid;
+		gap: var(--space-s);
+	}
+	.help__link {
+		color: var(--color-inverse-text);
+	}
+</style>

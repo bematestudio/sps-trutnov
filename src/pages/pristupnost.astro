@@ -1,0 +1,21 @@
+---
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Prohlášení o přístupnosti">
+	<PageHero eyebrow="Přístupnost" title="Web pro všechny." lead="Snažíme se, aby web splňoval požadavky zákona č. 99/2019 Sb. a standardu WCAG 2.2 na úrovni AA." crumbs={[{ label: "Přístupnost" }]} />
+	<section class="section">
+		<div class="container container--narrow prose">
+			<h2>Co jsme udělali</h2>
+			<ul>
+				<li>Běžný text má na všech zařízeních velikost nejméně 16 px a dostatečný kontrast v obou barevných režimech.</li>
+				<li>Celý web je ovladatelný klávesnicí, s viditelným zaměřením a odkazem „Přeskočit na obsah“.</li>
+				<li>Animace respektují nastavení „omezit pohyb“ v operačním systému.</li>
+				<li>Interaktivní prvky mají cílovou plochu alespoň 44 × 44 px.</li>
+			</ul>
+			<h2>Zpětná vazba</h2>
+			<p>Narazili jste na problém s přístupností? Napište nám na skola@spstrutnov.cz.</p>
+		</div>
+	</section>
+</Base>

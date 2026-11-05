@@ -1,0 +1,445 @@
+---
+/**
+ * Administration shell (frontend only).
+ * There is no backend wired to these screens yet: lists read live content
+ * from EmDash (read-only), edits are kept in the browser (localStorage) as a
+ * demo. Real content editing happens in the EmDash admin at /_emdash/admin.
+ */
+import Icon, { type IconName } from "../components/Icon.astro";
+import Logo from "../components/Logo.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import Base from "./Base.astro";
+
+interface Props {
+	title: string;
+	heading?: string;
+	description?: string;
+}
+const { title, heading = title, description } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "");
+const nav: Array<{ href: string; label: string; icon: IconName }> = [
+	{ href: "/admin", label: "Přehled", icon: "grid" },
+	{ href: "/admin/novinky", label: "Novinky", icon: "news" },
+	{ href: "/admin/akce", label: "Akce a termíny", icon: "calendar" },
+	{ href: "/admin/dokumenty", label: "Dokumenty", icon: "file" },
+	{ href: "/admin/lide", label: "Lidé", icon: "users" },
+	{ href: "/admin/nastaveni", label: "Nastavení", icon: "settings" },
+];
+const isActive = (href: string) => (href === "/admin" ? path === "/admin" : path.startsWith(href));
+---
+
+<Base title={`${title} · Administrace`} noindex bare>
+	<div class="admin">
+		<aside class="admin__side" data-admin-side>
+			<a class="admin__brand" href="/admin"><Logo /></a>
+			<nav aria-label="Administrace">
+				<ul class="admin__nav" role="list">
+					{
+						nav.map((n) => (
+							<li>
+								<a class="admin__link" href={n.href} aria-current={isActive(n.href) ? "page" : undefined}>
+									<Icon name={n.icon} /> {n.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+			<div class="admin__side-foot">
+				<a class="admin__link" href="/_emdash/admin"><Icon name="edit" /> EmDash CMS <Icon name="arrow-up-right" size="s" /></a>
+				<a class="admin__link" href="/"><Icon name="home" /> Zobrazit web</a>
+				<a class="admin__link" href="/prihlaseni" data-logout><Icon name="logout" /> Odhlásit</a>
+			</div>
+		</aside>
+
+		<div class="admin__main">
+			<header class="admin__top">
+				<button class="btn btn--ghost btn--icon admin__menu" type="button" aria-label="Menu administrace" aria-expanded="false" data-admin-menu>
+					<Icon name="menu" />
+				</button>
+				<div class="admin__title">
+					<h1 class="admin__h1">{heading}</h1>
+				</div>
+				<div class="admin__actions">
+					<slot name="actions" />
+					<ThemeToggle />
+					<span class="admin__user" title="Přihlášený uživatel">
+						<span class="admin__avatar" aria-hidden="true" data-admin-initials>VS</span>
+						<span class="admin__user-name" data-admin-name>Ing. Vladislav Sauer</span>
+					</span>
+				</div>
+			</header>
+			<div class="admin__notice notice" role="note">
+				<Icon name="lock" />
+				<p>
+					<strong>Ukázkový režim.</strong> Rozhraní zatím není napojené na backend — změny se ukládají jen ve vašem prohlížeči. Obsah webu spravujte v <a class="link" href="/_emdash/admin">EmDash CMS</a>.
+				</p>
+			</div>
+			{description && <p class="lead admin__desc">{description}</p>}
+			<div class="admin__content">
+				<slot />
+			</div>
+		</div>
+	</div>
+</Base>
+
+<style is:global>
+	.admin {
+		display: grid;
+		min-block-size: 100dvh;
+		background: var(--color-surface);
+	}
+	.admin__side {
+		position: fixed;
+		inset: 0 auto 0 0;
+		z-index: var(--z-overlay);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-l);
+		inline-size: min(18rem, 85vw);
+		padding: var(--space-m);
+		background: var(--color-bg);
+		border-inline-end: var(--border-width) solid var(--color-border);
+		translate: -100% 0;
+		transition: translate var(--duration-base) var(--ease-out);
+		overflow-y: auto;
+	}
+	.admin__side[data-open] {
+		translate: 0 0;
+		box-shadow: var(--shadow-l);
+	}
+	.admin__brand {
+		text-decoration: none;
+	}
+	.admin__nav {
+		display: grid;
+		gap: var(--space-3xs);
+	}
+	.admin__link {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		min-block-size: var(--tap-target);
+		padding-inline: var(--space-xs);
+		border-radius: var(--radius-s);
+		text-decoration: none;
+		color: var(--color-text-muted);
+		font-weight: var(--weight-medium);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+	.admin__link:hover {
+		background: var(--color-surface);
+		color: var(--color-text);
+	}
+	.admin__link[aria-current] {
+		background: var(--color-accent-soft);
+		color: var(--color-accent-text);
+	}
+	.admin__side-foot {
+		margin-top: auto;
+		display: grid;
+		gap: var(--space-3xs);
+		padding-top: var(--space-m);
+		border-top: var(--border-width) solid var(--color-border);
+	}
+	.admin__main {
+		display: grid;
+		align-content: start;
+		gap: var(--space-m);
+		padding: var(--space-s) var(--gutter) var(--space-2xl);
+		min-inline-size: 0;
+	}
+	.admin__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-s);
+		padding-block: var(--space-xs);
+	}
+	.admin__title {
+		display: grid;
+		min-inline-size: 0;
+	}
+	.admin__h1 {
+		font-size: var(--text-xl);
+		line-height: var(--leading-snug);
+		letter-spacing: var(--tracking-snug);
+	}
+	.admin__actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		margin-inline-start: auto;
+	}
+	.admin__user {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+	}
+	.admin__avatar {
+		display: grid;
+		place-items: center;
+		inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		border-radius: var(--radius-full);
+		background: var(--color-accent);
+		color: var(--color-on-accent);
+		font-weight: var(--weight-semibold);
+	}
+	.admin__user-name {
+		display: none;
+		font-weight: var(--weight-medium);
+	}
+	.admin__notice p {
+		margin: 0;
+	}
+	.admin__content {
+		display: grid;
+		gap: var(--grid-gap);
+		min-inline-size: 0;
+	}
+	@media (width >= 75rem) {
+		.admin {
+			grid-template-columns: 17rem minmax(0, 1fr);
+		}
+		.admin__side {
+			position: sticky;
+			inset-block-start: 0;
+			block-size: 100dvh;
+			inline-size: auto;
+			translate: 0 0;
+			box-shadow: none !important;
+		}
+		.admin__menu {
+			display: none;
+		}
+		.admin__user-name {
+			display: block;
+		}
+		.admin__main {
+			padding-top: var(--space-m);
+		}
+	}
+
+	/* ---------- Admin widgets ------------------------------------------- */
+	.a-card {
+		display: grid;
+		gap: var(--space-s);
+		align-content: start;
+		padding: var(--space-m);
+		background: var(--color-bg);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-m);
+		min-inline-size: 0;
+	}
+	.a-card__head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-s);
+	}
+	.a-card__title {
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+	}
+	.a-card .table-wrap {
+		border: 0;
+		border-radius: 0;
+		margin-inline: calc(var(--space-m) * -1);
+	}
+	.a-kpis {
+		display: grid;
+		gap: var(--grid-gap);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+	}
+	.a-kpi {
+		display: grid;
+		gap: var(--space-2xs);
+	}
+	.a-kpi__value {
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+	}
+	.a-kpi__trend {
+		color: var(--color-success);
+		font-weight: var(--weight-medium);
+	}
+	.a-cols {
+		display: grid;
+		gap: var(--grid-gap);
+		grid-template-columns: minmax(0, 1fr);
+	}
+	@media (width >= 75rem) {
+		.a-cols {
+			grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+		}
+	}
+	.status {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		font-weight: var(--weight-medium);
+		white-space: nowrap;
+	}
+	.status::before {
+		content: "";
+		inline-size: var(--marker-size);
+		block-size: var(--marker-size);
+		border-radius: var(--radius-full);
+		background: currentColor;
+	}
+	.status--published {
+		color: var(--color-success);
+	}
+	.status--draft {
+		color: var(--color-warning);
+	}
+	.status--scheduled {
+		color: var(--color-accent-text);
+	}
+	.a-toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+		align-items: center;
+		justify-content: space-between;
+	}
+	.a-search {
+		position: relative;
+		display: flex;
+		align-items: center;
+		flex: 1 1 16rem;
+		max-inline-size: 28rem;
+	}
+	.a-search svg {
+		position: absolute;
+		inset-inline-start: var(--space-xs);
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+	.a-search .input {
+		padding-inline-start: calc(var(--space-xs) * 2 + var(--icon-m));
+	}
+	.a-row-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--space-3xs);
+	}
+	.a-dropzone {
+		display: grid;
+		place-items: center;
+		gap: var(--space-2xs);
+		padding: var(--space-xl) var(--space-m);
+		border: var(--border-width-strong) dashed var(--color-border);
+		border-radius: var(--radius-m);
+		text-align: center;
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			border-color var(--duration-fast) var(--ease-out),
+			background-color var(--duration-fast) var(--ease-out);
+	}
+	.a-dropzone:hover,
+	.a-dropzone[data-over] {
+		border-color: var(--color-accent);
+		background: var(--color-accent-soft);
+		color: var(--color-text);
+	}
+	.a-form {
+		display: grid;
+		gap: var(--space-m);
+	}
+	.a-switch {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-m);
+		padding-block: var(--space-xs);
+	}
+	.a-switch input {
+		appearance: none;
+		position: relative;
+		flex: none;
+		inline-size: calc(var(--tap-target) * 1.1);
+		block-size: calc(var(--tap-target) * 0.6);
+		border-radius: var(--radius-full);
+		background: var(--color-surface-2);
+		border: var(--border-width) solid var(--color-border);
+		cursor: pointer;
+		transition: background-color var(--duration-base) var(--ease-out);
+	}
+	.a-switch input::after {
+		content: "";
+		position: absolute;
+		inset-block-start: 50%;
+		inset-inline-start: var(--space-3xs);
+		inline-size: calc(var(--tap-target) * 0.45);
+		block-size: calc(var(--tap-target) * 0.45);
+		border-radius: var(--radius-full);
+		background: var(--color-bg);
+		box-shadow: var(--shadow-s);
+		translate: 0 -50%;
+		transition: translate var(--duration-base) var(--ease-emphasized);
+	}
+	.a-switch input:checked {
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+	.a-switch input:checked::after {
+		translate: calc(var(--tap-target) * 0.45) -50%;
+	}
+	.a-empty {
+		padding: var(--space-xl);
+		text-align: center;
+		color: var(--color-text-muted);
+	}
+	.a-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: calc(var(--z-overlay) - 1);
+		background: var(--color-overlay);
+	}
+</style>
+
+<script>
+	const side = document.querySelector<HTMLElement>("[data-admin-side]");
+	const menu = document.querySelector<HTMLButtonElement>("[data-admin-menu]");
+	let overlay: HTMLElement | null = null;
+	const toggle = (open: boolean) => {
+		if (!side || !menu) return;
+		side.toggleAttribute("data-open", open);
+		menu.setAttribute("aria-expanded", String(open));
+		if (open) {
+			overlay = document.createElement("div");
+			overlay.className = "a-overlay";
+			overlay.addEventListener("click", () => toggle(false));
+			document.body.append(overlay);
+		} else overlay?.remove();
+	};
+	menu?.addEventListener("click", () => toggle(!side?.hasAttribute("data-open")));
+	document.addEventListener("keydown", (e) => e.key === "Escape" && toggle(false));
+
+	// Demo session (set by /prihlaseni)
+	try {
+		const user = JSON.parse(sessionStorage.getItem("sps-admin") ?? "null");
+		if (user?.name) {
+			document.querySelector("[data-admin-name]")!.textContent = user.name;
+			document.querySelector("[data-admin-initials]")!.textContent = user.name
+				.split(/\s+/)
+				.filter((w: string) => !w.endsWith("."))
+				.map((w: string) => w[0])
+				.join("")
+				.slice(0, 2)
+				.toUpperCase();
+		}
+	} catch {}
+	document.querySelector("[data-logout]")?.addEventListener("click", () => {
+		try {
+			sessionStorage.removeItem("sps-admin");
+		} catch {}
+	});
+</script>

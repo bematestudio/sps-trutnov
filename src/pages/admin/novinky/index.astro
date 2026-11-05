@@ -1,0 +1,85 @@
+---
+import Icon from "../../../components/Icon.astro";
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { createCms } from "../../../lib/cms";
+import { formatShortDate } from "../../../lib/format";
+
+const cms = createCms(Astro.locals);
+const [{ items: posts }, categories] = await Promise.all([cms.posts({ limit: 500 }), cms.categories()]);
+---
+
+<AdminLayout title="Novinky" heading="Novinky">
+	<a slot="actions" class="btn" href="/admin/novinky/upravit"><Icon name="plus" size="s" /> Nová</a>
+	<section class="a-card" data-admin-table>
+		<div class="a-toolbar">
+			<label class="a-search">
+				<span class="visually-hidden">Hledat novinky</span>
+				<Icon name="search" />
+				<input class="input" type="search" placeholder="Hledat podle titulku nebo autora…" data-table-search />
+			</label>
+			<label class="field">
+				<span class="visually-hidden">Kategorie</span>
+				<select class="select" data-table-filter>
+					<option value="">Všechny kategorie</option>
+					{categories.map((c) => <option value={c.slug}>{c.label}</option>)}
+				</select>
+			</label>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr><th scope="col">Titulek</th><th scope="col">Autor</th><th scope="col">Kategorie</th><th scope="col">Stav</th><th scope="col">Datum</th><th scope="col"><span class="visually-hidden">Akce</span></th></tr>
+				</thead>
+				<tbody data-drafts></tbody>
+				<tbody>
+					{posts.map((p) => (
+						<tr data-row data-filter={p.category?.slug ?? ""} data-search={`${p.title} ${p.author}`.toLowerCase()}>
+							<td><a class="link" href={`/admin/novinky/upravit?slug=${p.slug}`}>{p.title}</a></td>
+							<td class="nowrap">{p.author}</td>
+							<td>{p.category?.label}</td>
+							<td><span class="status status--published">Publikováno</span></td>
+							<td class="nowrap">{formatShortDate(p.date)}</td>
+							<td>
+								<div class="a-row-actions">
+									<a class="btn btn--ghost btn--icon" href={`/novinky/${p.slug}`} aria-label={`Zobrazit ${p.title}`}><Icon name="eye" size="s" /></a>
+									<a class="btn btn--ghost btn--icon" href={`/admin/novinky/upravit?slug=${p.slug}`} aria-label={`Upravit ${p.title}`}><Icon name="edit" size="s" /></a>
+									<button class="btn btn--ghost btn--icon" type="button" data-delete aria-label={`Smazat ${p.title}`}><Icon name="trash" size="s" /></button>
+								</div>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+		<p class="a-empty" data-table-empty hidden>Žádné novinky neodpovídají filtru.</p>
+	</section>
+</AdminLayout>
+
+<style>
+	.nowrap {
+		white-space: nowrap;
+	}
+	.a-toolbar .field {
+		flex: 0 1 16rem;
+	}
+</style>
+
+<script>
+	import { initAdminTable } from "../../../scripts/admin";
+	initAdminTable();
+	// Local drafts saved by the editor (demo storage)
+	const body = document.querySelector<HTMLElement>("[data-drafts]");
+	try {
+		const drafts = JSON.parse(localStorage.getItem("sps-drafts") ?? "[]") as Array<{ id: string; title: string; author: string; status: string; updated: string }>;
+		drafts.forEach((d) => {
+			const tr = document.createElement("tr");
+			tr.dataset.row = "";
+			tr.dataset.search = `${d.title} ${d.author}`.toLowerCase();
+			tr.innerHTML = `<td><a class="link" href="/admin/novinky/upravit?draft=${d.id}"></a></td><td class="nowrap"></td><td>—</td><td><span class="status status--draft">Koncept</span></td><td class="nowrap"></td><td></td>`;
+			tr.querySelector("a")!.textContent = d.title || "Bez názvu";
+			tr.children[1].textContent = d.author;
+			tr.children[4].textContent = new Date(d.updated).toLocaleDateString("cs-CZ");
+			body?.append(tr);
+		});
+	} catch {}
+</script>

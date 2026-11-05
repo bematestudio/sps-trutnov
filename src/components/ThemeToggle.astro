@@ -1,0 +1,43 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<button class="theme-toggle btn btn--ghost btn--icon" type="button" data-theme-toggle aria-label="Přepnout na tmavý režim">
+	<span class="theme-toggle__track" aria-hidden="true">
+		<Icon name="sun" class="theme-toggle__sun" />
+		<Icon name="moon" class="theme-toggle__moon" />
+	</span>
+</button>
+
+<style>
+	.theme-toggle__track {
+		position: relative;
+		display: grid;
+		place-items: center;
+		inline-size: var(--icon-m);
+		block-size: var(--icon-m);
+	}
+	.theme-toggle__track :global(svg) {
+		position: absolute;
+		inset: 0;
+		transition:
+			rotate var(--duration-slow) var(--ease-emphasized),
+			scale var(--duration-slow) var(--ease-emphasized),
+			opacity var(--duration-base) var(--ease-out);
+	}
+	.theme-toggle__track :global(.theme-toggle__moon) {
+		opacity: 0;
+		rotate: -90deg;
+		scale: 0.4;
+	}
+	:global([data-theme="dark"]) .theme-toggle__track :global(.theme-toggle__sun) {
+		opacity: 0;
+		rotate: 90deg;
+		scale: 0.4;
+	}
+	:global([data-theme="dark"]) .theme-toggle__track :global(.theme-toggle__moon) {
+		opacity: 1;
+		rotate: 0deg;
+		scale: 1;
+	}
+</style>

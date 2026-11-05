@@ -1,0 +1,118 @@
+---
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "../styles/global.css";
+
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import Logo from "../components/Logo.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { createCms } from "../lib/cms";
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+	/** Content reference for EmDash visual editing / plugin contributions */
+	content?: { collection: string; id: string; slug?: string | null };
+	noindex?: boolean;
+	bare?: boolean;
+}
+
+const { title, description, image, content, noindex = false, bare = false } = Astro.props;
+const cms = createCms(Astro.locals);
+const [settings, menu, events] = await Promise.all([cms.settings(), cms.menu(), cms.events({ upcoming: true })]);
+const announcement = events.find((e) => e.kind === "dod");
+
+const fullTitle = title === settings.title ? title : `${title} — ${settings.title}`;
+const pageDescription = description ?? settings.tagline;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType: content?.collection === "posts" ? "article" : "website",
+	title: fullTitle,
+	pageTitle: title,
+	description: pageDescription,
+	canonical,
+	image,
+	content,
+	siteName: settings.title,
+});
+---
+
+<!doctype html>
+<html lang="cs" data-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<link rel="canonical" href={canonical} />
+		<meta name="theme-color" content="#ffffff" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta property="og:locale" content="cs_CZ" />
+		{noindex && <meta name="robots" content="noindex" />}
+		<!-- Theme + loader bootstrap: runs before first paint to avoid flashes. -->
+		<script is:inline>
+			(function () {
+				var d = document.documentElement;
+				d.classList.add("js");
+				var t = null;
+				var q = new URLSearchParams(location.search).get("theme");
+				if (q === "dark" || q === "light") { t = q; try { localStorage.setItem("theme", q); } catch (e) {} }
+				try { if (!t) t = localStorage.getItem("theme"); } catch (e) {}
+				if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+				d.dataset.theme = t;
+				try {
+					if (!sessionStorage.getItem("sps-loaded") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+						d.classList.add("is-loading");
+					}
+					sessionStorage.setItem("sps-loaded", "1");
+				} catch (e) {}
+			})();
+		</script>
+		<EmDashHead page={pageCtx} />
+	</head>
+	<body>
+		<EmDashBodyStart page={pageCtx} />
+		<div class="loader" aria-hidden="true">
+			<div class="loader__inner">
+				<span class="loader__mark"><Logo compact /></span>
+				<span class="loader__bar"></span>
+				<span class="loader__label">SPŠ Trutnov · od roku 1952</span>
+			</div>
+		</div>
+		<div class="nav-progress" aria-hidden="true"></div>
+		<a class="skip-link btn" href="#obsah">Přeskočit na obsah</a>
+
+		{!bare && <SiteHeader menu={menu} announcement={announcement} />}
+		<main id="obsah" tabindex="-1">
+			<slot />
+		</main>
+		{!bare && <SiteFooter menu={menu} />}
+
+		<div class="toast-region" data-toast-region role="status" aria-live="polite"></div>
+		<EmDashBodyEnd page={pageCtx} />
+		<script>
+			import "../scripts/site.ts";
+		</script>
+	</body>
+</html>
+
+<style>
+	main:focus {
+		outline: none;
+	}
+	.loader__mark :global(.logo) {
+		inline-size: 100%;
+		block-size: 100%;
+	}
+	.loader__mark :global(.logo__mark) {
+		inline-size: 100%;
+		block-size: 100%;
+	}
+</style>

@@ -1,0 +1,158 @@
+---
+import Icon from "../../components/Icon.astro";
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { createCms } from "../../lib/cms";
+import { formatDate, formatShortDate } from "../../lib/format";
+
+const cms = createCms(Astro.locals);
+const [{ items: posts, total }, events, docs, people] = await Promise.all([
+	cms.posts({ limit: 6 }),
+	cms.events({ upcoming: true }),
+	cms.documents(),
+	cms.people(),
+]);
+const kpis = [
+	{ label: "Publikované novinky", value: total, trend: "+4 tento měsíc", icon: "news" },
+	{ label: "Nadcházející akce", value: events.length, trend: `nejbližší ${events[0] ? formatShortDate(events[0].start) : "—"}`, icon: "calendar" },
+	{ label: "Dokumenty ke stažení", value: docs.length, trend: "aktualizováno dnes", icon: "file" },
+	{ label: "Kontakty v adresáři", value: people.length, trend: "vedení + pedagogové", icon: "users" },
+] as const;
+const quick = [
+	{ href: "/admin/novinky/upravit", label: "Napsat novinku", icon: "edit" },
+	{ href: "/admin/akce", label: "Přidat akci", icon: "calendar" },
+	{ href: "/admin/dokumenty", label: "Nahrát dokument", icon: "upload" },
+	{ href: "/_emdash/admin", label: "Otevřít EmDash CMS", icon: "arrow-up-right" },
+] as const;
+---
+
+<AdminLayout title="Přehled" heading="Dobrý den 👋">
+	<a slot="actions" class="btn admin-new" href="/admin/novinky/upravit" aria-label="Nová novinka"><Icon name="plus" size="s" /> <span>Nová novinka</span></a>
+
+	<section class="a-kpis" aria-label="Souhrn">
+		{
+			kpis.map((k) => (
+				<div class="a-card a-kpi" data-reveal>
+					<div class="a-card__head">
+						<span class="muted">{k.label}</span>
+						<Icon name={k.icon} />
+					</div>
+					<span class="a-kpi__value" data-count={k.value}>{k.value}</span>
+					<span class="meta">{k.trend}</span>
+				</div>
+			))
+		}
+	</section>
+
+	<div class="a-cols">
+		<section class="a-card">
+			<div class="a-card__head">
+				<h2 class="a-card__title">Poslední novinky</h2>
+				<a class="link-arrow" href="/admin/novinky">Spravovat <Icon name="arrow" size="s" /></a>
+			</div>
+			<div class="table-wrap">
+				<table class="table">
+					<thead><tr><th scope="col">Titulek</th><th scope="col">Kategorie</th><th scope="col">Stav</th><th scope="col">Datum</th></tr></thead>
+					<tbody>
+						{posts.map((p) => (
+							<tr>
+								<td><a class="link" href={`/admin/novinky/upravit?slug=${p.slug}`}>{p.title}</a></td>
+								<td>{p.category?.label}</td>
+								<td><span class="status status--published">Publikováno</span></td>
+								<td class="nowrap">{formatShortDate(p.date)}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<div class="admin-stack">
+			<section class="a-card">
+				<h2 class="a-card__title">Rychlé akce</h2>
+				<ul class="quick" role="list">
+					{quick.map((q) => (
+						<li><a class="quick__link" href={q.href}><Icon name={q.icon} /> {q.label}</a></li>
+					))}
+				</ul>
+			</section>
+			<section class="a-card">
+				<div class="a-card__head">
+					<h2 class="a-card__title">Nadcházející</h2>
+					<a class="link-arrow" href="/admin/akce">Kalendář <Icon name="arrow" size="s" /></a>
+				</div>
+				<ol class="upcoming" role="list">
+					{events.slice(0, 4).map((e) => (
+						<li><span class="meta">{formatDate(e.start)}</span><span>{e.title}</span></li>
+					))}
+				</ol>
+			</section>
+			<section class="a-card">
+				<h2 class="a-card__title">Stav systému</h2>
+				<ul class="health" role="list">
+					<li><span class="pulse" aria-hidden="true"></span> Web — Cloudflare Workers</li>
+					<li><span class="pulse" aria-hidden="true"></span> Obsah — EmDash (D1 + R2)</li>
+					<li><span class="status status--draft">Administrace — ukázkový režim</span></li>
+				</ul>
+			</section>
+		</div>
+	</div>
+</AdminLayout>
+
+<style>
+	.admin-new span {
+		display: none;
+	}
+	@media (width >= 48rem) {
+		.admin-new span {
+			display: inline;
+		}
+	}
+	.nowrap {
+		white-space: nowrap;
+	}
+	.admin-stack {
+		display: grid;
+		gap: var(--grid-gap);
+		align-content: start;
+	}
+	.quick {
+		display: grid;
+		gap: var(--space-3xs);
+	}
+	.quick__link {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		min-block-size: var(--tap-target);
+		padding-inline: var(--space-xs);
+		border-radius: var(--radius-s);
+		text-decoration: none;
+		font-weight: var(--weight-medium);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			translate var(--duration-base) var(--ease-out);
+	}
+	.quick__link:hover {
+		background: var(--color-surface);
+		translate: var(--space-3xs) 0;
+	}
+	.upcoming,
+	.health {
+		display: grid;
+		gap: var(--space-s);
+	}
+	.upcoming li {
+		display: grid;
+		gap: var(--space-3xs);
+		padding-bottom: var(--space-s);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.upcoming li:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
+	}
+	.health li {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+	}
+</style>

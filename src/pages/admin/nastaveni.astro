@@ -1,0 +1,35 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { createCms } from "../../lib/cms";
+const settings = await createCms(Astro.locals).settings();
+---
+
+<AdminLayout title="Nastavení" heading="Nastavení webu">
+	<form class="a-cols" data-settings>
+		<section class="a-card a-form">
+			<h2 class="a-card__title">Základní údaje</h2>
+			<label class="field"><span class="field__label">Název webu</span><input class="input" name="title" value={settings.title} /></label>
+			<label class="field"><span class="field__label">Popis (meta description)</span><textarea class="textarea" name="tagline" rows="3">{settings.tagline}</textarea></label>
+			<label class="field"><span class="field__label">Telefon sekretariátu</span><input class="input" name="phone" value="+420 499 813 071" /></label>
+			<label class="field"><span class="field__label">E-mail</span><input class="input" name="email" type="email" value="skola@spstrutnov.cz" /></label>
+		</section>
+		<section class="a-card a-form">
+			<h2 class="a-card__title">Zobrazení</h2>
+			<label class="a-switch"><span>Oznamovací lišta (den otevřených dveří)</span><input type="checkbox" name="announce" checked /></label>
+			<label class="a-switch"><span>Úvodní animace při první návštěvě</span><input type="checkbox" name="loader" checked /></label>
+			<label class="a-switch"><span>Výchozí tmavý režim</span><input type="checkbox" name="dark" /></label>
+			<button class="btn" type="submit">Uložit nastavení</button>
+		</section>
+	</form>
+</AdminLayout>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>("[data-settings]");
+	form?.addEventListener("submit", (e) => {
+		e.preventDefault();
+		try {
+			localStorage.setItem("sps-settings", JSON.stringify(Object.fromEntries(new FormData(form))));
+		} catch {}
+		(window as any).spsToast?.("Nastavení uloženo v prohlížeči (ukázkový režim).");
+	});
+</script>

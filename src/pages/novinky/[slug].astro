@@ -1,0 +1,157 @@
+---
+import { PortableText } from "emdash/ui";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Icon from "../../components/Icon.astro";
+import PostCard from "../../components/PostCard.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+import { formatDate } from "../../lib/format";
+
+const { slug } = Astro.params;
+const cms = createCms(Astro.locals);
+const post = slug ? await cms.post(slug) : null;
+if (!post) return Astro.rewrite("/404");
+
+const { items: related } = await cms.posts({ category: post.category?.slug, limit: 4 });
+const more = related.filter((p) => p.slug !== post.slug).slice(0, 3);
+const firstText = ((post.content[0] as any)?.children ?? []).map((c: any) => c.text).join("");
+const dropFirst = Boolean(post.excerpt) && firstText.trim() === post.excerpt.trim();
+const body = dropFirst ? post.content.slice(1) : post.content;
+const words = JSON.stringify(post.content).split(/\s+/).length;
+const minutes = Math.max(1, Math.round(words / 200));
+const url = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "NewsArticle",
+	headline: post.title,
+	datePublished: post.date.toISOString(),
+	author: { "@type": "Person", name: post.author },
+	image: post.image?.src,
+	publisher: { "@type": "EducationalOrganization", name: "SPŠ Trutnov" },
+};
+---
+
+<Base title={post.title} description={post.excerpt} image={post.image?.src} content={{ collection: "posts", id: post.slug, slug: post.slug }}>
+	<article>
+		<header class="container container--narrow article__head">
+			<Breadcrumbs items={[{ label: "Novinky", href: "/novinky" }, ...(post.category ? [{ label: post.category.label, href: `/novinky?kategorie=${post.category.slug}` }] : []), { label: post.title }]} />
+			<div class="cluster">
+				{post.category && <a class="tag tag--dot" href={`/novinky?kategorie=${post.category.slug}`}>{post.category.label}</a>}
+				<span class="meta">{minutes} min čtení</span>
+			</div>
+			<h1 class="article__title" data-split>{post.title}</h1>
+			<div class="article__byline">
+				<span class="article__avatar" aria-hidden="true">{post.author.replace(/^(Mgr|Ing|Bc|RNDr|PaedDr)\.\s*/g, "").charAt(0)}</span>
+				<div>
+					<p class="article__author">{post.author}</p>
+					<time class="meta" datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+				</div>
+				<div class="article__share">
+					<button class="btn btn--ghost btn--icon" type="button" data-copy={url} aria-label="Zkopírovat odkaz na článek">
+						<Icon name="copy" />
+					</button>
+					<a class="btn btn--ghost btn--icon" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">
+						<Icon name="external" />
+					</a>
+				</div>
+			</div>
+		</header>
+
+		{
+			post.image && (
+				<figure class="container article__figure" data-reveal>
+					<div class="frame article__frame">
+						<img src={post.image.src} alt={post.image.alt} width={post.image.width ?? 1600} height={post.image.height ?? 1067} fetchpriority="high" decoding="async" />
+					</div>
+				</figure>
+			)
+		}
+
+		<div class="container container--narrow article__body">
+			{dropFirst && <p class="lead article__lead">{post.excerpt}</p>}
+			<div class="prose">
+				<PortableText value={body} />
+			</div>
+			{
+				post.tags.length > 0 && (
+					<div class="cluster article__tags">
+						{post.tags.map((t) => (
+							<span class="tag">#{t.label}</span>
+						))}
+					</div>
+				)
+			}
+			<hr class="divider" />
+			<a class="link-arrow" href="/novinky"><Icon name="arrow-left" size="s" /> Zpět na novinky</a>
+		</div>
+	</article>
+
+	{
+		more.length > 0 && (
+			<section class="section section--surface">
+				<div class="container">
+					<div class="section-head section-head--split">
+						<h2 class="h-section">Mohlo by vás zajímat</h2>
+						<a class="link-arrow" href="/novinky">Všechny novinky <Icon name="arrow" size="s" /></a>
+					</div>
+					<div class="grid" data-reveal-group>
+						{more.map((p) => <PostCard post={p} />)}
+					</div>
+				</div>
+			</section>
+		)
+	}
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</Base>
+
+<style>
+	.article__head {
+		display: grid;
+		gap: var(--space-m);
+		padding-block: var(--section-space-sm) var(--space-xl);
+	}
+	.article__title {
+		font-size: var(--text-2xl);
+	}
+	.article__byline {
+		display: flex;
+		align-items: center;
+		gap: var(--space-s);
+		padding-top: var(--space-m);
+		border-top: var(--border-width) solid var(--color-border);
+	}
+	.article__avatar {
+		display: grid;
+		place-items: center;
+		inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		border-radius: var(--radius-full);
+		background: var(--color-accent-soft);
+		color: var(--color-accent-text);
+		font-weight: var(--weight-semibold);
+	}
+	.article__author {
+		font-weight: var(--weight-medium);
+	}
+	.article__share {
+		display: flex;
+		margin-inline-start: auto;
+	}
+	.article__figure {
+		margin-block: 0 var(--space-xl);
+	}
+	.article__frame {
+		--frame-ratio: 16 / 9;
+	}
+	.article__body {
+		display: grid;
+		gap: var(--space-l);
+		padding-bottom: var(--section-space);
+	}
+	.article__lead {
+		color: var(--color-text);
+	}
+	.article__tags {
+		padding-top: var(--space-s);
+	}
+</style>

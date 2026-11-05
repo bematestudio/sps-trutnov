@@ -1,0 +1,29 @@
+---
+import type { Faq } from "../lib/cms";
+interface Props {
+	items: Faq[];
+}
+const { items } = Astro.props;
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: items.map((i) => ({ "@type": "Question", name: i.question, acceptedAnswer: { "@type": "Answer", text: i.answer } })),
+};
+---
+
+<div class="accordion" data-reveal-group>
+	{
+		items.map((item) => (
+			<details class="accordion__item" name="faq" data-reveal>
+				<summary class="accordion__summary">
+					{item.question}
+					<span class="accordion__icon" aria-hidden="true" />
+				</summary>
+				<div class="accordion__body">
+					<p>{item.answer}</p>
+				</div>
+			</details>
+		))
+	}
+</div>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

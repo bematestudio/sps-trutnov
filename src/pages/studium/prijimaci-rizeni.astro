@@ -1,0 +1,203 @@
+---
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+import { formatDate } from "../../lib/format";
+
+const cms = createCms(Astro.locals);
+const [programs, events] = await Promise.all([cms.programs(), cms.events()]);
+const admission = events.filter((e) => e.kind === "prijimacky" || e.kind === "dod");
+const steps = [
+	{ title: "Přijď se podívat", text: "Navštiv den otevřených dveří nebo si domluv individuální prohlídku." },
+	{ title: "Podej přihlášku", text: "Do 20. února — elektronicky přes DIPSY nebo v listinné podobě. Uveď až 5 oborů." },
+	{ title: "Udělej JPZ", text: "Maturitní obory: jednotná přijímací zkouška z češtiny a matematiky (12. a 13. 4. 2027)." },
+	{ title: "Odevzdej zápisový lístek", text: "Do 10 pracovních dnů od zveřejnění výsledků na školu, kterou sis vybral." },
+];
+const criteria = [
+	{ label: "Jednotná přijímací zkouška", value: "max. 100 b.", note: "Český jazyk 50 b. + matematika 50 b." },
+	{ label: "Prospěch ze základní školy", value: "max. 50 b.", note: "Průměr z 2. pol. předposledního a 1. pol. posledního ročníku." },
+	{ label: "Minimum pro přijetí", value: "40 / 150 b.", note: "Navíc min. 5 b. z matematiky a 10 b. z češtiny v JPZ." },
+];
+---
+
+<Base title="Přijímací řízení" description="Přijímací řízení na SPŠ Trutnov: obory, kritéria, termíny jednotné přijímací zkoušky a postup krok za krokem.">
+	<PageHero
+		eyebrow="Studium / Přijímací řízení 2027"
+		title="Přijímací řízení krok za krokem."
+		lead="Všechny termíny, kritéria a počty přijímaných uchazečů na jednom místě."
+		crumbs={[{ label: "Studium", href: "/studium" }, { label: "Přijímací řízení" }]}
+	/>
+
+	<section class="section">
+		<div class="container">
+			<ol class="steps" role="list" data-reveal-group>
+				{
+					steps.map((s, i) => (
+						<li class="step" data-reveal>
+							<span class="step__num">{String(i + 1).padStart(2, "0")}</span>
+							<h2 class="h-card">{s.title}</h2>
+							<p class="muted">{s.text}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section section--surface">
+		<div class="container stack stack--l">
+			<div class="section-head">
+				<h2 class="h-section">Obory a počty přijímaných</h2>
+				<p class="meta">Nabídka pro školní rok 2027/2028</p>
+			</div>
+			<div class="table-wrap" data-reveal>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Obor</th>
+							<th scope="col">Kód</th>
+							<th scope="col">Délka</th>
+							<th scope="col">Přijímáme</th>
+							<th scope="col">JPZ</th>
+							<th scope="col">Zdrav. způsobilost</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							programs.map((p) => (
+								<tr>
+									<td>
+										<a class="link" href={`/studium/obory-vzdelani/${p.slug}`}>{p.title}</a>
+									</td>
+									<td class="nowrap">{p.code.split(" ")[0]}</td>
+									<td class="nowrap">{p.duration.split(",")[0]}</td>
+									<td>{p.capacity}</td>
+									<td>{p.entranceExam ? "Ano" : "Ne"}</td>
+									<td>{p.healthRequired ? "Ano" : "Ne"}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container split">
+			<div class="stack">
+				<h2 class="h-section">Jak tě budeme hodnotit</h2>
+				<p class="meta">Kritéria hodnocení</p>
+				<p class="lead">Uchazeče seřadíme podle součtu bodů z JPZ a prospěchu. Při rovnosti rozhoduje lepší výsledek JPZ, pak matematika a průměr.</p>
+				<a class="link-arrow" href="/ke-stazeni?kategorie=prijimaci-rizeni">Kritéria a formuláře ke stažení <Icon name="arrow" size="s" /></a>
+			</div>
+			<ul class="criteria" role="list" data-reveal-group>
+				{
+					criteria.map((c) => (
+						<li class="criterion" data-reveal>
+							<span class="criterion__value">{c.value}</span>
+							<span class="criterion__label">{c.label}</span>
+							<span class="muted">{c.note}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section section--inverse">
+		<div class="container">
+			<div class="section-head">
+				<h2 class="h-section">Kalendář uchazeče</h2>
+				<p class="meta">Termíny</p>
+			</div>
+			<ol class="timeline" role="list" data-reveal-group>
+				{
+					admission.map((e) => (
+						<li class="timeline__item" data-reveal>
+							<time class="meta" datetime={e.start.toISOString()}>{formatDate(e.start)}</time>
+							<h3 class="h-card">{e.title}</h3>
+							<p class="muted">{e.description}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+		gap: var(--grid-gap);
+		counter-reset: step;
+		padding: 0;
+	}
+	.step {
+		display: grid;
+		gap: var(--space-s);
+		align-content: start;
+		padding-top: var(--space-m);
+		border-top: var(--border-width-strong) solid var(--color-text);
+	}
+	.step__num {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		color: var(--color-accent-text);
+	}
+	.nowrap {
+		white-space: nowrap;
+	}
+	.criteria {
+		display: grid;
+		gap: var(--space-3xs);
+		padding: 0;
+	}
+	.criterion {
+		display: grid;
+		gap: var(--space-3xs);
+		padding: var(--space-m);
+		background: var(--color-surface);
+		border-radius: var(--radius-xs);
+	}
+	.criterion__value {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		color: var(--color-accent-text);
+	}
+	.criterion__label {
+		font-weight: var(--weight-medium);
+	}
+	.timeline {
+		display: grid;
+		gap: 0;
+		padding: 0;
+		border-inline-start: var(--border-width) solid var(--color-border);
+	}
+	.timeline__item {
+		position: relative;
+		display: grid;
+		gap: var(--space-2xs);
+		padding: var(--space-m) 0 var(--space-m) var(--space-l);
+	}
+	.timeline__item::before {
+		content: "";
+		position: absolute;
+		inset-inline-start: calc(var(--marker-size) / -2);
+		inset-block-start: calc(var(--space-m) + var(--space-3xs));
+		inline-size: var(--marker-size);
+		block-size: var(--marker-size);
+		background: var(--color-accent);
+	}
+	.timeline .meta {
+		color: var(--color-accent-text);
+	}
+	.section--inverse {
+		--color-accent-text: var(--prim-blue-300);
+	}
+	:global([data-theme="dark"]) .section--inverse {
+		--color-accent-text: var(--prim-blue-600);
+	}
+</style>

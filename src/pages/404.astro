@@ -1,0 +1,47 @@
+---
+import Icon from "../components/Icon.astro";
+import SignalField from "../components/SignalField.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Stránka nenalezena" noindex>
+	<section class="nf">
+		<SignalField />
+		<div class="container nf__inner">
+			<h1 class="h-display">Tady nic není.</h1>
+			<p class="meta">Chyba 404</p>
+			<p class="lead">Stránka se mohla přesunout při přechodu na nový web. Zkuste vyhledávání nebo pokračujte na úvod.</p>
+			<form class="cluster nf__search" role="search" action="/vyhledavani">
+				<label class="visually-hidden" for="nf-q">Hledat</label>
+				<input class="input" id="nf-q" name="q" type="search" placeholder="Hledat na webu…" />
+				<button class="btn" type="submit"><Icon name="search" size="s" /> Hledat</button>
+			</form>
+			<a class="link-arrow" href="/"><Icon name="arrow-left" size="s" /> Zpět na úvod</a>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.nf {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		padding-block: var(--section-space);
+		min-block-size: 70svh;
+		display: grid;
+		align-items: center;
+	}
+	.nf :global(.signal) {
+		z-index: -1;
+	}
+	.nf__inner {
+		display: grid;
+		gap: var(--space-m);
+		justify-items: center;
+		text-align: center;
+	}
+	.nf__search {
+		flex-wrap: nowrap;
+		inline-size: min(100%, 32rem);
+	}
+</style>

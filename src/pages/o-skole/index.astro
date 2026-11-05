@@ -1,0 +1,97 @@
+---
+import HubCard from "../../components/HubCard.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const pages = await cms.pages("o-skole");
+const links = [
+	...pages.slice(0, 1).map((p) => ({ href: `/o-skole/${p.slug}`, title: p.title, text: p.lead })),
+	{ href: "/o-skole/pracoviste", title: "Pracoviště", text: "Čtyři pracoviště v Trutnově a Mladých Bukách." },
+	...pages.slice(1).map((p) => ({ href: `/o-skole/${p.slug}`, title: p.title, text: p.lead })),
+];
+const numbers = [
+	["7", "oborů vzdělání"],
+	["25", "tříd"],
+	["613", "žáků"],
+	["71", "zaměstnanců"],
+	["10", "laboratoří"],
+	["6", "učeben výpočetní techniky"],
+	["17", "dílen a učeben praxe"],
+	["1952", "rok založení"],
+];
+---
+
+<Base title="O škole" description="Střední průmyslová škola Trutnov — druhá největší střední škola v Královéhradeckém kraji. Charakteristika, historie, pracoviště a partneři.">
+	<PageHero eyebrow="O škole" title="Druhá největší střední škola v kraji." lead="Moderní prestižní odborná škola s vysokou úrovní technického vybavení, propojená s praxí a firmami regionu." crumbs={[{ label: "O škole" }]} />
+	<section class="numbers" aria-label="Škola v číslech">
+		<dl class="numbers__grid" data-reveal-group>
+			{
+				numbers.map(([v, l]) => (
+					<div class="numbers__item" data-reveal>
+						<dt class="numbers__label">{l}</dt>
+						<dd class="numbers__value" data-count={v.length === 4 ? undefined : v}>{v}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</section>
+	<section class="section">
+		<div class="container">
+			<div class="grid grid--s" data-reveal-group>
+				{links.map((l, i) => <HubCard {...l} index={i} level="h2" />)}
+			</div>
+		</div>
+	</section>
+	<section class="section section--sm section--surface">
+		<div class="container split split--center">
+			<div class="stack">
+				<h2 class="h-section">Elektrotechnika a ICT pro celý kraj.</h2>
+				<p class="meta">Centrum odborného vzdělávání</p>
+			</div>
+			<div class="stack">
+				<p class="lead">Jsme dlouhodobými členy významných organizací a asociací a spolupracujeme s rozhodujícími zaměstnavateli regionu.</p>
+				<a class="link-arrow" href="/o-skole/partnerstvi-a-spoluprace">Partnerství a spolupráce <Icon name="arrow" size="s" /></a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.numbers__grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		border-bottom: var(--border-width) solid var(--color-border);
+		margin: 0;
+	}
+	@media (width >= 48rem) {
+		.numbers__grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+	.numbers__item {
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: flex-end;
+		gap: var(--space-2xs);
+		padding: var(--space-l) var(--gutter);
+		border-inline-end: var(--border-width) solid var(--color-border);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.numbers__value {
+		margin: 0;
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		font-variant-numeric: tabular-nums;
+	}
+	.numbers__label {
+		color: var(--color-text-muted);
+	}
+	.numbers__item:nth-child(4n + 1) .numbers__value {
+		color: var(--color-accent-text);
+	}
+</style>

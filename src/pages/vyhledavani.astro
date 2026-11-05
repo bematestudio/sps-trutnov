@@ -1,0 +1,91 @@
+---
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+import { createCms } from "../lib/cms";
+
+const q = (Astro.url.searchParams.get("q") ?? "").slice(0, 120);
+const results = q ? await createCms(Astro.locals).search(q) : [];
+const typeLabel: Record<string, string> = { posts: "Novinka", pages: "Stránka", programs: "Obor" };
+const suggestions = ["přijímací zkoušky", "stipendium", "robotika", "den otevřených dveří", "maturita"];
+---
+
+<Base title={q ? `Hledání: ${q}` : "Vyhledávání"} noindex>
+	<PageHero eyebrow="Vyhledávání" title={q ? `„${q}“` : "Co hledáte?"} crumbs={[{ label: "Vyhledávání" }]}>
+		<form class="searchbar" role="search" action="/vyhledavani">
+			<label class="visually-hidden" for="q">Hledaný výraz</label>
+			<Icon name="search" />
+			<input class="input searchbar__input" id="q" name="q" type="search" value={q} placeholder="Obory, novinky, dokumenty…" autofocus />
+			<button class="btn" type="submit">Hledat</button>
+		</form>
+		<div class="cluster">
+			<span class="meta">Zkuste:</span>
+			{suggestions.map((s) => <a class="tag" href={`/vyhledavani?q=${encodeURIComponent(s)}`}>{s}</a>)}
+		</div>
+	</PageHero>
+	{
+		q && (
+			<section class="section section--sm">
+				<div class="container container--narrow stack">
+					<p class="meta" aria-live="polite">{results.length} výsledků</p>
+					{results.length ? (
+						<ol class="results" role="list" data-reveal-group>
+							{results.map((r) => (
+								<li class="result" data-reveal>
+									<span class="tag">{typeLabel[r.type] ?? "Obsah"}</span>
+									<h2 class="h-card">
+										<a class="stretched" href={r.url}>{r.title}</a>
+									</h2>
+									{r.excerpt && <p class="muted" set:html={r.excerpt} />}
+								</li>
+							))}
+						</ol>
+					) : (
+						<p class="lead">Nic jsme nenašli. Zkuste jiný výraz nebo se podívejte do <a class="link" href="/novinky">novinek</a>.</p>
+					)}
+				</div>
+			</section>
+		)
+	}
+</Base>
+
+<style>
+	.searchbar {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		max-width: 44rem;
+	}
+	.searchbar > :global(svg) {
+		position: absolute;
+		inset-inline-start: var(--space-xs);
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+	.searchbar__input {
+		padding-inline-start: calc(var(--space-xs) * 2 + var(--icon-m));
+		font-size: var(--text-lg);
+		min-block-size: calc(var(--tap-target) * 1.2);
+	}
+	.searchbar .btn {
+		min-block-size: calc(var(--tap-target) * 1.2);
+	}
+	.results {
+		display: grid;
+		padding: 0;
+		border-top: var(--border-width) solid var(--color-border);
+	}
+	.result {
+		position: relative;
+		display: grid;
+		gap: var(--space-2xs);
+		justify-items: start;
+		padding-block: var(--space-m);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.result :global(mark) {
+		background: var(--color-accent-soft);
+		color: inherit;
+	}
+</style>

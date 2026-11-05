@@ -1,0 +1,192 @@
+---
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+import { telHref } from "../../lib/format";
+
+const people = await createCms(Astro.locals).people();
+const departments = [
+	{ id: "vse", label: "Všichni" },
+	{ id: "vedeni", label: "Vedení školy" },
+	{ id: "sekretariat", label: "Sekretariát" },
+	{ id: "pedagog", label: "Pedagogický sbor" },
+];
+const initials = (name: string) =>
+	name
+		.replace(/\b(Mgr|Ing|Bc|RNDr|PaedDr|Ph\.D|DiS)\.?,?/g, "")
+		.trim()
+		.split(/\s+/)
+		.slice(0, 2)
+		.map((w) => w.charAt(0))
+		.join("");
+---
+
+<Base title="Lidé" description="Kontakty na vedení, pedagogy a zaměstnance SPŠ Trutnov.">
+	<PageHero eyebrow="Kontakty / Lidé" title="Adresář školy." lead="Kontakty na vedení, pedagogy a ostatní zaměstnance. Vyhledávejte podle jména, funkce nebo pracoviště." crumbs={[{ label: "Kontakty", href: "/kontakty" }, { label: "Lidé" }]} />
+	<section class="section section--sm" data-directory>
+		<div class="container stack stack--l">
+			<div class="toolbar">
+				<label class="search">
+					<span class="visually-hidden">Hledat v adresáři</span>
+					<Icon name="search" />
+					<input class="input search__input" type="search" placeholder="Hledat jméno, funkci, pracoviště…" data-directory-search />
+				</label>
+				<div class="cluster" role="group" aria-label="Filtrovat podle útvaru">
+					{departments.map((d, i) => <button class="tag" type="button" data-filter={d.id} aria-pressed={i === 0 ? "true" : "false"}>{d.label}</button>)}
+				</div>
+			</div>
+			<p class="meta" aria-live="polite" data-directory-count>{people.length} kontaktů</p>
+			<ul class="people" role="list">
+				{
+					people.map((p) => (
+						<li class="person card" data-person data-department={p.department} data-search={`${p.name} ${p.role} ${p.workplace}`.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()}>
+							<div class="person__head">
+								<span class="person__avatar" aria-hidden="true">{initials(p.name)}</span>
+								<div>
+									<h2 class="person__name">{p.name}</h2>
+									<p class="muted">{p.role}</p>
+								</div>
+							</div>
+							<dl class="person__facts">
+								<div><dt><Icon name="pin" size="s" label="Pracoviště" /></dt><dd>{p.workplace}</dd></div>
+								<div><dt><Icon name="phone" size="s" label="Telefon" /></dt><dd><a class="link" href={telHref(p.phone)}>{p.phone}</a></dd></div>
+								<div>
+									<dt><Icon name="mail" size="s" label="E-mail" /></dt>
+									<dd class="person__mail">
+										<a class="link" href={`mailto:${p.email}`}>{p.email}</a>
+										<button class="btn btn--ghost btn--icon" type="button" data-copy={p.email} aria-label={`Zkopírovat e-mail ${p.email}`}><Icon name="copy" size="s" /></button>
+									</dd>
+								</div>
+							</dl>
+						</li>
+					))
+				}
+			</ul>
+			<p class="empty muted" data-directory-empty hidden>Nikoho jsme nenašli. Zkuste jiný výraz.</p>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.toolbar {
+		display: grid;
+		gap: var(--space-m);
+	}
+	@media (width >= 75rem) {
+		.toolbar {
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: center;
+		}
+	}
+	.search {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+	.search :global(svg) {
+		position: absolute;
+		inset-inline-start: var(--space-xs);
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+	.search__input {
+		padding-inline-start: calc(var(--space-xs) * 2 + var(--icon-m));
+	}
+	.people {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+		gap: var(--grid-gap);
+		padding: 0;
+	}
+	.person[hidden] {
+		display: none;
+	}
+	.person__head {
+		display: flex;
+		gap: var(--space-s);
+		align-items: center;
+	}
+	.person__avatar {
+		display: grid;
+		place-items: center;
+		flex: none;
+		inline-size: calc(var(--tap-target) * 1.2);
+		block-size: calc(var(--tap-target) * 1.2);
+		background: var(--color-accent-soft);
+		color: var(--color-accent-text);
+		border-radius: var(--radius-s);
+		font-weight: var(--weight-semibold);
+		transition: rotate var(--duration-slow) var(--ease-emphasized);
+	}
+	.person:hover .person__avatar {
+		rotate: -6deg;
+	}
+	.person__name {
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
+	}
+	.person__facts {
+		display: grid;
+		gap: var(--space-2xs);
+		margin: 0;
+		padding-top: var(--space-s);
+		border-top: var(--border-width) solid var(--color-border);
+	}
+	.person__facts > div {
+		display: flex;
+		gap: var(--space-xs);
+		align-items: center;
+	}
+	.person__facts dt {
+		color: var(--color-text-muted);
+		display: flex;
+	}
+	.person__facts dd {
+		margin: 0;
+		min-inline-size: 0;
+		overflow-wrap: anywhere;
+	}
+	.person__mail {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3xs);
+	}
+	.empty {
+		text-align: center;
+		padding-block: var(--space-xl);
+	}
+</style>
+
+<script>
+	const root = document.querySelector<HTMLElement>("[data-directory]");
+	if (root) {
+		const input = root.querySelector<HTMLInputElement>("[data-directory-search]")!;
+		const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+		const people = [...root.querySelectorAll<HTMLElement>("[data-person]")];
+		const count = root.querySelector<HTMLElement>("[data-directory-count]")!;
+		const empty = root.querySelector<HTMLElement>("[data-directory-empty]")!;
+		let dept = "vse";
+		const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+		const apply = () => {
+			const q = norm(input.value);
+			let visible = 0;
+			people.forEach((p) => {
+				const show = (dept === "vse" || p.dataset.department === dept) && (!q || p.dataset.search!.includes(q));
+				p.hidden = !show;
+				if (show) visible++;
+			});
+			count.textContent = `${visible} ${visible === 1 ? "kontakt" : visible >= 2 && visible <= 4 ? "kontakty" : "kontaktů"}`;
+			empty.hidden = visible > 0;
+		};
+		input.addEventListener("input", apply);
+		buttons.forEach((b) =>
+			b.addEventListener("click", () => {
+				dept = b.dataset.filter!;
+				buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+				apply();
+			}),
+		);
+	}
+</script>

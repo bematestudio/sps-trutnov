@@ -1,0 +1,234 @@
+/* Motion system: page transitions, reveals, loader, micro-interactions.
+   All durations/easings are tokens; prefers-reduced-motion zeroes them. */
+@layer motion {
+	/* ---------- Cross-document page transitions (native View Transitions) */
+	@view-transition {
+		navigation: auto;
+	}
+
+	.site-header {
+		view-transition-name: site-header;
+	}
+	main {
+		view-transition-name: page;
+	}
+	.site-footer {
+		view-transition-name: site-footer;
+	}
+
+	::view-transition-old(page) {
+		animation: vt-out var(--duration-base) var(--ease-in-out) both;
+	}
+	::view-transition-new(page) {
+		animation: vt-in var(--duration-slow) var(--ease-out) both;
+	}
+	::view-transition-old(site-footer),
+	::view-transition-new(site-footer) {
+		animation-duration: var(--duration-fast);
+	}
+	::view-transition-group(site-header) {
+		z-index: var(--z-header);
+	}
+
+	@keyframes vt-out {
+		to {
+			opacity: 0;
+			translate: 0 calc(var(--reveal-distance) * -0.5);
+			filter: blur(0.25rem);
+		}
+	}
+	@keyframes vt-in {
+		from {
+			opacity: 0;
+			translate: 0 var(--reveal-distance);
+		}
+	}
+
+	/* Theme switch: circular reveal from the toggle (set via JS custom props) */
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+		mix-blend-mode: normal;
+	}
+	html[data-theme-switching] ::view-transition-new(root) {
+		animation: theme-reveal var(--duration-slow) var(--ease-in-out) both;
+	}
+	@keyframes theme-reveal {
+		from {
+			clip-path: circle(0 at var(--reveal-x, 50%) var(--reveal-y, 0%));
+		}
+		to {
+			clip-path: circle(150vmax at var(--reveal-x, 50%) var(--reveal-y, 0%));
+		}
+	}
+
+	/* ---------- Scroll reveals ------------------------------------------- */
+	/* Elements are only hidden when JS has opted-in (html.js), so content is
+	   always visible without JavaScript. */
+	html.js [data-reveal] {
+		opacity: 0;
+		translate: 0 var(--reveal-distance);
+		transition:
+			opacity var(--duration-slow) var(--ease-out),
+			translate var(--duration-slow) var(--ease-out);
+		transition-delay: calc(var(--reveal-index, 0) * var(--stagger));
+	}
+	html.js [data-reveal].is-revealed {
+		opacity: 1;
+		translate: 0 0;
+	}
+	html.js [data-reveal="fade"] {
+		translate: 0 0;
+	}
+
+	/* Line-mask headline reveal */
+	html.js [data-split] .line {
+		display: block;
+		overflow: clip;
+		padding-bottom: 0.08em;
+		margin-bottom: -0.08em;
+	}
+	html.js [data-split] .line > span {
+		display: block;
+		translate: 0 105%;
+		transition: translate var(--duration-slower) var(--ease-out);
+		transition-delay: calc(var(--line-index, 0) * var(--stagger) * 1.5);
+	}
+	html.js [data-split].is-revealed .line > span {
+		translate: 0 0;
+	}
+
+	/* ---------- Loader ---------------------------------------------------- */
+	.loader {
+		position: fixed;
+		inset: 0;
+		z-index: var(--z-loader);
+		display: none;
+		place-items: center;
+		background: var(--color-bg);
+		pointer-events: none;
+	}
+	html.is-loading .loader {
+		display: grid;
+		animation: loader-out var(--duration-base) var(--ease-in-out) var(--duration-slower) forwards;
+	}
+	html.is-loaded .loader {
+		animation: loader-out var(--duration-base) var(--ease-in-out) forwards;
+	}
+	.loader__inner {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-m);
+	}
+	.loader__mark {
+		inline-size: var(--space-2xl);
+		block-size: var(--space-2xl);
+		color: var(--color-accent);
+		animation: loader-mark var(--duration-slower) var(--ease-out) both;
+	}
+	.loader__bar {
+		inline-size: calc(var(--space-3xl) * 2);
+		block-size: var(--border-width-strong);
+		background: var(--color-border);
+		overflow: hidden;
+	}
+	.loader__bar::after {
+		content: "";
+		display: block;
+		block-size: 100%;
+		background: var(--color-accent);
+		transform-origin: left;
+		animation: loader-bar var(--duration-slower) var(--ease-in-out) both;
+	}
+	.loader__label {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+	@keyframes loader-out {
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+	@keyframes loader-bar {
+		from {
+			transform: scaleX(0);
+		}
+		to {
+			transform: scaleX(1);
+		}
+	}
+	@keyframes loader-mark {
+		from {
+			opacity: 0;
+			scale: 0.8;
+			rotate: -90deg;
+		}
+	}
+
+	/* ---------- Navigation progress bar (slow networks) ----------------- */
+	.nav-progress {
+		position: fixed;
+		inset: 0 0 auto;
+		block-size: var(--border-width-strong);
+		z-index: var(--z-toast);
+		background: var(--color-accent);
+		transform-origin: left;
+		transform: scaleX(0);
+		opacity: 0;
+		pointer-events: none;
+	}
+	html.is-navigating .nav-progress {
+		opacity: 1;
+		animation: nav-progress var(--duration-slower) var(--ease-out) forwards;
+	}
+	@keyframes nav-progress {
+		to {
+			transform: scaleX(0.85);
+		}
+	}
+
+	/* ---------- Skeleton shimmer ---------------------------------------- */
+	.skeleton {
+		background: linear-gradient(
+				90deg,
+				var(--color-skeleton) 0%,
+				var(--color-surface) 50%,
+				var(--color-skeleton) 100%
+			)
+			0 0 / 200% 100%;
+		animation: shimmer var(--duration-slower) linear infinite;
+		border-radius: var(--radius-xs);
+	}
+	@keyframes shimmer {
+		to {
+			background-position: -200% 0;
+		}
+	}
+
+	/* ---------- Blink marker (live indicator) --------------------------- */
+	.pulse {
+		inline-size: var(--marker-size);
+		block-size: var(--marker-size);
+		background: var(--color-success);
+		border-radius: var(--radius-full);
+		flex: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		@view-transition {
+			navigation: none;
+		}
+		html.js [data-reveal],
+		html.js [data-split] .line > span {
+			opacity: 1;
+			translate: 0 0;
+		}
+		.skeleton {
+			animation: none;
+		}
+	}
+}

@@ -1,0 +1,605 @@
+---
+import type { MenuItem, SchoolEvent } from "../lib/cms";
+import { formatDate } from "../lib/format";
+import Icon from "./Icon.astro";
+import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+	menu: MenuItem[];
+	announcement?: SchoolEvent;
+}
+const { menu, announcement } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (url: string) => url !== "/" && (path === url || path.startsWith(`${url}/`));
+---
+
+{
+	announcement && (
+		<div class="announce" data-announce>
+			<div class="container announce__inner">
+				<a class="announce__link" href="/studium/den-otevrenych-dveri">
+					<span class="pulse" aria-hidden="true" />
+					<span>
+						{announcement.title} · <strong>{formatDate(announcement.start)}</strong>
+					</span>
+					<Icon name="arrow" size="s" />
+				</a>
+				<button class="announce__close" type="button" aria-label="Skrýt oznámení" data-announce-close>
+					<Icon name="close" size="s" />
+				</button>
+			</div>
+		</div>
+	)
+}
+
+<header class="site-header" data-header>
+	<div class="container">
+		<div class="bar">
+			<a class="bar__brand" href="/" aria-label="SPŠ Trutnov — úvodní stránka">
+				<Logo />
+			</a>
+
+			<nav class="nav" aria-label="Hlavní navigace">
+				<ul class="nav__list" role="list">
+					{
+						menu.map((item, i) =>
+							item.children.length ? (
+								<li class="nav__item" data-dropdown>
+									<button
+										class="nav__link"
+										type="button"
+										aria-expanded="false"
+										aria-controls={`nav-panel-${i}`}
+										aria-current={isActive(item.url) ? "true" : undefined}
+										data-dropdown-trigger
+									>
+										{item.label}
+										<Icon name="chevron" size="s" class="nav__chev" />
+									</button>
+									<div class="nav__panel" id={`nav-panel-${i}`} data-dropdown-panel>
+										<div class="nav__panel-head">
+											<span class="eyebrow">{item.label}</span>
+											<a class="link-arrow" href={item.url}>
+												Přehled sekce <Icon name="arrow" size="s" />
+											</a>
+										</div>
+										<ul class="nav__sub" role="list">
+											{item.children.map((child) => (
+												<li>
+													<a
+														class="nav__sublink"
+														href={child.url}
+														aria-current={path === child.url ? "page" : undefined}
+													>
+														<span>{child.label}</span>
+														<Icon name="arrow-up-right" size="s" />
+													</a>
+												</li>
+											))}
+										</ul>
+									</div>
+								</li>
+							) : (
+								<li class="nav__item">
+									<a class="nav__link" href={item.url} aria-current={isActive(item.url) ? "page" : undefined}>
+										{item.label}
+									</a>
+								</li>
+							),
+						)
+					}
+				</ul>
+			</nav>
+
+			<div class="bar__actions">
+				<a class="btn btn--ghost btn--icon bar__search" href="/vyhledavani" aria-label="Vyhledávání">
+					<Icon name="search" />
+				</a>
+				<ThemeToggle />
+				<a class="btn btn--ghost btn--icon bar__login" href="/prihlaseni" aria-label="Přihlásit se do administrace" title="Přihlásit">
+					<Icon name="user" />
+				</a>
+				<a class="btn bar__cta" href="/studium/prijimaci-rizeni">
+					Přihláška <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" />
+				</a>
+				<button
+					class="btn btn--ghost btn--icon bar__burger"
+					type="button"
+					aria-expanded="false"
+					aria-controls="mobile-nav"
+					aria-label="Otevřít menu"
+					data-burger
+				>
+					<span class="burger" aria-hidden="true"><span></span><span></span></span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="drawer" id="mobile-nav" data-drawer hidden>
+		<nav class="container drawer__inner" aria-label="Mobilní navigace">
+			<ul class="drawer__list" role="list">
+				{
+					menu.map((item, i) => (
+						<li class="drawer__item" style={`--reveal-index:${i}`}>
+							{item.children.length ? (
+								<details class="drawer__group">
+									<summary class="drawer__link">
+										{item.label}
+										<Icon name="plus" class="drawer__plus" />
+									</summary>
+									<ul class="drawer__sub" role="list">
+										<li>
+											<a href={item.url}>Přehled — {item.label}</a>
+										</li>
+										{item.children.map((child) => (
+											<li>
+												<a href={child.url}>{child.label}</a>
+											</li>
+										))}
+									</ul>
+								</details>
+							) : (
+								<a class="drawer__link" href={item.url}>
+									{item.label}
+									<Icon name="arrow" />
+								</a>
+							)}
+						</li>
+					))
+				}
+			</ul>
+			<form class="drawer__search" role="search" action="/vyhledavani">
+				<label class="visually-hidden" for="drawer-q">Hledat na webu</label>
+				<input class="input" id="drawer-q" name="q" type="search" placeholder="Hledat na webu…" />
+				<button class="btn btn--secondary btn--icon" type="submit" aria-label="Hledat"><Icon name="search" /></button>
+			</form>
+			<div class="drawer__foot">
+				<a class="btn btn--block" href="/studium/prijimaci-rizeni">Podat přihlášku <Icon name="arrow" size="s" /></a>
+				<a class="btn btn--outline btn--block" href="/prihlaseni"><Icon name="user" size="s" /> Přihlásit</a>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<style>
+	/* ---------- Announcement ------------------------------------------- */
+	.announce {
+		background: var(--color-accent);
+		color: var(--color-on-accent);
+	}
+	.announce[hidden] {
+		display: none;
+	}
+	.announce__inner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-s);
+		min-block-size: var(--tap-target);
+		padding-block: var(--space-3xs);
+	}
+	.announce__link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		color: inherit;
+		text-decoration: none;
+		font-size: var(--text-base);
+		text-align: center;
+	}
+	.announce__link :global(svg) {
+		transition: translate var(--duration-base) var(--ease-out);
+	}
+	.announce__link:hover :global(svg) {
+		translate: var(--space-3xs) 0;
+	}
+	.announce .pulse {
+		background: var(--color-on-accent);
+	}
+	.announce__close {
+		display: grid;
+		place-items: center;
+		inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		color: inherit;
+		opacity: 0.8;
+		transition: opacity var(--duration-fast) var(--ease-out);
+	}
+	.announce__close:hover {
+		opacity: 1;
+	}
+
+	/* ---------- Floating bar ------------------------------------------- */
+	.site-header {
+		position: sticky;
+		inset-block-start: 0;
+		z-index: var(--z-header);
+		padding-block: var(--space-xs);
+	}
+	.bar {
+		display: flex;
+		align-items: center;
+		gap: var(--space-s);
+		min-block-size: var(--header-height);
+		padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-s);
+		background: var(--color-glass);
+		backdrop-filter: blur(var(--space-s)) saturate(1.4);
+		-webkit-backdrop-filter: blur(var(--space-s)) saturate(1.4);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-m);
+		transition:
+			box-shadow var(--duration-base) var(--ease-out),
+			border-color var(--duration-base) var(--ease-out),
+			background-color var(--duration-base) var(--ease-out);
+	}
+	.site-header[data-scrolled] .bar {
+		box-shadow: var(--shadow-m);
+	}
+	.bar__brand {
+		text-decoration: none;
+		flex: none;
+		border-radius: var(--radius-s);
+	}
+	.bar__actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		margin-inline-start: auto;
+	}
+	.bar__login,
+	.bar__cta,
+	.bar__search {
+		display: none;
+	}
+	.bar__brand :global(.logo__sub) {
+		display: none;
+	}
+
+	/* ---------- Desktop nav --------------------------------------------- */
+	.nav {
+		display: none;
+		min-inline-size: 0;
+	}
+	.nav__list {
+		display: flex;
+		gap: var(--space-3xs);
+	}
+	.nav__item {
+		position: relative;
+	}
+	.nav__link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		min-block-size: var(--tap-target);
+		padding-inline: var(--space-2xs);
+		border-radius: var(--radius-s);
+		font-size: var(--text-base);
+		font-weight: var(--weight-medium);
+		text-decoration: none;
+		white-space: nowrap;
+		color: var(--color-text);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+	.nav__link:hover,
+	.nav__link[aria-expanded="true"] {
+		background: var(--color-surface);
+	}
+	.nav__link[aria-current] {
+		color: var(--color-accent-text);
+	}
+	.nav__link :global(.nav__chev) {
+		transition: rotate var(--duration-base) var(--ease-out);
+	}
+	.nav__link[aria-expanded="true"] :global(.nav__chev) {
+		rotate: 180deg;
+	}
+	.nav__panel {
+		position: absolute;
+		inset-block-start: calc(100% + var(--space-xs));
+		inset-inline-start: 50%;
+		inline-size: min(34rem, 90vw);
+		padding: var(--space-m);
+		background: var(--color-elevated);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-m);
+		box-shadow: var(--shadow-l);
+		opacity: 0;
+		visibility: hidden;
+		translate: -50% calc(var(--space-2xs) * -1);
+		transition:
+			opacity var(--duration-base) var(--ease-out),
+			translate var(--duration-base) var(--ease-out),
+			visibility var(--duration-base) allow-discrete;
+	}
+	.nav__item[data-open] .nav__panel {
+		opacity: 1;
+		visibility: visible;
+		translate: -50% 0;
+	}
+	.nav__panel-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-s);
+		padding-bottom: var(--space-s);
+		margin-bottom: var(--space-2xs);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.nav__sub {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-3xs);
+	}
+	.nav__sublink {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-2xs);
+		min-block-size: var(--tap-target);
+		padding: var(--space-2xs) var(--space-xs);
+		border-radius: var(--radius-s);
+		text-decoration: none;
+		font-size: var(--text-base);
+		line-height: var(--leading-snug);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+	.nav__sublink :global(svg) {
+		opacity: 0;
+		translate: calc(var(--space-2xs) * -1) 0;
+		transition:
+			opacity var(--duration-fast) var(--ease-out),
+			translate var(--duration-base) var(--ease-out);
+	}
+	.nav__sublink:hover,
+	.nav__sublink[aria-current] {
+		background: var(--color-surface);
+		color: var(--color-accent-text);
+	}
+	.nav__sublink:hover :global(svg) {
+		opacity: 1;
+		translate: 0 0;
+	}
+
+	/* ---------- Burger -------------------------------------------------- */
+	.burger {
+		position: relative;
+		display: block;
+		inline-size: var(--icon-m);
+		block-size: var(--icon-s);
+	}
+	.burger span {
+		position: absolute;
+		inset-inline: 0;
+		block-size: var(--border-width-strong);
+		background: currentColor;
+		transition:
+			translate var(--duration-base) var(--ease-out),
+			rotate var(--duration-base) var(--ease-out);
+	}
+	.burger span:first-child {
+		inset-block-start: 15%;
+	}
+	.burger span:last-child {
+		inset-block-end: 15%;
+	}
+	[aria-expanded="true"] .burger span:first-child {
+		translate: 0 calc(var(--icon-s) * 0.35 - var(--border-width));
+		rotate: 45deg;
+	}
+	[aria-expanded="true"] .burger span:last-child {
+		translate: 0 calc(var(--icon-s) * -0.35 + var(--border-width));
+		rotate: -45deg;
+	}
+
+	/* ---------- Drawer -------------------------------------------------- */
+	.drawer {
+		position: fixed;
+		inset: 0;
+		z-index: calc(var(--z-header) - 1);
+		background: var(--color-bg);
+		padding-top: calc(var(--header-height) + var(--space-xl));
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		opacity: 0;
+		transition:
+			opacity var(--duration-base) var(--ease-out),
+			display var(--duration-base) allow-discrete;
+	}
+	.drawer[data-open] {
+		opacity: 1;
+	}
+	@starting-style {
+		.drawer[data-open] {
+			opacity: 0;
+		}
+	}
+	.drawer__inner {
+		display: grid;
+		gap: var(--space-xl);
+		padding-bottom: var(--space-xl);
+	}
+	.drawer__item {
+		border-bottom: var(--border-width) solid var(--color-border);
+		opacity: 0;
+		translate: 0 var(--reveal-distance);
+		transition:
+			opacity var(--duration-slow) var(--ease-out),
+			translate var(--duration-slow) var(--ease-out);
+		transition-delay: calc(var(--reveal-index) * var(--stagger));
+	}
+	.drawer[data-open] .drawer__item {
+		opacity: 1;
+		translate: 0 0;
+	}
+	.drawer__link {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-block: var(--space-s);
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-snug);
+		text-decoration: none;
+		cursor: pointer;
+		list-style: none;
+	}
+	.drawer__link::-webkit-details-marker {
+		display: none;
+	}
+	.drawer__link :global(.drawer__plus) {
+		transition: rotate var(--duration-base) var(--ease-out);
+	}
+	.drawer__group[open] :global(.drawer__plus) {
+		rotate: 45deg;
+	}
+	.drawer__sub {
+		display: grid;
+		padding-bottom: var(--space-s);
+	}
+	.drawer__sub a {
+		display: block;
+		padding-block: var(--space-2xs);
+		color: var(--color-text-muted);
+		text-decoration: none;
+		font-size: var(--text-lg);
+	}
+	.drawer__sub a:hover {
+		color: var(--color-accent-text);
+	}
+	.drawer__search {
+		display: flex;
+		gap: var(--space-2xs);
+	}
+	.drawer__foot {
+		display: grid;
+		gap: var(--space-xs);
+	}
+
+	@media (width >= 48rem) {
+		.bar__cta,
+		.bar__search {
+			display: inline-flex;
+		}
+		.bar__brand :global(.logo__sub) {
+			display: block;
+		}
+	}
+	@media (width >= 75rem) {
+		.nav {
+			display: block;
+			margin-inline: auto;
+		}
+		.bar__actions {
+			margin-inline-start: 0;
+		}
+		.bar__login {
+			display: inline-flex;
+		}
+		.bar__burger,
+		.drawer {
+			display: none !important;
+		}
+	}
+</style>
+
+<script>
+	function initHeader() {
+		const header = document.querySelector<HTMLElement>("[data-header]");
+		if (!header || header.dataset.ready) return;
+		header.dataset.ready = "true";
+
+		// Elevation on scroll
+		const onScroll = () => header.toggleAttribute("data-scrolled", window.scrollY > 8);
+		onScroll();
+		window.addEventListener("scroll", onScroll, { passive: true });
+
+		// Dropdowns: hover (pointer: fine) + click + keyboard
+		const items = [...header.querySelectorAll<HTMLElement>("[data-dropdown]")];
+		const close = (item: HTMLElement) => {
+			item.removeAttribute("data-open");
+			item.querySelector("[data-dropdown-trigger]")?.setAttribute("aria-expanded", "false");
+		};
+		let openedAt = 0;
+		const open = (item: HTMLElement) => {
+			if (!item.hasAttribute("data-open")) openedAt = performance.now();
+			items.forEach((i) => i !== item && close(i));
+			item.setAttribute("data-open", "");
+			item.querySelector("[data-dropdown-trigger]")?.setAttribute("aria-expanded", "true");
+		};
+		const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+		items.forEach((item) => {
+			let timer: number | undefined;
+			const trigger = item.querySelector<HTMLButtonElement>("[data-dropdown-trigger]")!;
+			// A click right after hover-open must not immediately close the panel.
+			trigger.addEventListener("click", () => {
+				const justOpened = performance.now() - openedAt < 450;
+				if (item.hasAttribute("data-open") && !justOpened) close(item);
+				else open(item);
+			});
+			if (finePointer) {
+				item.addEventListener("pointerenter", () => {
+					clearTimeout(timer);
+					open(item);
+				});
+				item.addEventListener("pointerleave", () => {
+					timer = window.setTimeout(() => close(item), 160);
+				});
+			}
+			item.addEventListener("focusout", (e) => {
+				if (!item.contains(e.relatedTarget as Node)) close(item);
+			});
+		});
+		document.addEventListener("keydown", (e) => {
+			if (e.key !== "Escape") return;
+			const openItem = items.find((i) => i.hasAttribute("data-open"));
+			if (openItem) {
+				close(openItem);
+				openItem.querySelector<HTMLElement>("[data-dropdown-trigger]")?.focus();
+			}
+			if (drawer && !drawer.hidden) toggleDrawer(false);
+		});
+		document.addEventListener("click", (e) => {
+			if (!header.contains(e.target as Node)) items.forEach(close);
+		});
+
+		// Mobile drawer
+		const burger = header.querySelector<HTMLButtonElement>("[data-burger]");
+		const drawer = header.querySelector<HTMLElement>("[data-drawer]");
+		const toggleDrawer = (force?: boolean) => {
+			if (!burger || !drawer) return;
+			const next = force ?? burger.getAttribute("aria-expanded") !== "true";
+			burger.setAttribute("aria-expanded", String(next));
+			burger.setAttribute("aria-label", next ? "Zavřít menu" : "Otevřít menu");
+			document.documentElement.style.overflow = next ? "hidden" : "";
+			if (next) {
+				drawer.hidden = false;
+				requestAnimationFrame(() => drawer.setAttribute("data-open", ""));
+			} else {
+				drawer.removeAttribute("data-open");
+				drawer.hidden = true;
+			}
+		};
+		burger?.addEventListener("click", () => toggleDrawer());
+
+		// Announcement dismiss (remembered for the session)
+		const announce = document.querySelector<HTMLElement>("[data-announce]");
+		try {
+			if (sessionStorage.getItem("announce-closed")) announce?.setAttribute("hidden", "");
+		} catch {}
+		announce?.querySelector("[data-announce-close]")?.addEventListener("click", () => {
+			announce.setAttribute("hidden", "");
+			try {
+				sessionStorage.setItem("announce-closed", "1");
+			} catch {}
+		});
+	}
+	initHeader();
+	document.addEventListener("astro:page-load", initHeader);
+</script>

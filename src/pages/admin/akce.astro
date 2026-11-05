@@ -1,0 +1,116 @@
+---
+import Icon from "../../components/Icon.astro";
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { createCms } from "../../lib/cms";
+import { eventKindLabel, formatDate, formatTime } from "../../lib/format";
+
+const events = await createCms(Astro.locals).events();
+---
+
+<AdminLayout title="Akce a termíny" heading="Akce a termíny">
+	<button slot="actions" class="btn" type="button" data-open-dialog><Icon name="plus" size="s" /> Nová akce</button>
+	<section class="a-card" data-admin-table>
+		<div class="a-toolbar">
+			<label class="a-search"><span class="visually-hidden">Hledat akce</span><Icon name="search" /><input class="input" type="search" placeholder="Hledat akci…" data-table-search /></label>
+			<label class="field"><span class="visually-hidden">Typ</span>
+				<select class="select" data-table-filter>
+					<option value="">Všechny typy</option>
+					{Object.entries(eventKindLabel).map(([k, v]) => <option value={k}>{v}</option>)}
+				</select>
+			</label>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead><tr><th scope="col">Akce</th><th scope="col">Typ</th><th scope="col">Datum</th><th scope="col">Místo</th><th scope="col"><span class="visually-hidden">Akce</span></th></tr></thead>
+				<tbody data-events>
+					{events.map((e) => (
+						<tr data-row data-filter={e.kind} data-search={`${e.title} ${e.location}`.toLowerCase()}>
+							<td><strong>{e.title}</strong></td>
+							<td><span class="tag tag--dot">{eventKindLabel[e.kind]}</span></td>
+							<td class="nowrap">{formatDate(e.start)} {formatTime(e.start)}</td>
+							<td>{e.location}</td>
+							<td><div class="a-row-actions"><button class="btn btn--ghost btn--icon" type="button" data-delete aria-label={`Smazat ${e.title}`}><Icon name="trash" size="s" /></button></div></td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+		<p class="a-empty" data-table-empty hidden>Žádné akce neodpovídají filtru.</p>
+	</section>
+
+	<dialog class="a-dialog" data-dialog aria-labelledby="new-event-title">
+		<form class="a-form" method="dialog" data-event-form>
+			<div class="a-card__head">
+				<h2 class="a-card__title" id="new-event-title">Nová akce</h2>
+				<button class="btn btn--ghost btn--icon" value="cancel" formnovalidate aria-label="Zavřít"><Icon name="close" /></button>
+			</div>
+			<label class="field"><span class="field__label">Název</span><input class="input" name="title" required /></label>
+			<div class="a-two">
+				<label class="field"><span class="field__label">Datum a čas</span><input class="input" name="start" type="datetime-local" required /></label>
+				<label class="field"><span class="field__label">Typ</span>
+					<select class="select" name="kind">{Object.entries(eventKindLabel).map(([k, v]) => <option value={k}>{v}</option>)}</select>
+				</label>
+			</div>
+			<label class="field"><span class="field__label">Místo</span><input class="input" name="location" /></label>
+			<button class="btn" value="save">Přidat do kalendáře</button>
+		</form>
+	</dialog>
+</AdminLayout>
+
+<style>
+	.nowrap {
+		white-space: nowrap;
+	}
+	.a-toolbar .field {
+		flex: 0 1 16rem;
+	}
+	.a-dialog {
+		inline-size: min(100% - var(--gutter) * 2, 34rem);
+		padding: var(--space-l);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-m);
+		background: var(--color-bg);
+		color: var(--color-text);
+		box-shadow: var(--shadow-l);
+	}
+	.a-dialog[open] {
+		animation: dlg-in var(--duration-base) var(--ease-emphasized);
+	}
+	.a-dialog::backdrop {
+		background: var(--color-overlay);
+	}
+	@keyframes dlg-in {
+		from {
+			opacity: 0;
+			translate: 0 var(--space-m);
+		}
+	}
+	.a-two {
+		display: grid;
+		gap: var(--space-m);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+	}
+</style>
+
+<script>
+	import { initAdminTable } from "../../scripts/admin";
+	initAdminTable();
+	const dialog = document.querySelector<HTMLDialogElement>("[data-dialog]")!;
+	const form = document.querySelector<HTMLFormElement>("[data-event-form]")!;
+	document.querySelector("[data-open-dialog]")?.addEventListener("click", () => dialog.showModal());
+	dialog.addEventListener("close", () => {
+		if (dialog.returnValue !== "save") return;
+		const d = Object.fromEntries(new FormData(form)) as Record<string, string>;
+		const tr = document.createElement("tr");
+		tr.dataset.row = "";
+		tr.dataset.filter = d.kind;
+		tr.dataset.search = `${d.title} ${d.location}`.toLowerCase();
+		tr.innerHTML = "<td><strong></strong></td><td><span class='tag tag--dot'>Nové</span></td><td class='nowrap'></td><td></td><td></td>";
+		tr.querySelector("strong")!.textContent = d.title;
+		tr.children[2].textContent = new Date(d.start).toLocaleString("cs-CZ", { dateStyle: "long", timeStyle: "short" });
+		tr.children[3].textContent = d.location;
+		document.querySelector("[data-events]")?.prepend(tr);
+		form.reset();
+		(window as any).spsToast?.("Akce přidána (ukázkový režim).");
+	});
+</script>

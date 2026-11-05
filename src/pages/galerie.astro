@@ -1,0 +1,209 @@
+---
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import Base from "../layouts/Base.astro";
+import { createCms } from "../lib/cms";
+import { formatDate } from "../lib/format";
+
+const { items } = await createCms(Astro.locals).posts({ limit: 60 });
+const photos = items.filter((p) => p.image);
+---
+
+<Base title="Galerie" description="Fotogalerie ze života SPŠ Trutnov — soutěže, exkurze, sport a akce školy.">
+	<PageHero eyebrow="Galerie" title="Momenty z průmyslovky." lead="Fotografie z akcí, soutěží, exkurzí a sportu. Klikněte pro zvětšení." crumbs={[{ label: "Galerie" }]} />
+	<section class="section section--sm">
+		<div class="container">
+			<ul class="gallery" role="list" data-reveal-group>
+				{
+					photos.map((p, i) => (
+						<li class:list={["gallery__item", i % 5 === 0 && "gallery__item--wide"]} data-reveal>
+							<button class="gallery__btn" type="button" data-lightbox={p.image!.src} data-caption={p.title} data-href={`/novinky/${p.slug}`} aria-label={`Zvětšit fotografii: ${p.title}`}>
+								<img src={p.image!.src} alt={p.image!.alt} width={p.image!.width ?? 960} height={p.image!.height ?? 640} loading={i < 4 ? "eager" : "lazy"} decoding="async" />
+								<span class="gallery__caption">
+									<span class="meta">{formatDate(p.date)}</span>
+									<span>{p.title}</span>
+								</span>
+							</button>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<dialog class="lightbox" data-lightbox-dialog aria-label="Náhled fotografie">
+		<form method="dialog" class="lightbox__close-form">
+			<button class="btn btn--light btn--icon" aria-label="Zavřít náhled"><Icon name="close" /></button>
+		</form>
+		<figure class="lightbox__figure">
+			<img alt="" data-lightbox-img />
+			<figcaption class="lightbox__caption">
+				<span data-lightbox-caption></span>
+				<a class="btn btn--light" data-lightbox-link href="/novinky">Přečíst článek</a>
+			</figcaption>
+		</figure>
+		<button class="btn btn--light btn--icon lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Předchozí"><Icon name="arrow-left" /></button>
+		<button class="btn btn--light btn--icon lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Další"><Icon name="arrow" /></button>
+	</dialog>
+</Base>
+
+<style>
+	.gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+		grid-auto-flow: dense;
+		gap: var(--grid-gap);
+		padding: 0;
+	}
+	@media (width >= 48rem) {
+		.gallery__item--wide {
+			grid-column: span 2;
+			grid-row: span 2;
+		}
+	}
+	.gallery__btn {
+		position: relative;
+		display: block;
+		inline-size: 100%;
+		block-size: 100%;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+		border-radius: var(--radius-xs);
+		background: var(--color-skeleton);
+		text-align: start;
+	}
+	.gallery__btn img {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		transition: scale var(--duration-slower) var(--ease-out);
+	}
+	.gallery__btn:hover img {
+		scale: 1.06;
+	}
+	.gallery__caption {
+		position: absolute;
+		inset: auto 0 0;
+		display: grid;
+		gap: var(--space-3xs);
+		padding: var(--space-xl) var(--space-s) var(--space-s);
+		background: linear-gradient(transparent, var(--color-overlay));
+		color: var(--prim-white);
+		--color-text-muted: var(--prim-paper-2);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-relaxed);
+		opacity: 0;
+		translate: 0 var(--space-s);
+		transition:
+			opacity var(--duration-base) var(--ease-out),
+			translate var(--duration-base) var(--ease-out);
+	}
+	.gallery__btn:hover .gallery__caption,
+	.gallery__btn:focus-visible .gallery__caption {
+		opacity: 1;
+		translate: 0 0;
+	}
+	@media (hover: none) {
+		.gallery__caption {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	.lightbox {
+		max-inline-size: 100vw;
+		max-block-size: 100dvh;
+		inline-size: 100vw;
+		block-size: 100dvh;
+		margin: 0;
+		padding: var(--gutter);
+		border: 0;
+		background: var(--color-overlay);
+		color: var(--prim-white);
+	}
+	.lightbox[open] {
+		display: grid;
+		place-items: center;
+		animation: lb-in var(--duration-base) var(--ease-out);
+	}
+	.lightbox::backdrop {
+		background: var(--color-overlay);
+		backdrop-filter: blur(var(--space-2xs));
+	}
+	@keyframes lb-in {
+		from {
+			opacity: 0;
+			scale: 0.97;
+		}
+	}
+	.lightbox__figure {
+		display: grid;
+		gap: var(--space-s);
+		max-inline-size: min(100%, 72rem);
+	}
+	.lightbox__figure img {
+		max-block-size: 75dvh;
+		inline-size: auto;
+		margin-inline: auto;
+		border-radius: var(--radius-xs);
+	}
+	.lightbox__caption {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-s);
+		font-size: var(--text-lg);
+	}
+	.lightbox__close-form {
+		position: absolute;
+		inset-block-start: var(--gutter);
+		inset-inline-end: var(--gutter);
+		z-index: var(--z-base);
+	}
+	.lightbox__nav {
+		position: absolute;
+		inset-block-start: 50%;
+		translate: 0 -50%;
+	}
+	.lightbox__nav--prev {
+		inset-inline-start: var(--gutter);
+	}
+	.lightbox__nav--next {
+		inset-inline-end: var(--gutter);
+	}
+</style>
+
+<script>
+	const dialog = document.querySelector<HTMLDialogElement>("[data-lightbox-dialog]");
+	const triggers = [...document.querySelectorAll<HTMLButtonElement>("[data-lightbox]")];
+	if (dialog && triggers.length) {
+		const img = dialog.querySelector<HTMLImageElement>("[data-lightbox-img]")!;
+		const caption = dialog.querySelector<HTMLElement>("[data-lightbox-caption]")!;
+		const link = dialog.querySelector<HTMLAnchorElement>("[data-lightbox-link]")!;
+		let index = 0;
+		const show = (i: number) => {
+			index = (i + triggers.length) % triggers.length;
+			const t = triggers[index];
+			img.src = t.dataset.lightbox!;
+			img.alt = t.dataset.caption ?? "";
+			caption.textContent = t.dataset.caption ?? "";
+			link.href = t.dataset.href ?? "/novinky";
+		};
+		triggers.forEach((t, i) =>
+			t.addEventListener("click", () => {
+				show(i);
+				dialog.showModal();
+			}),
+		);
+		dialog.querySelector("[data-lightbox-prev]")!.addEventListener("click", () => show(index - 1));
+		dialog.querySelector("[data-lightbox-next]")!.addEventListener("click", () => show(index + 1));
+		dialog.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowLeft") show(index - 1);
+			if (e.key === "ArrowRight") show(index + 1);
+		});
+		dialog.addEventListener("click", (e) => {
+			if (e.target === dialog) dialog.close();
+		});
+		dialog.addEventListener("close", () => triggers[index]?.focus());
+	}
+</script>

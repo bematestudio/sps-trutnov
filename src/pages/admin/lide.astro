@@ -1,0 +1,53 @@
+---
+import Icon from "../../components/Icon.astro";
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { createCms } from "../../lib/cms";
+
+const people = await createCms(Astro.locals).people();
+const dept: Record<string, string> = { vedeni: "Vedení", sekretariat: "Sekretariát", pedagog: "Pedagog", poradenstvi: "Poradenství", provoz: "Provoz" };
+---
+
+<AdminLayout title="Lidé" heading="Lidé a kontakty">
+	<section class="a-card" data-admin-table>
+		<div class="a-toolbar">
+			<label class="a-search"><span class="visually-hidden">Hledat osoby</span><Icon name="search" /><input class="input" type="search" placeholder="Hledat jméno nebo funkci…" data-table-search /></label>
+			<label class="field"><span class="visually-hidden">Útvar</span>
+				<select class="select" data-table-filter>
+					<option value="">Všechny útvary</option>
+					{Object.entries(dept).map(([k, v]) => <option value={k}>{v}</option>)}
+				</select>
+			</label>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead><tr><th scope="col">Jméno</th><th scope="col">Funkce</th><th scope="col">Útvar</th><th scope="col">Pracoviště</th><th scope="col">E-mail</th></tr></thead>
+				<tbody>
+					{people.map((p) => (
+						<tr data-row data-filter={p.department} data-search={`${p.name} ${p.role}`.toLowerCase()}>
+							<td class="nowrap"><strong>{p.name}</strong></td>
+							<td>{p.role}</td>
+							<td>{dept[p.department] ?? p.department}</td>
+							<td class="nowrap">{p.workplace}</td>
+							<td><a class="link" href={`mailto:${p.email}`}>{p.email}</a></td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+		<p class="a-empty" data-table-empty hidden>Nikdo neodpovídá filtru.</p>
+	</section>
+</AdminLayout>
+
+<style>
+	.nowrap {
+		white-space: nowrap;
+	}
+	.a-toolbar .field {
+		flex: 0 1 16rem;
+	}
+</style>
+
+<script>
+	import { initAdminTable } from "../../scripts/admin";
+	initAdminTable();
+</script>

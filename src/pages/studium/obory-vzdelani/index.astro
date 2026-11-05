@@ -1,0 +1,74 @@
+---
+import Icon from "../../../components/Icon.astro";
+import PageHero from "../../../components/PageHero.astro";
+import ProgramCard from "../../../components/ProgramCard.astro";
+import Base from "../../../layouts/Base.astro";
+import { createCms } from "../../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const programs = await cms.programs();
+const groups = [
+	{ id: "maturita", title: "Obory s maturitní zkouškou", note: "Čtyřleté studium zakončené maturitou. Přijímací zkouška JPZ.", items: programs.filter((p) => p.type === "maturita") },
+	{ id: "vyucni-list", title: "Obory s výučním listem", note: "Tříleté studium zakončené výučním listem. Bez přijímací zkoušky, se stipendiem kraje.", items: programs.filter((p) => p.type === "vyucni-list") },
+];
+---
+
+<Base title="Obory vzdělání" description="Maturitní a učební obory SPŠ Trutnov: IT, elektrotechnika, strojírenství, elektrikář a nástrojař.">
+	<PageHero
+		eyebrow="Studium / Obory vzdělání"
+		title="Vyber si svůj obor."
+		lead="Barevná nabídka studijních oborů s maturitou a učebních oborů s výučním listem. Perspektivní technické vzdělání — zdarma."
+		crumbs={[{ label: "Studium", href: "/studium" }, { label: "Obory vzdělání" }]}
+	>
+		<nav class="cluster" aria-label="Typ oboru">
+			{groups.map((g) => <a class="tag" href={`#${g.id}`}>{g.title}</a>)}
+		</nav>
+	</PageHero>
+
+	{
+		groups.map((g, i) => (
+			<section class:list={["section", i % 2 === 1 && "section--surface"]} id={g.id}>
+				<div class="container">
+					<div class="section-head">
+						<h2 class="h-section">{g.title}</h2>
+						<p class="meta">{g.items.length} {g.items.length === 1 ? "obor" : g.items.length < 5 ? "obory" : "oborů"}</p>
+						<p class="lead">{g.note}</p>
+					</div>
+					<div class="grid" data-reveal-group>
+						{g.items.map((p) => (
+							<ProgramCard program={p} />
+						))}
+					</div>
+				</div>
+			</section>
+		))
+	}
+
+	<section class="section section--sm">
+		<div class="container">
+			<div class="panel panel--accent panel--plus transfer" data-reveal>
+				<h2 class="h-section">Nejsi si jistý? Přestoupit jde i během studia.</h2>
+				<p>Z učebního oboru můžeš pokračovat k maturitě a naopak. Rádi ti s výběrem poradíme osobně.</p>
+				<a class="btn btn--light" href="/studium/casto-kladene-dotazy">Časté dotazy <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.grid {
+		--grid-min: 19rem;
+	}
+	.transfer {
+		display: grid;
+		gap: var(--space-m);
+		padding: var(--space-xl) var(--space-l);
+		justify-items: start;
+	}
+	@media (width >= 75rem) {
+		.transfer {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) auto;
+			align-items: end;
+		}
+	}
+</style>

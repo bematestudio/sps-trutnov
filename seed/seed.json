@@ -1,0 +1,6335 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "SPŠ Trutnov",
+		"description": "Web Střední průmyslové školy, Trutnov, Školní 101",
+		"author": "SPŠ Trutnov"
+	},
+	"settings": {
+		"title": "SPŠ Trutnov",
+		"tagline": "Střední průmyslová škola, Trutnov, Školní 101 — technické vzdělání s budoucností.",
+		"timezone": "Europe/Prague"
+	},
+	"collections": [
+		{
+			"slug": "posts",
+			"label": "Novinky",
+			"labelSingular": "Novinka",
+			"urlPattern": "/novinky/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"scheduling",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Titulek",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "Perex",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Hlavní obrázek",
+					"type": "image"
+				},
+				{
+					"slug": "author",
+					"label": "Autor",
+					"type": "string"
+				},
+				{
+					"slug": "published_on",
+					"label": "Datum publikace",
+					"type": "datetime"
+				},
+				{
+					"slug": "featured",
+					"label": "Zvýraznit na úvodní stránce",
+					"type": "boolean"
+				},
+				{
+					"slug": "content",
+					"label": "Obsah",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Stránky",
+			"labelSingular": "Stránka",
+			"urlPattern": "/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Titulek",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "section",
+					"label": "Sekce webu",
+					"type": "select",
+					"required": true,
+					"validation": {
+						"options": [
+							"o-skole",
+							"studium",
+							"kontakty",
+							"vice"
+						]
+					}
+				},
+				{
+					"slug": "lead",
+					"label": "Úvodní text",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Obsah",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí v menu",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "programs",
+			"label": "Obory vzdělání",
+			"labelSingular": "Obor",
+			"urlPattern": "/studium/obory-vzdelani/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Název oboru",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "short_title",
+					"label": "Zkratka",
+					"type": "string"
+				},
+				{
+					"slug": "type",
+					"label": "Typ",
+					"type": "select",
+					"required": true,
+					"validation": {
+						"options": [
+							"maturita",
+							"vyucni-list"
+						]
+					}
+				},
+				{
+					"slug": "code",
+					"label": "Kód a název oboru",
+					"type": "string"
+				},
+				{
+					"slug": "svp",
+					"label": "Školní vzdělávací program",
+					"type": "string"
+				},
+				{
+					"slug": "duration",
+					"label": "Délka a forma",
+					"type": "string"
+				},
+				{
+					"slug": "capacity",
+					"label": "Počet přijímaných",
+					"type": "integer"
+				},
+				{
+					"slug": "entrance_exam",
+					"label": "Přijímací zkouška",
+					"type": "boolean"
+				},
+				{
+					"slug": "health_required",
+					"label": "Zdravotní způsobilost",
+					"type": "boolean"
+				},
+				{
+					"slug": "color",
+					"label": "Barva",
+					"type": "select",
+					"validation": {
+						"options": [
+							"eps",
+							"it",
+							"sle",
+							"str",
+							"el",
+							"na"
+						]
+					}
+				},
+				{
+					"slug": "workplace",
+					"label": "Pracoviště",
+					"type": "string"
+				},
+				{
+					"slug": "summary",
+					"label": "Shrnutí",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "highlights",
+					"label": "Co se naučíš (1 řádek = 1 bod)",
+					"type": "text"
+				},
+				{
+					"slug": "careers",
+					"label": "Uplatnění (1 řádek = 1 pozice)",
+					"type": "text"
+				},
+				{
+					"slug": "content",
+					"label": "Popis",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "events",
+			"label": "Akce a termíny",
+			"labelSingular": "Akce",
+			"supports": [
+				"drafts",
+				"search"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Název",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "starts_at",
+					"label": "Začátek",
+					"type": "datetime",
+					"required": true
+				},
+				{
+					"slug": "ends_at",
+					"label": "Konec",
+					"type": "datetime"
+				},
+				{
+					"slug": "location",
+					"label": "Místo",
+					"type": "string"
+				},
+				{
+					"slug": "kind",
+					"label": "Typ",
+					"type": "select",
+					"validation": {
+						"options": [
+							"dod",
+							"prijimacky",
+							"skola",
+							"sport"
+						]
+					}
+				},
+				{
+					"slug": "description",
+					"label": "Popis",
+					"type": "text",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "people",
+			"label": "Lidé",
+			"labelSingular": "Osoba",
+			"supports": [
+				"drafts",
+				"search"
+			],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Jméno",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "role",
+					"label": "Funkce",
+					"type": "string",
+					"searchable": true
+				},
+				{
+					"slug": "department",
+					"label": "Útvar",
+					"type": "select",
+					"validation": {
+						"options": [
+							"vedeni",
+							"sekretariat",
+							"pedagog",
+							"poradenstvi",
+							"provoz"
+						]
+					}
+				},
+				{
+					"slug": "workplace",
+					"label": "Pracoviště",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Telefon",
+					"type": "string"
+				},
+				{
+					"slug": "email",
+					"label": "E-mail",
+					"type": "string"
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "workplaces",
+			"label": "Pracoviště",
+			"labelSingular": "Pracoviště",
+			"supports": [
+				"drafts"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Název",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "kind",
+					"label": "Typ pracoviště",
+					"type": "string"
+				},
+				{
+					"slug": "address",
+					"label": "Adresa",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Telefon",
+					"type": "string"
+				},
+				{
+					"slug": "email",
+					"label": "E-mail",
+					"type": "string"
+				},
+				{
+					"slug": "manager",
+					"label": "Vedoucí",
+					"type": "string"
+				},
+				{
+					"slug": "image",
+					"label": "Fotografie (URL)",
+					"type": "string"
+				},
+				{
+					"slug": "programs",
+					"label": "Obory (1 řádek = 1 obor)",
+					"type": "text"
+				},
+				{
+					"slug": "description",
+					"label": "Popis",
+					"type": "text"
+				},
+				{
+					"slug": "map_url",
+					"label": "Odkaz na mapu",
+					"type": "url"
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "faq",
+			"label": "Časté dotazy",
+			"labelSingular": "Dotaz",
+			"supports": [
+				"drafts",
+				"search"
+			],
+			"fields": [
+				{
+					"slug": "question",
+					"label": "Otázka",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "answer",
+					"label": "Odpověď",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "group",
+					"label": "Skupina",
+					"type": "select",
+					"validation": {
+						"options": [
+							"studium",
+							"prijimaci-rizeni"
+						]
+					}
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "documents",
+			"label": "Dokumenty ke stažení",
+			"labelSingular": "Dokument",
+			"supports": [
+				"drafts",
+				"search"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Název",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "category",
+					"label": "Kategorie",
+					"type": "select",
+					"validation": {
+						"options": [
+							"studium",
+							"prijimaci-rizeni",
+							"formulare",
+							"dokumenty",
+							"propagace",
+							"skolska-rada"
+						]
+					}
+				},
+				{
+					"slug": "file",
+					"label": "Soubor",
+					"type": "file"
+				},
+				{
+					"slug": "file_url",
+					"label": "Externí odkaz na soubor",
+					"type": "url"
+				},
+				{
+					"slug": "file_type",
+					"label": "Typ souboru",
+					"type": "string"
+				},
+				{
+					"slug": "size",
+					"label": "Velikost",
+					"type": "string"
+				},
+				{
+					"slug": "year",
+					"label": "Školní rok",
+					"type": "string"
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "partners",
+			"label": "Partneři",
+			"labelSingular": "Partner",
+			"supports": [
+				"drafts"
+			],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Název firmy",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "logo",
+					"label": "Logo",
+					"type": "image"
+				},
+				{
+					"slug": "url",
+					"label": "Web",
+					"type": "url"
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "category",
+			"label": "Kategorie novinek",
+			"labelSingular": "Kategorie",
+			"hierarchical": true,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "exkurze-a-vylety",
+					"label": "Exkurze a výlety"
+				},
+				{
+					"slug": "kulturni-akce",
+					"label": "Kulturní akce"
+				},
+				{
+					"slug": "partnerstvi-a-spoluprace",
+					"label": "Partnerství a spolupráce"
+				},
+				{
+					"slug": "prijimaci-rizeni",
+					"label": "Přijímací řízení"
+				},
+				{
+					"slug": "souteze",
+					"label": "Soutěže"
+				},
+				{
+					"slug": "sport",
+					"label": "Sport"
+				},
+				{
+					"slug": "projekty",
+					"label": "Projekty"
+				},
+				{
+					"slug": "ruzne",
+					"label": "Různé"
+				},
+				{
+					"slug": "volnocasove-aktivity",
+					"label": "Volnočasové aktivity"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"label": "Štítky",
+			"labelSingular": "Štítek",
+			"hierarchical": false,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "strojirenstvi",
+					"label": "Strojírenství"
+				},
+				{
+					"slug": "slaboprouda-elektrotechnika",
+					"label": "Slaboproudá elektrotechnika"
+				},
+				{
+					"slug": "robotika",
+					"label": "Robotika"
+				},
+				{
+					"slug": "informacni-technologie",
+					"label": "Informační technologie"
+				},
+				{
+					"slug": "elektrikar",
+					"label": "Elektrikář"
+				},
+				{
+					"slug": "nastrojar",
+					"label": "Nástrojař"
+				},
+				{
+					"slug": "atletika",
+					"label": "Atletika"
+				},
+				{
+					"slug": "olympiada",
+					"label": "Olympiáda"
+				},
+				{
+					"slug": "den-otevrenych-dveri",
+					"label": "Den otevřených dveří"
+				}
+			]
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Hlavní navigace",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Novinky",
+					"url": "/novinky"
+				},
+				{
+					"type": "custom",
+					"label": "Studium",
+					"url": "/studium",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Obory vzdělání",
+							"url": "/studium/obory-vzdelani"
+						},
+						{
+							"type": "custom",
+							"label": "Přijímací řízení",
+							"url": "/studium/prijimaci-rizeni"
+						},
+						{
+							"type": "custom",
+							"label": "Den otevřených dveří",
+							"url": "/studium/den-otevrenych-dveri"
+						},
+						{
+							"type": "custom",
+							"label": "Proč studovat u nás",
+							"url": "/studium/proc-studovat-u-nas"
+						},
+						{
+							"type": "custom",
+							"label": "Stipendium",
+							"url": "/studium/stipendium"
+						},
+						{
+							"type": "custom",
+							"label": "Časté dotazy",
+							"url": "/studium/casto-kladene-dotazy"
+						},
+						{
+							"type": "custom",
+							"label": "Maturitní a závěrečné zkoušky",
+							"url": "/studium/maturitni-zkousky"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "O škole",
+					"url": "/o-skole",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Charakteristika a historie",
+							"url": "/o-skole/charakteristika-a-historie"
+						},
+						{
+							"type": "custom",
+							"label": "Pracoviště",
+							"url": "/o-skole/pracoviste"
+						},
+						{
+							"type": "custom",
+							"label": "Partnerství a spolupráce",
+							"url": "/o-skole/partnerstvi-a-spoluprace"
+						},
+						{
+							"type": "custom",
+							"label": "Volnočasové aktivity",
+							"url": "/o-skole/volnocasove-aktivity"
+						},
+						{
+							"type": "custom",
+							"label": "Školská rada",
+							"url": "/o-skole/skolska-rada"
+						},
+						{
+							"type": "custom",
+							"label": "Školní poradenské pracoviště",
+							"url": "/o-skole/skolni-poradenske-pracoviste"
+						},
+						{
+							"type": "custom",
+							"label": "Povinně zveřejňované informace",
+							"url": "/o-skole/povinne-zverejnovane-informace"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Galerie",
+					"url": "/galerie"
+				},
+				{
+					"type": "custom",
+					"label": "Ke stažení",
+					"url": "/ke-stazeni"
+				},
+				{
+					"type": "custom",
+					"label": "Kontakty",
+					"url": "/kontakty",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Sídlo a pracoviště",
+							"url": "/kontakty"
+						},
+						{
+							"type": "custom",
+							"label": "Lidé",
+							"url": "/kontakty/lide"
+						},
+						{
+							"type": "custom",
+							"label": "Podatelna",
+							"url": "/kontakty/podatelna"
+						}
+					]
+				}
+			]
+		}
+	],
+	"content": {
+		"posts": [
+			{
+				"id": "post-1",
+				"slug": "sps-trutnov-brana-do-sveta-modernich-technologii",
+				"status": "published",
+				"data": {
+					"title": "SPŠ Trutnov - brána do světa moderních technologií",
+					"excerpt": "Jak propojit školní lavice s reálnou praxí? Právě tomu se věnovalo setkání žáků 3. ročníku SPŠ Trutnov na pracovišti pro praktické vyučování v Mladých Bukách se zástupci společnosti TE Connectivity Trutnov.",
+					"author": "Arnošt Jäger, DiS.",
+					"published_on": "2026-11-05T08:00:00.000Z",
+					"featured": true,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/novinky/2026-11-04-002.jpg",
+							"alt": "SPŠ Trutnov - brána do světa moderních technologií",
+							"filename": "sps-trutnov-brana-do-sveta-modernich-technologii.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1",
+									"text": "Jak propojit školní lavice s reálnou praxí? Právě tomu se věnovalo setkání žáků 3. ročníku SPŠ Trutnov na pracovišti pro praktické vyučování v Mladých Bukách se zástupci společnosti TE Connectivity Trutnov.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3",
+									"text": "Ve škole jsme přivítali vzácnou návštěvu, ředitele závodu společnosti TE Connectivity Trutnov Jana Baráka a HR Business Partner Lenku Volockou. Hlavním tématem setkání byla spolupráce mezi školou a firmou a možnosti, jak studentům přiblížit skutečné pracovní prostředí moderního průmyslu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5",
+									"text": "Žáci měli příležitost dozvědět se více o fungování mezinárodní technologické společnosti, která patří mezi významné zaměstnavatele v regionu. Diskuse se zaměřila především na odborné praxe, exkurze, stáže a další formy spolupráce, které mohou žákům pomoci získat cenné zkušenosti ještě během studia.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7",
+									"text": "Právě propojení teoretických znalostí s praktickými zkušenostmi je jedním z klíčových faktorů úspěšného vstupu mladých lidí na pracovní trh. Díky podobným aktivitám získávají žáci lepší představu o možnostech svého budoucího profesního směřování a zároveň poznávají technologie a procesy využívané v moderní výrobě.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9",
+									"text": "Setkání potvrdilo společný zájem školy i společnosti TE Connectivity podporovat technické vzdělávání a vytvářet příležitosti pro rozvoj mladých talentů v našem regionu. Věříme, že tato spolupráce přinese žákům řadu zajímavých zkušeností a nových možností, jak rozvíjet své znalosti a dovednosti.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ka",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb",
+									"text": "Děkujeme zástupcům společnosti TE Connectivity za návštěvu a otevřenou diskusi. Těšíme se na další společné aktivity, které našim žákům pomohou lépe se připravit na jejich budoucí kariéru.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"partnerstvi-a-spoluprace"
+					]
+				}
+			},
+			{
+				"id": "post-2",
+				"slug": "ctyri-nasi-zaci-postoupili-do-krajskeho-kola-logicke-olympiady",
+				"status": "published",
+				"data": {
+					"title": "Čtyři naši žáci postoupili do krajského kola Logické olympiády",
+					"excerpt": "V říjnu se žáci naší školy zapojili do domácího kola soutěže Logická olympiáda 2026 v kategorii C, určené středoškolákům. Konkurence byla mimořádná. V celé republice soutěžilo 22 701 žáků, z toho 1 119 v Královéhradeckém kraji. Naši…",
+					"author": "Mgr. Tomáš Vaněk",
+					"published_on": "2026-11-04T08:00:00.000Z",
+					"featured": true,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/novinky/logicka-olympiada-2026-kraj.jpg",
+							"alt": "Čtyři naši žáci postoupili do krajského kola Logické olympiády",
+							"filename": "ctyri-nasi-zaci-postoupili-do-krajskeho-kola-logicke-olympia.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd",
+									"text": "V říjnu se žáci naší školy zapojili do domácího kola soutěže Logická olympiáda 2026 v kategorii C, určené středoškolákům. Konkurence byla mimořádná. V celé republice soutěžilo 22 701 žáků, z toho 1 119 v Královéhradeckém kraji. Naši školu reprezentovalo 15 žáků ze sedmi tříd.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ke",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf",
+									"text": "Nejlepšího výsledku dosáhl Miroslav Greguš ze ročníku oboru Elektronické počítačové systémy. Získal 118,73 bodů, obsadil 22. místo v kraji a 522. místo v celorepublikovém pořadí. Díky percentilu 97,71 předčil téměř 98 procent všech soutěžících.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh",
+									"text": "Výborně si vedli také další postupující. Antonín Vaňouček ze 4. ročníku stejného oboru, který skončil 37. v kraji a na děleném 905.‑906. místě v republice. Hned za ním se umístil jeho spolužák Tadeáš Zeman, kterému patří 38. místo v kraji a dělené 932.‑934. místo v celostátním pořadí. Čtveřici postupujících doplnila Anna Lotzová ze 3. ročníku oboru Informatika a management. Ta obsadila 51. místo v kraji a dělené 1 119.‑1 120. místo v republice.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ki",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kj",
+									"text": "Účast v krajském kole již potvrdili všichni postupující, to se uskuteční v pátek 6. listopadu 2026.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kk",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kl",
+									"text": "Za zmínku stojí i celkové vystoupení školy. Pět našich soutěžících se zařadilo mezi nejlepších deset procent všech účastníků kategorie C. Vedle čtyř postupujících se do této skupiny dostal také Petr Zítka ze 2. ročníku oboru SEL, který skončil na 75. místě v kraji a na děleném 1 651.‑1 652. místě v republice.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "km",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kn",
+									"text": "Všem soutěžícím děkujeme za reprezentaci školy a postupujícím přejeme v krajském kole hodně úspěchů.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"souteze"
+					],
+					"tag": [
+						"olympiada",
+						"informacni-technologie"
+					]
+				}
+			},
+			{
+				"id": "post-3",
+				"slug": "nasi-zaci-opet-uspeli-v-okresnim-kole-souteze-t-profi-2026",
+				"status": "published",
+				"data": {
+					"title": "Naši žáci opět uspěli v okresním kole soutěže T-PROFI 2026",
+					"excerpt": "Vrchlabská firma Argo-Hytos s.r.o. hostila dne 22. 10. letošní ročník okresního kola soutěže T-Profi (Talenty pro firmy). Soutěže se zúčastnilo celkem 6 týmů, přičemž každý tým je vždy složen ze tří žáků základní školy, tří žáků střední…",
+					"author": "Ing. Jan Holý",
+					"published_on": "2026-11-04T08:00:00.000Z",
+					"featured": true,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/souteze/nasi-zaci-opet-uspeli-v-okresnim-kole-souteze-t-profi-2026/nasi-zaci-opet-uspeli-v-okresnim-kole-souteze-t-profi-2026-14_14_20261104_1768030998.jpg",
+							"alt": "Naši žáci opět uspěli v okresním kole soutěže T-PROFI 2026",
+							"filename": "nasi-zaci-opet-uspeli-v-okresnim-kole-souteze-t-profi-2026.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "ko",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kp",
+									"text": "Vrchlabská firma Argo-Hytos s.r.o. hostila dne 22. 10. letošní ročník okresního kola soutěže T-Profi (Talenty pro firmy). Soutěže se zúčastnilo celkem 6 týmů, přičemž každý tým je vždy složen ze tří žáků základní školy, tří žáků střední školy a kapitána týmu, jenž je zástupcem regionální firmy.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kr",
+									"text": "Naše škola do soutěže vyslala žáky pro celkem 3 týmy a sice:",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ks",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kt",
+									"text": "Tým č. 1 ‑ Žáci 2. ročníku oboru Slaboproudá elektrotechnika ‑ soutěžili za firmu Stránský a Petržík ‑ Pneumatické válce spol. s r.o. (modrá trička)",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ku",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kv",
+									"text": "David Šilhan",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kx",
+									"text": "Antonín Fitl",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ky",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kz",
+									"text": "Tomáš Kraus",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k10",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k11",
+									"text": "žáci Základní školy a Mateřské školy, Mostek",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k12",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k13",
+									"text": "Tým č. 2 ‑ Žáci 2. ročníku oboru Elektronické počítačové systémy ‑ za firmu ZPA Smart Energy a.s. (bílá trička)",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k14",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k15",
+									"text": "Luděk Dobrý",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k16",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k17",
+									"text": "Josef Kupec",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k18",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k19",
+									"text": "František Pjentak",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1b",
+									"text": "žáci Základní školy a Mateřské školy, Bernartice",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1d",
+									"text": "Tým č. 3 ‑ Žáci 2. ročníku oboru Slaboproudá elektrotechnika ‑ za firmu Kasper Kovo s.r.o.  (červená trička)",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1f",
+									"text": "Tomáš Birke",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1h",
+									"text": "Jan Myška",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1j",
+									"text": "Jiří Stárek",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1l",
+									"text": "žáci Základní školy, Trutnov 2, Mládežnická 536",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1n",
+									"text": "Ve zbývajících 3 týmech byli starší žáci za Střední průmyslovou školu a Střední odbornou školu, Dvůr Králové nad Labem a také za Střední školu strojírenskou a elektrotechnickou Nová Paka, Vrchlabí.  Mladší žáci byli ze Základní školy Podharť, Dvůr Králové nad Labem a ze 2 ZŠ Vrchlabí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1p",
+									"text": "Soutěžním úkolem bylo ze stavebnice Merkur sestavit a zprovoznit model kolotoče ovládaného 2 krokovými motory (otáčení a zdvih sedaček).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1r",
+									"text": "Všem 6 týmům se tentokrát podařilo funkční model dokončit a zprovoznit v časovém limitu dvou a půl hodiny.  Pro výsledné umístění záleželo na čase odevzdání funkčního modelu ale také na množství následně nalezených chyb (odchylek od přesně popsaného postupu montáže).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1t",
+									"text": "Souboj to byl velmi těsný a hodně záleželo na zvolené strategii montáže (spolupráci mladších žáků se staršími), na šikovnosti a také na pozornosti a pečlivosti.  Žáci se spolu s kapitánem museli domluvit i na týmovém pokřiku.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1v",
+									"text": "Nakonec se nám podařilo obsadit 1., 2. a 4. pozici, což je krásný výsledek i vzhledem k tomu, že 2 naši kapitáni byli ve své roli jako nováčci.  Do krajského kola ovšem postupuje pouze tým vítězný a sice Tým č. 3 se žáky 2. ročníku oboru Slaboproudá elektrotechnika se zkušeným kapitánem Petrem Tietzem (Kasper Kovo).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1x",
+									"text": "Vítězům gratulujeme a přejeme hodně štěstí v kole krajském, které se uskuteční 13. 11. 2026 v kongresovém centru Aldis Hradci Králové při akci Vybírám střední (Prezentace středních škol a zaměstnavatelů).",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"souteze"
+					],
+					"tag": [
+						"slaboprouda-elektrotechnika"
+					]
+				}
+			},
+			{
+				"id": "post-4",
+				"slug": "tricet-let-cyklisticke-casovky-do-vrchu-na-trutnovske-prumyslovce",
+				"status": "published",
+				"data": {
+					"title": "Třicet let cyklistické časovky do vrchu na trutnovské Průmyslovce",
+					"excerpt": "Závodem prošlo za dobu jeho existence tisíce spokojených závodníků. V jubilejním 30. ročníku bylo do soutěže přihlášeno přesně 100 startujících.",
+					"author": "Mgr. Martin Kádrle",
+					"published_on": "2026-11-04T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/sport/tricet-let-cyklisticke-casovky-do-vrchu-na-trutnovske-prumyslovce/tricet-let-cyklisticke-casovky-do-vrchu-na-trutnovske-prumyslovce-41_41_20261104_1487517263.jpg",
+							"alt": "Třicet let cyklistické časovky do vrchu na trutnovské Průmyslovce",
+							"filename": "tricet-let-cyklisticke-casovky-do-vrchu-na-trutnovske-prumys.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k1y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1z",
+									"text": "Závodem prošlo za dobu jeho existence tisíce spokojených závodníků. V jubilejním 30. ročníku bylo do soutěže přihlášeno přesně 100 startujících.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k20",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k21",
+									"text": "Nezůstáváme pouze na jednom místě, lokace s určitou pravidelností měníme. Jdeme s dobou, akci dokážeme perfektně technicky zabezpečit a digitalizovat. Soutěž takového formátu logicky naplní to hlavní, co je v očekávání, své kurikulární cíle.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k22",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k23",
+									"text": "Pro kulatý 30. ročník jsme zvolili osvědčené místo na trati Dolce ‑ Bojiště. Nejlepší závodníci si s tratí poradili velmi rychle a díky štědrému sponzorství ﬁrmy Cyklopoint Trutnov jsme mohli z každé kategorie ocenit pět nejlepších žáků. Každý zúčastněný dostal mj. pozornost v podobě výrobku z našich 3D tiskáren. Komfort zajistilo též skromné občerstvení.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k24",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k25",
+									"text": "Zázemí bylo kvalitně ozvučeno, na velmi vysoké úrovni je v posledních letech díky osvědčené spolupráci s profesionální časomírou Sportchallenge i zpracování závodních dokumentací. Nutno poznamenat, že těmto profíkům vypomáhali naši talentovaní žáci. O posílení bezpečnosti se postaraly studentky Střední zdravotnické školy Trutnov a strážníci z městské policie Trutnov.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k26",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k27",
+									"text": "Za účasti dvanácti družstev ZŠ a SŠ nejen z okresu Trutnov jsme naplnili hlavní poselství tohoto podniku, posílení vzájemné spolupráce mezi námi a rozvoj žákovských kompetencí. Rovněž tím, že výsledky poskytujeme ryze online, šetříme za tisk a žáci prohlubují navíc kompetence digitální. Akce je ﬁnancovaná Královehradeckým krajem, který nám pro letošní ročník poskytl výrazně vyšší rozpočet.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k28",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k29",
+									"text": "Děkujeme všem zúčastněným a organizátorům!",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2b",
+									"text": "Výsledky podle kategorií",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"sport"
+					]
+				}
+			},
+			{
+				"id": "post-5",
+				"slug": "z-exkurze-do-prahy-divadlo-cnb-cro-muzeum",
+				"status": "published",
+				"data": {
+					"title": "Z exkurze do Prahy - divadlo, ČNB, ČRo, muzeum...",
+					"excerpt": "Ve dnech 14.-15. 10. 2026 jsme se s žáky 3. ročníků oborů Elektronické počítačové systémy a Informatika a management vypravili na exkurzi do Prahy.",
+					"author": "Mgr. Zdeňka Těžká",
+					"published_on": "2026-11-03T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/exkurze-a-vylety/z-exkurze-do-prahy-divadlo-cnb-cro-muzeum/z-exkurze-do-prahy-divadlo-cnb-cro-muzeum-4_4_20261103_1009630823.jpg",
+							"alt": "Z exkurze do Prahy - divadlo, ČNB, ČRo, muzeum...",
+							"filename": "z-exkurze-do-prahy-divadlo-cnb-cro-muzeum.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k2c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2d",
+									"text": "Ve dnech 14.-15. 10. 2026 jsme se s žáky 3. ročníků oborů Elektronické počítačové systémy a Informatika a management vypravili na exkurzi do Prahy.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2f",
+									"text": "Kvůli výlukám na trati jsme dopolední prohlídku Prahy absolvovali až odpoledne a program jsme, poté co jsme se ubytovali na hostelu, zahájili komentovanou prohlídkou Židovského muzea Praha, viděli jsme některé synagogy i hřbitov a dozvěděli se spoustu informací o jejich tradicích a náboženství. Poté jsme zamířili do ulic Prahy, obdivovali jsme Hradčany, Karlův most, připomněli jsme si mj. tragickou střelbu na FFUK a procházkou podél Vltavy, která skýtala nádherné výhledy, jsme došli k budově Národního divadla a na Národní třídu a připomněli jsme si událost související s 17. listopadem 1989 a bývalé ho prezidenta Václava Havla. Večer už nás čekalo divadelní představení Šmejdi útočí, které sklidilo u studentů velký úspěch. Všichni se dobře bavili, dokonce si jeden student i zahrál v jedné ze scének, které nás pobavily, ale také nás nutily se zamýšlet nad hrozbou různých podvodů, scénky přibližovaly nenásilnou formou praktiky podvodníků, tzv. šmejdů. Na problém různých podvodů částečně navazoval i program druhého dne, kdy studenti měli domluvený workshop v ČNB a v Českém rozhlase.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2h",
+									"text": "Program druhého dne byl tedy z velké části věnován ekonomickým tématům a konkrétně bankovnictví. Navštívili jsme sídlo naší centrální banky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2j",
+									"text": "Pro žáky oboru Informatika a management to byla již třetí a poslední návštěva, tentokrát se zaměřili na problematiku peněžního oběhu. V rámci 90minutového workshopu se žáci podrobně seznámili s ochrannými prvky českých bankovek, podle instrukcí lektorů ČNB si vyzkoušeli najít všechny tyto prvky pomocí přístrojů, které se používají na bankovních přepážkách. Dále měli možnost srovnávat ochranu našeho oběživa s penězi z jiných zemí. Zjistili, že naše ochranné prvky patří mezi ty nejlepší na světě. Součástí workshopu byla také možnost poznat různě „vydařené“ padělky českých bankovek.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2l",
+									"text": "A zatímco žáci oboru Informatika a management pracovali, pro ty z oboru Elektronické počítačové systémy to byla první a jediná návštěva České národní banky, během které se podívali do obou expozic, kde mohli spatřit druhou největší zlatou minci na světě, uchopit zlatou cihličku, která v okamžiku naší návštěvy měla cenu zhruba 36 milionů korun a mnoho dalších zajímavostí, které se týkají České národní banky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2n",
+									"text": "Odpoledne čekala na třídu Elektronické počítačové systémy ještě návštěva v Českém rozhlase, kde jsme viděli historii i současnost rozhlasového vysílání.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2p",
+									"text": "Žáci oboru Informatika a management vyplnili volný čas prohlídkou umění Davida Černého, došli ke kinetické soše Franze Kafky, viděli sochu sv. Václava na mrtvém koní v Paláci Lucerna a také si v Národním muzeu měli možnost prohlédnout stálé expozice. Slunečné počasí dokreslovalo příjemný čas v našem hlavním městě.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2r",
+									"text": "Zde několik názorů od studentů ‑ chválili si zejména interaktivní program v ČNB a divadelní představení a zmínili, že by na podobný typ divadla šli brzy rádi znovu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2t",
+									"text": "Postřehy a názory žáků na exkurzi",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2v",
+									"text": "„Židovské muzeum bylo super byli jsme rádi za jarmulky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2x",
+									"text": "Představení nás velice zaujalo a zároveň byli velice poučné a zábavné.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2z",
+									"text": "Národní muzeum se nám zalíbilo.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k30",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k31",
+									"text": "Workshop v ČNB nás zabavil, podle nás to byl lepší workshop než ten minulý, protože byl velice interaktivní.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k32",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k33",
+									"text": "Celkově jsme si exkurzi v Praze hodně užili a odnášíme si z ní dost důležitých informací.“",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k34",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k35",
+									"text": "„Návštěva Židovského muzea pro nás byla zajímavá a poučná. Jako křesťané máme jiné náboženské tradice, ale myslíme si, že je důležité poznávat i ostatní náboženství a jejich historii. Nejvíce nás zaujaly příběhy židovských lidí a jejich osudy během druhé světové války. Uvědomili jsme si, jak důležité je nezapomínat na minulost a poučit se z ní. Návštěvu bychom doporučili každému, kdo se chce dozvědět více o židovské kultuře a historii.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k36",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k37",
+									"text": "Divadelní představení Šmejdi útočí v divadle NoD pro nás bylo zajímavým zážitkem. Hra se věnovala tématu podvodů a tomu, jak mohou lidé ostatní snadno oklamat. Zaujalo nás, že se představení zabývalo problémem, se kterým se můžeme setkat i v běžném životě. Díky tomu jsme si uvědomili, jak důležité je být opatrný a nenechat se zmanipulovat. Celkově pro nás bylo představení poučné a přineslo nám námět k zamyšlení.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k38",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k39",
+									"text": "Návštěva České národní banky pro nás byla zajímavou zkušeností. Dozvěděli jsme se více o historii českých peněz, fungování banky a významu peněz pro naši společnost. Nejvíce nás zaujala expozice, která ukazovala různé podoby peněz a jejich vývoj. Líbilo se nám, že jsme se mohli dozvědět něco nového i z praktického hlediska. Myslíme si, že návštěva byla užitečná a mohla by zaujmout i lidi, kteří se o ekonomiku běžně nezajímají.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3b",
+									"text": "Návštěva Národního dětského muzea pro nás byla příjemným zpestřením dne. Zaujalo nás, že muzeum nabízí možnost poznávat nové věci zábavnou a interaktivní formou. Myslíme si, že takový způsob učení je pro děti mnohem zajímavější než pouhé čtení informací z tabulí. Některé části pro nás mohly být zajímavé i přesto, že už nejsme malé děti. Celkově si myslíme, že muzeum je dobrým místem pro rodiny s dětmi.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3d",
+									"text": "Celkově se nám výlet do Prahy zalíbil a myslíme si, že jsme si ho většinou užili. Nejvíce se nám líbilo divadelní představení, které pro nás bylo příjemným zážitkem. ČNB byla také docela zajímavá a dozvěděli jsme se i něco nového. Naopak Židovské muzeum nás moc nezaujalo. Naopak jsme navštívili Národním muzeu, byl to skvělý nápad ale bohužel jsme ho nestihli prohlédnout celé, protože jsme měli málo času, což nás trochu mrzelo, protože jsme si chtěli prohlédnout i další exponáty. I přes tyto menší nedostatky hodnotíme celý výlet pozitivně, protože jsme společně zažili něco nového a odnesli si zajímavé zážitky.“",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3f",
+									"text": "„Myslíme si, že rozchod před vstupem do Židovského muzea mohl být delší, protože jsme tam hrozně dlouho čekali. Samotná prohlídka židovského muzea a lokací týkajících se židovství nás nezaujala, i když pán co výklad vedl byl velmi ochotný.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3h",
+									"text": "Divadlo se nám všem moc líbilo a hodně překonalo naše původní očekávání. Všichni bychom představení doporučili. Kromě rozchodu to považujeme za nejlepší část programu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3j",
+									"text": "Exkurze do národní banky se také povedla. Myslíme si, že jsme měli štěstí na paní, která nás prováděla, když někdo měl otázku, klidně odbočila od tématu a ochotně odpovídala. Nikdo jsme se nenudil a rychle nám čas v bance utekl. Na rozhlas jsme byli všichni už dost unavení, ale bylo to snesitelné.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3l",
+									"text": "Jako celek jsme si výlet do Prahy všichni moc užili, řekl bych že to platí pro většinu třídy.“",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"exkurze-a-vylety"
+					]
+				}
+			},
+			{
+				"id": "post-6",
+				"slug": "galerie-epo1-konkretne-vystava-neokosmos-pavla-holecka-u-ucnu-boduje",
+				"status": "published",
+				"data": {
+					"title": "Galerie EPO1, konkrétně výstava Neokosmos Pavla Holečka u učňů boduje!",
+					"excerpt": "Elektrikáři z 2. ročníku vyrazili do galerie EPO1 přesvědčit se na vlastní oči, že měl autor této výstavy Pavel Holeček neuvěřitelnou fantazii a projevil fantastickou kreativitu, když se řekne NEOKOSMOS.",
+					"author": "Mgr. Martina Pradáčová",
+					"published_on": "2026-10-21T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/exkurze-a-vylety/galerie-epo1-konkretne-vystava-neokosmos-pavla-holecka-u-ucnu-boduje/galerie-epo1-konkretne-vystava-neokosmos-pavla-holecka-u-ucnu-boduje-1_1_20261026_1305812044.jpg",
+							"alt": "Galerie EPO1, konkrétně výstava Neokosmos Pavla Holečka u učňů boduje!",
+							"filename": "galerie-epo1-konkretne-vystava-neokosmos-pavla-holecka-u-ucn.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k3m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3n",
+									"text": "Elektrikáři z 2. ročníku vyrazili do galerie EPO1 přesvědčit se na vlastní oči, že měl autor této výstavy Pavel Holeček neuvěřitelnou fantazii a projevil fantastickou kreativitu, když se řekne NEOKOSMOS.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3p",
+									"text": "A že se bylo opravdu na co koukat! A nezůstalo jen u toho! Protože je výstava edukativní, zapojili jsme se i my a vytvořili, co se jen dalo!",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3r",
+									"text": "Na našem profilu na instagramu jste nás mohli vidět při naší tvořivé činnosti přímo na výstavě, nyní nabízíme její výsledky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3t",
+									"text": "Děkujeme galerii za skvělý zážitek!",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"kulturni-akce"
+					]
+				}
+			},
+			{
+				"id": "post-7",
+				"slug": "divadlem-to-ale-neskoncilo",
+				"status": "published",
+				"data": {
+					"title": "Divadlem to ale neskončilo!",
+					"excerpt": "Nedávno jsme byli s žáky 4. ročníků oborů Elektronické počítačové systémy a Informatika a management v Mladé Boleslavi na divadelní dramatizaci Hrabalovy povídky Postřižiny.",
+					"author": "Mgr. Martina Pradáčová",
+					"published_on": "2026-10-21T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/exkurze-a-vylety/divadlem-to-ale-neskoncilo/divadlem-to-ale-neskoncilo-3_3_20261026_1341650409.jpg",
+							"alt": "Divadlem to ale neskončilo!",
+							"filename": "divadlem-to-ale-neskoncilo.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k3u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3v",
+									"text": "Nedávno jsme byli s žáky 4. ročníků oborů Elektronické počítačové systémy a Informatika a management v Mladé Boleslavi na divadelní dramatizaci Hrabalovy povídky Postřižiny.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3x",
+									"text": "Režisérka Diana Šoltýsová se nechala při režii inspirovat barevným světem amerického režiséra Wese Andersona a Hrabalova maminka, která milovala divadlo a byla zapálenou ochotnicí, by jí za to určitě dala plusové body, kdyby žila.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3z",
+									"text": "Celé představení nás vybízelo vracet se do dětství, vzpomínat, hrát si, a to jsme také po návratu do školy hned udělali.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k40",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k41",
+									"text": "Neskončilo to tedy pouze divadelním představením. My se spolu v dalších hodinách literatury radili nejen o všem, co jsme na divadelních prknech viděli, ale i o samotném autorovi Postřižin, jeho životní cestě, díle a nesčetných zajímavých momentech, které spojují jeho život i dílo v jedno.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k42",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k43",
+									"text": "Kdyby dnes žil, pozvali bychom ho do jeho oblíbeného hostince U Zlatého tygra v Praze na náš národní zlatavý mok. U něj bychom mu předvedli, jak jsme si o něm a jeho díle díky divadelnímu představení na počátku toho všeho rozšířili své obzory.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"kulturni-akce"
+					]
+				}
+			},
+			{
+				"id": "post-8",
+				"slug": "sps-trutnov-na-vystave-strednich-skol-a-zamestnavatelu-2026",
+				"status": "published",
+				"data": {
+					"title": "SPŠ Trutnov na Výstavě středních škol a zaměstnavatelů 2026",
+					"excerpt": "Ve dnech 16. a 17. října 2026 jsme se zúčastnili tradiční Výstavy středních škol a zaměstnavatelů, která se konala ve Společenském centru Trutnovska pro kulturu a volný čas. Akce nabídla žákům základních škol a jejich rodičům…",
+					"author": "Luděk Dušek",
+					"published_on": "2026-10-21T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/ruzne/sps-trutnov-na-vystave-strednich-skol-a-zamestnavatelu-2026/sps-trutnov-na-vystave-strednich-skol-a-zamestnavatelu-2026-51_51_20261021_1671830630.jpg",
+							"alt": "SPŠ Trutnov na Výstavě středních škol a zaměstnavatelů 2026",
+							"filename": "sps-trutnov-na-vystave-strednich-skol-a-zamestnavatelu-2026.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k44",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k45",
+									"text": "Ve dnech 16. a 17. října 2026 jsme se zúčastnili tradiční Výstavy středních škol a zaměstnavatelů, která se konala ve Společenském centru Trutnovska pro kulturu a volný čas. Akce nabídla žákům základních škol a jejich rodičům příležitost seznámit se s možnostmi dalšího studia a s nabídkou zaměstnavatelů v regionu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k46",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k47",
+									"text": "Na našem stánku jsme představili technické obory vyučované na SPŠ Trutnov a návštěvníkům přiblížili, jak probíhá praktická výuka. Hlavní pozornost poutaly především živé ukázky moderních technologií a práce se strojním vybavením.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k48",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k49",
+									"text": "Co jsme návštěvníkům představili?",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4b",
+									"text": "Robotické pracoviště FANUC ‑ výukový průmyslový robot ukázal možnosti automatizace a využití robotiky v současném průmyslu.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4d",
+									"text": "Ukázku soustružení ‑ návštěvníci mohli nahlédnout do základů strojírenské výroby a poznat práci na výukovém soustruhu.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4f",
+									"text": "3D tisk na tiskárně Prusa XL ‑ představili jsme možnosti aditivní výroby a tvorby prostorových modelů pomocí moderní 3D tiskárny.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4h",
+									"text": "3D grafiku a výrobky žáků ‑ ukázali jsme výsledky práce studentů v oblasti počítačového modelování, strojírenství a elektrotechniky.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4j",
+									"text": "Model chytré domácnosti (IoT) ‑ předvedli jsme propojení senzorů a řídicí jednotky při automatizaci běžných funkcí domácnosti.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4l",
+									"text": "Ukázku projektů z kroužků - ve venkovní expozici jsme návštěvníkům předvedli několik výrobků, které na škole vznikly v rámci kroužků.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4n",
+									"text": "Součástí prezentace byly také výrobky vzniklé v rámci školní výuky a volnočasových aktivit. Návštěvníci si mohli prohlédnout výsledky práce našich žáků a získat informační materiály o jednotlivých studijních oborech.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4p",
+									"text": "Děkujeme všem, kteří se u našeho stánku zastavili a zajímali se o studium na SPŠ Trutnov. Věříme, že praktické ukázky pomohly zájemcům lépe poznat naše technické obory a možnosti, které studium na naší škole nabízí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4r",
+									"text": "Těšíme se na další setkání, například při Dni otevřených dveří 21. 11. 2026 (Více informací…)",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"ruzne"
+					]
+				}
+			},
+			{
+				"id": "post-9",
+				"slug": "prirodovedny-klokan-2026-skolni-kolo",
+				"status": "published",
+				"data": {
+					"title": "Přírodovědný klokan 2026 - školní kolo",
+					"excerpt": "14. října 2026 proběhlo na naší škole školní kolo přírodovědného klokana.",
+					"author": "Mgr. Jaroslav Kabrhel",
+					"published_on": "2026-10-20T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/novinky/2026-klokan.jpg",
+							"alt": "Přírodovědný klokan 2026 - školní kolo",
+							"filename": "prirodovedny-klokan-2026-skolni-kolo.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k4s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4t",
+									"text": "14. října 2026 proběhlo na naší škole školní kolo přírodovědného klokana.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4v",
+									"text": "Školního kola se účastnili všichni žáci 1. ročníků oboru Strojírenství - počítačová grafika a Slaboproudá elektrotechnika, kteří hledali odpovědi na otázky z oboru matematiky, fyziky, biologie a chemie. Odpovědi zaznamenávali do karty odpovědí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4x",
+									"text": "Nejlepší řešitelé byli odeslání k porovnání do okresního kola.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4y",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4z",
+									"text": "Nejlepší řešitelé",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k50",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k51",
+									"text": "1. Kristian Nechvíle — 76 bodů",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k52",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k53",
+									"text": "2. Tomáš Kachlík — 73 bodů",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k54",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k55",
+									"text": "3. Matěj Novák — 62 bodů",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"souteze"
+					]
+				}
+			},
+			{
+				"id": "post-10",
+				"slug": "vybojovali-jsme-6-misto-v-republikovem-finale-stredoskolskeho-atletickeho-poharu-v-atletice",
+				"status": "published",
+				"data": {
+					"title": "Vybojovali jsme 6. místo v republikovém finále Středoškolského atletického poháru v atletice",
+					"excerpt": "I letos si naši chlapci vybojovali vítězstvím v kraji postup do atletického finále, které se uskutečnilo 8. 10. 2026 tradičně v Břeclavi. Dvanáctičlenný tým si před závodem nedělal žádné velké ambice, neb závodů se účastnilo sedmnáct…",
+					"author": "Mgr. Radana Návratová",
+					"published_on": "2026-10-13T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/sport/vybojovali-jsme-6-misto-v-republikovem-finale-stredoskolskeho-atletickeho-poharu-v-atletice/vybojovali-jsme-6-misto-v-republikovem-finale-stredoskolskeho-atletickeho-poharu-v-atletice-3_3_20261013_1109876470.jpg",
+							"alt": "Vybojovali jsme 6. místo v republikovém finále Středoškolského atletického poháru v atletice",
+							"filename": "vybojovali-jsme-6-misto-v-republikovem-finale-stredoskolskeh.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k56",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k57",
+									"text": "I letos si naši chlapci vybojovali vítězstvím v kraji postup do atletického finále, které se uskutečnilo 8. 10. 2026 tradičně v Břeclavi. Dvanáctičlenný tým si před závodem nedělal žádné velké ambice, neb závodů se účastnilo sedmnáct nejlepších týmů republiky a konkurence byla veliká. A možná právě díky pokoře a zdravému sebevědomí kluků se podařil výsledek, který málo kdo čekal.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k58",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k59",
+									"text": "Od první disciplíny kluci makali na hranici svých osobních rekordů či nejlepších sezónních výkonů a drželi spolu jako tým za jeden provaz. Konečné šesté místo na závěr bylo už jen dovršením povedeného závodu a super party atletů, kteří se v nabité konkurenci neztratili. Pro úplnost doplňuji maxima kluků ze závodu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5b",
+									"text": "Lukáš Bednařík",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5d",
+									"text": "běh na 100 m: 11,12 s (osobní rekord)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5f",
+									"text": "běh na 400 m: 47,52 s (1. místo)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5h",
+									"text": "Tomáš Havelka",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5j",
+									"text": "běh na 100 m: 11,89 s",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5l",
+									"text": "běh na 400 m: 51,43 s",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5n",
+									"text": "Štěpán Kubza",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5p",
+									"text": "běh na 100 m: 11,56 s (osobní rekord)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5r",
+									"text": "Adam Svatoš",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5t",
+									"text": "běh na 1 500 m: 4:21,68 min.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5v",
+									"text": "Oldřich Hornych",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5x",
+									"text": "běh 1 500 m: 4:23,84 min.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5z",
+									"text": "Miroslav Greguš",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k60",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k61",
+									"text": "skok do dálky: 5,75 m (osobní rekord)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k62",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k63",
+									"text": "Jan Prikner",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k64",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k65",
+									"text": "skok do dálky: 5,60 m",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k66",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k67",
+									"text": "skok do výšky: 170 cm",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k68",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k69",
+									"text": "David Kolbe",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6b",
+									"text": "skok do výšky: 158 cm",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6d",
+									"text": "Antonín Bárta",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6f",
+									"text": "vrh koulí 5 kg: 10,73 m",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6h",
+									"text": "Jakub Kopecký",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6j",
+									"text": "vrh koulí 5 kg: 10,28 m (osobní rekord)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k6k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6l",
+									"text": "Na závěr bych chtěla Všem atletům moc poděkovat za skvělou reprezentaci školy a rozloučit se s Honzou, Davidem a Tondou, pro které byl letošní ročník poslední 👍🏃💪. Věřím, že na skvělé výkony a partu navážeme i příští rok! Díky kluci 😘🙏💪🍀.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6n",
+									"text": "Poděkování patří i panu učiteli Luboši Serbouskovi za pomoc při okresním a krajském kole🙏💪.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"sport"
+					],
+					"tag": [
+						"atletika"
+					]
+				}
+			},
+			{
+				"id": "post-11",
+				"slug": "zhledli-jsme-budoucnost-prumyslu-i-humanoidni-roboty-v-akci-na-msv-v-brne",
+				"status": "published",
+				"data": {
+					"title": "Zhlédli jsme budoucnost průmyslu i humanoidní roboty v akci na MSV v Brně",
+					"excerpt": "Za nejnovějšími trendy ze světa technologií se v úterý 6. října 2026 vydali žáci a učitelé trutnovské průmyslovky. Cílem jejich tradiční exkurze se stalo brněnské výstaviště, které hostilo prestižní Mezinárodní strojírenský veletrh.",
+					"author": "Ing. Horst Anders",
+					"published_on": "2026-10-13T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/exkurze-a-vylety/zhledli-jsme-budoucnost-prumyslu-i-humanoidni-roboty-v-akci-na-msv-v-brne/zhledli-jsme-budoucnost-prumyslu-i-humanoidni-roboty-v-akci-na-msv-v-brne-1_1_20261013_2090582363.jpg",
+							"alt": "Zhlédli jsme budoucnost průmyslu i humanoidní roboty v akci na MSV v Brně",
+							"filename": "zhledli-jsme-budoucnost-prumyslu-i-humanoidni-roboty-v-akci-.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k6o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6p",
+									"text": "Za nejnovějšími trendy ze světa technologií se v úterý 6. října 2026 vydali žáci a učitelé trutnovské průmyslovky. Cílem jejich tradiční exkurze se stalo brněnské výstaviště, které hostilo prestižní Mezinárodní strojírenský veletrh.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6r",
+									"text": "Do Brna vyrazili konkrétně studenti 3. a 4. ročníku oboru Strojírenství - počítačová grafika společně se 3. ročníkem učebního oboru Nástrojař. Na výstavišti je čekala přehlídka moderních průmyslových odvětví, od klasického obrábění, svařování a tváření až po nejnovější povrchové úpravy materiálu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6t",
+									"text": "Největší zážitek si však naši strojaři odnesli z expozic věnovaných pokročilé robotice, umělé inteligenci a aditivním technologiím. Doslova magnetem pro oči byli humanoidní roboti a autonomní systémy, které se pohybovaly přímo mezi návštěvníky a ukazovaly, jak bude vypadat automatizace v praxi.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6v",
+									"text": "Živou diskuzi a velký zájem o možnosti budoucího studia vzbudily u studentů také stánky technických univerzit ČVUT Praha a VUT Brno, kde načerpali inspiraci pro své další kroky po maturitě.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"exkurze-a-vylety"
+					],
+					"tag": [
+						"robotika",
+						"strojirenstvi"
+					]
+				}
+			},
+			{
+				"id": "post-12",
+				"slug": "jsme-mistry-kraje-v-atletice-a-jdeme-do-republiky",
+				"status": "published",
+				"data": {
+					"title": "Jsme mistry kraje v atletice a jdeme do republiky!",
+					"excerpt": "Týden po vítězství v okresním kole Středoškolského poháru v atletice v Trutnově, nastoupili naši borci utkat se s vítězi okresních kol o vládce kraje a postoupit na republikové finále do Břeclavi. A to se nám povedlo!",
+					"author": "Mgr. Radana Návratová",
+					"published_on": "2026-09-30T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/novinky/2026-atletika-kraj.jpg",
+							"alt": "Jsme mistry kraje v atletice a jdeme do republiky!",
+							"filename": "jsme-mistry-kraje-v-atletice-a-jdeme-do-republiky.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k6w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6x",
+									"text": "Týden po vítězství v okresním kole Středoškolského poháru v atletice v Trutnově, nastoupili naši borci utkat se s vítězi okresních kol o vládce kraje a postoupit na republikové finále do Břeclavi. A to se nám povedlo!",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k6y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6z",
+									"text": "Počasí však atletice v ten den vůbec nepřálo a výrazně ovlivnilo dosažené výkony všech sportovců včetně našich chlapců. Body i výsledky zejména v technických disciplínách nebyly dle našeho očekávání, ale vše bylo zapomenuto po představení našich atletů Lukáše Bednaříka a Tomáše Havelky na 400 m, kteří suverénně doběhli na prvním a druhém místě a přispěli k bodovému náskoku. Štafeta na 4 × 200 m pak už jen byla třešinkou na dortu a potvrdila naše vítězství v Královéhradeckém kraji.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k70",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k71",
+									"text": "A tak si zase po roce kluci vybojovali finále, které se uskuteční 8. 10. 2026 opět v Břeclavi. Držíme celému týmu palce a přejeme hodně štěstí 🍀💪👍🙏 🏃.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k72",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k73",
+									"text": "Náš tým:",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k74",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k75",
+									"text": "Bárta A., Bednařík L., Greguš M., Havelka T., Hornych O., Kolbe D., Kostovský K., Kubza Š., Prikner J., Svatoš A., Rydval M.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"sport"
+					],
+					"tag": [
+						"atletika"
+					]
+				}
+			},
+			{
+				"id": "post-13",
+				"slug": "kyberbezpecnostni-soutez-cybertron-5-dni-plnych-it-kryptografie-a-novych-zkusenosti",
+				"status": "published",
+				"data": {
+					"title": "Kyberbezpečnostní soutěž Cybertron: 5 dní plných IT, kryptografie a nových zkušeností",
+					"excerpt": "Naši studenti 4. ročníku oboru Elektronické počítačové systémy se vydali do polské Vratislavi, aby změřili síly v mezinárodní soutěži Cybertron. Náročný pětidenní program prověřil jejich znalosti v kyberbezpečnosti, přinesl pohled do…",
+					"author": "Luděk Dušek",
+					"published_on": "2026-09-25T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/souteze/kyberbezpecnostni-soutez-cybertron-5-dni-plnych-it-kryptografie-a-novych-zkusenosti/kyberbezpecnostni-soutez-cybertron-5-dni-plnych-it-kryptografie-a-novych-zkusenosti-15_15_20260925_1959617323.jpg",
+							"alt": "Kyberbezpečnostní soutěž Cybertron: 5 dní plných IT, kryptografie a nových zkušeností",
+							"filename": "kyberbezpecnostni-soutez-cybertron-5-dni-plnych-it-kryptogra.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k76",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k77",
+									"text": "Naši studenti 4. ročníku oboru Elektronické počítačové systémy se vydali do polské Vratislavi, aby změřili síly v mezinárodní soutěži Cybertron. Náročný pětidenní program prověřil jejich znalosti v kyberbezpečnosti, přinesl pohled do budoucnosti IT i neopakovatelné zážitky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k78",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k79",
+									"text": "1. den: Cestování, přivítání a klasická kryptografie",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7b",
+									"text": "První den byl ve znamení cestování a seznámení se s prostředím. Většina činností se odehrávala v zázemí studentského centra Strefa Kultury Studenckiej. Po příjezdu a registraci následovalo oficiální uvítání od organizátorů a zástupců z Polska, Česka, Slovenska a Německa, kteří nad touto soutěží převzali záštitu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7d",
+									"text": "Před obědem si studenti losovali mezinárodní týmy a přihlašovali se do počítačových systémů. Odpoledne proběhla série přednášek o klasické kryptografii a různých metodách zabezpečení. Náročný pondělní program jsme zakončili společnou prohlídkou města z paluby historického vyhlídkového autobusu tzv. „erťáku“.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7e",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7f",
+									"text": "2. den: Kvantový počítač a večerní plavba po Odře",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7h",
+									"text": "Druhý den jsme po snídani vyrazili do budovy Technické univerzity (Politechnika Wrocławska), kde proběhly přednášky o kvantové kryptografii a inteligentních bezpečnostních systémech pro kontejnerizaci. Po obědě nás čekal jeden z vrcholů programu ‑ navštívili jsme místní serverovnu se superpočítači a unikátním kvantovým počítačem. Takové prohlídky vždy osloví zapálené nadšence a utvrdí je v tom, že IT obor je úžasný svět a má smysl se mu věnovat.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7j",
+									"text": "Večer se upevňoval kolektiv na projížďce lodí po řece Odře. Průjezd zdymadlem a večerním městem člověku doslova bere dech ‑ Vratislav je krásně nasvětlená, čistá a plná historické i moderní architektury.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7k",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7l",
+									"text": "3. a 4. den: Hlavní soutěžní klání v duchu CTF",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7n",
+									"text": "Třetí a čtvrtý den už se od rána naplno soutěžilo. Soutěž probíhala metodou CTF (Capture The Flag), při níž mají účastníci za úkol analyzovat vzdálené zařízení, odhalit zranitelnost a využít ji k proniknutí do systému za účelem získání „tajemství“ (tzv. flagu).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7p",
+									"text": "Nové úkoly přibývaly ve dvouhodinových intervalech. Použití umělé inteligence nebylo bohužel nijak limitováno, což změnilo dynamiku hry. Během pauz jsme si vyměňovali dojmy o tom, co se dařilo a co už bylo nad naše silné stránky. Doprovázející učitelé měli během studentského soutěžení možnost prohlédnout si další odborná pracoviště a serverovny.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7q",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7r",
+									"text": "5. den: Finále, vyhlášení a celkové zhodnocení",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7t",
+									"text": "Poslední den dopoledne ještě probíhaly finálové boje o poslední body. Během obědové pauzy pořadatelé soutěž vyhodnotili a všichni napjatě čekali na výsledky. Bodování nebylo veřejné, tudíž přesně nevíme, kde vznikly drobné chyby.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7v",
+									"text": "Naše výkony tentokrát nestačily na pověstnou „bednu“, ale i tak můžeme účast hodnotit slovy: „Zúčastnili jsme se, dali jsme do toho všechno (jen ne dostatečně rychle) a odvážíme si spoustu nových zkušeností.“",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7x",
+									"text": "Závěrečnou tečkou byla výměna Instagramů, Facebooků a dalších kontaktů mezi nově vzniklými přáteli z různých zemí. Moje celkové zhodnocení akce je jasných 9/10 – kromě samotného umístění totiž soutěž přinesla přesně to, čím by měl studentský i učitelský život být.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k7z",
+									"text": "Školu reprezentovali studenti 4. ročníku oboru Elektronické počítačové systémy Vojtěch Jiruš a David Souček.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"souteze"
+					],
+					"tag": [
+						"informacni-technologie"
+					]
+				}
+			},
+			{
+				"id": "post-14",
+				"slug": "seznamka-elektrikaru-na-sportovnim-hristi",
+				"status": "published",
+				"data": {
+					"title": "Seznamka elektrikářů na sportovním hřišti",
+					"excerpt": "Dne 18. 9. 2026 proběhl na ZŠ Mládežnické adaptačního programu žáků 1. ročníku oboru Elektrikář zaměřeného na sport a týmovou spolupráci.",
+					"author": "Bc. Luboš Serbousek",
+					"published_on": "2026-09-25T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/ruzne/seznamka-elektrikaru-na-sportovnim-hristi/seznamka-elektrikaru-na-sportovnim-hristi-5_5_20260925_1079948874.jpg",
+							"alt": "Seznamka elektrikářů na sportovním hřišti",
+							"filename": "seznamka-elektrikaru-na-sportovnim-hristi.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k80",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k81",
+									"text": "Dne 18. 9. 2026 proběhl na ZŠ Mládežnické adaptačního programu žáků 1. ročníku oboru Elektrikář zaměřeného na sport a týmovou spolupráci.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k82",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k83",
+									"text": "Účastníci byli rozděleni do čtyř družstev a soutěžili v pěti sportovních a jedné vědomostní soutěži. Závodilo se v netradičních disciplínách, které prověřily nejen jejich sportovní schopnosti, ale také spolupráci a týmového ducha.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k84",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k85",
+									"text": "Na závěr si všichni zahráli fotbal. Akce se vydařila a přálo nám také počasí.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"ruzne"
+					],
+					"tag": [
+						"elektrikar"
+					]
+				}
+			},
+			{
+				"id": "post-15",
+				"slug": "jak-jsme-se-zabydleli-aneb-adaptacni-program-strojaru",
+				"status": "published",
+				"data": {
+					"title": "Jak jsme se zabydleli aneb adaptační program strojařů",
+					"excerpt": "23. září proběhl pro žáky 1. ročníku oboru Strojírenství - počítačová grafika adaptační program plný seznamování, spolupráce, zábavy a poznávání nových spolužáků. Cílem bylo prolomit počáteční ostych, dozvědět se o sobě něco nového a…",
+					"author": "Mgr. Šárka Fibikarová",
+					"published_on": "2026-09-25T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/joomgallery/details/ruzne/jak-jsme-se-zabydleli-aneb-adaptacni-program-strojaru/jak-jsme-se-zabydleli-aneb-adaptacni-program-strojaru-10_10_20260925_1993702962.jpg",
+							"alt": "Jak jsme se zabydleli aneb adaptační program strojařů",
+							"filename": "jak-jsme-se-zabydleli-aneb-adaptacni-program-strojaru.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k86",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k87",
+									"text": "23. září proběhl pro žáky 1. ročníku oboru Strojírenství - počítačová grafika adaptační program plný seznamování, spolupráce, zábavy a poznávání nových spolužáků. Cílem bylo prolomit počáteční ostych, dozvědět se o sobě něco nového a začít společně budovat třídní tým.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k88",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k89",
+									"text": "Zahájili jsme seznamovacími aktivitami Poskládej si jméno, Čtyři rohy, Najdi někoho, kdo… a Tichá řada. Nechyběla ani hra Místa si vymění ti, kteří…, při které jsme rychle zjistili, že společných zájmů máme víc, než se na první pohled zdá.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8b",
+									"text": "Potom přišly na řadu obrázkové karty Dixit ‑ každý hledal tu, která nejlépe vystihuje jeho představu o cestě prvním rokem společného studia. V týmové výzvě Architekt a stavitelé jsme prověřili spolupráci a komunikaci, a nakonec jsme vytvořili Reklamu na naši třídu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8d",
+									"text": "Adaptační program přinesl příležitost poznat nové spolužáky zase z trochu jiné stránky. Právě takové chvíle mohou být dobrým základem pro pohodovou atmosféru ve třídě.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"ruzne"
+					],
+					"tag": [
+						"strojirenstvi"
+					]
+				}
+			},
+			{
+				"id": "post-16",
+				"slug": "jsme-opet-mistry-okresu-v-atletice",
+				"status": "published",
+				"data": {
+					"title": "Jsme opět mistry okresu v atletice!",
+					"excerpt": "Ve středu 16. 9. 2026 jsme se již tradičně zúčastnili středoškolského atletického klání družstev v Trutnově a potvrdili jsme loňské vítězství.",
+					"author": "Mgr. Radana Návratová",
+					"published_on": "2026-09-25T08:00:00.000Z",
+					"featured": false,
+					"featured_image": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/novinky/2026-atletika-okres.jpg",
+							"alt": "Jsme opět mistry okresu v atletice!",
+							"filename": "jsme-opet-mistry-okresu-v-atletice.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k8e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8f",
+									"text": "Ve středu 16. 9. 2026 jsme se již tradičně zúčastnili středoškolského atletického klání družstev v Trutnově a potvrdili jsme loňské vítězství.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8h",
+									"text": "Tým nedoznal od minulého roku žádných větších změn a to znamenalo, že i letos kluci nenechali nikoho na pochybách, kdo je nejlepší v okrese Trutnov. Svými výkony zaslouženě vyhráli a postupují do krajského kola, které se uskuteční taktéž v Trutnově.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8j",
+									"text": "Držíme palce, ať udělají co nejlepší výsledek💪👍🙏🏃.",
+									"marks": []
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"sport"
+					],
+					"tag": [
+						"atletika"
+					]
+				}
+			}
+		],
+		"pages": [
+			{
+				"id": "page-o-skole-charakteristika-a-historie",
+				"slug": "charakteristika-a-historie",
+				"status": "published",
+				"data": {
+					"title": "Charakteristika a historie",
+					"section": "o-skole",
+					"lead": "Moderní prestižní odborná škola Královéhradeckého kraje s vysokou úrovní technického vybavení — a s historií sahající do roku 1952.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k9s",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9t",
+									"text": "Naše vize",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9v",
+									"text": "Střední průmyslová škola je moderní prestižní odborná škola Královéhradeckého kraje s vysokou úrovní technického vybavení a s vysoce odborně kvalifikovanými učiteli.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9x",
+									"text": "Škola průběžně inovuje vzdělávací programy v návaznosti na vývoj moderních technologií ve strojírenství, elektrotechnice, automatizaci a informatice a v souladu s požadavky zaměstnavatelů.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9y",
+							"style": "blockquote",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9z",
+									"text": "Žáci školy jsou zdravě hrdí na svoji školu a svoje dosažené úspěchy.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ka0",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka1",
+									"text": "Rozvíjíme hodnoty",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ka2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka3",
+									"text": "Klima a prostředí — přátelská atmosféra mezi žáky, učiteli a vedením školy.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ka4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka5",
+									"text": "Důvěra — poctivost, vzájemná důvěra a respekt mezi studenty, rodiči a učiteli.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ka6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka7",
+									"text": "Hrdost — žáci jsou hrdí na svoji školu a své úspěchy.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ka8",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka9",
+									"text": "Historie školy",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kaa",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kab",
+									"text": "1952 — založena Průmyslová škola pro pracující.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kac",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kad",
+									"text": "1958 — vznik státní Učňovské školy při Průmyslové škole pro pracující.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kae",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kaf",
+									"text": "1978 — vznik Středního odborného učiliště, zřizovatelem n. p. ZPA Trutnov.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kag",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kah",
+									"text": "1991 — zavedení denního studia strojírenství a slaboproudé elektrotechniky.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kai",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kaj",
+									"text": "1999 — sloučením COP a SPŠ vzniká největší odborná škola na Trutnovsku.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kak",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kal",
+									"text": "2006 — škola nese název Střední průmyslová škola, Trutnov, Školní 101.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 1
+				}
+			},
+			{
+				"id": "page-o-skole-skolska-rada",
+				"slug": "skolska-rada",
+				"status": "published",
+				"data": {
+					"title": "Školská rada",
+					"section": "o-skole",
+					"lead": "Orgán školy, který umožňuje zákonným zástupcům, žákům, pedagogům a zřizovateli podílet se na správě školy.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kam",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kan",
+									"text": "Kdo zřizuje radu?",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kao",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kap",
+									"text": "Zřizovatel školy, Královéhradecký kraj, stanovil pro naši školu šestičlennou školskou radu. Třetinu členů jmenuje zřizovatel, třetinu volí zákonní zástupci a zletilí žáci, třetinu pedagogičtí pracovníci. Funkční období je tři roky.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kaq",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kar",
+									"text": "Činnost rady",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kas",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kat",
+									"text": "vyjadřuje se k návrhům školních vzdělávacích programů,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kau",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kav",
+									"text": "schvaluje výroční zprávu, školní řád a stipendijní řád,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kaw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kax",
+									"text": "schvaluje pravidla pro hodnocení výsledků vzdělávání,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kay",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kaz",
+									"text": "projednává návrh rozpočtu a inspekční zprávy ČŠI.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kb0",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb1",
+									"text": "Členové rady",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kb2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb3",
+									"text": "RNDr. Ing. Oldřich Horák, Ph.D. — jmenován zřizovatelem",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kb4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb5",
+									"text": "Radek Mráz — jmenován zřizovatelem",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kb6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb7",
+									"text": "Ing. Miloš Zemek — předseda, za pedagogy",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kb8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kb9",
+									"text": "Mgr. Šárka Fibikarová — tajemník, za pedagogy",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kba",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbb",
+									"text": "Vlastimil Vykus — za žáky a zákonné zástupce",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbd",
+									"text": "Marek Zámiš — za žáky a zákonné zástupce",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 2
+				}
+			},
+			{
+				"id": "page-o-skole-volnocasove-aktivity",
+				"slug": "volnocasove-aktivity",
+				"status": "published",
+				"data": {
+					"title": "Volnočasové aktivity",
+					"section": "o-skole",
+					"lead": "Kroužky, soutěže a kluby, kde žáci rozvíjí talent i mimo vyučování.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kbe",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbf",
+									"text": "Kroužky",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kbg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbh",
+									"text": "Kroužek počítačových sítí (Cisco)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbi",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbj",
+									"text": "Kroužek elektroniky a mikroprocesorové techniky",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbk",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbl",
+									"text": "Kroužek programování",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbm",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbn",
+									"text": "Kroužek mechatroniky",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbo",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbp",
+									"text": "Kroužek robotiky — platformy Mindstorms a Dynamixel",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbr",
+									"text": "Kroužek skriptování v PowerShellu",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbs",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbt",
+									"text": "Kroužek strojírenství",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbu",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbv",
+									"text": "Kroužek elektro",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kbw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbx",
+									"text": "Klub zábavné logiky a deskových her",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kby",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kbz",
+									"text": "Účastníme se celé řady národních i mezinárodních odborných soutěží v oblasti ICT, všeobecně vzdělávacích předmětů a sportu.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 3
+				}
+			},
+			{
+				"id": "page-o-skole-partnerstvi-a-spoluprace",
+				"slug": "partnerstvi-a-spoluprace",
+				"status": "published",
+				"data": {
+					"title": "Partnerství a spolupráce",
+					"section": "o-skole",
+					"lead": "Spolupracujeme s rozhodujícími zaměstnavateli regionu — při praxích, tvorbě učebních plánů i propagaci technického vzdělávání.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kc0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc1",
+									"text": "K charakteristickým rysům školy patří dlouhodobá spolupráce s firmami Hitachi, Kasper Kovo, Pepperl+Fuchs, Schaeffler, Siemens, Škoda, TE Connectivity, ZPA Smart Energy a dalšími.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kc2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc3",
+									"text": "Firmy se podílejí na odborných praxích, exkurzích, stážích, soutěžích i na vybavení dílen a laboratoří.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kc4",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc5",
+									"text": "Centrum odborného vzdělávání",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kc6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc7",
+									"text": "Jsme Centrem odborného vzdělávání v elektrotechnice a ICT pro celý Královéhradecký kraj.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 4
+				}
+			},
+			{
+				"id": "page-o-skole-skolni-poradenske-pracoviste",
+				"slug": "skolni-poradenske-pracoviste",
+				"status": "published",
+				"data": {
+					"title": "Školní poradenské pracoviště",
+					"section": "o-skole",
+					"lead": "Výchovné poradenství, prevence a podpora žáků se speciálními vzdělávacími potřebami.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kc8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc9",
+									"text": "Školní poradenské pracoviště tvoří výchovný poradce, školní metodik prevence a kariérový poradce. Pomáhá žákům i rodičům při řešení studijních, osobních a kariérních otázek.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kca",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcb",
+									"text": "S čím pomáháme",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kcc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcd",
+									"text": "studijní obtíže a individuální vzdělávací plány,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kce",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcf",
+									"text": "podpora žáků se speciálními vzdělávacími potřebami,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kcg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kch",
+									"text": "prevence rizikového chování,",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kci",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcj",
+									"text": "volba dalšího studia a kariérní poradenství.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 5
+				}
+			},
+			{
+				"id": "page-studium-stipendium",
+				"slug": "stipendium",
+				"status": "published",
+				"data": {
+					"title": "Stipendium",
+					"section": "studium",
+					"lead": "Ve vybraných oborech můžeš získat až 28 000 Kč ročně (učební obory) a až 30 000 Kč ročně (studijní obory).",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kck",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcl",
+									"text": "Stipendium Královéhradeckého kraje",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kcm",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcn",
+									"text": "Kraj podporuje vyplácením stipendií žáky všech námi nabízených oborů s výučním listem.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kco",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcp",
+									"text": "1. ročník — měsíčně 300 Kč, odměna za odborný výcvik 1 000 / 500 Kč",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kcq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcr",
+									"text": "2. ročník — měsíčně 400 Kč, odměna za odborný výcvik 2 000 / 1 000 Kč",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kcs",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kct",
+									"text": "3. ročník — měsíčně 500 Kč, odměna za odborný výcvik 3 000 / 2 000 Kč",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kcu",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcv",
+									"text": "Podmínky",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kcw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcx",
+									"text": "Motivační stipendium se vyplácí každý měsíc, pokud žák neopakuje ročník z prospěchových důvodů, nemá neomluvenou absenci, nebylo mu uloženo kázeňské opatření a nemá sníženou známku z chování.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kcy",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kcz",
+									"text": "Stipendium KASPER KOVO s.r.o.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kd0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd1",
+									"text": "Stipendijní program společnosti umožňuje u vybraných oborů poskytnout žákovi až 3 000 Kč měsíčně v nejvyšším ročníku. Podmínkou je nástup do pracovního poměru u společnosti po ukončení studia.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 3
+				}
+			},
+			{
+				"id": "page-studium-proc-studovat-u-nas",
+				"slug": "proc-studovat-u-nas",
+				"status": "published",
+				"data": {
+					"title": "Proč studovat u nás",
+					"section": "studium",
+					"lead": "Špičkové vybavení, profesionální software, mezinárodní certifikáty, stipendia a nadprůměrné výsledky maturit.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kd2",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd3",
+									"text": "Moderní a špičkové vybavení",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kd4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd5",
+									"text": "robotická pracoviště a automatizace",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kd6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd7",
+									"text": "CNC obráběcí stroje a jejich programování",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kd8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kd9",
+									"text": "programovatelné logické automaty (PLC)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kda",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdb",
+									"text": "technologie povrchové montáže (SMT)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kdc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdd",
+									"text": "zabezpečovací systémy a domovní elektroinstalace ABB-free@home",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kde",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdf",
+									"text": "Profesionální programy",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdh",
+									"text": "AutoCAD, Inventor, 3ds Max, Adobe Creative Cloud, LabVIEW, EdgeCAM, FluidSIM a další. Žáci získají řadu licencí zdarma po celou dobu studia.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdi",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdj",
+									"text": "Výsledky maturit nad průměrem",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdk",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdl",
+									"text": "Podíl úspěšných z počtu přihlášek: 92,9 % SPŠ Trutnov, 89 % technické SOŠ, 87,5 % ČR (zdroj: Cermat).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdm",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdn",
+									"text": "Prostupnost mezi obory",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdo",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdp",
+									"text": "Žáci mohou přestoupit mezi obory s výučním listem a maturitními obory v závislosti na studijní úspěšnosti.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 1
+				}
+			},
+			{
+				"id": "page-studium-maturitni-zkousky",
+				"slug": "maturitni-zkousky",
+				"status": "published",
+				"data": {
+					"title": "Maturitní a závěrečné zkoušky",
+					"section": "studium",
+					"lead": "Informace o společné a profilové části maturitní zkoušky a o závěrečných zkouškách učebních oborů.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kdq",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdr",
+									"text": "Maturitní zkouška",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kds",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdt",
+									"text": "Maturitní zkouška se skládá ze společné části (český jazyk a literatura, cizí jazyk nebo matematika) a profilové části stanovené ředitelem školy podle oboru.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdu",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdv",
+									"text": "Závěrečná zkouška",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kdw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdx",
+									"text": "Žáci učebních oborů skládají jednotnou závěrečnou zkoušku — písemnou, praktickou a ústní — a získávají výuční list.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 4
+				}
+			},
+			{
+				"id": "page-studium-zabezpeceni-vyuky",
+				"slug": "zabezpeceni-vyuky",
+				"status": "published",
+				"data": {
+					"title": "Zabezpečení výuky",
+					"section": "studium",
+					"lead": "Rozvrhy, suplování, studijní průkaz a další praktické informace pro žáky a rodiče.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kdy",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kdz",
+									"text": "Klasifikace, rozvrh a omluvenky jsou dostupné ve Studijním průkazu (Bakaláři).",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ke0",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke1",
+									"text": "Pro žáky",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ke2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke3",
+									"text": "Studijní průkaz — bakalari.spstrutnov.cz",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ke4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke5",
+									"text": "Školní e-mail (Microsoft 365)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ke6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke7",
+									"text": "Školní data a intranet",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 5
+				}
+			},
+			{
+				"id": "page-vice-zakazky-vyroba-opravy-a-montaze",
+				"slug": "zakazky-vyroba-opravy-a-montaze",
+				"status": "published",
+				"data": {
+					"title": "Zakázky, výroba, opravy a montáže",
+					"section": "vice",
+					"lead": "Pracoviště praktického vyučování nabízí výrobu, opravy a montáže pro firmy i veřejnost.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "ke8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke9",
+									"text": "V rámci produktivní činnosti žáků realizujeme kovovýrobu, obrábění na CNC strojích, elektroinstalace a opravy elektrických zařízení. Poptávky vyřizuje pracoviště Mladé Buky 374.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 1
+				}
+			},
+			{
+				"id": "page-vice-volna-mista",
+				"slug": "volna-mista",
+				"status": "published",
+				"data": {
+					"title": "Volná místa",
+					"section": "vice",
+					"lead": "Hledáme kolegy do pedagogického sboru i provozu školy.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kea",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "keb",
+									"text": "Aktuálně nabízená pracovní místa zveřejňujeme zde. Zájemci mohou zaslat životopis na skola@spstrutnov.cz.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 2
+				}
+			},
+			{
+				"id": "page-kontakty-podatelna",
+				"slug": "podatelna",
+				"status": "published",
+				"data": {
+					"title": "Podatelna",
+					"section": "kontakty",
+					"lead": "Elektronická podatelna, datová schránka a úřední hodiny.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kec",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ked",
+									"text": "Elektronická podatelna",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kee",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kef",
+									"text": "E-mail: podatelna@spstrutnov.cz",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "keg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "keh",
+									"text": "Datová schránka: j4px8nw",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kei",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kej",
+									"text": "Úřední hodiny",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kek",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kel",
+									"text": "Pracovní dny 7:00–14:00 (přestávka 11:00–12:00).",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 1
+				}
+			},
+			{
+				"id": "page-o-skole-povinne-zverejnovane-informace",
+				"slug": "povinne-zverejnovane-informace",
+				"status": "published",
+				"data": {
+					"title": "Povinně zveřejňované informace",
+					"section": "o-skole",
+					"lead": "Informace zveřejňované dle zákona č. 106/1999 Sb., o svobodném přístupu k informacím.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kem",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ken",
+									"text": "Název a sídlo",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "keo",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kep",
+									"text": "Střední průmyslová škola, Trutnov, Školní 101, 541 01 Trutnov. Zřizovatel: Královéhradecký kraj.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "keq",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ker",
+									"text": "Identifikace",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kes",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ket",
+									"text": "IČ: 69174415 · IZO: 110200403 · RED_IZO: 610200381",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "keu",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kev",
+									"text": "Bankovní spojení",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kew",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kex",
+									"text": "23537601/0100, Komerční banka, a.s.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 6
+				}
+			}
+		],
+		"programs": [
+			{
+				"id": "program-elektronicke-pocitacove-systemy",
+				"slug": "elektronicke-pocitacove-systemy",
+				"status": "published",
+				"data": {
+					"title": "Elektronické počítačové systémy",
+					"short_title": "EPS",
+					"type": "maturita",
+					"code": "18-20-M/01 Informační technologie",
+					"svp": "Informační technologie – Elektronické počítačové systémy",
+					"duration": "4 roky, denní",
+					"capacity": 30,
+					"entrance_exam": true,
+					"health_required": false,
+					"color": "eps",
+					"workplace": "Školní 101, Trutnov",
+					"summary": "Správa firemní IT infrastruktury, počítačové sítě, kybernetická bezpečnost a vývoj aplikací — včetně programovatelné elektroniky a internetu věcí.",
+					"highlights": "Návrh a správa počítačových a Wi-Fi sítí\nSpráva síťových prvků, přepínačů a směrovačů\nInstalace a správa operačních systémů\nVývoj desktopových, databázových a webových aplikací",
+					"careers": "Správce operačních systémů\nSprávce počítačových sítí\nVývojář aplikací\nProgramátor vestavěných systémů\nTechnik montáže a diagnostiky počítačů\nPracovník uživatelské podpory",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k8k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8l",
+									"text": "Studijní obor nabízí střední vzdělání technického charakteru zakončené maturitní zkouškou.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8n",
+									"text": "Poskytuje orientaci v informačních technologiích, seznamuje se softwarem a hardwarem počítačů, zaměřuje se zejména na správu firemní infrastruktury a na týmový návrh a vývoj aplikací. Rozšiřující specializací oboru jsou znalosti a práce s programovatelnou elektronikou a s vestavěnými systémy v rámci internetu věcí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8p",
+									"text": "Odborné předměty pokrývají instalaci a správu operačních systémů, návrh a realizaci počítačových sítí, kybernetickou bezpečnost, montáž a diagnostiku počítačových sestav, vývoj desktopových a online aplikací, práci s databázemi a programování jednodeskových a jednočipových počítačů pro internet věcí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8q",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8r",
+									"text": "Nadstandardní programy",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8s",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8t",
+									"text": "V průběhu studia lze získat celosvětově uznávané certifikáty Cisco Networking Academy, Mikrotik Academy a ECDL.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 1
+				}
+			},
+			{
+				"id": "program-informatika-a-management",
+				"slug": "informatika-a-management",
+				"status": "published",
+				"data": {
+					"title": "Informatika a management",
+					"short_title": "IM",
+					"type": "maturita",
+					"code": "18-20-M/01 Informační technologie",
+					"svp": "Informační technologie – Informatika a management",
+					"duration": "4 roky, denní",
+					"capacity": 30,
+					"entrance_exam": true,
+					"health_required": false,
+					"color": "it",
+					"workplace": "Školní 101, Trutnov",
+					"summary": "Spojení IT, grafiky a multimédií s ekonomikou, marketingem a managementem. Weby, video, 2D/3D grafika a profesionální nástroje Adobe.",
+					"highlights": "Podniková ekonomika, marketing a management\nTvorba a správa webů\nVideo, fotografie, 2D a 3D grafika\nPočítačové a Wi-Fi sítě\nAnglický a německý jazyk",
+					"careers": "Webdesigner, správce webu\nGrafik a designér\nSprávce počítačových sítí\nPracovník uživatelské podpory\nManažer IT",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k8u",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8v",
+									"text": "Studijní obor poskytuje střední vzdělání technického zaměření s maturitní zkouškou.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8w",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8x",
+									"text": "Propojuje znalosti z ekonomiky, práva, managementu a marketingu se schopnostmi v oblasti designu a multimédií, kancelářského software, webdesignu a tvorby webových stránek. Dovednosti jsou postavené na znalostech hardware, operačních systémů a počítačových sítí.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k8y",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8z",
+									"text": "Absolvent se orientuje v tržní ekonomice, ovládá anglický a německý jazyk v tématech denního života i v oblasti průmyslu a obchodu a zná základní právní normy související s činností firmy.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k90",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k91",
+									"text": "Profesionálové v grafice a multimédiích",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k92",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k93",
+									"text": "Ve výuce používáme Adobe Photoshop, Illustrator, InDesign, Premiere Pro, Acrobat a Bridge.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 2
+				}
+			},
+			{
+				"id": "program-slaboprouda-elektrotechnika",
+				"slug": "slaboprouda-elektrotechnika",
+				"status": "published",
+				"data": {
+					"title": "Slaboproudá elektrotechnika",
+					"short_title": "SLE",
+					"type": "maturita",
+					"code": "26-41-M/01 Elektrotechnika",
+					"svp": "Elektrotechnika – Slaboproudá elektrotechnika",
+					"duration": "4 roky, denní",
+					"capacity": 30,
+					"entrance_exam": true,
+					"health_required": true,
+					"color": "sle",
+					"workplace": "Horská 59, Trutnov",
+					"summary": "Elektronické obvody, mikropočítače, PLC automaty a průmyslové roboty. Automatizace, IoT a moderní spotřební elektronika.",
+					"highlights": "Analýza a návrh analogových i digitálních obvodů\nProgramování mikropočítačů a PLC\nProgramování průmyslových robotů\nAnténní a satelitní technika",
+					"careers": "Projektant elektronických obvodů\nProgramátor automatizovaných pracovišť\nServisní a montážní technik\nPracovník výroby a testování elektroniky",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k94",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k95",
+									"text": "Studijní obor poskytuje střední vzdělání technického zaměření s maturitní zkouškou.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k96",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k97",
+									"text": "Odborné předměty jsou zaměřeny na diagnostiku, analýzu a návrh analogových i digitálních elektronických obvodů. Absolvent umí hledat a odstraňovat poruchy s využitím simulačních programů a virtuální měřicí techniky, navrhovat desky plošných spojů, programovat PLC automaty, průmyslové roboty, mikropočítače a zařízení IoT.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k98",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k99",
+									"text": "Absolvent oboru splňuje vzdělání pro získání odborné způsobilosti k výkonu činnosti na elektrických zařízeních a odborné způsobilosti v elektrotechnice.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 3
+				}
+			},
+			{
+				"id": "program-strojirenstvi-robotika-a-3d-modelovani",
+				"slug": "strojirenstvi-robotika-a-3d-modelovani",
+				"status": "published",
+				"data": {
+					"title": "Strojírenství – robotika a 3D modelování",
+					"short_title": "STR",
+					"type": "maturita",
+					"code": "23-41-M/01 Strojírenství",
+					"svp": "Strojírenství – robotika a 3D modelování",
+					"duration": "4 roky, denní",
+					"capacity": 30,
+					"entrance_exam": true,
+					"health_required": false,
+					"color": "str",
+					"workplace": "Horská 618, Trutnov",
+					"summary": "Konstrukce v CAD, 3D tisk, programování CNC strojů a průmyslových robotů. Inovované zaměření na robotiku a automatizaci.",
+					"highlights": "Programování průmyslových robotů\nProgramování CNC obráběcích strojů\n3D modelování a tisk\nPevnostní výpočty a volba materiálů",
+					"careers": "Konstruktér a designér\nTechnolog robotických pracovišť\nProgramátor CNC strojů a robotů\nPracovník řízení kvality\nLogistik výrobních linek",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k9a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9b",
+									"text": "Studijní obor poskytuje střední vzdělání technického zaměření s maturitní zkouškou. Seznamuje žáky se širokou oblastí strojírenství, strojírenské výroby a moderních trendů v průmyslové automatizaci.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9c",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9d",
+									"text": "Absolvent zvládá konstrukční a technologickou přípravu výroby — výrobní výkresy, sestavy, kusovníky i technologické postupy. Navrhuje materiál a tvar strojních součástí a provádí jejich pevnostní výpočty.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9e",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9f",
+									"text": "Významnou částí jeho kompetencí je návrh, integrace a oživení automatizovaných systémů: řídicí programy pro CNC stroje a průmyslové roboty a kontrola kvality výroby.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 4
+				}
+			},
+			{
+				"id": "program-elektrikar",
+				"slug": "elektrikar",
+				"status": "published",
+				"data": {
+					"title": "Elektrikář",
+					"short_title": "EL",
+					"type": "vyucni-list",
+					"code": "26-51-H/01 Elektrikář",
+					"svp": "Elektrikář",
+					"duration": "3 roky, denní",
+					"capacity": 48,
+					"entrance_exam": false,
+					"health_required": true,
+					"color": "el",
+					"workplace": "Horská 59, Trutnov + Mladé Buky",
+					"summary": "Elektroinstalace budov, servis spotřební a průmyslové elektroniky, zabezpečovací a kamerové systémy. Obor podpořený stipendiem.",
+					"highlights": "Elektrické instalace budov\nÚdržba a opravy měřicí a průmyslové techniky\nSatelitní technika a spotřební elektronika\nZabezpečovací a kamerové systémy",
+					"careers": "Provozní elektrikář\nElektromontér\nStavební elektrikář\nOpravář elektrických spotřebičů\nElektrotechnik-údržbář",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k9g",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9h",
+									"text": "Tříletý učební obor je zaměřen na uplatnění absolventů v oblasti elektrotechniky — spotřební, průmyslové a výpočetní — ve výrobní i servisní sféře a v oblasti elektrických instalací budov.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9i",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9j",
+									"text": "Žáci se naučí provádět instalace domovních a průmyslových rozvodů, instalovat satelitní techniku a moderní spotřební elektroniku, budovat Wi-Fi sítě a instalovat zabezpečovací techniku.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9k",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9l",
+									"text": "Obor je finančně podpořen stipendiem Královéhradeckého kraje.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 5
+				}
+			},
+			{
+				"id": "program-nastrojar",
+				"slug": "nastrojar",
+				"status": "published",
+				"data": {
+					"title": "Nástrojař",
+					"short_title": "NA",
+					"type": "vyucni-list",
+					"code": "23-52-H/01 Nástrojař",
+					"svp": "Nástrojař",
+					"duration": "3 roky, denní",
+					"capacity": 30,
+					"entrance_exam": false,
+					"health_required": true,
+					"color": "na",
+					"workplace": "Horská 618, Trutnov + Mladé Buky",
+					"summary": "Výroba a opravy nástrojů a přípravků, soustružení, frézování a programování CNC strojů. Náročný a dobře placený řemeslný obor se stipendiem.",
+					"highlights": "Výroba a opravy nástrojů a přípravků\nProgramování CNC obráběcích strojů\nTváření za tepla i za studena\nSoustružení a frézování",
+					"careers": "Nástrojař v kusové i sériové výrobě\nObsluha CNC strojů\nStrojní údržba\nKontrola jakosti\nSamostatná živnost",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k9m",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9n",
+									"text": "Tříletý učební obor umožňuje získání vědomostí a praktických dovedností potřebných při strojírenské výrobě a opravách nástrojů, výrobních pomůcek a přípravků v náročné strojírenské výrobě.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9o",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9p",
+									"text": "V prvním ročníku si žáci osvojí ruční zpracování kovů, ve druhém náročnější nástrojařské práce a základy strojního obrábění, třetí ročník je věnován práci na CNC obráběcích strojích.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9q",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k9r",
+									"text": "Obor je finančně podpořen stipendiem Královéhradeckého kraje.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 6
+				}
+			}
+		],
+		"events": [
+			{
+				"id": "event-den-otevrenych-dveri-listopad",
+				"slug": "den-otevrenych-dveri-listopad",
+				"status": "published",
+				"data": {
+					"title": "Den otevřených dveří",
+					"starts_at": "2026-11-21T08:00:00.000Z",
+					"ends_at": "2026-11-21T12:00:00.000Z",
+					"location": "Všechna pracoviště školy",
+					"kind": "dod",
+					"description": "Ukážeme vám dílny, laboratoře i robotická pracoviště. Na pracovišti v Mladých Bukách čeká dárek zdarma."
+				}
+			},
+			{
+				"id": "event-krajske-kolo-logicke-olympiady",
+				"slug": "krajske-kolo-logicke-olympiady",
+				"status": "published",
+				"data": {
+					"title": "Krajské kolo Logické olympiády",
+					"starts_at": "2026-11-06T09:00:00.000Z",
+					"location": "Hradec Králové",
+					"kind": "skola",
+					"description": "Čtveřice našich postupujících reprezentuje školu v krajském kole."
+				}
+			},
+			{
+				"id": "event-den-otevrenych-dveri-leden",
+				"slug": "den-otevrenych-dveri-leden",
+				"status": "published",
+				"data": {
+					"title": "Den otevřených dveří",
+					"starts_at": "2027-01-16T08:00:00.000Z",
+					"ends_at": "2027-01-16T12:00:00.000Z",
+					"location": "Všechna pracoviště školy",
+					"kind": "dod",
+					"description": "Druhý termín dne otevřených dveří pro uchazeče a jejich rodiče."
+				}
+			},
+			{
+				"id": "event-kriteria-prijimaciho-rizeni",
+				"slug": "kriteria-prijimaciho-rizeni",
+				"status": "published",
+				"data": {
+					"title": "Zveřejnění kritérií přijímacího řízení",
+					"starts_at": "2027-01-31T08:00:00.000Z",
+					"location": "Web školy",
+					"kind": "prijimacky",
+					"description": "Ředitel školy zveřejní kritéria pro první kolo přijímacího řízení."
+				}
+			},
+			{
+				"id": "event-podani-prihlasek",
+				"slug": "podani-prihlasek",
+				"status": "published",
+				"data": {
+					"title": "Podání přihlášek ke studiu",
+					"starts_at": "2027-02-20T08:00:00.000Z",
+					"location": "Elektronicky / podatelna",
+					"kind": "prijimacky",
+					"description": "Termín pro podání přihlášek do prvního kola přijímacího řízení."
+				}
+			},
+			{
+				"id": "event-jpz-1",
+				"slug": "jpz-1",
+				"status": "published",
+				"data": {
+					"title": "Jednotná přijímací zkouška — 1. termín",
+					"starts_at": "2027-04-12T08:00:00.000Z",
+					"location": "Dle pozvánky",
+					"kind": "prijimacky",
+					"description": "První řádný termín JPZ z češtiny a matematiky."
+				}
+			},
+			{
+				"id": "event-jpz-2",
+				"slug": "jpz-2",
+				"status": "published",
+				"data": {
+					"title": "Jednotná přijímací zkouška — 2. termín",
+					"starts_at": "2027-04-13T08:00:00.000Z",
+					"location": "Dle pozvánky",
+					"kind": "prijimacky",
+					"description": "Druhý řádný termín JPZ. Započítává se lepší výsledek."
+				}
+			}
+		],
+		"people": [
+			{
+				"id": "person-ing-vladislav-sauer",
+				"slug": "ing-vladislav-sauer",
+				"status": "published",
+				"data": {
+					"name": "Ing. Vladislav Sauer",
+					"role": "ředitel",
+					"department": "vedeni",
+					"workplace": "Školní 101",
+					"phone": "499 814 729",
+					"email": "sauer@spstrutnov.cz",
+					"order": 1
+				}
+			},
+			{
+				"id": "person-mgr-jakub-lattenberg",
+				"slug": "mgr-jakub-lattenberg",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jakub Lattenberg",
+					"role": "zástupce ředitele pro teoretické vyučování",
+					"department": "vedeni",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "lattenberg@spstrutnov.cz",
+					"order": 2
+				}
+			},
+			{
+				"id": "person-mgr-sarka-fibikarova",
+				"slug": "mgr-sarka-fibikarova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Šárka Fibikarová",
+					"role": "zástupkyně ředitele, úsek Horská 618",
+					"department": "vedeni",
+					"workplace": "Horská 618",
+					"phone": "499 813 879",
+					"email": "fibikarova@spstrutnov.cz",
+					"order": 3
+				}
+			},
+			{
+				"id": "person-ing-bronislav-gazda",
+				"slug": "ing-bronislav-gazda",
+				"status": "published",
+				"data": {
+					"name": "Ing. Bronislav Gazda",
+					"role": "zástupce ředitele pro teoretické vyučování",
+					"department": "vedeni",
+					"workplace": "Horská 59",
+					"phone": "499 815 145",
+					"email": "gazda@spstrutnov.cz",
+					"order": 4
+				}
+			},
+			{
+				"id": "person-arnost-jager",
+				"slug": "arnost-jager",
+				"status": "published",
+				"data": {
+					"name": "Arnošt Jäger, DiS.",
+					"role": "zástupce ředitele pro odborný výcvik",
+					"department": "vedeni",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 456",
+					"email": "jager@spstrutnov.cz",
+					"order": 5
+				}
+			},
+			{
+				"id": "person-bc-jiri-vesely",
+				"slug": "bc-jiri-vesely",
+				"status": "published",
+				"data": {
+					"name": "Bc. Jiří Veselý",
+					"role": "vedoucí odloučeného pracoviště Mladé Buky",
+					"department": "vedeni",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 188",
+					"email": "vesely@spstrutnov.cz",
+					"order": 6
+				}
+			},
+			{
+				"id": "person-jana-krupkova",
+				"slug": "jana-krupkova",
+				"status": "published",
+				"data": {
+					"name": "Jana Krupková",
+					"role": "sekretářka ředitele",
+					"department": "sekretariat",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "krupkova@spstrutnov.cz",
+					"order": 7
+				}
+			},
+			{
+				"id": "person-mgr-tomas-vanek",
+				"slug": "mgr-tomas-vanek",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Tomáš Vaněk",
+					"role": "učitel matematiky",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "vanek@spstrutnov.cz",
+					"order": 8
+				}
+			},
+			{
+				"id": "person-ing-jan-holy",
+				"slug": "ing-jan-holy",
+				"status": "published",
+				"data": {
+					"name": "Ing. Jan Holý",
+					"role": "učitel odborných předmětů",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 815 145",
+					"email": "holy@spstrutnov.cz",
+					"order": 9
+				}
+			},
+			{
+				"id": "person-mgr-martin-kadrle",
+				"slug": "mgr-martin-kadrle",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Martin Kádrle",
+					"role": "učitel tělesné výchovy",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 815 512",
+					"email": "kadrle@spstrutnov.cz",
+					"order": 10
+				}
+			},
+			{
+				"id": "person-mgr-zdenka-tezka",
+				"slug": "mgr-zdenka-tezka",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Zdeňka Těžká",
+					"role": "učitelka českého jazyka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "tezka@spstrutnov.cz",
+					"order": 11
+				}
+			},
+			{
+				"id": "person-mgr-martina-pradacova",
+				"slug": "mgr-martina-pradacova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Martina Pradáčová",
+					"role": "učitelka českého jazyka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 815 145",
+					"email": "pradacova@spstrutnov.cz",
+					"order": 12
+				}
+			},
+			{
+				"id": "person-ludek-dusek",
+				"slug": "ludek-dusek",
+				"status": "published",
+				"data": {
+					"name": "Luděk Dušek",
+					"role": "koordinátor propagace",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "dusek@spstrutnov.cz",
+					"order": 13
+				}
+			},
+			{
+				"id": "person-mgr-jaroslav-kabrhel",
+				"slug": "mgr-jaroslav-kabrhel",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jaroslav Kabrhel",
+					"role": "učitel fyziky",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 815 512",
+					"email": "kabrhel@spstrutnov.cz",
+					"order": 14
+				}
+			},
+			{
+				"id": "person-mgr-radana-navratova",
+				"slug": "mgr-radana-navratova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Radana Návratová",
+					"role": "učitelka tělesné výchovy",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 815 145",
+					"email": "navratova@spstrutnov.cz",
+					"order": 15
+				}
+			},
+			{
+				"id": "person-ing-horst-anders",
+				"slug": "ing-horst-anders",
+				"status": "published",
+				"data": {
+					"name": "Ing. Horst Anders",
+					"role": "učitel strojírenských předmětů",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 815 512",
+					"email": "anders@spstrutnov.cz",
+					"order": 16
+				}
+			},
+			{
+				"id": "person-ing-milos-zemek",
+				"slug": "ing-milos-zemek",
+				"status": "published",
+				"data": {
+					"name": "Ing. Miloš Zemek",
+					"role": "předseda školské rady, učitel",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 815 512",
+					"email": "zemek@spstrutnov.cz",
+					"order": 17
+				}
+			}
+		],
+		"workplaces": [
+			{
+				"id": "workplace-skolni-101",
+				"slug": "skolni-101",
+				"status": "published",
+				"data": {
+					"title": "Školní 101",
+					"kind": "Sídlo školy · teoretické vyučování",
+					"address": "Školní 101, 541 01 Trutnov",
+					"phone": "+420 499 813 071",
+					"email": "skola@spstrutnov.cz",
+					"manager": "Ing. Vladislav Sauer, ředitel",
+					"image": "/images/pracoviste/skolni-101.webp",
+					"programs": "Elektronické počítačové systémy\nInformatika a management",
+					"description": "Hlavní budova poblíž Krakonošova náměstí. Sídlo ředitelství, 7 učeben, 3 učebny výpočetní techniky a laboratoř elektronických počítačů. Kapacita cca 200 žáků.",
+					"map_url": "https://mapy.cz/zakladni?q=%C5%A0koln%C3%AD%20101%20Trutnov",
+					"order": 1
+				}
+			},
+			{
+				"id": "workplace-horska-618",
+				"slug": "horska-618",
+				"status": "published",
+				"data": {
+					"title": "Horská 618",
+					"kind": "Teoretické vyučování · strojírenství",
+					"address": "Horská 618, 541 01 Trutnov",
+					"phone": "+420 499 815 512",
+					"email": "fibikarova@spstrutnov.cz",
+					"manager": "Mgr. Šárka Fibikarová, vedoucí učitelka",
+					"image": "/images/pracoviste/horska-618.webp",
+					"programs": "Strojírenství – robotika a 3D modelování\nNástrojař",
+					"description": "Pracoviště u sídliště Šestidomí. Strojírenská laboratoř, laboratoř kontroly a měření, 2 učebny výpočetní techniky. Kapacita cca 240 žáků.",
+					"map_url": "https://mapy.cz/zakladni?q=Horsk%C3%A1%20618%20Trutnov",
+					"order": 2
+				}
+			},
+			{
+				"id": "workplace-horska-59",
+				"slug": "horska-59",
+				"status": "published",
+				"data": {
+					"title": "Horská 59",
+					"kind": "Teoretické vyučování · elektro",
+					"address": "Horská 59, 541 01 Trutnov",
+					"phone": "+420 499 815 145",
+					"email": "gazda@spstrutnov.cz",
+					"manager": "Ing. Bronislav Gazda, zástupce ředitele",
+					"image": "/images/pracoviste/horska-59.webp",
+					"programs": "Slaboproudá elektrotechnika\nElektrikář",
+					"description": "Pracoviště v Dolním Starém Městě. Laboratoř elektroniky, číslicové, automatizační a mikroprocesorové techniky, laboratoř fyziky a chemie. Kapacita cca 280 žáků.",
+					"map_url": "https://mapy.cz/zakladni?q=Horsk%C3%A1%2059%20Trutnov",
+					"order": 3
+				}
+			},
+			{
+				"id": "workplace-mlade-buky",
+				"slug": "mlade-buky",
+				"status": "published",
+				"data": {
+					"title": "Mladé Buky 374",
+					"kind": "Praktické vyučování",
+					"address": "Mladé Buky 374, 542 23 Mladé Buky",
+					"phone": "+420 499 873 189",
+					"email": "jager@spstrutnov.cz",
+					"manager": "Arnošt Jäger, DiS., zástupce ředitele pro odborný výcvik",
+					"image": "/images/pracoviste/mlade-buky.webp",
+					"programs": "Elektronické počítačové systémy\nSlaboproudá elektrotechnika\nStrojírenství – robotika a 3D modelování\nElektrikář\nNástrojař",
+					"description": "Areál pro odborný výcvik mezi Trutnovem a Svobodou nad Úpou: dílny, svařovna, kalírna, kovárna, CNC a robotická pracoviště. Kapacita cca 240 žáků.",
+					"map_url": "https://mapy.cz/zakladni?q=Mlad%C3%A9%20Buky%20374",
+					"order": 4
+				}
+			}
+		],
+		"faq": [
+			{
+				"id": "faq-1",
+				"slug": "faq-1",
+				"status": "published",
+				"data": {
+					"question": "Co navíc může vaše škola nabídnout?",
+					"answer": "Špičkově vybavené laboratoře a dílny, profesionální software zdarma, mezinárodní certifikáty (Cisco, Mikrotik, Autodesk), stipendia a nadprůměrné výsledky maturit. Podrobnosti najdete na stránce Proč studovat u nás.",
+					"group": "studium",
+					"order": 1
+				}
+			},
+			{
+				"id": "faq-2",
+				"slug": "faq-2",
+				"status": "published",
+				"data": {
+					"question": "Mohou žáci některých oborů získat stipendium?",
+					"answer": "Ano. Ve všech oborech s výučním listem (Elektrikář, Nástrojař) mohou žáci získat stipendium až 7 500 Kč ročně od Královéhradeckého kraje. Další podporu až 3 000 Kč měsíčně nabízí u vybraných oborů společnost KASPER KOVO s.r.o.",
+					"group": "studium",
+					"order": 2
+				}
+			},
+			{
+				"id": "faq-3",
+				"slug": "faq-3",
+				"status": "published",
+				"data": {
+					"question": "Je možný přestup z gymnázia do maturitního oboru?",
+					"answer": "Ano, na základě písemné žádosti žáka se souhlasem zákonných zástupců a kopie vysvědčení. Žádost je vhodné podat před termínem 1. kola přijímacího řízení, přestup se uskuteční k 1. 9.",
+					"group": "studium",
+					"order": 3
+				}
+			},
+			{
+				"id": "faq-4",
+				"slug": "faq-4",
+				"status": "published",
+				"data": {
+					"question": "Lze přestoupit z učebního do maturitního oboru?",
+					"answer": "Ano. Žák může pokračovat dvouletým nástavbovým studiem, nebo přestoupit do 2. ročníku maturitního oboru obdobného zaměření (při výborných výsledcích i do 3. ročníku).",
+					"group": "studium",
+					"order": 4
+				}
+			},
+			{
+				"id": "faq-5",
+				"slug": "faq-5",
+				"status": "published",
+				"data": {
+					"question": "Mohou si žáci při praxi přivydělat?",
+					"answer": "Ano. Při produktivní činnosti na pracovišti praktického vyučování nebo u spolupracujících firem dostávají žáci finanční odměnu.",
+					"group": "studium",
+					"order": 5
+				}
+			},
+			{
+				"id": "faq-6",
+				"slug": "faq-6",
+				"status": "published",
+				"data": {
+					"question": "Nabízí škola ubytování?",
+					"answer": "Ano, v domově mládeže při SOŠ a SOU Trutnov, Úpická 160 (tel. 736 619 536, internat@sou-trutnov.cz), včetně celodenního stravování.",
+					"group": "studium",
+					"order": 6
+				}
+			},
+			{
+				"id": "faq-7",
+				"slug": "faq-7",
+				"status": "published",
+				"data": {
+					"question": "Mohu školu navštívit i mimo den otevřených dveří?",
+					"answer": "Ano, kterékoliv pracoviště. Domluvte se prosím předem s paní Janou Krupkovou, sekretářkou ředitele, na tel. 499 813 071.",
+					"group": "studium",
+					"order": 7
+				}
+			},
+			{
+				"id": "faq-8",
+				"slug": "faq-8",
+				"status": "published",
+				"data": {
+					"question": "Kdy se konají přijímací zkoušky?",
+					"answer": "Jednotná přijímací zkouška pro maturitní obory proběhne 12. a 13. dubna 2027, náhradní termíny 29. a 30. dubna 2027. Učební obory přijímací zkoušku nemají.",
+					"group": "prijimaci-rizeni",
+					"order": 8
+				}
+			},
+			{
+				"id": "faq-9",
+				"slug": "faq-9",
+				"status": "published",
+				"data": {
+					"question": "Kdy jsou zveřejněna kritéria přijímacího řízení?",
+					"answer": "Ředitel školy zveřejňuje kritéria pro první kolo do 31. ledna.",
+					"group": "prijimaci-rizeni",
+					"order": 9
+				}
+			},
+			{
+				"id": "faq-10",
+				"slug": "faq-10",
+				"status": "published",
+				"data": {
+					"question": "Co když budu přijat na dvě školy?",
+					"answer": "Na vybranou školu odevzdáte do 10 pracovních dnů od zveřejnění výsledků zápisový lístek. Ostatním školám nic oznamovat nemusíte.",
+					"group": "prijimaci-rizeni",
+					"order": 10
+				}
+			},
+			{
+				"id": "faq-11",
+				"slug": "faq-11",
+				"status": "published",
+				"data": {
+					"question": "Jak uvést obory EPS a IM na přihlášce?",
+					"answer": "Oba obory mají stejný kód 18-20-M/01 Informační technologie. Na přihlášku uveďte kód a do názvu i název školního vzdělávacího programu (Elektronické počítačové systémy, resp. Informatika a management).",
+					"group": "prijimaci-rizeni",
+					"order": 11
+				}
+			},
+			{
+				"id": "faq-12",
+				"slug": "faq-12",
+				"status": "published",
+				"data": {
+					"question": "Zohledňujete uchazeče se SVP?",
+					"answer": "Ano, uchazečům se speciálními vzdělávacími potřebami se prodlužuje časový limit podle doporučení školského poradenského zařízení.",
+					"group": "prijimaci-rizeni",
+					"order": 12
+				}
+			}
+		],
+		"documents": [
+			{
+				"id": "doc-1",
+				"slug": "dokument-1",
+				"status": "published",
+				"data": {
+					"title": "Školní vzdělávací program — Elektronické počítačové systémy",
+					"category": "studium",
+					"file_type": "PDF",
+					"size": "1,2 MB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 1
+				}
+			},
+			{
+				"id": "doc-2",
+				"slug": "dokument-2",
+				"status": "published",
+				"data": {
+					"title": "Školní vzdělávací program — Informatika a management",
+					"category": "studium",
+					"file_type": "PDF",
+					"size": "1,1 MB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 2
+				}
+			},
+			{
+				"id": "doc-3",
+				"slug": "dokument-3",
+				"status": "published",
+				"data": {
+					"title": "Školní vzdělávací program — Slaboproudá elektrotechnika",
+					"category": "studium",
+					"file_type": "PDF",
+					"size": "1,3 MB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 3
+				}
+			},
+			{
+				"id": "doc-4",
+				"slug": "dokument-4",
+				"status": "published",
+				"data": {
+					"title": "Školní vzdělávací program — Strojírenství",
+					"category": "studium",
+					"file_type": "PDF",
+					"size": "1,4 MB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 4
+				}
+			},
+			{
+				"id": "doc-5",
+				"slug": "dokument-5",
+				"status": "published",
+				"data": {
+					"title": "Kritéria přijímacího řízení 2027",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "240 kB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 5
+				}
+			},
+			{
+				"id": "doc-6",
+				"slug": "dokument-6",
+				"status": "published",
+				"data": {
+					"title": "Lékařský posudek o zdravotní způsobilosti — vzor",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "90 kB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 6
+				}
+			},
+			{
+				"id": "doc-7",
+				"slug": "dokument-7",
+				"status": "published",
+				"data": {
+					"title": "Výpis z informačního systému školy — vzor",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "70 kB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 7
+				}
+			},
+			{
+				"id": "doc-8",
+				"slug": "dokument-8",
+				"status": "published",
+				"data": {
+					"title": "Omluvný list",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "60 kB",
+					"year": "",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 8
+				}
+			},
+			{
+				"id": "doc-9",
+				"slug": "dokument-9",
+				"status": "published",
+				"data": {
+					"title": "Žádost o uvolnění z vyučování",
+					"category": "formulare",
+					"file_type": "DOCX",
+					"size": "40 kB",
+					"year": "",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 9
+				}
+			},
+			{
+				"id": "doc-10",
+				"slug": "dokument-10",
+				"status": "published",
+				"data": {
+					"title": "Žádost o přístup k osobním informacím",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "80 kB",
+					"year": "",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 10
+				}
+			},
+			{
+				"id": "doc-11",
+				"slug": "dokument-11",
+				"status": "published",
+				"data": {
+					"title": "Výroční zpráva o činnosti školy 2025/2026",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "3,4 MB",
+					"year": "2025/2026",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 11
+				}
+			},
+			{
+				"id": "doc-12",
+				"slug": "dokument-12",
+				"status": "published",
+				"data": {
+					"title": "Školní řád",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "520 kB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 12
+				}
+			},
+			{
+				"id": "doc-13",
+				"slug": "dokument-13",
+				"status": "published",
+				"data": {
+					"title": "Rozpočet školy 2026",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "180 kB",
+					"year": "2026",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 13
+				}
+			},
+			{
+				"id": "doc-14",
+				"slug": "dokument-14",
+				"status": "published",
+				"data": {
+					"title": "Postup při vyřizování žádostí dle zákona 106/1999 Sb.",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "110 kB",
+					"year": "",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 14
+				}
+			},
+			{
+				"id": "doc-15",
+				"slug": "dokument-15",
+				"status": "published",
+				"data": {
+					"title": "Informační zpravodaj — podzim 2026",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,8 MB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 15
+				}
+			},
+			{
+				"id": "doc-16",
+				"slug": "dokument-16",
+				"status": "published",
+				"data": {
+					"title": "Zápis ze zasedání školské rady — říjen 2026",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "150 kB",
+					"year": "2026/2027",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"order": 16
+				}
+			}
+		],
+		"partners": [
+			{
+				"id": "partner-1",
+				"slug": "partner-1",
+				"status": "published",
+				"data": {
+					"name": "Hitachi",
+					"order": 1
+				}
+			},
+			{
+				"id": "partner-2",
+				"slug": "partner-2",
+				"status": "published",
+				"data": {
+					"name": "Kasper",
+					"order": 2
+				}
+			},
+			{
+				"id": "partner-3",
+				"slug": "partner-3",
+				"status": "published",
+				"data": {
+					"name": "Pepperl+Fuchs",
+					"order": 3
+				}
+			},
+			{
+				"id": "partner-4",
+				"slug": "partner-4",
+				"status": "published",
+				"data": {
+					"name": "Schaeffler",
+					"order": 4
+				}
+			},
+			{
+				"id": "partner-5",
+				"slug": "partner-5",
+				"status": "published",
+				"data": {
+					"name": "Hitachi Energy",
+					"order": 5
+				}
+			},
+			{
+				"id": "partner-6",
+				"slug": "partner-6",
+				"status": "published",
+				"data": {
+					"name": "Siemens",
+					"order": 6
+				}
+			},
+			{
+				"id": "partner-7",
+				"slug": "partner-7",
+				"status": "published",
+				"data": {
+					"name": "Škoda",
+					"order": 7
+				}
+			},
+			{
+				"id": "partner-8",
+				"slug": "partner-8",
+				"status": "published",
+				"data": {
+					"name": "TE Connectivity",
+					"order": 8
+				}
+			},
+			{
+				"id": "partner-9",
+				"slug": "partner-9",
+				"status": "published",
+				"data": {
+					"name": "ZPA Smart Energy",
+					"order": 9
+				}
+			},
+			{
+				"id": "partner-10",
+				"slug": "partner-10",
+				"status": "published",
+				"data": {
+					"name": "Argo-Hytos",
+					"order": 10
+				}
+			}
+		]
+	}
+}

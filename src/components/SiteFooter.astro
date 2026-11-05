@@ -1,0 +1,223 @@
+---
+import type { MenuItem } from "../lib/cms";
+import Icon from "./Icon.astro";
+import Logo from "./Logo.astro";
+
+interface Props {
+	menu: MenuItem[];
+}
+const { menu } = Astro.props;
+const year = new Date().getFullYear();
+const portals = [
+	{ label: "Studijní průkaz", url: "https://bakalari.spstrutnov.cz" },
+	{ label: "Školní e-mail", url: "https://outlook.office.com/mail/" },
+	{ label: "Intranet", url: "http://intranet.spstrutnov.cz" },
+	{ label: "Portál COV", url: "http://www.odborne-vzdelavani.cz" },
+];
+const socials = [
+	{ label: "Facebook", url: "https://www.facebook.com/spstrutnov" },
+	{ label: "YouTube", url: "https://www.youtube.com/spstrutnov" },
+	{ label: "Instagram", url: "https://www.instagram.com/spstrutnov" },
+];
+---
+
+<footer class="site-footer">
+	<div class="container footer__grid">
+		<div class="footer__brand">
+			<Logo class="footer__logo" />
+			<address class="footer__address">
+				Střední průmyslová škola, Trutnov, Školní 101<br />
+				541 01 Trutnov
+			</address>
+			<div class="footer__contact">
+				<a class="footer__big" href="tel:+420499813071"><Icon name="phone" size="s" /> 499 813 071</a>
+				<a class="footer__big" href="mailto:skola@spstrutnov.cz"><Icon name="mail" size="s" /> skola@spstrutnov.cz</a>
+			</div>
+		</div>
+
+		{
+			menu
+				.filter((m) => m.children.length)
+				.map((item) => (
+					<nav class="footer__col" aria-label={item.label}>
+						<p class="footer__heading">{item.label}</p>
+						<ul role="list">
+							{item.children.slice(0, 6).map((c) => (
+								<li>
+									<a href={c.url}>{c.label}</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				))
+		}
+
+		<nav class="footer__col" aria-label="Portály">
+			<p class="footer__heading">Portály</p>
+			<ul role="list">
+				{
+					portals.map((p) => (
+						<li>
+							<a href={p.url} rel="noopener" target="_blank">
+								{p.label} <Icon name="arrow-up-right" size="s" />
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<p class="footer__heading footer__heading--gap">Sledujte nás</p>
+			<ul role="list" class="footer__socials">
+				{
+					socials.map((s) => (
+						<li>
+							<a href={s.url} rel="noopener" target="_blank">
+								{s.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+
+	<div class="container footer__bottom">
+		<p>© {year} SPŠ Trutnov. Zřizovatel: Královéhradecký kraj.</p>
+		<ul role="list" class="footer__legal">
+			<li><a href="/o-skole/povinne-zverejnovane-informace">Povinné informace</a></li>
+			<li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
+			<li><a href="/pristupnost">Přístupnost</a></li>
+			<li><a href="/admin">Administrace</a></li>
+		</ul>
+	</div>
+
+	<p class="footer__wordmark" aria-hidden="true"><span>Průmyslovka</span></p>
+</footer>
+
+<style>
+	.site-footer {
+		position: relative;
+		overflow: hidden;
+		background: var(--color-accent-strong);
+		color: var(--color-on-accent);
+		padding-top: var(--section-space-sm);
+		--color-text: var(--color-on-accent);
+		--color-text-muted: var(--color-on-accent-muted);
+		--color-focus: var(--color-on-accent);
+		--color-bg: var(--color-accent-strong);
+	}
+	.site-footer a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.footer__grid {
+		display: grid;
+		gap: var(--space-xl) var(--grid-gap);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+	}
+	.footer__brand {
+		display: grid;
+		gap: var(--space-m);
+		align-content: start;
+		grid-column: 1 / -1;
+	}
+	.footer__brand :global(.logo__mark) {
+		color: var(--color-on-accent);
+	}
+	.footer__brand :global(.logo__mark path) {
+		stroke: var(--color-accent-strong);
+	}
+	.footer__address {
+		font-style: normal;
+		color: var(--color-text-muted);
+	}
+	.footer__contact {
+		display: grid;
+		gap: var(--space-2xs);
+	}
+	.footer__big {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+		inline-size: fit-content;
+		background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% var(--border-width);
+		transition: background-size var(--duration-base) var(--ease-out);
+	}
+	.footer__big:hover {
+		background-size: 100% var(--border-width);
+	}
+	.footer__heading {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin-bottom: var(--space-xs);
+	}
+	.footer__heading--gap {
+		margin-top: var(--space-l);
+	}
+	.footer__col ul {
+		display: grid;
+		gap: var(--space-3xs);
+	}
+	.footer__col a {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		min-block-size: var(--tap-target);
+		transition:
+			opacity var(--duration-fast) var(--ease-out),
+			translate var(--duration-base) var(--ease-out);
+	}
+	.footer__col a:hover {
+		translate: var(--space-3xs) 0;
+	}
+	.footer__socials {
+		display: flex !important;
+		flex-wrap: wrap;
+		gap: var(--space-s) !important;
+	}
+	.footer__bottom {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: var(--space-s);
+		margin-top: var(--space-2xl);
+		padding-block: var(--space-m);
+		border-top: var(--border-width) solid color-mix(in oklab, var(--color-on-accent) 30%, transparent);
+		color: var(--color-text-muted);
+	}
+	.footer__legal {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-s);
+	}
+	.footer__legal a:hover {
+		color: var(--color-on-accent);
+	}
+	.footer__wordmark {
+		font-size: var(--text-display);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-tight);
+		line-height: 0.8;
+		white-space: nowrap;
+		margin-top: var(--space-l);
+		margin-bottom: -0.12em;
+		padding-inline: var(--gutter);
+		user-select: none;
+	}
+	.footer__wordmark span {
+		display: block;
+		translate: 0 var(--wordmark-shift, 0%);
+	}
+	@media (width >= 75rem) {
+		.footer__grid {
+			grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr));
+		}
+		.footer__brand {
+			grid-column: auto;
+		}
+	}
+</style>

@@ -1,0 +1,16 @@
+---
+import HubCard from "../../components/HubCard.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+const pages = await createCms(Astro.locals).pages("vice");
+---
+
+<Base title="Více">
+	<PageHero eyebrow="Více" title="Další informace." crumbs={[{ label: "Více" }]} />
+	<section class="section">
+		<div class="container grid grid--s" data-reveal-group>
+			{pages.map((p, i) => <HubCard href={`/vice/${p.slug}`} title={p.title} text={p.lead} index={i} level="h2" />)}
+		</div>
+	</section>
+</Base>

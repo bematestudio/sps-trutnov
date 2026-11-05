@@ -1,0 +1,119 @@
+---
+import type { Workplace } from "../lib/cms";
+import { telHref } from "../lib/format";
+import Icon from "./Icon.astro";
+interface Props {
+	items: Workplace[];
+}
+const { items } = Astro.props;
+---
+
+<div class="workplaces">
+	{
+		items.map((w, i) => (
+			<article class="workplace" id={w.slug} data-reveal>
+				<figure class="frame workplace__media">
+					<img src={w.image} alt={`Budova pracoviště ${w.title}`} width="960" height="640" loading={i === 0 ? "eager" : "lazy"} decoding="async" />
+					<span class="workplace__num meta">{String(i + 1).padStart(2, "0")}</span>
+				</figure>
+				<div class="workplace__body">
+					<h2 class="h-section workplace__title">{w.title}</h2>
+					<p class="meta">{w.kind}</p>
+					<p class="muted">{w.description}</p>
+					<dl class="workplace__facts">
+						<div><dt>Adresa</dt><dd>{w.address}</dd></div>
+						<div><dt>Telefon</dt><dd><a class="link" href={telHref(w.phone)}>{w.phone}</a></dd></div>
+						<div>
+							<dt>E-mail</dt>
+							<dd class="workplace__mail">
+								<a class="link" href={`mailto:${w.email}`}>{w.email}</a>
+								<button class="btn btn--ghost btn--icon" type="button" data-copy={w.email} aria-label={`Zkopírovat ${w.email}`}><Icon name="copy" size="s" /></button>
+							</dd>
+						</div>
+						<div><dt>Vedoucí</dt><dd>{w.manager}</dd></div>
+					</dl>
+					<div class="cluster">
+						{w.programs.map((p) => <span class="tag">{p}</span>)}
+					</div>
+					<a class="link-arrow" href={w.mapUrl} target="_blank" rel="noopener">Zobrazit na mapě <Icon name="arrow-up-right" size="s" /></a>
+				</div>
+			</article>
+		))
+	}
+</div>
+
+<style>
+	.workplaces {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--section-space-sm);
+	}
+	.workplace {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--space-xl);
+		align-items: center;
+	}
+	.workplace__media {
+		position: relative;
+	}
+	.workplace__media img {
+		transition: scale var(--duration-slower) var(--ease-out);
+	}
+	.workplace:hover .workplace__media img {
+		scale: 1.03;
+	}
+	.workplace__num {
+		position: absolute;
+		inset-block-start: var(--space-s);
+		inset-inline-start: var(--space-s);
+		padding: var(--space-3xs) var(--space-2xs);
+		background: var(--color-bg);
+		color: var(--color-text);
+		border-radius: var(--radius-xs);
+	}
+	.workplace__body {
+		display: grid;
+		gap: var(--space-m);
+		justify-items: start;
+	}
+	.workplace__title {
+		font-size: var(--text-2xl);
+	}
+	.workplace__facts {
+		display: grid;
+		inline-size: 100%;
+		margin: 0;
+	}
+	.workplace__facts > div {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+		gap: var(--space-s);
+		align-items: center;
+		padding-block: var(--space-2xs);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.workplace__facts dt {
+		color: var(--color-text-muted);
+	}
+	.workplace__facts dd {
+		margin: 0;
+		overflow-wrap: anywhere;
+	}
+	.workplace__body :global(.tag) {
+		white-space: normal;
+	}
+	.workplace__mail {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
+	}
+	@media (width >= 48rem) {
+		.workplace {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.workplace:nth-child(even) .workplace__media {
+			order: 2;
+		}
+	}
+</style>

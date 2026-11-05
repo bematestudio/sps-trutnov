@@ -1,0 +1,33 @@
+---
+import ContactForm from "../../components/ContactForm.astro";
+import Faq from "../../components/Faq.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const faq = await cms.faq();
+const groups = [
+	{ id: "studium", title: "Dotazy ke studiu" },
+	{ id: "prijimaci-rizeni", title: "Dotazy k přijímacímu řízení" },
+] as const;
+---
+
+<Base title="Časté dotazy" description="Odpovědi na nejčastější dotazy ke studiu a přijímacímu řízení na SPŠ Trutnov.">
+	<PageHero eyebrow="Studium / FAQ" title="Časté dotazy." lead="Stipendia, přestupy mezi obory, přijímací zkoušky, ubytování — odpovědi na to, na co se ptáte nejčastěji." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Časté dotazy" }]} />
+	{
+		groups.map((g) => (
+			<section class="section section--sm">
+				<div class="container split split--wide-end">
+					<h2 class="h-section">{g.title}</h2>
+					<Faq items={faq.filter((f) => f.group === g.id)} />
+				</div>
+			</section>
+		))
+	}
+	<section class="section section--surface">
+		<div class="container container--narrow">
+			<ContactForm title="Nenašli jste odpověď? Zeptejte se." topic="dotaz ke studiu" />
+		</div>
+	</section>
+</Base>

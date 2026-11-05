@@ -1,0 +1,16 @@
+---
+import PageHero from "../../components/PageHero.astro";
+import Workplaces from "../../components/Workplaces.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const workplaces = await cms.workplaces();
+---
+
+<Base title="Pracoviště" description="Sídlo a odloučená pracoviště SPŠ Trutnov pro teoretickou a praktickou výuku.">
+	<PageHero eyebrow="O škole / Pracoviště" title="Čtyři pracoviště, jedna škola." lead="Teoretická výuka probíhá ve třech budovách v Trutnově, praktické vyučování v areálu v Mladých Bukách." crumbs={[{ label: "O škole", href: "/o-skole" }, { label: "Pracoviště" }]} />
+	<section class="section">
+		<div class="container"><Workplaces items={workplaces} /></div>
+	</section>
+</Base>

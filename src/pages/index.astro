@@ -1,0 +1,638 @@
+---
+import Icon from "../components/Icon.astro";
+import PostCard from "../components/PostCard.astro";
+import SignalField from "../components/SignalField.astro";
+import Base from "../layouts/Base.astro";
+import { createCms } from "../lib/cms";
+import { eventKindLabel, formatDay, formatMonth, formatTime } from "../lib/format";
+
+const cms = createCms(Astro.locals);
+const [{ items: posts }, programs, events, partners] = await Promise.all([
+	cms.posts({ limit: 7 }),
+	cms.programs(),
+	cms.events({ upcoming: true }),
+	cms.partners(),
+]);
+const [lead, ...rest] = posts;
+const maturita = programs.filter((p) => p.type === "maturita");
+const vyucni = programs.filter((p) => p.type === "vyucni-list");
+const nextDod = events.find((e) => e.kind === "dod");
+
+const stats = [
+	{ value: 613, label: "žáků ve 25 třídách", tone: "accent" },
+	{ value: 57, label: "kvalifikovaných pedagogů", tone: "ink" },
+	{ value: 300, suffix: "+", label: "počítačů a notebooků v síti", tone: "surface" },
+	{ value: 4, label: "pracoviště a 10 laboratoří", tone: "plain" },
+];
+const academies = [
+	{ name: "Cisco Networking Academy", text: "Celosvětový vzdělávací systém v oblasti počítačových sítí.", tag: "Sítě" },
+	{ name: "Mikrotik Academy", text: "Správa a budování malých a středních počítačových a Wi-Fi sítí.", tag: "Wi-Fi" },
+	{ name: "Autodesk Academia", text: "Nadstandardní výuka AutoCAD, Inventor a 3ds Max.", tag: "CAD" },
+	{ name: "Adobe Creative Cloud", text: "Photoshop, Illustrator, Premiere Pro a InDesign ve výuce.", tag: "Grafika" },
+];
+---
+
+<Base title="SPŠ Trutnov" description="Střední průmyslová škola Trutnov — maturitní a učební obory v elektrotechnice, IT a strojírenství. Druhá největší střední škola v Královéhradeckém kraji.">
+	<!-- ===================================================== HERO -->
+	<section class="hero">
+		<SignalField />
+		<div class="container hero__inner">
+			<h1 class="hero__title" data-split>Technika, která tě posune dál.</h1>
+			<p class="lead hero__lead" data-reveal>
+				Elektro. IT. Strojírenství. Čtyři maturitní a dva učební obory, špičkové laboratoře a praxe u firem, které tě
+				zaměstnají.
+			</p>
+			<div class="cluster hero__ctas" data-reveal>
+				<a class="btn" href="/studium/obory-vzdelani">Vybrat obor <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+				<a class="btn btn--secondary" href="/studium/den-otevrenych-dveri">Den otevřených dveří</a>
+			</div>
+			<p class="meta hero__since" data-reveal>Střední průmyslová škola · Trutnov · od roku 1952</p>
+		</div>
+	</section>
+	<hr class="divider" />
+
+	<!-- ===================================================== STACK SPLIT -->
+	<section class="section" id="stack">
+		<div class="container">
+			<div class="stack-split" data-reveal-group>
+				<div class="panel panel--accent panel--plus stack-split__claim" data-reveal>
+					<span class="meta stack-split__label">Co u nás studuješ</span>
+					<p class="stack-split__headline">Elektro. IT. Strojírenství.</p>
+					<p class="stack-split__text">
+						Tři technické světy, jedna škola. Obory propojujeme tak, aby mezi nimi šlo přestoupit — z učebního do
+						maturitního i naopak.
+					</p>
+				</div>
+				<div class="panel panel--plus stack-split__media" data-reveal>
+					<div class="dots" aria-hidden="true"></div>
+					<figure class="frame stack-split__photo">
+						<img src="/images/pracoviste/mlade-buky.webp" alt="Pracoviště praktického vyučování v Mladých Bukách" width="960" height="640" loading="lazy" decoding="async" />
+					</figure>
+					<figcaption class="meta stack-split__caption">Mladé Buky 374 · praktické vyučování</figcaption>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===================================================== PROGRAMS -->
+	<section class="section section--flush-top">
+		<div class="container">
+			<div class="section-head section-head--split">
+				<h2 class="h-section" data-split>Vyber si cestu, která ti sedí.</h2>
+				<a class="link-arrow" href="/studium/obory-vzdelani">Všechny obory <Icon name="arrow" size="s" /></a>
+			</div>
+			<div class="paths" data-reveal-group>
+				{
+					[
+						{ title: "Maturitní obory", note: "4 roky · přijímací zkouška", items: maturita, cta: "Prozkoumat maturitní obory" },
+						{ title: "Učební obory", note: "3 roky · se stipendiem kraje", items: vyucni, cta: "Prozkoumat učební obory" },
+					].map((group) => (
+						<div class="path" data-reveal>
+							<div class="path__head">
+								<h3 class="h-section path__title">{group.title}</h3>
+								<p class="meta">{group.note}</p>
+							</div>
+							<ul class="path__list" role="list">
+								{group.items.map((p) => (
+									<li>
+										<a class="path__item" href={`/studium/obory-vzdelani/${p.slug}`} style={`--program: var(--color-program-${p.color})`}>
+											<span class="path__marker" aria-hidden="true" />
+											<span class="path__name">{p.title}</span>
+											<span class="path__code meta">{p.code.split(" ")[0]}</span>
+											<Icon name="arrow" size="s" class="path__arrow" />
+										</a>
+									</li>
+								))}
+							</ul>
+							<a class="path__cta btn btn--block" href="/studium/obory-vzdelani">
+								{group.cta}
+								<Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" />
+							</a>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- ===================================================== STATS -->
+	<section aria-labelledby="stats-title">
+		<h2 id="stats-title" class="visually-hidden">Škola v číslech</h2>
+		<div class="stats" data-reveal-group>
+			{
+				stats.map((s) => (
+					<div class={`stat stat--${s.tone}`} data-reveal>
+						<span class="stat__value" data-count={s.value} data-suffix={s.suffix ?? ""}>
+							{s.value}
+							{s.suffix}
+						</span>
+						<span class="stat__label">{s.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<!-- ===================================================== NEWS -->
+	<section class="section">
+		<div class="container">
+			<div class="section-head section-head--split">
+				<h2 class="h-section" data-split>Co se u nás děje.</h2>
+				<a class="btn btn--outline" href="/novinky">Všechny novinky <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+			</div>
+			<div class="news" data-reveal-group>
+				{lead && <div class="news__lead"><PostCard post={lead} size="large" /></div>}
+				<div class="news__grid">
+					{rest.slice(0, 4).map((p) => <PostCard post={p} />)}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===================================================== EVENTS + DOD -->
+	<section class="section section--surface">
+		<div class="container split split--wide-end">
+			<div class="panel panel--inverse panel--plus dod" data-reveal>
+				<h2 class="h-section">Den otevřených dveří</h2>
+				{
+					nextDod && (
+						<p class="dod__date">
+							<span>{formatDay(nextDod.start)}.</span> {formatMonth(nextDod.start)} · {formatTime(nextDod.start)}–{nextDod.end ? formatTime(nextDod.end) : ""}
+						</p>
+					)
+				}
+				<p class="muted">Otevřeme všechna pracoviště — dílny, laboratoře, robotická pracoviště i CNC. V Mladých Bukách čeká dárek zdarma.</p>
+				<a class="btn btn--light" href="/studium/den-otevrenych-dveri">Naplánovat návštěvu <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+			</div>
+			<div class="stack">
+				<div class="section-head section-head--split u-mt-0">
+					<h2 class="h-section">Důležité termíny</h2>
+				</div>
+				<ol class="events" role="list" data-reveal-group>
+					{
+						events.slice(0, 5).map((e) => (
+							<li class="event" data-reveal>
+								<time class="event__date" datetime={e.start.toISOString()}>
+									<span class="event__day">{formatDay(e.start)}</span>
+									<span class="event__month">{formatMonth(e.start)}</span>
+								</time>
+								<div class="event__body">
+									<span class="tag tag--dot">{eventKindLabel[e.kind]}</span>
+									<h3 class="h-card">{e.title}</h3>
+									<p class="muted">{e.location}</p>
+								</div>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===================================================== ACADEMIES -->
+	<section class="section">
+		<div class="container">
+			<div class="section-head">
+				<h2 class="h-section" data-split>Nadstandardní výuka ICT.</h2>
+				<p class="lead">Během studia můžeš získat celosvětově uznávané certifikáty a pracovat v profesionálním softwaru zdarma.</p>
+			</div>
+			<ul class="grid grid--s academies" role="list" data-reveal-group>
+				{
+					academies.map((a, i) => (
+						<li class="panel panel--plus academy" data-reveal>
+							<span class="academy__index meta">0{i + 1}</span>
+							<span class="tag">{a.tag}</span>
+							<h3 class="h-card">{a.name}</h3>
+							<p class="muted">{a.text}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- ===================================================== PARTNERS -->
+	<section class="partners" aria-labelledby="partners-title">
+		<div class="container partners__head">
+			<span class="eyebrow eyebrow--muted" id="partners-title">Nejvýznamnější partneři</span>
+			<a class="link-arrow" href="/o-skole/partnerstvi-a-spoluprace">Partnerství a spolupráce <Icon name="arrow" size="s" /></a>
+		</div>
+		<div class="marquee" aria-label="Partneři školy">
+			<ul class="marquee__track" role="list">
+				{partners.map((p) => <li class="marquee__item">{p.name}</li>)}
+			</ul>
+			<ul class="marquee__track" role="list" aria-hidden="true">
+				{partners.map((p) => <li class="marquee__item">{p.name}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<!-- ===================================================== CTA -->
+	<section class="cta">
+		<SignalField variant="bars" class="cta__bars" />
+		<div class="container cta__inner">
+			<h2 class="h-display" data-split>Staň se hrdým žákem průmyslovky.</h2>
+			<p class="lead">Studium je zdarma — a ve vybraných oborech za něj dostaneš zaplaceno.</p>
+			<div class="cluster">
+				<a class="btn" href="/studium/prijimaci-rizeni">Přijímací řízení <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+				<a class="btn btn--light" href="/studium/stipendium">Stipendium</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ---------- Hero ------------------------------------------------------ */
+	.hero {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: grid;
+		align-items: center;
+		min-block-size: min(88svh, 60rem);
+		padding-block: var(--section-space);
+	}
+	.hero :global(.signal) {
+		z-index: -1;
+	}
+	.hero__inner {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-m);
+		text-align: center;
+	}
+	.hero__title {
+		max-width: 16ch;
+		font-size: var(--text-3xl);
+	}
+	.hero__lead {
+		max-width: 40rem;
+	}
+	.hero__ctas {
+		justify-content: center;
+	}
+	.hero__since {
+		margin-top: var(--space-s);
+	}
+
+	/* ---------- Stack split ---------------------------------------------- */
+	.stack-split {
+		display: grid;
+		gap: 0;
+	}
+	.stack-split > .panel {
+		padding: var(--space-xl) var(--space-l);
+	}
+	.stack-split__claim {
+		display: grid;
+		align-content: space-between;
+		justify-items: center;
+		gap: var(--space-xl);
+		text-align: center;
+		min-block-size: 24rem;
+	}
+	.stack-split__headline {
+		font-size: var(--text-2xl);
+		line-height: var(--leading-tight);
+		letter-spacing: var(--tracking-tight);
+		font-weight: var(--weight-medium);
+	}
+	.stack-split__text {
+		max-width: 30rem;
+		color: var(--color-text-muted);
+	}
+	.stack-split__media {
+		position: relative;
+		display: grid;
+		align-content: center;
+		gap: var(--space-s);
+		background: var(--color-bg);
+	}
+	.dots {
+		position: absolute;
+		inset: var(--space-l);
+		background-image: radial-gradient(var(--color-text-muted) var(--border-width), transparent 0);
+		background-size: var(--space-xl) var(--space-xl);
+		opacity: 0.5;
+	}
+	.stack-split__photo {
+		position: relative;
+		margin: 0 var(--space-l);
+		--frame-ratio: 4 / 3;
+	}
+	.stack-split__caption {
+		position: relative;
+		text-align: center;
+	}
+	@media (width >= 48rem) {
+		.stack-split {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	/* ---------- Program paths -------------------------------------------- */
+	.paths {
+		display: grid;
+		gap: var(--grid-gap);
+	}
+	@media (width >= 48rem) {
+		.paths {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	.path {
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+		gap: var(--space-2xs);
+		padding: var(--space-2xs);
+		background: var(--color-surface);
+		border-radius: var(--radius-xs);
+	}
+	.path__head {
+		display: grid;
+		gap: var(--space-2xs);
+		padding: var(--space-m) var(--space-m) var(--space-l);
+	}
+	.path__title {
+		font-size: var(--text-xl);
+	}
+	.path__list {
+		display: grid;
+		gap: var(--space-3xs);
+		align-content: start;
+	}
+	.path__item {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		align-items: center;
+		gap: var(--space-xs);
+		padding: var(--space-s) var(--space-m);
+		background: var(--color-bg);
+		border-radius: var(--radius-xs);
+		text-decoration: none;
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			padding var(--duration-base) var(--ease-out);
+	}
+	.path__item:hover {
+		padding-inline-start: var(--space-l);
+	}
+	.path__marker {
+		inline-size: var(--marker-size);
+		block-size: var(--marker-size);
+		background: var(--program);
+		transition: scale var(--duration-base) var(--ease-emphasized);
+	}
+	.path__item:hover .path__marker {
+		scale: 1.6;
+	}
+	.path__name {
+		font-weight: var(--weight-medium);
+	}
+	.path__code {
+		display: none;
+	}
+	.path__item :global(.path__arrow) {
+		opacity: 0;
+		translate: calc(var(--space-2xs) * -1) 0;
+		transition:
+			opacity var(--duration-fast) var(--ease-out),
+			translate var(--duration-base) var(--ease-out);
+	}
+	.path__item:hover :global(.path__arrow) {
+		opacity: 1;
+		translate: 0 0;
+	}
+	@media (width >= 48rem) {
+		.path__item {
+			grid-template-columns: auto minmax(0, 1fr) auto auto;
+		}
+		.path__code {
+			display: block;
+		}
+	}
+
+	/* ---------- Stats ----------------------------------------------------- */
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	@media (width >= 48rem) {
+		.stats {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+	.stat--accent {
+		--stat-bg: var(--color-accent);
+		--stat-fg: var(--color-on-accent);
+	}
+	.stat--ink {
+		--stat-bg: var(--color-inverse-bg);
+		--stat-fg: var(--color-inverse-text);
+	}
+	.stat--surface {
+		--stat-bg: var(--color-surface-2);
+	}
+	.stat--plain {
+		--stat-bg: var(--color-bg);
+		box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
+	}
+
+	/* ---------- News ------------------------------------------------------ */
+	.news {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--grid-gap);
+	}
+	.news__grid {
+		display: grid;
+		gap: var(--grid-gap);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+	}
+	@media (width >= 75rem) {
+		.news {
+			grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		}
+		.news__lead :global(.post) {
+			block-size: 100%;
+		}
+		.news__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	/* ---------- DOD + events --------------------------------------------- */
+	.dod {
+		display: grid;
+		gap: var(--space-m);
+		align-content: start;
+		padding: var(--space-xl) var(--space-l);
+	}
+	.dod__date {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+	}
+	.dod__date span {
+		font-size: var(--text-3xl);
+		line-height: var(--leading-tight);
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-accent-text);
+	}
+	:global([data-theme="dark"]) .dod__date span {
+		color: var(--color-accent);
+	}
+	.dod .btn {
+		justify-self: start;
+	}
+	.events {
+		display: grid;
+		gap: var(--space-3xs);
+		padding: 0;
+	}
+	.event {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: var(--space-m);
+		align-items: center;
+		padding: var(--space-s) var(--space-m);
+		background: var(--color-bg);
+		border-radius: var(--radius-xs);
+		transition: translate var(--duration-base) var(--ease-out);
+	}
+	.event:hover {
+		translate: var(--space-2xs) 0;
+	}
+	.event__date {
+		display: grid;
+		justify-items: center;
+		min-inline-size: calc(var(--tap-target) * 1.5);
+		padding-inline-end: var(--space-m);
+		border-inline-end: var(--border-width) solid var(--color-border);
+	}
+	.event__day {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-tight);
+	}
+	.event__month {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-accent-text);
+	}
+	.event__body {
+		display: grid;
+		gap: var(--space-3xs);
+		justify-items: start;
+	}
+
+	/* ---------- Academies ------------------------------------------------- */
+	.academies {
+		padding: 0;
+	}
+	.academy {
+		display: grid;
+		gap: var(--space-s);
+		align-content: start;
+		justify-items: start;
+		padding-top: var(--space-xl);
+		transition:
+			border-color var(--duration-base) var(--ease-out),
+			background-color var(--duration-base) var(--ease-out);
+	}
+	.academy:hover {
+		border-color: var(--color-accent);
+	}
+	.academy__index {
+		color: var(--color-accent-text);
+	}
+
+	/* ---------- Partners marquee ----------------------------------------- */
+	.partners {
+		padding-block: var(--section-space-sm);
+		border-block: var(--border-width) solid var(--color-border);
+		overflow: hidden;
+	}
+	.partners__head {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: var(--space-s);
+		margin-bottom: var(--space-l);
+	}
+	.marquee {
+		display: flex;
+		mask-image: linear-gradient(90deg, transparent, var(--prim-ink) 10%, var(--prim-ink) 90%, transparent);
+	}
+	.marquee__track {
+		display: flex;
+		flex: none;
+		gap: var(--space-2xl);
+		padding-inline-end: var(--space-2xl);
+		animation: marquee calc(var(--duration-slower) * 30) linear infinite;
+	}
+	.marquee:hover .marquee__track {
+		animation-play-state: paused;
+	}
+	.marquee__item {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		letter-spacing: var(--tracking-snug);
+		color: var(--color-text-muted);
+		white-space: nowrap;
+		transition: color var(--duration-fast) var(--ease-out);
+	}
+	.marquee__item:hover {
+		color: var(--color-text);
+	}
+	@keyframes marquee {
+		to {
+			translate: -100% 0;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.marquee {
+			flex-wrap: wrap;
+		}
+		.marquee__track {
+			animation: none;
+			flex-wrap: wrap;
+			gap: var(--space-s) var(--space-xl);
+		}
+		.marquee__track[aria-hidden] {
+			display: none;
+		}
+	}
+
+	/* ---------- Closing CTA ---------------------------------------------- */
+	.cta {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background: var(--prim-ink);
+		color: var(--prim-paper);
+		padding-block: var(--section-space);
+		--color-text-muted: var(--prim-slate-light);
+		--color-hero-line: color-mix(in oklab, var(--prim-paper) 22%, transparent);
+		--color-hero-line-accent: var(--prim-blue-500);
+		--color-accent-text: var(--prim-blue-300);
+		--color-focus: var(--prim-blue-300);
+	}
+	.cta :global(.cta__bars) {
+		z-index: -1;
+		mask-image: none;
+	}
+	.cta__inner {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-m);
+		text-align: center;
+	}
+	.cta .h-display {
+		max-width: 14ch;
+	}
+	.cta .cluster {
+		justify-content: center;
+	}
+</style>

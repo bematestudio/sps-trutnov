@@ -1,0 +1,207 @@
+---
+import Icon from "../components/Icon.astro";
+import Logo from "../components/Logo.astro";
+import SignalField from "../components/SignalField.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import Base from "../layouts/Base.astro";
+const portals = [
+	{ label: "Studijní průkaz (Bakaláři)", url: "https://bakalari.spstrutnov.cz", icon: "cap" },
+	{ label: "Školní e-mail", url: "https://outlook.office.com/mail/", icon: "mail" },
+	{ label: "Intranet", url: "http://intranet.spstrutnov.cz", icon: "grid" },
+] as const;
+---
+
+<Base title="Přihlášení" noindex bare>
+	<div class="login">
+		<section class="login__art" aria-hidden="true">
+			<SignalField />
+			<a class="login__brand" href="/" tabindex="-1"><Logo /></a>
+			<p class="login__claim">Technika, která tě posune dál.</p>
+		</section>
+		<section class="login__panel">
+			<div class="login__top">
+				<a class="link-arrow" href="/"><Icon name="arrow-left" size="s" /> Zpět na web</a>
+				<ThemeToggle />
+			</div>
+			<div class="login__box">
+				<div class="stack stack--s">
+					<h1 class="h-section">Přihlášení</h1>
+					<p class="meta">Administrace webu</p>
+					<p class="muted">Pro zaměstnance školy, kteří spravují obsah webu.</p>
+				</div>
+				<button class="btn btn--secondary btn--block" type="button" data-ms-login>
+					<Icon name="grid" size="s" /> Přihlásit přes Microsoft 365
+				</button>
+				<div class="login__or"><span>nebo e-mailem</span></div>
+				<form class="a-form" data-login-form novalidate>
+					<div class="field">
+						<label class="field__label" for="login-email">Školní e-mail</label>
+						<input class="input" id="login-email" name="email" type="email" autocomplete="username" placeholder="prijmeni@spstrutnov.cz" required />
+					</div>
+					<div class="field">
+						<div class="login__label-row">
+							<label class="field__label" for="login-password">Heslo</label>
+							<button class="link login__toggle" type="button" data-toggle-password aria-controls="login-password">Zobrazit</button>
+						</div>
+						<input class="input" id="login-password" name="password" type="password" autocomplete="current-password" required minlength="4" />
+					</div>
+					<label class="checkbox"><input type="checkbox" name="remember" /> <span>Zůstat přihlášen na tomto zařízení</span></label>
+					<p class="login__error" role="alert" data-login-error hidden></p>
+					<button class="btn btn--block" type="submit"><span data-login-label>Přihlásit se</span> <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></button>
+				</form>
+				<p class="notice"><Icon name="lock" size="s" /> <span>Ukázkový režim — přihlášení zatím není napojené na backend. Správa obsahu běží v <a class="link" href="/_emdash/admin">EmDash CMS</a>.</span></p>
+			</div>
+			<nav class="login__portals" aria-label="Školní portály">
+				<p class="meta">Hledáte něco jiného?</p>
+				<ul role="list">
+					{portals.map((p) => (
+						<li><a href={p.url} target="_blank" rel="noopener"><Icon name={p.icon} size="s" /> {p.label} <Icon name="arrow-up-right" size="s" /></a></li>
+					))}
+				</ul>
+			</nav>
+		</section>
+	</div>
+</Base>
+
+<style>
+	.login {
+		display: grid;
+		min-block-size: 100dvh;
+	}
+	.login__art {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: none;
+		padding: var(--space-xl);
+		background: var(--prim-ink);
+		color: var(--prim-paper);
+		--color-text: var(--prim-paper);
+		--color-text-muted: var(--prim-slate-light);
+		--color-hero-line: color-mix(in oklab, var(--prim-paper) 26%, transparent);
+		--color-hero-line-accent: var(--prim-blue-500);
+	}
+	.login__art :global(.signal) {
+		z-index: -1;
+	}
+	.login__brand {
+		text-decoration: none;
+	}
+	.login__claim {
+		position: absolute;
+		inset-inline: var(--space-xl);
+		inset-block-end: var(--space-xl);
+		font-size: var(--text-2xl);
+		line-height: var(--leading-tight);
+		letter-spacing: var(--tracking-tight);
+		font-weight: var(--weight-medium);
+		max-width: 14ch;
+	}
+	.login__panel {
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+		gap: var(--space-xl);
+		padding: var(--space-m) var(--gutter) var(--space-xl);
+	}
+	.login__top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.login__box {
+		display: grid;
+		gap: var(--space-m);
+		align-content: center;
+		inline-size: min(100%, 28rem);
+		margin-inline: auto;
+	}
+	.login__or {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: var(--space-s);
+		color: var(--color-text-muted);
+	}
+	.login__or::before,
+	.login__or::after {
+		content: "";
+		block-size: var(--border-width);
+		background: var(--color-border);
+	}
+	.login__label-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.login__toggle {
+		min-block-size: var(--tap-target);
+	}
+	.login__error {
+		color: var(--color-danger);
+	}
+	.login__portals {
+		inline-size: min(100%, 28rem);
+		margin-inline: auto;
+		display: grid;
+		gap: var(--space-xs);
+	}
+	.login__portals ul {
+		display: grid;
+	}
+	.login__portals a {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		min-block-size: var(--tap-target);
+		text-decoration: none;
+		border-bottom: var(--border-width) solid var(--color-border);
+		transition: color var(--duration-fast) var(--ease-out);
+	}
+	.login__portals a :global(svg:last-child) {
+		margin-inline-start: auto;
+	}
+	.login__portals a:hover {
+		color: var(--color-accent-text);
+	}
+	@media (width >= 75rem) {
+		.login {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		}
+		.login__art {
+			display: block;
+		}
+	}
+</style>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>("[data-login-form]");
+	const err = document.querySelector<HTMLElement>("[data-login-error]");
+	const label = document.querySelector<HTMLElement>("[data-login-label]");
+	const signIn = (email: string) => {
+		const local = email.split("@")[0] || "uživatel";
+		const name = local.charAt(0).toUpperCase() + local.slice(1);
+		try {
+			sessionStorage.setItem("sps-admin", JSON.stringify({ email, name }));
+		} catch {}
+		if (label) label.textContent = "Přihlašuji…";
+		window.setTimeout(() => (location.href = "/admin"), 450);
+	};
+	form?.addEventListener("submit", (e) => {
+		e.preventDefault();
+		if (!form.checkValidity()) {
+			err!.textContent = "Zadejte platný školní e-mail a heslo.";
+			err!.hidden = false;
+			form.querySelector<HTMLElement>(":invalid")?.focus();
+			return;
+		}
+		err!.hidden = true;
+		signIn(String(new FormData(form).get("email")));
+	});
+	document.querySelector("[data-ms-login]")?.addEventListener("click", () => signIn("sauer@spstrutnov.cz"));
+	document.querySelector<HTMLButtonElement>("[data-toggle-password]")?.addEventListener("click", (e) => {
+		const input = document.querySelector<HTMLInputElement>("#login-password")!;
+		const show = input.type === "password";
+		input.type = show ? "text" : "password";
+		(e.currentTarget as HTMLButtonElement).textContent = show ? "Skrýt" : "Zobrazit";
+	});
+</script>

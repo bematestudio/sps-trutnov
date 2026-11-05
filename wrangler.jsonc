@@ -1,0 +1,24 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "sps-trutnov",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-10-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": { "enabled": true },
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "sps-trutnov"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "sps-trutnov-media"
+		}
+	],
+	// Scheduled publishing + maintenance for EmDash
+	"triggers": {
+		"crons": ["*/5 * * * *"]
+	}
+}

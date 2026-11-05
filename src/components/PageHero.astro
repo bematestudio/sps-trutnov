@@ -1,0 +1,42 @@
+---
+import Breadcrumbs from "./Breadcrumbs.astro";
+
+interface Props {
+	title: string;
+	eyebrow?: string;
+	lead?: string;
+	crumbs?: Array<{ label: string; href?: string }>;
+}
+const { title, lead, crumbs = [] } = Astro.props;
+---
+
+<section class="page-hero">
+	<div class="container page-hero__inner">
+		{crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
+		<div class="page-hero__text">
+			<h1 class="page-hero__title" data-split>{title}</h1>
+			{lead && <p class="lead" data-reveal>{lead}</p>}
+		</div>
+		<slot />
+	</div>
+	<hr class="divider" />
+</section>
+
+<style>
+	.page-hero {
+		padding-top: var(--section-space-sm);
+	}
+	.page-hero__inner {
+		display: grid;
+		gap: var(--space-l);
+		padding-bottom: var(--section-space-sm);
+	}
+	.page-hero__text {
+		display: grid;
+		gap: var(--space-m);
+		max-width: 60rem;
+	}
+	.page-hero__title {
+		font-size: var(--text-3xl);
+	}
+</style>

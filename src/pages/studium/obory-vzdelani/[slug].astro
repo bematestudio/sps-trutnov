@@ -1,0 +1,206 @@
+---
+import { PortableText } from "emdash/ui";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Icon from "../../../components/Icon.astro";
+import ProgramCard from "../../../components/ProgramCard.astro";
+import Base from "../../../layouts/Base.astro";
+import { createCms } from "../../../lib/cms";
+import { programTypeLabel } from "../../../lib/format";
+
+const { slug } = Astro.params;
+const cms = createCms(Astro.locals);
+const programs = await cms.programs();
+const program = programs.find((p) => p.slug === slug);
+if (!program) return Astro.rewrite("/404");
+const others = programs.filter((p) => p.slug !== program.slug && p.type === program.type).slice(0, 3);
+const facts = [
+	{ label: "Kód oboru", value: program.code },
+	{ label: "Délka a forma", value: program.duration },
+	{ label: "Ukončení", value: program.type === "maturita" ? "Maturitní zkouška" : "Výuční list" },
+	{ label: "Přijímáme", value: `${program.capacity} uchazečů` },
+	{ label: "Přijímací zkouška", value: program.entranceExam ? "Ano (JPZ)" : "Ne" },
+	{ label: "Zdravotní způsobilost", value: program.healthRequired ? "Ano — lékařský posudek" : "Ne" },
+	{ label: "Pracoviště", value: program.workplace },
+];
+---
+
+<Base title={program.title} description={program.summary} content={{ collection: "programs", id: program.slug, slug: program.slug }}>
+	<section class="program-hero" style={`--program: var(--color-program-${program.color})`}>
+		<div class="container program-hero__grid">
+			<div class="stack">
+				<Breadcrumbs items={[{ label: "Studium", href: "/studium" }, { label: "Obory vzdělání", href: "/studium/obory-vzdelani" }, { label: program.title }]} />
+				<div class="cluster">
+					<span class="tag tag--dot" style="--tag-color: var(--program)">{programTypeLabel(program.type)}</span>
+					<span class="meta">{program.svp}</span>
+				</div>
+				<h1 class="program-hero__title" data-split>{program.title}</h1>
+				<p class="lead">{program.summary}</p>
+				<div class="cluster">
+					<a class="btn" href="/studium/prijimaci-rizeni">{program.type === "maturita" ? "To chci studovat" : "Tím chci být"} <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+					<a class="btn btn--outline" href="/studium/den-otevrenych-dveri">Přijď se podívat</a>
+				</div>
+			</div>
+			<aside class="panel panel--plus facts" aria-label="Základní údaje o oboru" data-reveal>
+				<span class="program-hero__badge" aria-hidden="true">{program.shortTitle}</span>
+				<dl>
+					{facts.map((f) => (
+						<div class="facts__row">
+							<dt>{f.label}</dt>
+							<dd>{f.value}</dd>
+						</div>
+					))}
+				</dl>
+			</aside>
+		</div>
+	</section>
+	<hr class="divider" />
+
+	<section class="section">
+		<div class="container split split--wide-start">
+			<div class="stack stack--l">
+				<div class="stack">
+					<h2 class="h-card">Charakteristika oboru</h2>
+					<div class="prose"><PortableText value={program.content} /></div>
+				</div>
+			</div>
+			<div class="stack">
+				<div class="learn" data-reveal>
+					<h2 class="h-card learn__title">Co se naučíš</h2>
+					<ul class="list-rows" role="list" style="--color-accent: var(--program)">
+						{program.highlights.map((h) => <li>{h}</li>)}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{
+		program.careers.length > 0 && (
+			<section class="section section--inverse">
+				<div class="container">
+					<div class="section-head">
+						<h2 class="h-section">Kde budeš pracovat.</h2>
+						<p class="meta">Uplatnění absolventů</p>
+					</div>
+					<ol class="careers" role="list" data-reveal-group>
+						{program.careers.map((c, i) => (
+							<li class="career" data-reveal>
+								<span class="meta">{String(i + 1).padStart(2, "0")}</span>
+								<span class="career__name">{c}</span>
+							</li>
+						))}
+					</ol>
+					<p class="careers__more muted">Pokračovat můžeš také na vyšší odborné nebo vysoké škole.</p>
+				</div>
+			</section>
+		)
+	}
+
+	{
+		others.length > 0 && (
+			<section class="section">
+				<div class="container">
+					<div class="section-head section-head--split">
+						<h2 class="h-section">Další obory</h2>
+						<a class="link-arrow" href="/studium/obory-vzdelani">Všechny obory <Icon name="arrow" size="s" /></a>
+					</div>
+					<div class="grid" data-reveal-group>
+						{others.map((p) => <ProgramCard program={p} />)}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</Base>
+
+<style>
+	.program-hero {
+		position: relative;
+		overflow: hidden;
+		padding-block: var(--section-space-sm);
+		background: linear-gradient(180deg, color-mix(in oklab, var(--program) 8%, var(--color-bg)), var(--color-bg));
+	}
+	.program-hero__grid {
+		display: grid;
+		gap: var(--space-xl);
+		align-items: end;
+	}
+	.program-hero__title {
+		font-size: var(--text-3xl);
+	}
+	.program-hero__badge {
+		display: block;
+		margin-bottom: var(--space-s);
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-semibold);
+		font-family: var(--font-mono);
+		color: var(--program);
+	}
+	.facts {
+		position: relative;
+		background: var(--color-elevated);
+		padding-top: var(--space-xl);
+	}
+	.facts__row {
+		display: grid;
+		grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+		gap: var(--space-s);
+		padding-block: var(--space-xs);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.facts__row:last-child {
+		border-bottom: 0;
+	}
+	.facts dt {
+		color: var(--color-text-muted);
+	}
+	.facts dd {
+		margin: 0;
+		font-weight: var(--weight-medium);
+	}
+	@media (width >= 75rem) {
+		.program-hero__grid {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		}
+	}
+	.learn {
+		padding: var(--space-2xs);
+		background: var(--color-surface);
+		border-radius: var(--radius-xs);
+	}
+	.learn__title {
+		padding: var(--space-m);
+	}
+	.careers {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		gap: var(--border-width);
+		background: var(--color-border);
+		border: var(--border-width) solid var(--color-border);
+		padding: 0;
+	}
+	.career {
+		display: grid;
+		gap: var(--space-l);
+		align-content: space-between;
+		padding: var(--space-m);
+		min-block-size: 9rem;
+		background: var(--color-inverse-bg);
+		transition: background-color var(--duration-base) var(--ease-out);
+	}
+	.career:hover {
+		background: var(--color-accent);
+		color: var(--color-on-accent);
+	}
+	.career__name {
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
+	}
+	.careers__more {
+		margin-top: var(--space-l);
+	}
+	.grid {
+		--grid-min: 19rem;
+	}
+</style>

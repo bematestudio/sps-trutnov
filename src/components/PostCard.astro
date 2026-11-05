@@ -1,0 +1,98 @@
+---
+import type { Post } from "../lib/cms";
+import { formatDate } from "../lib/format";
+import Icon from "./Icon.astro";
+
+interface Props {
+	post: Post;
+	size?: "default" | "large" | "compact";
+	headingLevel?: "h2" | "h3";
+	eager?: boolean;
+}
+const { post, size = "default", headingLevel: H = "h3", eager = false } = Astro.props;
+---
+
+<article class:list={["card card--interactive post", `post--${size}`]} data-reveal>
+	{
+		post.image && size !== "compact" && (
+			<div class="card__media">
+				<img
+					src={post.image.src}
+					alt=""
+					width={post.image.width ?? 960}
+					height={post.image.height ?? 640}
+					loading={eager ? "eager" : "lazy"}
+					decoding="async"
+					fetchpriority={eager ? "high" : undefined}
+				/>
+			</div>
+		)
+	}
+	<div class="post__meta">
+		{post.category && <span class="tag tag--dot">{post.category.label}</span>}
+		<time class="meta" datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+	</div>
+	<H class="post__title">
+		<a class="stretched" href={`/novinky/${post.slug}`}>{post.title}</a>
+	</H>
+	{size !== "compact" && post.excerpt && <p class="post__excerpt">{post.excerpt}</p>}
+	<div class="card__foot">
+		<span class="post__author">{post.author}</span>
+		<span class="post__go" aria-hidden="true"><Icon name="arrow" size="s" /></span>
+	</div>
+</article>
+
+<style>
+	.post__meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-2xs) var(--space-s);
+	}
+	.post__title {
+		font-size: var(--text-lg);
+		line-height: var(--leading-snug);
+		letter-spacing: var(--tracking-snug);
+		font-weight: var(--weight-medium);
+	}
+	.post__title a {
+		text-decoration: none;
+	}
+	.post--large .post__title {
+		font-size: var(--text-xl);
+	}
+	.post--large .card__media {
+		aspect-ratio: 16 / 10;
+		flex: 1 1 auto;
+		min-block-size: 16rem;
+	}
+	.post__excerpt {
+		color: var(--color-text-muted);
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.post__author {
+		color: var(--color-text-muted);
+	}
+	.post__go {
+		display: grid;
+		place-items: center;
+		inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-s);
+		transition:
+			background-color var(--duration-base) var(--ease-out),
+			color var(--duration-base) var(--ease-out),
+			border-color var(--duration-base) var(--ease-out),
+			rotate var(--duration-base) var(--ease-out);
+	}
+	.post:hover .post__go {
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+		color: var(--color-on-accent);
+		rotate: -45deg;
+	}
+</style>

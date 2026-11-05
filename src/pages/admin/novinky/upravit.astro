@@ -1,0 +1,203 @@
+---
+import Icon from "../../../components/Icon.astro";
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import { createCms } from "../../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const slug = Astro.url.searchParams.get("slug");
+const [post, categories] = await Promise.all([slug ? cms.post(slug) : null, cms.categories()]);
+const bodyText = (post?.content ?? [])
+	.map((b: any) => (b.children ?? []).map((c: any) => c.text).join(""))
+	.join("\n\n");
+---
+
+<AdminLayout title={post ? "Upravit novinku" : "Nová novinka"} heading={post ? "Upravit novinku" : "Nová novinka"}>
+	<a slot="actions" class="btn btn--outline" href="/admin/novinky"><Icon name="arrow-left" size="s" /> Zpět</a>
+	<form class="editor" data-editor data-slug={post?.slug ?? ""}>
+		<div class="a-card editor__main">
+			<div class="field">
+				<label class="field__label" for="e-title">Titulek</label>
+				<input class="input editor__title" id="e-title" name="title" value={post?.title ?? ""} required placeholder="Např. Naši žáci uspěli v soutěži…" />
+			</div>
+			<div class="field">
+				<label class="field__label" for="e-excerpt">Perex</label>
+				<textarea class="textarea" id="e-excerpt" name="excerpt" rows="3" maxlength="280" data-counter>{post?.excerpt ?? ""}</textarea>
+				<span class="field__hint" data-counter-out>0 / 280 znaků</span>
+			</div>
+			<div class="field">
+				<label class="field__label" for="e-body">Text článku</label>
+				<div class="editor__toolbar" role="toolbar" aria-label="Formátování">
+					<button class="btn btn--ghost" type="button" data-md="## ">Nadpis</button>
+					<button class="btn btn--ghost" type="button" data-md="**">Tučně</button>
+					<button class="btn btn--ghost" type="button" data-md="- ">Odrážka</button>
+				</div>
+				<textarea class="textarea editor__body" id="e-body" name="body" rows="14">{bodyText}</textarea>
+			</div>
+		</div>
+		<aside class="editor__side">
+			<section class="a-card">
+				<h2 class="a-card__title">Publikace</h2>
+				<label class="field">
+					<span class="field__label">Stav</span>
+					<select class="select" name="status">
+						<option value="draft">Koncept</option>
+						<option value="published" selected={Boolean(post)}>Publikováno</option>
+						<option value="scheduled">Naplánováno</option>
+					</select>
+				</label>
+				<label class="field">
+					<span class="field__label">Kategorie</span>
+					<select class="select" name="category">
+						{categories.map((c) => <option value={c.slug} selected={post?.category?.slug === c.slug}>{c.label}</option>)}
+					</select>
+				</label>
+				<label class="field">
+					<span class="field__label">Autor</span>
+					<input class="input" name="author" value={post?.author ?? ""} />
+				</label>
+				<label class="a-switch"><span>Zvýraznit na úvodní stránce</span><input type="checkbox" name="featured" checked={post?.featured} /></label>
+				<div class="editor__buttons">
+					<button class="btn btn--outline" type="submit" name="intent" value="draft">Uložit koncept</button>
+					<button class="btn" type="submit" name="intent" value="publish">Publikovat <Icon name="check" size="s" /></button>
+				</div>
+			</section>
+			<section class="a-card">
+				<h2 class="a-card__title">Hlavní obrázek</h2>
+				{post?.image && <img class="editor__img" src={post.image.src} alt="" data-preview />}
+				<label class="a-dropzone" data-dropzone>
+					<Icon name="image" size="l" />
+					<span>Přetáhněte obrázek nebo <strong>vyberte soubor</strong></span>
+					<span class="meta">JPG, PNG, WEBP · max 10 MB</span>
+					<input class="visually-hidden" type="file" accept="image/*" data-file />
+				</label>
+			</section>
+		</aside>
+	</form>
+</AdminLayout>
+
+<style>
+	.editor {
+		display: grid;
+		gap: var(--grid-gap);
+		grid-template-columns: minmax(0, 1fr);
+	}
+	@media (width >= 75rem) {
+		.editor {
+			grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+			align-items: start;
+		}
+		.editor__side {
+			position: sticky;
+			inset-block-start: var(--space-m);
+		}
+	}
+	.editor__main {
+		gap: var(--space-m);
+	}
+	.editor__title {
+		font-size: var(--text-lg);
+		font-weight: var(--weight-medium);
+	}
+	.editor__body {
+		font-family: var(--font-mono);
+		line-height: var(--leading-normal);
+	}
+	.editor__toolbar {
+		display: flex;
+		gap: var(--space-3xs);
+	}
+	.editor__side {
+		display: grid;
+		gap: var(--grid-gap);
+	}
+	.editor__buttons {
+		display: grid;
+		gap: var(--space-2xs);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+	}
+	.editor__img {
+		border-radius: var(--radius-s);
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+		inline-size: 100%;
+	}
+</style>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>("[data-editor]");
+	if (form) {
+		const params = new URLSearchParams(location.search);
+		const draftId = params.get("draft");
+		const drafts = (() => {
+			try {
+				return JSON.parse(localStorage.getItem("sps-drafts") ?? "[]");
+			} catch {
+				return [];
+			}
+		})() as Array<Record<string, string>>;
+		const existing = draftId ? drafts.find((d) => d.id === draftId) : undefined;
+		if (existing) {
+			(form.elements.namedItem("title") as HTMLInputElement).value = existing.title ?? "";
+			(form.elements.namedItem("excerpt") as HTMLTextAreaElement).value = existing.excerpt ?? "";
+			(form.elements.namedItem("body") as HTMLTextAreaElement).value = existing.body ?? "";
+			(form.elements.namedItem("author") as HTMLInputElement).value = existing.author ?? "";
+		}
+		// Character counter
+		const counter = form.querySelector<HTMLTextAreaElement>("[data-counter]")!;
+		const out = form.querySelector<HTMLElement>("[data-counter-out]")!;
+		const count = () => (out.textContent = `${counter.value.length} / 280 znaků`);
+		counter.addEventListener("input", count);
+		count();
+		// Markdown-ish toolbar
+		const body = form.querySelector<HTMLTextAreaElement>("#e-body")!;
+		form.querySelectorAll<HTMLButtonElement>("[data-md]").forEach((b) =>
+			b.addEventListener("click", () => {
+				const token = b.dataset.md!;
+				const { selectionStart: s, selectionEnd: e, value } = body;
+				const wrap = token === "**";
+				body.setRangeText(wrap ? `**${value.slice(s, e) || "text"}**` : `\n${token}${value.slice(s, e)}`, s, e, "end");
+				body.focus();
+			}),
+		);
+		// Image preview
+		const file = form.querySelector<HTMLInputElement>("[data-file]")!;
+		const zone = form.querySelector<HTMLElement>("[data-dropzone]")!;
+		const preview = (f: File) => {
+			let img = form.querySelector<HTMLImageElement>("[data-preview]");
+			if (!img) {
+				img = document.createElement("img");
+				img.className = "editor__img";
+				img.dataset.preview = "";
+				img.alt = "";
+				zone.before(img);
+			}
+			img.src = URL.createObjectURL(f);
+		};
+		file.addEventListener("change", () => file.files?.[0] && preview(file.files[0]));
+		["dragenter", "dragover"].forEach((t) => zone.addEventListener(t, (e) => (e.preventDefault(), zone.setAttribute("data-over", ""))));
+		["dragleave", "drop"].forEach((t) => zone.addEventListener(t, () => zone.removeAttribute("data-over")));
+		zone.addEventListener("drop", (e) => {
+			e.preventDefault();
+			const f = (e as DragEvent).dataTransfer?.files?.[0];
+			if (f) preview(f);
+		});
+		// Save (demo → localStorage)
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const intent = ((e as SubmitEvent).submitter as HTMLButtonElement | null)?.value ?? "draft";
+			const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+			if (!data.title?.trim()) {
+				(window as any).spsToast?.("Doplňte prosím titulek.");
+				(form.elements.namedItem("title") as HTMLInputElement).focus();
+				return;
+			}
+			const id = existing?.id ?? form.dataset.slug ?? crypto.randomUUID();
+			const record = { ...data, id, updated: new Date().toISOString() };
+			const next = [record, ...drafts.filter((d) => d.id !== id)];
+			try {
+				localStorage.setItem("sps-drafts", JSON.stringify(next));
+			} catch {}
+			(window as any).spsToast?.(intent === "publish" ? "Uloženo k publikaci (ukázkový režim)." : "Koncept uložen v prohlížeči.");
+		});
+	}
+</script>

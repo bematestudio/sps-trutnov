@@ -1,0 +1,238 @@
+/* ==========================================================================
+   SPŠ Trutnov — Design tokens
+   --------------------------------------------------------------------------
+   THE ONLY FILE where raw values (hex colours, px, ms, rem literals) live.
+   Every component, page and utility consumes these custom properties.
+   `pnpm lint:tokens` fails the build when a raw value leaks elsewhere.
+
+   Breakpoints (custom properties can't be used inside @media, so these are
+   the only two allowed values — enforced by scripts/check-tokens.mjs):
+     --bp-md: 48rem   (tablet / small laptop)
+     --bp-lg: 75rem   (desktop)
+   Everything else is fluid (clamp) or intrinsic (auto-fit grids,
+   container queries).
+   ========================================================================== */
+
+@layer tokens {
+	:root {
+		/* ---------- Primitives ---------------------------------------------- */
+		--prim-white: #ffffff;
+		--prim-paper: #f4f4f1;
+		--prim-paper-2: #ebebe6;
+		--prim-line: #dcdcd5;
+		--prim-ink: #0b0d12;
+		--prim-ink-2: #14161b;
+		--prim-ink-3: #1d2027;
+		--prim-ink-line: #2a2e37;
+		--prim-slate: #5c6270;
+		--prim-slate-light: #9aa1ad;
+		--prim-blue-700: #1550c4;
+		--prim-blue-600: #1a5fe0;
+		--prim-blue-500: #2f6ff0;
+		--prim-blue-300: #7aa7ff;
+		--prim-blue-100: #e3ecff;
+		--prim-blue-950: #0d1a3a;
+		--prim-green-600: #13804a;
+		--prim-green-300: #5fd39a;
+		--prim-amber-500: #c27a06;
+		--prim-amber-700: #8f5a00;
+		--prim-amber-300: #f2b84b;
+		--prim-red-600: #c8322b;
+		--prim-red-300: #ff8a80;
+
+		/* Study-program accents (one hue per obor, used sparingly as tags) */
+		--prim-program-eps: #2b3a8f;
+		--prim-program-it: #4c86e8;
+		--prim-program-sle: #d9366c;
+		--prim-program-str: #d97a0f;
+		--prim-program-el: #b8261f;
+		--prim-program-na: #c9971c;
+
+		/* ---------- Semantic colours (light — default) ---------------------- */
+		--color-bg: var(--prim-white);
+		--color-surface: var(--prim-paper);
+		--color-surface-2: var(--prim-paper-2);
+		--color-elevated: var(--prim-white);
+		--color-text: var(--prim-ink);
+		--color-text-muted: var(--prim-slate);
+		--color-border: var(--prim-line);
+		--color-border-strong: var(--prim-ink);
+		--color-accent: var(--prim-blue-600);
+		--color-accent-hover: var(--prim-blue-700);
+		--color-accent-text: var(--prim-blue-600);
+		--color-accent-soft: var(--prim-blue-100);
+		--color-on-accent: var(--prim-white);
+		--color-accent-strong: var(--prim-blue-700);
+		--color-on-accent-muted: color-mix(in oklab, var(--color-on-accent) 85%, var(--color-accent-strong));
+		--color-inverse-accent: var(--prim-blue-300);
+		--color-inverse-bg: var(--prim-ink);
+		--color-inverse-text: var(--prim-white);
+		--color-inverse-muted: var(--prim-slate-light);
+		--color-success: var(--prim-green-600);
+		--color-warning: var(--prim-amber-700);
+		--color-danger: var(--prim-red-600);
+		--color-focus: var(--prim-blue-600);
+		--color-overlay: color-mix(in oklab, var(--prim-ink) 55%, transparent);
+		--color-glass: color-mix(in oklab, var(--prim-white) 78%, transparent);
+		--color-hero-line: color-mix(in oklab, var(--prim-ink) 22%, transparent);
+		--color-hero-line-accent: var(--prim-blue-600);
+		--color-skeleton: var(--prim-paper-2);
+
+		--color-program-eps: var(--prim-program-eps);
+		--color-program-it: var(--prim-program-it);
+		--color-program-sle: var(--prim-program-sle);
+		--color-program-str: var(--prim-program-str);
+		--color-program-el: var(--prim-program-el);
+		--color-program-na: var(--prim-program-na);
+
+		color-scheme: light;
+
+		/* ---------- Typography --------------------------------------------- */
+		--font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+		--font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+		/* Six-step fluid scale. Body never drops below 1rem (16px). */
+		--text-xs: 0.875rem; /* mono labels, tags, meta — never running text */
+		--text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+		--text-lg: clamp(1.1875rem, 1.1rem + 0.45vw, 1.5rem);
+		--text-xl: clamp(1.5rem, 1.25rem + 1.2vw, 2.25rem);
+		--text-2xl: clamp(2.125rem, 1.55rem + 2.9vw, 4rem);
+		--text-3xl: clamp(2.625rem, 1.4rem + 6vw, 6.5rem);
+		/* Oversized footer wordmark only */
+		--text-display: clamp(4rem, 15.5vw, 20rem);
+
+		--leading-tight: 1.02;
+		--leading-snug: 1.2;
+		--leading-relaxed: 1.4;
+		--leading-normal: 1.55;
+		--tracking-tight: -0.035em;
+		--tracking-snug: -0.02em;
+		--tracking-wide: 0.06em;
+		--weight-regular: 400;
+		--weight-medium: 500;
+		--weight-semibold: 600;
+		--measure: 58ch;
+
+		/* ---------- Space -------------------------------------------------- */
+		--space-3xs: 0.25rem;
+		--space-2xs: 0.5rem;
+		--space-xs: 0.75rem;
+		--space-s: 1rem;
+		--space-m: 1.5rem;
+		--space-l: 2rem;
+		--space-xl: 3rem;
+		--space-2xl: 4rem;
+		--space-3xl: 6rem;
+
+		/* Global rhythm — use these for page structure */
+		--gutter: clamp(1rem, 0.55rem + 2.2vw, 2.5rem);
+		--section-space: clamp(4rem, 2.8rem + 6vw, 9rem);
+		--section-space-sm: clamp(2.5rem, 2rem + 3vw, 5rem);
+		--stack-space: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+		--grid-gap: clamp(0.75rem, 0.5rem + 1.2vw, 1.5rem);
+
+		/* ---------- Layout ------------------------------------------------- */
+		--container: 82rem;
+		--container-narrow: 46rem;
+		--header-height: 4.5rem;
+		--tap-target: 2.75rem;
+		--icon-s: 1rem;
+		--icon-m: 1.25rem;
+		--icon-l: 1.75rem;
+		--marker-size: 0.5rem;
+
+		/* ---------- Shape -------------------------------------------------- */
+		--radius-xs: 0.125rem;
+		--radius-s: 0.25rem;
+		--radius-m: 0.5rem;
+		--radius-l: 0.875rem;
+		--radius-full: 999rem;
+		--border-width: 1px;
+		--border-width-strong: 2px;
+		--focus-ring: 0 0 0 var(--border-width-strong) var(--color-bg), 0 0 0 calc(var(--border-width-strong) * 2) var(--color-focus);
+
+		--shadow-s: 0 1px 2px color-mix(in oklab, var(--prim-ink) 8%, transparent);
+		--shadow-m: 0 0.5rem 1.5rem -0.5rem color-mix(in oklab, var(--prim-ink) 18%, transparent);
+		--shadow-l: 0 1.5rem 3rem -1rem color-mix(in oklab, var(--prim-ink) 25%, transparent);
+
+		/* ---------- Motion ------------------------------------------------- */
+		--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+		--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+		--ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+		--duration-instant: 90ms;
+		--duration-fast: 180ms;
+		--duration-base: 320ms;
+		--duration-slow: 640ms;
+		--duration-slower: 1100ms;
+		--stagger: 70ms;
+		--reveal-distance: 1.5rem;
+		--hover-lift: -0.1875rem;
+		--press-scale: 0.97;
+
+		/* ---------- Layers ------------------------------------------------- */
+		--z-base: 1;
+		--z-sticky: 50;
+		--z-header: 100;
+		--z-overlay: 200;
+		--z-modal: 300;
+		--z-toast: 400;
+		--z-loader: 500;
+	}
+
+	/* ---------- Dark theme ---------------------------------------------- */
+	:root[data-theme="dark"] {
+		--color-bg: var(--prim-ink);
+		--color-surface: var(--prim-ink-2);
+		--color-surface-2: var(--prim-ink-3);
+		--color-elevated: var(--prim-ink-2);
+		--color-text: var(--prim-paper);
+		--color-text-muted: var(--prim-slate-light);
+		--color-border: var(--prim-ink-line);
+		--color-border-strong: var(--prim-paper);
+		--color-accent: var(--prim-blue-500);
+		--color-accent-hover: var(--prim-blue-600);
+		--color-accent-text: var(--prim-blue-300);
+		--color-accent-soft: var(--prim-blue-950);
+		--color-on-accent: var(--prim-white);
+		--color-inverse-accent: var(--prim-blue-700);
+		--color-inverse-bg: var(--prim-paper);
+		--color-inverse-text: var(--prim-ink);
+		--color-inverse-muted: var(--prim-slate);
+		--color-success: var(--prim-green-300);
+		--color-warning: var(--prim-amber-300);
+		--color-danger: var(--prim-red-300);
+		--color-focus: var(--prim-blue-300);
+		--color-overlay: color-mix(in oklab, var(--prim-ink) 75%, transparent);
+		--color-glass: color-mix(in oklab, var(--prim-ink-2) 72%, transparent);
+		--color-hero-line: color-mix(in oklab, var(--prim-paper) 26%, transparent);
+		--color-hero-line-accent: var(--prim-blue-500);
+		--color-skeleton: var(--prim-ink-3);
+
+		--color-program-eps: color-mix(in oklab, var(--prim-program-eps) 55%, var(--prim-white));
+		--color-program-it: var(--prim-program-it);
+		--color-program-sle: color-mix(in oklab, var(--prim-program-sle) 80%, var(--prim-white));
+		--color-program-str: var(--prim-program-str);
+		--color-program-el: color-mix(in oklab, var(--prim-program-el) 70%, var(--prim-white));
+		--color-program-na: var(--prim-program-na);
+
+		--shadow-s: 0 1px 2px color-mix(in oklab, var(--prim-ink) 60%, transparent);
+		--shadow-m: 0 0.5rem 1.5rem -0.5rem color-mix(in oklab, var(--prim-ink) 80%, transparent);
+		--shadow-l: 0 1.5rem 3rem -1rem color-mix(in oklab, var(--prim-ink) 90%, transparent);
+
+		color-scheme: dark;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:root {
+			--duration-instant: 0ms;
+			--duration-fast: 0ms;
+			--duration-base: 0ms;
+			--duration-slow: 0ms;
+			--duration-slower: 0ms;
+			--stagger: 0ms;
+			--reveal-distance: 0rem;
+			--hover-lift: 0rem;
+			--press-scale: 1;
+		}
+	}
+}

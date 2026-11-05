@@ -1,0 +1,121 @@
+---
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import PostCard from "../../components/PostCard.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const PER_PAGE = 9;
+const cms = createCms(Astro.locals);
+const category = Astro.url.searchParams.get("kategorie") ?? undefined;
+const page = Math.max(1, Number(Astro.url.searchParams.get("strana") ?? 1) || 1);
+const [categories, { items, total }] = await Promise.all([
+	cms.categories(),
+	cms.posts({ category, limit: PER_PAGE, offset: (page - 1) * PER_PAGE }),
+]);
+const pages = Math.max(1, Math.ceil(total / PER_PAGE));
+const active = categories.find((c) => c.slug === category);
+const href = (opts: { kategorie?: string; strana?: number }) => {
+	const p = new URLSearchParams();
+	if (opts.kategorie) p.set("kategorie", opts.kategorie);
+	if (opts.strana && opts.strana > 1) p.set("strana", String(opts.strana));
+	const q = p.toString();
+	return `/novinky${q ? `?${q}` : ""}`;
+};
+---
+
+<Base title={active ? `Novinky — ${active.label}` : "Novinky"} description="Aktuality, úspěchy žáků, exkurze, soutěže a sport ze života SPŠ Trutnov.">
+	<PageHero
+		eyebrow="Novinky — blog"
+		title={active ? active.label : "Ze života školy."}
+		lead="Soutěže, exkurze, sport, partnerství s firmami a vše, co se na průmyslovce děje."
+		crumbs={[{ label: "Novinky", href: "/novinky" }, ...(active ? [{ label: active.label }] : [])]}
+	/>
+
+	<section class="section section--sm">
+		<div class="container stack stack--l">
+			<nav class="filters" aria-label="Kategorie novinek">
+				<a class="tag" href={href({})} aria-current={!category ? "true" : undefined}>Vše</a>
+				{
+					categories.map((c) => (
+						<a class="tag" href={href({ kategorie: c.slug })} aria-current={c.slug === category ? "true" : undefined}>
+							{c.label}
+						</a>
+					))
+				}
+			</nav>
+
+			{
+				items.length ? (
+					<div class="grid grid--fill" data-reveal-group>
+						{items.map((post, i) => (
+							<PostCard post={post} headingLevel="h2" eager={i < 3} />
+						))}
+					</div>
+				) : (
+					<div class="empty panel panel--plus">
+						<Icon name="news" size="l" />
+						<h2 class="h-card">V této kategorii zatím nic není.</h2>
+						<a class="link-arrow" href="/novinky">
+							Zobrazit všechny novinky <Icon name="arrow" size="s" />
+						</a>
+					</div>
+				)
+			}
+
+			{
+				pages > 1 && (
+					<nav class="pager" aria-label="Stránkování">
+						{page > 1 ? (
+							<a class="btn btn--outline" href={href({ kategorie: category, strana: page - 1 })} rel="prev">
+								<Icon name="arrow-left" size="s" /> Novější
+							</a>
+						) : (
+							<span />
+						)}
+						<span class="meta">
+							Strana {page} z {pages}
+						</span>
+						{page < pages ? (
+							<a class="btn btn--outline" href={href({ kategorie: category, strana: page + 1 })} rel="next">
+								Starší <Icon name="arrow" size="s" />
+							</a>
+						) : (
+							<span />
+						)}
+					</nav>
+				)
+			}
+		</div>
+	</section>
+</Base>
+
+<style>
+	.filters {
+		display: flex;
+		gap: var(--space-2xs);
+		overflow-x: auto;
+		padding-bottom: var(--space-3xs);
+		scrollbar-width: thin;
+	}
+	.grid {
+		--grid-min: 20rem;
+	}
+	.empty {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-s);
+		text-align: center;
+		padding-block: var(--space-2xl);
+		color: var(--color-text-muted);
+	}
+	.pager {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: var(--space-s);
+	}
+	.pager > :last-child {
+		justify-self: end;
+	}
+</style>

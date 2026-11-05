@@ -1,0 +1,95 @@
+---
+import ContactForm from "../../components/ContactForm.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+import { formatDate, formatTime } from "../../lib/format";
+
+const cms = createCms(Astro.locals);
+const [events, workplaces] = await Promise.all([cms.events({ upcoming: true }), cms.workplaces()]);
+const dods = events.filter((e) => e.kind === "dod");
+---
+
+<Base title="Den otevřených dveří" description="Přijďte se podívat na SPŠ Trutnov — otevřeme všechna pracoviště, dílny, laboratoře i robotická pracoviště.">
+	<PageHero eyebrow="Studium / Den otevřených dveří" title="Ukážeme vám to!" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
+		<div class="dates" data-reveal-group>
+			{
+				dods.map((d) => (
+					<div class="date panel panel--plus" data-reveal>
+						<span class="meta">Termín</span>
+						<span class="date__day">{formatDate(d.start)}</span>
+						<span class="date__time"><Icon name="clock" size="s" /> {formatTime(d.start)}–{d.end ? formatTime(d.end) : ""}</span>
+					</div>
+				))
+			}
+		</div>
+	</PageHero>
+
+	<section class="section">
+		<div class="container">
+			<div class="section-head">
+				<h2 class="h-section">Kam podle oboru?</h2>
+				<p class="meta">Vyberte si správné pracoviště</p>
+			</div>
+			<div class="grid" data-reveal-group>
+				{
+					workplaces.map((w) => (
+						<article class="card card--interactive" data-reveal>
+							<div class="card__media"><img src={w.image} alt="" width="960" height="640" loading="lazy" decoding="async" /></div>
+							<span class="meta">{w.kind}</span>
+							<h3 class="h-card"><a class="stretched" href={`/kontakty#${w.slug}`}>{w.title}</a></h3>
+							<ul class="list-square" role="list">{w.programs.map((p) => <li>{p}</li>)}</ul>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section section--surface">
+		<div class="container split split--center">
+			<div class="stack">
+				<h2 class="h-section">Nestihnete žádný termín?</h2>
+				<p class="meta">Individuální prohlídka</p>
+				<p class="lead">Napište nám a domluvíme individuální prohlídku školy nebo odpovíme na vaše dotazy ke studiu.</p>
+				<p class="gift"><Icon name="star" /> Na pracovišti v Mladých Bukách čeká na návštěvníky dárek zdarma.</p>
+			</div>
+			<ContactForm title="Domluvit prohlídku" topic="den otevřených dveří" />
+		</div>
+	</section>
+</Base>
+
+<style>
+	.dates {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		gap: var(--grid-gap);
+		max-width: 44rem;
+	}
+	.date {
+		display: grid;
+		gap: var(--space-2xs);
+		padding-top: var(--space-xl);
+	}
+	.date__day {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+	}
+	.date__time {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		color: var(--color-text-muted);
+	}
+	.grid {
+		--grid-min: 16rem;
+	}
+	.gift {
+		display: flex;
+		gap: var(--space-xs);
+		align-items: center;
+		font-weight: var(--weight-medium);
+		color: var(--color-accent-text);
+	}
+</style>

@@ -1,0 +1,40 @@
+---
+import HubCard from "../../components/HubCard.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/PageHero.astro";
+import ProgramCard from "../../components/ProgramCard.astro";
+import Base from "../../layouts/Base.astro";
+import { createCms } from "../../lib/cms";
+
+const cms = createCms(Astro.locals);
+const [programs, pages] = await Promise.all([cms.programs(), cms.pages("studium")]);
+const links = [
+	{ href: "/studium/obory-vzdelani", title: "Obory vzdělání", text: "Čtyři maturitní a dva učební obory." },
+	{ href: "/studium/prijimaci-rizeni", title: "Přijímací řízení", text: "Kritéria, termíny a postup krok za krokem." },
+	{ href: "/studium/den-otevrenych-dveri", title: "Den otevřených dveří", text: "Přijďte se podívat na všechna pracoviště." },
+	{ href: "/studium/casto-kladene-dotazy", title: "Časté dotazy", text: "Stipendia, přestupy, ubytování a další." },
+	...pages.map((p) => ({ href: `/studium/${p.slug}`, title: p.title, text: p.lead })),
+];
+---
+
+<Base title="Studium" description="Vše o studiu na SPŠ Trutnov: obory, přijímací řízení, stipendia, maturity a dny otevřených dveří.">
+	<PageHero eyebrow="Studium" title="Studuj techniku zdarma." lead="Obory s maturitou i výučním listem, stipendia až 30 000 Kč ročně a výsledky maturit nad celostátním průměrem." crumbs={[{ label: "Studium" }]} />
+	<section class="section">
+		<div class="container">
+			<div class="grid grid--s" data-reveal-group>
+				{links.map((l, i) => <HubCard {...l} index={i} level="h2" />)}
+			</div>
+		</div>
+	</section>
+	<section class="section section--surface">
+		<div class="container">
+			<div class="section-head section-head--split">
+				<h2 class="h-section">Obory vzdělání</h2>
+				<a class="link-arrow" href="/studium/obory-vzdelani">Porovnat obory <Icon name="arrow" size="s" /></a>
+			</div>
+			<div class="grid" style="--grid-min: 19rem" data-reveal-group>
+				{programs.map((p) => <ProgramCard program={p} />)}
+			</div>
+		</div>
+	</section>
+</Base>

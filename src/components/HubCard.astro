@@ -1,0 +1,27 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+	href: string;
+	title: string;
+	text?: string;
+	index?: number;
+	level?: "h2" | "h3";
+}
+const { href, title, text, index, level: H = "h3" } = Astro.props;
+---
+
+<article class="card card--interactive hub" data-reveal>
+	{index !== undefined && <span class="meta hub__index">{String(index + 1).padStart(2, "0")}</span>}
+	<H class="h-card"><a class="stretched" href={href}>{title}</a></H>
+	{text && <p class="muted">{text}</p>}
+	<span class="card__foot"><span class="link-arrow">Otevřít <Icon name="arrow" size="s" /></span></span>
+</article>
+
+<style>
+	.hub {
+		min-block-size: 12rem;
+	}
+	.hub__index {
+		color: var(--color-accent-text);
+	}
+</style>

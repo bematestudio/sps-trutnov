@@ -1,0 +1,105 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+	title?: string;
+	topic?: string;
+}
+const { title = "Napište nám", topic = "obecný dotaz" } = Astro.props;
+const id = `cf-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<form class="contact-form panel panel--plus" method="post" action="/api/contact" data-contact-form novalidate>
+	<div class="stack stack--s">
+		<h2 class="h-card contact-form__title">{title}</h2>
+		<p class="meta">Kontaktní formulář</p>
+	</div>
+	<input type="hidden" name="topic" value={topic} />
+	<div class="contact-form__row">
+		<div class="field">
+			<label class="field__label" for={`${id}-name`}>Jméno a příjmení</label>
+			<input class="input" id={`${id}-name`} name="name" autocomplete="name" required minlength="3" />
+		</div>
+		<div class="field">
+			<label class="field__label" for={`${id}-email`}>E-mail</label>
+			<input class="input" id={`${id}-email`} name="email" type="email" autocomplete="email" required />
+		</div>
+	</div>
+	<div class="field">
+		<label class="field__label" for={`${id}-message`}>Zpráva</label>
+		<textarea class="textarea" id={`${id}-message`} name="message" required minlength="10"></textarea>
+	</div>
+	<label class="checkbox">
+		<input type="checkbox" name="consent" required />
+		<span>Souhlasím se zpracováním osobních údajů podle <a class="link" href="/ochrana-osobnich-udaju">zásad ochrany osobních údajů</a>.</span>
+	</label>
+	<p class="contact-form__error" data-error role="alert" hidden></p>
+	<button class="btn" type="submit">
+		<span data-label>Odeslat zprávu</span>
+		<Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" />
+	</button>
+</form>
+
+<style>
+	.contact-form {
+		display: grid;
+		gap: var(--space-m);
+		padding: var(--space-xl) var(--space-l);
+	}
+	.contact-form__title {
+		font-size: var(--text-xl);
+	}
+	.contact-form__row {
+		display: grid;
+		gap: var(--space-m);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+	}
+	.contact-form .btn {
+		justify-self: start;
+	}
+	.contact-form__error {
+		color: var(--color-danger);
+	}
+	.contact-form[data-state="sending"] .btn {
+		opacity: 0.6;
+		pointer-events: none;
+	}
+	.contact-form[data-state="sent"] {
+		border-color: var(--color-success);
+	}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form) => {
+		if (form.dataset.ready) return;
+		form.dataset.ready = "true";
+		const error = form.querySelector<HTMLElement>("[data-error]")!;
+		const label = form.querySelector<HTMLElement>("[data-label]")!;
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			error.hidden = true;
+			if (!form.checkValidity()) {
+				const first = form.querySelector<HTMLElement>(":invalid");
+				error.textContent = "Vyplňte prosím všechna povinná pole a potvrďte souhlas.";
+				error.hidden = false;
+				first?.focus();
+				return;
+			}
+			form.dataset.state = "sending";
+			label.textContent = "Odesílám…";
+			try {
+				const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { accept: "application/json" } });
+				const data = (await res.json().catch(() => ({}))) as { error?: string };
+				if (!res.ok) throw new Error(data.error ?? "Odeslání se nezdařilo.");
+				form.dataset.state = "sent";
+				label.textContent = "Odesláno";
+				form.reset();
+				(window as any).spsToast?.("Děkujeme! Vaši zprávu jsme přijali.");
+			} catch (err) {
+				form.dataset.state = "";
+				label.textContent = "Odeslat zprávu";
+				error.textContent = (err as Error).message;
+				error.hidden = false;
+			}
+		});
+	});
+</script>

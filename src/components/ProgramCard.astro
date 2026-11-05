@@ -1,0 +1,87 @@
+---
+import type { Program } from "../lib/cms";
+import { programTypeLabel } from "../lib/format";
+import Icon from "./Icon.astro";
+
+interface Props {
+	program: Program;
+}
+const { program } = Astro.props;
+---
+
+<article class="card card--interactive program" style={`--program: var(--color-program-${program.color})`} data-reveal>
+	<div class="program__top">
+		<span class="program__code">{program.shortTitle}</span>
+		<span class="tag">{programTypeLabel(program.type)}</span>
+	</div>
+	<h3 class="program__title">
+		<a class="stretched" href={`/studium/obory-vzdelani/${program.slug}`}>{program.title}</a>
+	</h3>
+	<p class="program__summary">{program.summary}</p>
+	<dl class="program__facts">
+		<div><dt>Délka</dt><dd>{program.duration.split(",")[0]}</dd></div>
+		<div><dt>Přijímáme</dt><dd>{program.capacity} žáků</dd></div>
+	</dl>
+	<div class="card__foot">
+		<span class="link-arrow">{program.type === "maturita" ? "To chci studovat" : "Tím chci být"} <Icon name="arrow" size="s" /></span>
+	</div>
+</article>
+
+<style>
+	.program {
+		gap: var(--space-m);
+	}
+	.program__top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-s);
+	}
+	.program__code {
+		display: grid;
+		place-items: center;
+		min-inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		padding-inline: var(--space-2xs);
+		background: color-mix(in oklab, var(--program) 16%, var(--color-elevated));
+		color: var(--color-text);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: var(--weight-semibold);
+		border-radius: var(--radius-s);
+		transition: rotate var(--duration-slow) var(--ease-emphasized);
+	}
+	.program:hover .program__code {
+		rotate: -8deg;
+	}
+	.program__title {
+		font-size: var(--text-xl);
+		line-height: var(--leading-snug);
+		letter-spacing: var(--tracking-snug);
+		font-weight: var(--weight-medium);
+	}
+	.program__title a {
+		text-decoration: none;
+	}
+	.program__summary {
+		color: var(--color-text-muted);
+	}
+	.program__facts {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-s);
+		padding-top: var(--space-s);
+		border-top: var(--border-width) solid var(--color-border);
+	}
+	.program__facts dt {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+	.program__facts dd {
+		margin: 0;
+		font-weight: var(--weight-medium);
+	}
+</style>

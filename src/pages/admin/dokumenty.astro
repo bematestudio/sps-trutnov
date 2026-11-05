@@ -1,0 +1,107 @@
+---
+import Icon from "../../components/Icon.astro";
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { createCms } from "../../lib/cms";
+import { docCategoryLabel } from "../../lib/format";
+
+const docs = await createCms(Astro.locals).documents();
+---
+
+<AdminLayout title="Dokumenty" heading="Dokumenty ke stažení">
+	<section class="a-card">
+		<label class="a-dropzone" data-dropzone>
+			<Icon name="upload" size="l" />
+			<span><strong>Přetáhněte soubory sem</strong> nebo klikněte pro výběr</span>
+			<span class="meta">PDF, DOCX, XLSX · max 25 MB</span>
+			<input class="visually-hidden" type="file" multiple data-file />
+		</label>
+		<ul class="uploads" role="list" data-uploads></ul>
+	</section>
+	<section class="a-card" data-admin-table>
+		<div class="a-toolbar">
+			<label class="a-search"><span class="visually-hidden">Hledat dokumenty</span><Icon name="search" /><input class="input" type="search" placeholder="Hledat dokument…" data-table-search /></label>
+			<label class="field"><span class="visually-hidden">Kategorie</span>
+				<select class="select" data-table-filter>
+					<option value="">Všechny kategorie</option>
+					{Object.entries(docCategoryLabel).map(([k, v]) => <option value={k}>{v}</option>)}
+				</select>
+			</label>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead><tr><th scope="col">Název</th><th scope="col">Kategorie</th><th scope="col">Typ</th><th scope="col">Velikost</th><th scope="col"><span class="visually-hidden">Akce</span></th></tr></thead>
+				<tbody>
+					{docs.map((d) => (
+						<tr data-row data-filter={d.category} data-search={d.title.toLowerCase()}>
+							<td>{d.title}</td>
+							<td>{docCategoryLabel[d.category] ?? d.category}</td>
+							<td><span class="tag">{d.fileType}</span></td>
+							<td class="nowrap">{d.size}</td>
+							<td><div class="a-row-actions">
+								<a class="btn btn--ghost btn--icon" href={d.url} target="_blank" rel="noopener" aria-label={`Stáhnout ${d.title}`}><Icon name="download" size="s" /></a>
+								<button class="btn btn--ghost btn--icon" type="button" data-delete aria-label={`Smazat ${d.title}`}><Icon name="trash" size="s" /></button>
+							</div></td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+		<p class="a-empty" data-table-empty hidden>Žádné dokumenty neodpovídají filtru.</p>
+	</section>
+</AdminLayout>
+
+<style>
+	.nowrap {
+		white-space: nowrap;
+	}
+	.a-toolbar .field {
+		flex: 0 1 16rem;
+	}
+	.uploads {
+		display: grid;
+		gap: var(--space-2xs);
+	}
+	.uploads li {
+		display: grid;
+		gap: var(--space-3xs);
+	}
+	.uploads progress {
+		inline-size: 100%;
+		block-size: var(--space-3xs);
+		accent-color: var(--color-accent);
+	}
+</style>
+
+<script>
+	import { initAdminTable } from "../../scripts/admin";
+	initAdminTable();
+	const zone = document.querySelector<HTMLElement>("[data-dropzone]")!;
+	const input = document.querySelector<HTMLInputElement>("[data-file]")!;
+	const list = document.querySelector<HTMLElement>("[data-uploads]")!;
+	const fake = (files: FileList | File[]) =>
+		[...files].forEach((f) => {
+			const li = document.createElement("li");
+			const name = document.createElement("span");
+			name.textContent = `${f.name} · ${(f.size / 1024).toFixed(0)} kB`;
+			const bar = document.createElement("progress");
+			bar.max = 100;
+			bar.value = 0;
+			li.append(name, bar);
+			list.append(li);
+			const t = window.setInterval(() => {
+				bar.value += 12;
+				if (bar.value >= 100) {
+					window.clearInterval(t);
+					name.textContent += " — připraveno (ukázkový režim)";
+				}
+			}, 120);
+		});
+	input.addEventListener("change", () => input.files && fake(input.files));
+	["dragenter", "dragover"].forEach((t) => zone.addEventListener(t, (e) => (e.preventDefault(), zone.setAttribute("data-over", ""))));
+	["dragleave", "drop"].forEach((t) => zone.addEventListener(t, () => zone.removeAttribute("data-over")));
+	zone.addEventListener("drop", (e) => {
+		e.preventDefault();
+		const files = (e as DragEvent).dataTransfer?.files;
+		if (files) fake(files);
+	});
+</script>
