@@ -365,10 +365,11 @@ test("CMS maintenance endpoint rejects anonymous calls", async ({ request }) => 
 	expect(res.status()).toBe(401);
 });
 
-test("landing hero is built from the original homepage slider photos", async ({ page }) => {
+test("landing hero is built from the original homepage slider (photos + Adobe apps)", async ({ page }) => {
 	await page.goto("/");
 	const html = await page.locator(".hero .carousel").innerHTML();
-	for (const name of ["spstrutnov-dod-2026", "adb-small", "roboticke-pracoviste-wide", "studentka-klik"]) expect(html, name).toContain(`/images/foto/${name}-`);
+	for (const name of ["spstrutnov-dod-2026", "roboticke-pracoviste-wide", "studentka-klik"]) expect(html, name).toContain(`/images/foto/${name}-`);
+	await expect(page.locator(".hero .app__tile")).toHaveText(["Ps", "Ai", "Id", "Pr", "Ac", "Br"]);
 	await expect(page.locator(".hero h1")).toHaveText("Technika, která tě posune dál.");
 	await expect(page.locator(".hero .slide__img").first()).toHaveAttribute("fetchpriority", "high");
 });

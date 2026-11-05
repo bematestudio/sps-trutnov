@@ -11,7 +11,7 @@
 		border: var(--border-width) solid color-mix(in oklab, var(--color-accent) 28%, transparent);
 		border-radius: var(--radius-full);
 		background: color-mix(in oklab, var(--color-accent) 8%, var(--color-bg));
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
 		line-height: var(--leading-snug);
@@ -53,7 +53,7 @@
 		color: var(--color-text-muted);
 	}
 	.meta {
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		color: var(--color-text-muted);
 		letter-spacing: var(--tracking-wide);
@@ -225,7 +225,7 @@
 		padding: var(--space-3xs) var(--space-xs);
 		border: var(--border-width) solid var(--color-border);
 		border-radius: var(--radius-full);
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		letter-spacing: var(--tracking-wide);
 		text-transform: uppercase;
@@ -296,7 +296,7 @@
 	.panel--plus::after {
 		content: "+";
 		position: absolute;
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		line-height: 1;
 		color: var(--color-text-muted);
@@ -598,7 +598,7 @@
 		vertical-align: top;
 	}
 	.table th {
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-wide);
@@ -668,7 +668,7 @@
 		gap: var(--space-2xs);
 		list-style: none;
 		padding: 0;
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		letter-spacing: var(--tracking-wide);
 		text-transform: uppercase;
@@ -834,7 +834,7 @@
 		padding: var(--space-3xs) var(--space-2xs);
 		border: var(--border-width) solid var(--color-border);
 		border-radius: var(--radius-s);
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		color: var(--color-text-muted);
 	}
@@ -847,7 +847,7 @@
 	}
 	.cmdk__group {
 		padding: var(--space-s) var(--space-xs) var(--space-3xs);
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		letter-spacing: var(--tracking-wide);
 		text-transform: uppercase;

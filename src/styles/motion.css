@@ -146,7 +146,7 @@
 		animation: loader-bar var(--duration-slower) var(--ease-in-out) both;
 	}
 	.loader__label {
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		letter-spacing: var(--tracking-wide);
 		text-transform: uppercase;

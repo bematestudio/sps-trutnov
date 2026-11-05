@@ -37,10 +37,16 @@ const slides = [
 	},
 	{
 		kind: "adobe",
-		img: "adb-small",
 		tag: "Adobe ve výuce",
-		title: "Posouváme výuku grafiky a multimédií na vyšší úroveň.",
-		list: ["Photoshop", "Illustrator", "Premiere Pro", "InDesign", "Acrobat Pro", "Bridge"],
+		title: "Posouváme výuku grafiky a multimédií na vyšší úroveň — v profesionálních nástrojích Adobe.",
+		apps: [
+			{ code: "Ps", name: "Photoshop", key: "ps" },
+			{ code: "Ai", name: "Illustrator", key: "ai" },
+			{ code: "Id", name: "InDesign", key: "id" },
+			{ code: "Pr", name: "Premiere Pro", key: "pr" },
+			{ code: "Ac", name: "Acrobat Pro", key: "ac" },
+			{ code: "Br", name: "Bridge", key: "br" },
+		],
 		href: "/studium/obory-vzdelani/informatika-a-management",
 		cta: "Informatika a management",
 	},
@@ -99,9 +105,14 @@ const academies = [
 						<li class="carousel__slide">
 							<a class={`slide slide--${s.kind}`} href={s.href}>
 								{s.kind === "photo" && <Photo name={s.img} eager={i === 0} sizes="(width >= 82rem) 82rem, 100vw" class="slide__img" />}
-								{s.kind === "adobe" && (
-									<span class="slide__art" aria-hidden="true">
-										<Photo name={s.img} sizes="(width >= 48rem) 40vw, 80vw" alt="" class="slide__logo" />
+								{s.kind === "adobe" && "apps" in s && (
+									<span class="slide__art slide__apps" aria-hidden="true">
+										{s.apps.map((a, j) => (
+											<span class={`app app--${a.key}`} style={`--i: ${j}`}>
+												<span class="app__tile">{a.code}</span>
+												<span class="app__name">{a.name}</span>
+											</span>
+										))}
 									</span>
 								)}
 								{s.kind === "cutout" && (
@@ -112,13 +123,6 @@ const academies = [
 								<span class="slide__body">
 									<span class="eyebrow slide__tag">{s.tag}</span>
 									<span class="slide__title">{s.title}</span>
-									{"list" in s && (
-										<span class="slide__list">
-											{s.list.map((x) => (
-												<span>{x}</span>
-											))}
-										</span>
-									)}
 									<span class="slide__cta">
 										{s.cta} <Icon name="arrow" size="s" />
 									</span>
@@ -465,9 +469,57 @@ const academies = [
 	.slide:hover .slide__cta {
 		gap: var(--space-s);
 	}
-	/* Adobe slide: the original blue gradient with the product logos. */
+	/* Adobe slide: light canvas (a faint blue tint) so the dark app tiles stand out. */
 	.slide--adobe {
-		background: linear-gradient(180deg, var(--brand-logo-blue), var(--brand-logo-navy));
+		background: linear-gradient(110deg, var(--prim-white) 35%, color-mix(in oklab, var(--brand-logo-blue) 14%, var(--prim-paper-2)));
+		color: var(--brand-logo-navy);
+	}
+	/* Adobe app tiles (Creative Cloud style), gently floating. */
+	.slide__apps {
+		grid-template-columns: repeat(3, auto);
+		place-content: center end;
+		gap: var(--space-m);
+		padding-inline-end: var(--space-xl);
+	}
+	.app {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-2xs);
+		animation: app-float calc(var(--duration-slower) * 6) var(--ease-in-out) infinite alternate;
+		animation-delay: calc(var(--i) * var(--stagger) * -4);
+	}
+	.app__tile {
+		display: grid;
+		place-items: center;
+		inline-size: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+		aspect-ratio: 1;
+		border-radius: 22%;
+		background: var(--app-bg);
+		color: var(--app-fg);
+		font-size: var(--text-2xl);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-tight);
+		box-shadow: var(--shadow-l);
+	}
+	.app__name {
+		font-size: var(--text-xs);
+		opacity: 0.85;
+	}
+	.app--ps { --app-bg: var(--adobe-ps-bg); --app-fg: var(--adobe-ps-fg); }
+	.app--ai { --app-bg: var(--adobe-ai-bg); --app-fg: var(--adobe-ai-fg); }
+	.app--id { --app-bg: var(--adobe-id-bg); --app-fg: var(--adobe-id-fg); }
+	.app--pr { --app-bg: var(--adobe-pr-bg); --app-fg: var(--adobe-pr-fg); }
+	.app--ac { --app-bg: var(--adobe-ac-bg); --app-fg: var(--adobe-ac-fg); }
+	.app--br { --app-bg: var(--adobe-br-bg); --app-fg: var(--adobe-br-fg); }
+	@keyframes app-float {
+		to {
+			translate: 0 calc(var(--space-2xs) * -1.5);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.app {
+			animation: none;
+		}
 	}
 	.slide--cutout {
 		background: linear-gradient(180deg, var(--prim-white), var(--prim-paper-2));
@@ -487,7 +539,15 @@ const academies = [
 		z-index: -1;
 	}
 	.slide__art :global(picture) {
-		display: contents;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		inline-size: 100%;
+		block-size: 100%;
+		min-block-size: 0;
+	}
+	.slide--cutout .slide__art :global(picture) {
+		align-items: flex-end;
 	}
 	.slide__art :global(img) {
 		max-block-size: 100%;
@@ -500,21 +560,16 @@ const academies = [
 		place-items: end end;
 		padding: var(--space-m) var(--space-l) 0;
 	}
+	.slide--adobe .slide__tag,
 	.slide--cutout .slide__tag {
 		color: var(--brand-logo-navy);
 		background: color-mix(in oklab, var(--brand-logo-navy) 8%, transparent);
 		border-color: color-mix(in oklab, var(--brand-logo-navy) 30%, transparent);
 	}
+	.slide--adobe .slide__cta,
 	.slide--cutout .slide__cta {
 		background: var(--brand-logo-navy);
 		color: var(--prim-white);
-	}
-	.slide__list {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-3xs) var(--space-s);
-		font-size: var(--text-sm);
-		opacity: 0.9;
 	}
 	/* Phones: every slide the same size, text over the bottom of the picture. */
 	@media (width < 48rem) {
@@ -530,9 +585,21 @@ const academies = [
 			block-size: 55%;
 			place-items: center;
 		}
+		.slide__apps {
+			place-content: center;
+			padding-inline: var(--space-m);
+			gap: var(--space-s);
+		}
+		.slide--adobe::after,
+		.slide--cutout::after {
+			display: none;
+		}
 		.slide--cutout .slide__art {
-			block-size: 52%;
+			block-size: 60%;
 			place-items: end center;
+		}
+		.slide__art :global(picture) {
+			justify-content: center;
 		}
 		.slide__body {
 			inset: auto 0 0 0;
@@ -543,9 +610,6 @@ const academies = [
 		.slide__title {
 			font-size: var(--text-lg);
 			line-height: var(--leading-snug);
-		}
-		.slide__list {
-			display: none;
 		}
 	}
 
@@ -796,7 +860,7 @@ const academies = [
 		line-height: var(--leading-tight);
 	}
 	.event__month {
-		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		text-transform: uppercase;
 		letter-spacing: var(--tracking-wide);

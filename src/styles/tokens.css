@@ -44,6 +44,19 @@
 		--brand-logo-disc: #ffffff;
 		--brand-logo-navy: #2f2483;
 		--brand-logo-blue: #008acc;
+		/* Adobe Creative Cloud app colours (tile background / glyph) — Adobe slide on the homepage. */
+		--adobe-ps-bg: #001e36;
+		--adobe-ps-fg: #31a8ff;
+		--adobe-ai-bg: #330000;
+		--adobe-ai-fg: #ff9a00;
+		--adobe-id-bg: #49021f;
+		--adobe-id-fg: #ff3366;
+		--adobe-pr-bg: #00005b;
+		--adobe-pr-fg: #9999ff;
+		--adobe-ac-bg: #b30b00;
+		--adobe-ac-fg: #ffffff;
+		--adobe-br-bg: #1f1300;
+		--adobe-br-fg: #f0a500;
 
 		/* Study-program accents (one hue per obor, used sparingly as tags) */
 		--prim-program-eps: #2b3a8f;
@@ -93,8 +106,8 @@
 		color-scheme: light;
 
 		/* ---------- Typography --------------------------------------------- */
-		--font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-		--font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
+		/* One typeface for the whole site: Inter (labels use tabular figures instead of a mono font). */
+		--font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
 		/* Compact fluid scale. Running text never drops below 1rem (16px). */
 		--text-xs: 0.8125rem; /* mono labels, pills, meta — never running text */

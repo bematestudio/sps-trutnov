@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.28.0",
   "type": "module",
-  "description": "Web St\u0159edn\u00ed pr\u016fmyslov\u00e9 \u0161koly Trutnov \u2014 Astro + EmDash CMS na Cloudflare Workers",
+  "description": "Web Střední průmyslové školy Trutnov — Astro + EmDash CMS na Cloudflare Workers",
   "emdash": {
     "seed": "seed/seed.json"
   },
@@ -24,8 +24,7 @@
     "@astrojs/cloudflare": "14.4.4",
     "@astrojs/react": "7.1.2",
     "@emdash-cms/cloudflare": "1.4.0",
-    "@fontsource-variable/geist": "5.3.0",
-    "@fontsource-variable/geist-mono": "5.3.0",
+    "@fontsource-variable/inter": "5.3.0",
     "astro": "7.4.5",
     "emdash": "1.4.0",
     "react": "19.3.1",

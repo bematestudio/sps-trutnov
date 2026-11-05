@@ -54,8 +54,8 @@ sizes.forEach((s, i) => {
 writeFileSync(pub("favicon.ico"), Buffer.concat([header, ...images]));
 
 // Social-share image, rendered with the site's own font.
-const font = new URL("../node_modules/@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2", import.meta.url);
-const fontLatin = new URL("../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2", import.meta.url);
+const font = new URL("../node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2", import.meta.url);
+const fontLatin = new URL("../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2", import.meta.url);
 // Logo for a dark background: the mark in brand colours, the wordmark in white
 // (same markup as src/components/Logo.astro).
 const logoSrc = readFileSync(new URL("../src/components/Logo.astro", import.meta.url), "utf8");
@@ -71,10 +71,10 @@ const logo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 115.68 28.8" 
 const b64 = (u) => readFileSync(u).toString("base64");
 const photo = readFileSync(pub("images/foto/bg-ele-1600.webp")).toString("base64");
 const html = `<!doctype html><html><head><style>
-@font-face{font-family:Geist;src:url(data:font/woff2;base64,${b64(fontLatin)}) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF}
-@font-face{font-family:Geist;src:url(data:font/woff2;base64,${b64(font)}) format("woff2");font-weight:100 900}
+@font-face{font-family:Inter;src:url(data:font/woff2;base64,${b64(fontLatin)}) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF}
+@font-face{font-family:Inter;src:url(data:font/woff2;base64,${b64(font)}) format("woff2");font-weight:100 900}
 *{margin:0;box-sizing:border-box}
-body{width:1200px;height:630px;font-family:Geist;color:#fff;background:${NAVY};position:relative;overflow:hidden}
+body{width:1200px;height:630px;font-family:Inter;color:#fff;background:${NAVY};position:relative;overflow:hidden}
 .bg{position:absolute;inset:0;background:url(data:image/webp;base64,${photo}) center/cover;opacity:.28;mix-blend-mode:luminosity}
 .grad{position:absolute;inset:0;background:linear-gradient(100deg,${NAVY} 30%,rgba(47,36,131,.55) 100%)}
 .in{position:absolute;inset:64px 72px;display:flex;flex-direction:column;justify-content:space-between}

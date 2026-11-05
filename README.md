@@ -7,7 +7,7 @@ Nový web Střední průmyslové školy, Trutnov, Školní 101 (náhrada za www.
 | Framework | **Astro 7.4** (`output: "server"`) |
 | Hosting / runtime | **Cloudflare Workers** (`@astrojs/cloudflare` 14.4, Wrangler 4.157) |
 | CMS | **EmDash 1.4** — Astro-native CMS, data v **D1**, média v **R2**, administrace na `/_emdash/admin` |
-| Písmo | Geist + Geist Mono (self-hosted, `@fontsource-variable`) |
+| Písmo | Inter (jediné písmo webu, self-hosted, `@fontsource-variable/inter`) |
 | Testy | Playwright 1.64 + axe-core, Impeccable 4.8 (design critique) |
 
 ## Rychlý start
@@ -55,7 +55,7 @@ monospace štítky, obří wordmark v patičce) — převedená do světlého, �
 
 * **Barvy:** primitivní paleta → sémantické tokeny (`--color-bg`, `--color-text`, `--color-accent`…).
   Tmavý režim jen přemapuje sémantické tokeny (`:root[data-theme="dark"]`).
-* **Typografie:** 6 kroků fluidní škály (`--text-xs` … `--text-3xl`) + `--text-display` pro wordmark.
+* **Typografie:** jediné písmo Inter (štítky s tabulkovými číslicemi místo monospace); 6 kroků fluidní škály (`--text-xs` … `--text-3xl`) + `--text-display` pro wordmark.
   Běžný text nikdy pod 16 px (ověřuje test).
 * **Rytmus:** `--gutter`, `--section-space`, `--stack-space`, `--grid-gap` (vše `clamp()`).
 * **Breakpointy:** pouze `48rem` a `75rem`; zbytek je fluidní / `auto-fit` mřížky.
