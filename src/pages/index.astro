@@ -279,7 +279,8 @@ const academies = [
 					<ul class="marquee__track" role="list" aria-hidden={copy === 1 ? "true" : undefined}>
 						{partners.map((p) => (
 							<li class="marquee__item">
-								{p.logo ? <img src={p.logo.src} alt={copy === 0 ? p.name : ""} width={p.logo.width ?? 270} height={p.logo.height ?? 90} loading="lazy" decoding="async" /> : <span>{p.name}</span>}
+								{/* Eager: lazy images inside the horizontally clipped track only load once they scroll in. */}
+								{p.logo ? <img src={p.logo.src} alt={copy === 0 ? p.name : ""} width={p.logo.width ?? 270} height={p.logo.height ?? 90} loading="eager" fetchpriority="low" decoding="async" /> : <span>{p.name}</span>}
 							</li>
 						))}
 					</ul>
