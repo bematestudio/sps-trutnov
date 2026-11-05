@@ -1,0 +1,232 @@
+---
+/**
+ * School videos with a zero-cost facade: only a thumbnail image is loaded.
+ * The (privacy-enhanced) YouTube iframe is injected after the visitor clicks
+ * play, so the landing page ships no third-party JS.
+ */
+import type { Video } from "../../lib/cms";
+import Icon from "../Icon.astro";
+
+interface Props {
+	videos: Video[];
+}
+const { videos } = Astro.props;
+const [first, ...rest] = videos;
+const thumb = (id: string, q = "hqdefault") => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+---
+
+{
+	first && (
+		<section class="section videos" aria-labelledby="videos-title" data-videos>
+			<div class="container">
+				<div class="section-head section-head--split">
+					<div class="stack stack--s">
+						<span class="eyebrow">Videa</span>
+						<h2 class="h-section" id="videos-title">Podívejte se k nám.</h2>
+					</div>
+					<a class="btn btn--outline" href="https://www.youtube.com/spstrutnov" target="_blank" rel="noopener">
+						YouTube kanál <Icon name="arrow-up-right" size="s" class="btn__icon" />
+					</a>
+				</div>
+				<div class="videos__grid">
+					<div class="videos__player" data-player data-id={first.youtubeId} data-title={first.title}>
+						<button class="videos__facade" type="button" data-play aria-label={`Přehrát video: ${first.title}`}>
+							<img src={thumb(first.youtubeId, "hqdefault")} alt="" width="480" height="360" loading="lazy" decoding="async" />
+							<span class="videos__play" aria-hidden="true">
+								<Icon name="arrow" />
+							</span>
+							<span class="videos__caption">
+								<span class="tag">Video</span>
+								<span class="videos__title" data-player-title>{first.title}</span>
+							</span>
+						</button>
+					</div>
+					<ol class="videos__list" role="list">
+						{[first, ...rest].map((v, i) => (
+							<li>
+								<button class="videos__item" type="button" data-select={v.youtubeId} data-title={v.title} aria-pressed={i === 0 ? "true" : "false"}>
+									<img src={thumb(v.youtubeId, "mqdefault")} alt="" width="320" height="180" loading="lazy" decoding="async" />
+									<span class="videos__meta">
+										<span class="videos__item-title">{v.title}</span>
+										<span class="muted">{v.description}</span>
+									</span>
+								</button>
+							</li>
+						))}
+					</ol>
+				</div>
+			</div>
+		</section>
+	)
+}
+
+<style>
+	.videos__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--grid-gap);
+	}
+	.videos__player {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+		border-radius: var(--radius-l);
+		background: var(--prim-ink);
+	}
+	.videos__player :global(iframe) {
+		position: absolute;
+		inset: 0;
+		inline-size: 100%;
+		block-size: 100%;
+		border: 0;
+	}
+	.videos__facade {
+		position: absolute;
+		inset: 0;
+		display: block;
+		inline-size: 100%;
+		color: var(--prim-white);
+		text-align: start;
+	}
+	.videos__facade img {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		transition: scale var(--duration-slower) var(--ease-out);
+	}
+	.videos__facade:hover img {
+		scale: 1.04;
+	}
+	.videos__facade::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, transparent 45%, var(--color-overlay));
+	}
+	.videos__play {
+		position: absolute;
+		inset-block-start: 50%;
+		inset-inline-start: 50%;
+		z-index: var(--z-base);
+		display: grid;
+		place-items: center;
+		inline-size: calc(var(--tap-target) * 1.8);
+		block-size: calc(var(--tap-target) * 1.8);
+		border-radius: var(--radius-full);
+		background: var(--prim-blue-600);
+		color: var(--prim-white);
+		translate: -50% -50%;
+		box-shadow: 0 0 0 var(--space-2xs) color-mix(in oklab, var(--prim-blue-600) 30%, transparent);
+		transition:
+			scale var(--duration-base) var(--ease-emphasized),
+			box-shadow var(--duration-base) var(--ease-out);
+	}
+	.videos__facade:hover .videos__play {
+		scale: 1.08;
+		box-shadow: 0 0 0 var(--space-s) color-mix(in oklab, var(--prim-blue-600) 22%, transparent);
+	}
+	.videos__caption {
+		position: absolute;
+		inset: auto var(--space-m) var(--space-m);
+		z-index: var(--z-base);
+		display: grid;
+		gap: var(--space-2xs);
+		justify-items: start;
+	}
+	.videos__caption .tag {
+		background: var(--prim-white);
+		color: var(--prim-ink);
+		border-color: transparent;
+	}
+	.videos__title {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
+	}
+	.videos__list {
+		display: grid;
+		gap: var(--space-2xs);
+		align-content: start;
+		padding: 0;
+	}
+	.videos__item {
+		display: grid;
+		grid-template-columns: 8rem minmax(0, 1fr);
+		gap: var(--space-s);
+		align-items: center;
+		inline-size: 100%;
+		padding: var(--space-2xs);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-l);
+		text-align: start;
+		transition:
+			border-color var(--duration-fast) var(--ease-out),
+			background-color var(--duration-fast) var(--ease-out);
+	}
+	.videos__item:hover {
+		border-color: var(--color-border-strong);
+	}
+	.videos__item[aria-pressed="true"] {
+		border-color: var(--color-accent);
+		background: var(--color-accent-soft);
+	}
+	.videos__item img {
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: var(--radius-m);
+	}
+	.videos__meta {
+		display: grid;
+		gap: var(--space-3xs);
+	}
+	.videos__item-title {
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
+	}
+	.videos__meta .muted {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	@media (width < 48rem) {
+		.videos__caption {
+			display: none;
+		}
+	}
+	@media (width >= 75rem) {
+		.videos__grid {
+			grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+		}
+	}
+</style>
+
+<script>
+	const root = document.querySelector<HTMLElement>("[data-videos]");
+	if (root) {
+		const player = root.querySelector<HTMLElement>("[data-player]")!;
+		const items = [...root.querySelectorAll<HTMLButtonElement>("[data-select]")];
+		const play = () => {
+			const id = player.dataset.id!;
+			const iframe = document.createElement("iframe");
+			iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&iv_load_policy=3`;
+			iframe.title = player.dataset.title ?? "Video";
+			iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+			iframe.allowFullscreen = true;
+			player.querySelector("[data-play]")?.remove();
+			player.querySelector("iframe")?.remove();
+			player.append(iframe);
+		};
+		root.addEventListener("click", (e) => {
+			if ((e.target as HTMLElement).closest("[data-play]")) play();
+		});
+		items.forEach((btn) =>
+			btn.addEventListener("click", () => {
+				items.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+				player.dataset.id = btn.dataset.select!;
+				player.dataset.title = btn.dataset.title!;
+				play();
+			}),
+		);
+	}
+</script>

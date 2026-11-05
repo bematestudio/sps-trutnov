@@ -1,0 +1,219 @@
+---
+/**
+ * Lightweight carousel: native CSS scroll-snap does the work (works without
+ * JS, touch/trackpad friendly); a tiny script adds prev/next, a progress bar,
+ * mouse drag and optional autoplay (paused on hover/focus/hidden tab and
+ * disabled for reduced motion).
+ *
+ * Put each slide in an <li class="carousel__slide"> inside the default slot.
+ */
+import Icon from "./Icon.astro";
+
+interface Props {
+	label: string;
+	/** CSS width of one slide, e.g. "min(85%, 22rem)" or "100%" */
+	slide?: string;
+	autoplay?: boolean;
+	variant?: "cards" | "hero";
+	class?: string;
+}
+const { label, slide = "min(85%, 22rem)", autoplay = false, variant = "cards", class: className } = Astro.props;
+---
+
+<section
+	class:list={["carousel", `carousel--${variant}`, className]}
+	aria-roledescription="carousel"
+	aria-label={label}
+	style={`--slide: ${slide}`}
+	data-carousel
+	data-autoplay={autoplay ? "true" : undefined}
+>
+	<ul class="carousel__track" role="list" tabindex="0" aria-label={`${label} — posouvejte vodorovně`}>
+		<slot />
+	</ul>
+	<div class="carousel__controls">
+		<div class="carousel__progress" aria-hidden="true"><span data-carousel-bar></span></div>
+		<button class="carousel__btn" type="button" data-carousel-prev aria-label="Předchozí"><Icon name="arrow-left" size="s" /></button>
+		<button class="carousel__btn" type="button" data-carousel-next aria-label="Další"><Icon name="arrow" size="s" /></button>
+	</div>
+</section>
+
+<style>
+	.carousel {
+		display: grid;
+		gap: var(--space-m);
+		min-inline-size: 0;
+	}
+	.carousel__track {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: var(--slide);
+		gap: var(--grid-gap);
+		margin: 0;
+		padding: 0;
+		overflow-x: auto;
+		overscroll-behavior-x: contain;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: 0;
+		scrollbar-width: none;
+		border-radius: var(--radius-m);
+	}
+	.carousel__track::-webkit-scrollbar {
+		display: none;
+	}
+	.carousel__track[data-dragging] {
+		scroll-snap-type: none;
+		cursor: grabbing;
+		user-select: none;
+	}
+	.carousel__track :global(.carousel__slide) {
+		scroll-snap-align: start;
+		min-inline-size: 0;
+		display: grid;
+	}
+	.carousel__track :global(.carousel__slide > *) {
+		min-inline-size: 0;
+	}
+	.carousel__controls {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
+	}
+	.carousel__progress {
+		flex: 1;
+		block-size: var(--border-width-strong);
+		background: var(--color-border);
+		border-radius: var(--radius-full);
+		overflow: hidden;
+		margin-inline-end: var(--space-s);
+	}
+	.carousel__progress span {
+		display: block;
+		block-size: 100%;
+		inline-size: 100%;
+		background: var(--color-accent);
+		transform-origin: left;
+		transform: scaleX(var(--progress, 0.1));
+		transition: transform var(--duration-base) var(--ease-out);
+	}
+	.carousel__btn {
+		display: grid;
+		place-items: center;
+		inline-size: var(--tap-target);
+		block-size: var(--tap-target);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-full);
+		background: var(--color-bg);
+		color: var(--color-text);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out),
+			border-color var(--duration-fast) var(--ease-out),
+			opacity var(--duration-fast) var(--ease-out);
+	}
+	.carousel__btn:hover:not(:disabled) {
+		background: var(--color-text);
+		border-color: var(--color-text);
+		color: var(--color-bg);
+	}
+	.carousel__btn:disabled {
+		opacity: 0.35;
+		cursor: default;
+	}
+	.carousel--hero .carousel__track {
+		gap: 0;
+	}
+	.carousel--hero .carousel__controls {
+		position: relative;
+	}
+</style>
+
+<script>
+	const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+	document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
+		if (root.dataset.ready) return;
+		root.dataset.ready = "true";
+		const track = root.querySelector<HTMLElement>(".carousel__track")!;
+		const prev = root.querySelector<HTMLButtonElement>("[data-carousel-prev]")!;
+		const next = root.querySelector<HTMLButtonElement>("[data-carousel-next]")!;
+		const bar = root.querySelector<HTMLElement>("[data-carousel-bar]")!;
+		const slides = () => [...track.querySelectorAll<HTMLElement>(".carousel__slide")];
+		const step = () => {
+			const s = slides();
+			if (s.length < 2) return track.clientWidth;
+			return s[1].offsetLeft - s[0].offsetLeft;
+		};
+		const max = () => track.scrollWidth - track.clientWidth;
+		let raf = 0;
+		const update = () => {
+			cancelAnimationFrame(raf);
+			raf = requestAnimationFrame(() => {
+				const m = max();
+				prev.disabled = track.scrollLeft <= 2;
+				next.disabled = track.scrollLeft >= m - 2;
+				const visible = track.clientWidth / Math.max(track.scrollWidth, 1);
+				bar.style.setProperty("--progress", String(m <= 0 ? 1 : visible + (1 - visible) * (track.scrollLeft / m)));
+			});
+		};
+		const go = (dir: 1 | -1) => {
+			const atEnd = track.scrollLeft >= max() - 2;
+			if (dir === 1 && atEnd) track.scrollTo({ left: 0, behavior: reduced ? "auto" : "smooth" });
+			else track.scrollBy({ left: dir * step(), behavior: reduced ? "auto" : "smooth" });
+		};
+		prev.addEventListener("click", () => go(-1));
+		next.addEventListener("click", () => go(1));
+		track.addEventListener("scroll", update, { passive: true });
+		new ResizeObserver(update).observe(track);
+		track.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowRight") (e.preventDefault(), go(1));
+			if (e.key === "ArrowLeft") (e.preventDefault(), go(-1));
+		});
+
+		// Mouse drag (touch & trackpads already scroll natively)
+		let startX = 0;
+		let startLeft = 0;
+		let moved = false;
+		track.addEventListener("pointerdown", (e) => {
+			if (e.pointerType !== "mouse" || e.button !== 0) return;
+			startX = e.clientX;
+			startLeft = track.scrollLeft;
+			moved = false;
+			const move = (ev: PointerEvent) => {
+				const dx = ev.clientX - startX;
+				if (Math.abs(dx) > 4) {
+					moved = true;
+					track.dataset.dragging = "";
+				}
+				track.scrollLeft = startLeft - dx;
+			};
+			const up = () => {
+				window.removeEventListener("pointermove", move);
+				delete track.dataset.dragging;
+				if (moved) track.scrollBy({ left: 0 });
+			};
+			window.addEventListener("pointermove", move);
+			window.addEventListener("pointerup", up, { once: true });
+		});
+		track.addEventListener("click", (e) => moved && (e.preventDefault(), e.stopPropagation()), true);
+		track.addEventListener("dragstart", (e) => e.preventDefault());
+
+		// Autoplay — only while visible, not hovered/focused, motion allowed.
+		if (root.dataset.autoplay && !reduced) {
+			let timer = 0;
+			let visible = false;
+			let paused = false;
+			const tick = () => {
+				window.clearTimeout(timer);
+				if (visible && !paused && !document.hidden) timer = window.setTimeout(() => (go(1), tick()), 5500);
+			};
+			const pause = (v: boolean) => ((paused = v), tick());
+			root.addEventListener("pointerenter", () => pause(true));
+			root.addEventListener("pointerleave", () => pause(false));
+			root.addEventListener("focusin", () => pause(true));
+			root.addEventListener("focusout", () => pause(false));
+			document.addEventListener("visibilitychange", tick);
+			new IntersectionObserver(([en]) => ((visible = en.isIntersecting), tick()), { threshold: 0.4 }).observe(root);
+		}
+		update();
+	});
+</script>

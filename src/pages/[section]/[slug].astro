@@ -1,6 +1,9 @@
 ---
 import { PortableText } from "emdash/ui";
+import Carousel from "../../components/Carousel.astro";
 import HubCard from "../../components/HubCard.astro";
+import Photo from "../../components/Photo.astro";
+import { pageGallery, pageHeroImage } from "../../data/page-media";
 import Icon from "../../components/Icon.astro";
 import PageHero from "../../components/PageHero.astro";
 import Base from "../../layouts/Base.astro";
@@ -22,7 +25,7 @@ const headings = page.content
 ---
 
 <Base title={page.title} description={page.lead} content={{ collection: "pages", id: page.slug, slug: page.slug }}>
-	<PageHero eyebrow={sectionLabel[section]} title={page.title} lead={page.lead} crumbs={[{ label: sectionLabel[section], href: `/${section}` }, { label: page.title }]} />
+	<PageHero image={pageHeroImage[page.slug]} eyebrow={sectionLabel[section]} title={page.title} lead={page.lead} crumbs={[{ label: sectionLabel[section], href: `/${section}` }, { label: page.title }]} />
 	<section class="section">
 		<div class="container sidebar-layout">
 			<div class="prose" data-prose data-reveal><PortableText value={page.content} /></div>
@@ -50,6 +53,23 @@ const headings = page.content
 			</aside>
 		</div>
 	</section>
+	{
+		pageGallery[page.slug] && (
+			<section class="section section--sm section--flush-top">
+				<div class="container">
+					<Carousel label={`Fotografie — ${page.title}`} slide="min(85%, 26rem)">
+						{pageGallery[page.slug].map((img) => (
+							<li class="carousel__slide">
+								<figure class="frame page-photo">
+									<Photo name={img} sizes="(width >= 48rem) 26rem, 85vw" />
+								</figure>
+							</li>
+						))}
+					</Carousel>
+				</div>
+			</section>
+		)
+	}
 	{
 		others.length > 0 && (
 			<section class="section section--surface">
@@ -98,6 +118,11 @@ const headings = page.content
 	}
 	.toc a:hover {
 		color: var(--color-accent-text);
+	}
+	.page-photo {
+		--frame-ratio: 4 / 3;
+		margin: 0;
+		border-radius: var(--radius-l);
 	}
 	.help {
 		display: grid;

@@ -2,6 +2,9 @@
 import "@fontsource-variable/geist";
 import "@fontsource-variable/geist-mono";
 import "../styles/global.css";
+// Preload the two font files every page needs (Czech text uses latin + latin-ext).
+import geistLatin from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
+import geistLatinExt from "@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2?url";
 
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
@@ -54,6 +57,8 @@ const pageCtx = createPublicPageContext({
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={geistLatinExt} as="font" type="font/woff2" crossorigin />
 		<meta property="og:locale" content="cs_CZ" />
 		{noindex && <meta name="robots" content="noindex" />}
 		<!-- Theme + loader bootstrap: runs before first paint to avoid flashes. -->
@@ -106,13 +111,5 @@ const pageCtx = createPublicPageContext({
 <style>
 	main:focus {
 		outline: none;
-	}
-	.loader__mark :global(.logo) {
-		inline-size: 100%;
-		block-size: 100%;
-	}
-	.loader__mark :global(.logo__mark) {
-		inline-size: 100%;
-		block-size: 100%;
 	}
 </style>

@@ -1,6 +1,9 @@
 ---
 import { PortableText } from "emdash/ui";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Carousel from "../../../components/Carousel.astro";
+import Photo from "../../../components/Photo.astro";
+import { programMedia } from "../../../data/page-media";
 import Icon from "../../../components/Icon.astro";
 import ProgramCard from "../../../components/ProgramCard.astro";
 import Base from "../../../layouts/Base.astro";
@@ -12,6 +15,7 @@ const cms = createCms(Astro.locals);
 const programs = await cms.programs();
 const program = programs.find((p) => p.slug === slug);
 if (!program) return Astro.rewrite("/404");
+const media = programMedia[program.color];
 const others = programs.filter((p) => p.slug !== program.slug && p.type === program.type).slice(0, 3);
 const facts = [
 	{ label: "Kód oboru", value: program.code },
@@ -52,6 +56,15 @@ const facts = [
 				</dl>
 			</aside>
 		</div>
+		{
+			media && (
+				<div class="container">
+					<figure class="program-banner" data-reveal>
+						<Photo name={media.banner} eager sizes="100vw" />
+					</figure>
+				</div>
+			)
+		}
 	</section>
 	<hr class="divider" />
 
@@ -64,6 +77,17 @@ const facts = [
 				</div>
 			</div>
 			<div class="stack">
+				{media && (
+					<Carousel label={`Fotografie oboru ${program.title}`} slide="100%">
+						{media.extra.map((img) => (
+							<li class="carousel__slide">
+								<figure class="frame program-photo">
+									<Photo name={img} sizes="(width >= 75rem) 40vw, 100vw" />
+								</figure>
+							</li>
+						))}
+					</Carousel>
+				)}
 				<div class="learn" data-reveal>
 					<h2 class="h-card learn__title">Co se naučíš</h2>
 					<ul class="list-rows" role="list" style="--color-accent: var(--program)">
@@ -135,6 +159,24 @@ const facts = [
 		font-weight: var(--weight-semibold);
 		font-family: var(--font-mono);
 		color: var(--program);
+	}
+	.program-banner {
+		margin: var(--space-xl) 0 0;
+		overflow: hidden;
+		border-radius: var(--radius-l);
+		aspect-ratio: 16 / 5;
+		background: var(--color-surface-2);
+	}
+	.program-banner :global(img),
+	.program-photo :global(img) {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+	.program-photo {
+		--frame-ratio: 4 / 3;
+		margin: 0;
+		border-radius: var(--radius-l);
 	}
 	.facts {
 		position: relative;

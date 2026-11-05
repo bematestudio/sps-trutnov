@@ -190,3 +190,23 @@ if (wordmark && !reducedMotion && "IntersectionObserver" in window) {
 		if (active) requestAnimationFrame(update);
 	}).observe(wordmark);
 }
+
+/* ------------------------------------------------------- ⌘K search palette */
+// The palette module + index are fetched only on intent (hover/focus) or use.
+const loadCmdk = () => import("./cmdk");
+const openCmdk = (e?: Event) => {
+	e?.preventDefault();
+	loadCmdk().then((m) => m.open());
+};
+document.addEventListener("keydown", (e) => {
+	const target = e.target as HTMLElement;
+	const typing = target.closest("input, textarea, select, [contenteditable]");
+	if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") openCmdk(e);
+	else if (e.key === "/" && !typing) openCmdk(e);
+});
+document.querySelectorAll<HTMLElement>("[data-cmdk]").forEach((el) => {
+	el.addEventListener("click", openCmdk);
+	const warm = () => loadCmdk().then((m) => m.preload());
+	el.addEventListener("pointerenter", warm, { once: true });
+	el.addEventListener("focus", warm, { once: true });
+});

@@ -1,6 +1,7 @@
 ---
 import { PortableText } from "emdash/ui";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Carousel from "../../components/Carousel.astro";
 import Icon from "../../components/Icon.astro";
 import PostCard from "../../components/PostCard.astro";
 import Base from "../../layouts/Base.astro";
@@ -12,8 +13,10 @@ const cms = createCms(Astro.locals);
 const post = slug ? await cms.post(slug) : null;
 if (!post) return Astro.rewrite("/404");
 
-const { items: related } = await cms.posts({ category: post.category?.slug, limit: 4 });
-const more = related.filter((p) => p.slug !== post.slug).slice(0, 3);
+const { items: related } = await cms.posts({ category: post.category?.slug, limit: 6 });
+const sameCat = related.filter((p) => p.slug !== post.slug);
+const { items: latest } = await cms.posts({ limit: 8 });
+const more = [...sameCat, ...latest.filter((p) => p.slug !== post.slug && !sameCat.some((x) => x.slug === p.slug))].slice(0, 8);
 const firstText = ((post.content[0] as any)?.children ?? []).map((c: any) => c.text).join("");
 const dropFirst = Boolean(post.excerpt) && firstText.trim() === post.excerpt.trim();
 const body = dropFirst ? post.content.slice(1) : post.content;
@@ -32,43 +35,51 @@ const jsonLd = {
 ---
 
 <Base title={post.title} description={post.excerpt} image={post.image?.src} content={{ collection: "posts", id: post.slug, slug: post.slug }}>
+	<div class="read-progress" aria-hidden="true"></div>
 	<article>
-		<header class="container container--narrow article__head">
-			<Breadcrumbs items={[{ label: "Novinky", href: "/novinky" }, ...(post.category ? [{ label: post.category.label, href: `/novinky?kategorie=${post.category.slug}` }] : []), { label: post.title }]} />
-			<div class="cluster">
-				{post.category && <a class="tag tag--dot" href={`/novinky?kategorie=${post.category.slug}`}>{post.category.label}</a>}
-				<span class="meta">{minutes} min čtení</span>
-			</div>
-			<h1 class="article__title" data-split>{post.title}</h1>
-			<div class="article__byline">
-				<span class="article__avatar" aria-hidden="true">{post.author.replace(/^(Mgr|Ing|Bc|RNDr|PaedDr)\.\s*/g, "").charAt(0)}</span>
-				<div>
-					<p class="article__author">{post.author}</p>
-					<time class="meta" datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+		<header class="article-hero">
+			<div class="container article-hero__grid">
+				<div class="article-hero__text">
+					<Breadcrumbs items={[{ label: "Novinky", href: "/novinky" }, ...(post.category ? [{ label: post.category.label, href: `/novinky?kategorie=${post.category.slug}` }] : [])]} />
+					<div class="cluster">
+						{post.category && <a class="eyebrow" href={`/novinky?kategorie=${post.category.slug}`}>{post.category.label}</a>}
+						<span class="tag"><Icon name="clock" size="s" /> {minutes} min čtení</span>
+					</div>
+					<h1 class="article__title" data-split>{post.title}</h1>
+					{dropFirst && <p class="lead article-hero__lead" data-reveal>{post.excerpt}</p>}
+					<div class="article__byline" data-reveal>
+						<span class="article__avatar" aria-hidden="true">{post.author.replace(/^(Mgr|Ing|Bc|RNDr|PaedDr)\.\s*/g, "").charAt(0)}</span>
+						<div>
+							<p class="article__author">{post.author}</p>
+							<time class="meta" datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+						</div>
+						<div class="article__share">
+							<button class="btn btn--outline btn--icon" type="button" data-copy={url} aria-label="Zkopírovat odkaz na článek">
+								<Icon name="copy" size="s" />
+							</button>
+							<a class="btn btn--outline btn--icon" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">
+								<Icon name="external" size="s" />
+							</a>
+						</div>
+					</div>
 				</div>
-				<div class="article__share">
-					<button class="btn btn--ghost btn--icon" type="button" data-copy={url} aria-label="Zkopírovat odkaz na článek">
-						<Icon name="copy" />
-					</button>
-					<a class="btn btn--ghost btn--icon" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">
-						<Icon name="external" />
-					</a>
-				</div>
+				{
+					post.image && (
+						<figure class="article-hero__media" data-reveal>
+							<div class="frame article__frame">
+								<img src={post.image.src} alt={post.image.alt} width={post.image.width ?? 1600} height={post.image.height ?? 1067} fetchpriority="high" decoding="async" />
+							</div>
+							<figcaption class="article-hero__badge">
+								<span class="article-hero__day">{post.date.getDate()}.</span>
+								<span class="meta">{new Intl.DateTimeFormat("cs-CZ", { month: "long", year: "numeric" }).format(post.date)}</span>
+							</figcaption>
+						</figure>
+					)
+				}
 			</div>
 		</header>
 
-		{
-			post.image && (
-				<figure class="container article__figure" data-reveal>
-					<div class="frame article__frame">
-						<img src={post.image.src} alt={post.image.alt} width={post.image.width ?? 1600} height={post.image.height ?? 1067} fetchpriority="high" decoding="async" />
-					</div>
-				</figure>
-			)
-		}
-
 		<div class="container container--narrow article__body">
-			{dropFirst && <p class="lead article__lead">{post.excerpt}</p>}
 			<div class="prose">
 				<PortableText value={body} />
 			</div>
@@ -94,9 +105,13 @@ const jsonLd = {
 						<h2 class="h-section">Mohlo by vás zajímat</h2>
 						<a class="link-arrow" href="/novinky">Všechny novinky <Icon name="arrow" size="s" /></a>
 					</div>
-					<div class="grid" data-reveal-group>
-						{more.map((p) => <PostCard post={p} />)}
-					</div>
+					<Carousel label="Další novinky">
+						{more.map((p) => (
+							<li class="carousel__slide">
+								<PostCard post={p} />
+							</li>
+						))}
+					</Carousel>
 				</div>
 			</section>
 		)
@@ -105,29 +120,70 @@ const jsonLd = {
 </Base>
 
 <style>
-	.article__head {
+	.read-progress {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: var(--z-toast);
+		block-size: var(--border-width-strong);
+		background: var(--color-accent);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	@supports (animation-timeline: scroll()) {
+		.read-progress {
+			animation: read-progress linear both;
+			animation-timeline: scroll(root);
+		}
+	}
+	@keyframes read-progress {
+		to {
+			transform: scaleX(1);
+		}
+	}
+	.article-hero {
+		position: relative;
+		padding-block: var(--section-space-sm);
+		background:
+			radial-gradient(var(--color-border) var(--border-width), transparent 0) 0 0 / var(--space-l) var(--space-l),
+			linear-gradient(180deg, var(--color-surface), var(--color-bg));
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.article-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--space-xl);
+		align-items: center;
+	}
+	.article-hero__text {
 		display: grid;
 		gap: var(--space-m);
-		padding-block: var(--section-space-sm) var(--space-xl);
+		justify-items: start;
 	}
 	.article__title {
 		font-size: var(--text-2xl);
+	}
+	.article-hero__lead {
+		color: var(--color-text);
 	}
 	.article__byline {
 		display: flex;
 		align-items: center;
 		gap: var(--space-s);
-		padding-top: var(--space-m);
-		border-top: var(--border-width) solid var(--color-border);
+		inline-size: 100%;
+		padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-xs);
+		background: var(--color-elevated);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-full);
 	}
 	.article__avatar {
 		display: grid;
 		place-items: center;
+		flex: none;
 		inline-size: var(--tap-target);
 		block-size: var(--tap-target);
 		border-radius: var(--radius-full);
-		background: var(--color-accent-soft);
-		color: var(--color-accent-text);
+		background: var(--color-accent);
+		color: var(--color-on-accent);
 		font-weight: var(--weight-semibold);
 	}
 	.article__author {
@@ -135,21 +191,45 @@ const jsonLd = {
 	}
 	.article__share {
 		display: flex;
+		gap: var(--space-3xs);
 		margin-inline-start: auto;
 	}
-	.article__figure {
-		margin-block: 0 var(--space-xl);
+	.article-hero__media {
+		position: relative;
+		margin: 0;
 	}
 	.article__frame {
-		--frame-ratio: 16 / 9;
+		--frame-ratio: 4 / 3;
+		border-radius: var(--radius-l);
+		box-shadow: var(--shadow-l);
+	}
+	.article-hero__badge {
+		position: absolute;
+		inset-block-end: calc(var(--space-m) * -1);
+		inset-inline-start: var(--space-m);
+		display: grid;
+		gap: var(--space-3xs);
+		padding: var(--space-xs) var(--space-m);
+		background: var(--color-elevated);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-l);
+		box-shadow: var(--shadow-m);
+	}
+	.article-hero__day {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-tight);
+		color: var(--color-accent-text);
+	}
+	@media (width >= 75rem) {
+		.article-hero__grid {
+			grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+		}
 	}
 	.article__body {
 		display: grid;
 		gap: var(--space-l);
-		padding-bottom: var(--section-space);
-	}
-	.article__lead {
-		color: var(--color-text);
+		padding-block: var(--section-space-sm) var(--section-space);
 	}
 	.article__tags {
 		padding-top: var(--space-s);

@@ -115,16 +115,11 @@ const socials = [
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
 	}
 	.footer__brand {
+		--logo-height: calc(var(--icon-l) * 1.6);
 		display: grid;
 		gap: var(--space-m);
 		align-content: start;
 		grid-column: 1 / -1;
-	}
-	.footer__brand :global(.logo__mark) {
-		color: var(--color-on-accent);
-	}
-	.footer__brand :global(.logo__mark path) {
-		stroke: var(--color-accent-strong);
 	}
 	.footer__address {
 		font-style: normal;

@@ -93,8 +93,10 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 			</nav>
 
 			<div class="bar__actions">
-				<a class="btn btn--ghost btn--icon bar__search" href="/vyhledavani" aria-label="Vyhledávání">
-					<Icon name="search" />
+				<a class="bar__search" href="/vyhledavani" aria-label="Vyhledávání (⌘K)" aria-keyshortcuts="Control+K Meta+K" data-cmdk>
+					<Icon name="search" size="s" />
+					<span class="bar__search-label">Hledat</span>
+					<kbd class="bar__kbd" aria-hidden="true">⌘K</kbd>
 				</a>
 				<ThemeToggle />
 				<a class="btn btn--ghost btn--icon bar__login" href="/prihlaseni" aria-label="Přihlásit se do administrace" title="Přihlásit">
@@ -216,19 +218,19 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		position: sticky;
 		inset-block-start: 0;
 		z-index: var(--z-header);
-		padding-block: var(--space-xs);
+		padding-block: var(--space-2xs);
 	}
 	.bar {
 		display: flex;
 		align-items: center;
 		gap: var(--space-s);
 		min-block-size: var(--header-height);
-		padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-s);
+		padding: var(--space-3xs) var(--space-3xs) var(--space-3xs) var(--space-s);
 		background: var(--color-glass);
-		backdrop-filter: blur(var(--space-s)) saturate(1.4);
-		-webkit-backdrop-filter: blur(var(--space-s)) saturate(1.4);
+		backdrop-filter: blur(var(--space-m)) saturate(1.6);
+		-webkit-backdrop-filter: blur(var(--space-m)) saturate(1.6);
 		border: var(--border-width) solid var(--color-border);
-		border-radius: var(--radius-m);
+		border-radius: var(--radius-full);
 		transition:
 			box-shadow var(--duration-base) var(--ease-out),
 			border-color var(--duration-base) var(--ease-out),
@@ -238,6 +240,7 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		box-shadow: var(--shadow-m);
 	}
 	.bar__brand {
+		--logo-height: 2.25rem;
 		text-decoration: none;
 		flex: none;
 		border-radius: var(--radius-s);
@@ -249,12 +252,41 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		margin-inline-start: auto;
 	}
 	.bar__login,
-	.bar__cta,
-	.bar__search {
+	.bar__cta {
 		display: none;
 	}
-	.bar__brand :global(.logo__sub) {
+	.bar__search {
+		display: inline-flex;
+		justify-content: center;
+		min-inline-size: calc(var(--tap-target) * 0.9);
+		align-items: center;
+		gap: var(--space-2xs);
+		min-block-size: calc(var(--tap-target) * 0.9);
+		padding-inline: var(--space-xs) var(--space-3xs);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-full);
+		background: var(--color-bg);
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		text-decoration: none;
+		transition:
+			border-color var(--duration-fast) var(--ease-out),
+			color var(--duration-fast) var(--ease-out);
+	}
+	.bar__search:hover {
+		border-color: var(--color-border-strong);
+		color: var(--color-text);
+	}
+	.bar__search-label,
+	.bar__kbd {
 		display: none;
+	}
+	.bar__kbd {
+		padding: var(--space-3xs) var(--space-2xs);
+		border-radius: var(--radius-full);
+		background: var(--color-surface);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
 	}
 
 	/* ---------- Desktop nav --------------------------------------------- */
@@ -273,10 +305,10 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-3xs);
-		min-block-size: var(--tap-target);
-		padding-inline: var(--space-2xs);
-		border-radius: var(--radius-s);
-		font-size: var(--text-base);
+		min-block-size: calc(var(--tap-target) * 0.9);
+		padding-inline: var(--space-xs);
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
 		font-weight: var(--weight-medium);
 		text-decoration: none;
 		white-space: nowrap;
@@ -344,7 +376,7 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		padding: var(--space-2xs) var(--space-xs);
 		border-radius: var(--radius-s);
 		text-decoration: none;
-		font-size: var(--text-base);
+		font-size: var(--text-sm);
 		line-height: var(--leading-snug);
 		transition:
 			background-color var(--duration-fast) var(--ease-out),
@@ -443,7 +475,7 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		justify-content: space-between;
 		align-items: center;
 		padding-block: var(--space-s);
-		font-size: var(--text-xl);
+		font-size: var(--text-lg);
 		font-weight: var(--weight-medium);
 		letter-spacing: var(--tracking-snug);
 		text-decoration: none;
@@ -483,12 +515,8 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 	}
 
 	@media (width >= 48rem) {
-		.bar__cta,
-		.bar__search {
+		.bar__cta {
 			display: inline-flex;
-		}
-		.bar__brand :global(.logo__sub) {
-			display: block;
 		}
 	}
 	@media (width >= 75rem) {
@@ -501,6 +529,10 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		}
 		.bar__login {
 			display: inline-flex;
+		}
+		.bar__search-label,
+		.bar__kbd {
+			display: inline;
 		}
 		.bar__burger,
 		.drawer {

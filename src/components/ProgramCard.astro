@@ -1,15 +1,25 @@
 ---
 import type { Program } from "../lib/cms";
 import { programTypeLabel } from "../lib/format";
+import { programMedia } from "../data/page-media";
 import Icon from "./Icon.astro";
+import Photo from "./Photo.astro";
 
 interface Props {
 	program: Program;
 }
 const { program } = Astro.props;
+const media = programMedia[program.color];
 ---
 
 <article class="card card--interactive program" style={`--program: var(--color-program-${program.color})`} data-reveal>
+	{
+		media && (
+			<div class="card__media program__media">
+				<Photo name={media.photo} alt="" sizes="(width >= 75rem) 22rem, (width >= 48rem) 45vw, 100vw" />
+			</div>
+		)
+	}
 	<div class="program__top">
 		<span class="program__code">{program.shortTitle}</span>
 		<span class="tag">{programTypeLabel(program.type)}</span>
@@ -30,6 +40,9 @@ const { program } = Astro.props;
 <style>
 	.program {
 		gap: var(--space-m);
+	}
+	.program__media {
+		aspect-ratio: 16 / 10;
 	}
 	.program__top {
 		display: flex;

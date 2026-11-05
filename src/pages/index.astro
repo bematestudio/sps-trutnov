@@ -1,5 +1,9 @@
 ---
+import Carousel from "../components/Carousel.astro";
+import Industry40 from "../components/home/Industry40.astro";
+import Videos from "../components/home/Videos.astro";
 import Icon from "../components/Icon.astro";
+import Photo from "../components/Photo.astro";
 import PostCard from "../components/PostCard.astro";
 import SignalField from "../components/SignalField.astro";
 import Base from "../layouts/Base.astro";
@@ -7,16 +11,23 @@ import { createCms } from "../lib/cms";
 import { eventKindLabel, formatDay, formatMonth, formatTime } from "../lib/format";
 
 const cms = createCms(Astro.locals);
-const [{ items: posts }, programs, events, partners] = await Promise.all([
-	cms.posts({ limit: 7 }),
+const [{ items: posts }, programs, events, partners, videos] = await Promise.all([
+	cms.posts({ limit: 9 }),
 	cms.programs(),
 	cms.events({ upcoming: true }),
 	cms.partners(),
+	cms.videos(),
 ]);
-const [lead, ...rest] = posts;
 const maturita = programs.filter((p) => p.type === "maturita");
 const vyucni = programs.filter((p) => p.type === "vyucni-list");
 const nextDod = events.find((e) => e.kind === "dod");
+
+const slides = [
+	{ img: "spstrutnov-dod-2026", tag: "Den otevřených dveří", title: "Ukážeme vám to! Přijďte se podívat na všechna pracoviště.", href: "/studium/den-otevrenych-dveri", cta: "Termíny a program" },
+	{ img: "roboticke-pracoviste-wide", tag: "Průmysl 4.0", title: "Robotická pracoviště FANUC přímo ve výuce.", href: "#prumysl-4-0", cta: "Co se naučíš" },
+	{ img: "studenti-itm", tag: "Adobe ve výuce", title: "Grafika a multimédia v profesionálních nástrojích Adobe.", href: "/studium/obory-vzdelani/informatika-a-management", cta: "Informatika a management" },
+	{ img: "studenti-trika", tag: "Stipendium", title: "Studium zdarma — a ve vybraných oborech ještě stipendium.", href: "/studium/stipendium", cta: "Jak získat stipendium" },
+] as const;
 
 const stats = [
 	{ value: 613, label: "žáků ve 25 třídách", tone: "accent" },
@@ -25,10 +36,10 @@ const stats = [
 	{ value: 4, label: "pracoviště a 10 laboratoří", tone: "plain" },
 ];
 const academies = [
-	{ name: "Cisco Networking Academy", text: "Celosvětový vzdělávací systém v oblasti počítačových sítí.", tag: "Sítě" },
-	{ name: "Mikrotik Academy", text: "Správa a budování malých a středních počítačových a Wi-Fi sítí.", tag: "Wi-Fi" },
-	{ name: "Autodesk Academia", text: "Nadstandardní výuka AutoCAD, Inventor a 3ds Max.", tag: "CAD" },
-	{ name: "Adobe Creative Cloud", text: "Photoshop, Illustrator, Premiere Pro a InDesign ve výuce.", tag: "Grafika" },
+	{ name: "Cisco Networking Academy", text: "Celosvětový vzdělávací systém v oblasti počítačových sítí.", logo: "/images/akademie/cisco-networking-academy.png", w: 300, h: 150 },
+	{ name: "Mikrotik Academy", text: "Správa a budování malých a středních počítačových a Wi-Fi sítí.", logo: "/images/akademie/mikrotik-academy.png", w: 300, h: 150 },
+	{ name: "Autodesk Academia", text: "Nadstandardní výuka AutoCAD, Inventor a 3ds Max.", logo: "/images/akademie/autodesk-academia.png", w: 300, h: 150 },
+	{ name: "Adobe Creative Cloud", text: "Photoshop, Illustrator, Premiere Pro a InDesign ve výuce.", logo: "/images/foto/adb-small-480.webp", w: 480, h: 320 },
 ];
 ---
 
@@ -37,6 +48,7 @@ const academies = [
 	<section class="hero">
 		<SignalField />
 		<div class="container hero__inner">
+			<span class="eyebrow" data-reveal>Střední průmyslová škola · Trutnov · od roku 1952</span>
 			<h1 class="hero__title" data-split>Technika, která tě posune dál.</h1>
 			<p class="lead hero__lead" data-reveal>
 				Elektro. IT. Strojírenství. Čtyři maturitní a dva učební obory, špičkové laboratoře a praxe u firem, které tě
@@ -46,17 +58,39 @@ const academies = [
 				<a class="btn" href="/studium/obory-vzdelani">Vybrat obor <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
 				<a class="btn btn--secondary" href="/studium/den-otevrenych-dveri">Den otevřených dveří</a>
 			</div>
-			<p class="meta hero__since" data-reveal>Střední průmyslová škola · Trutnov · od roku 1952</p>
 		</div>
 	</section>
-	<hr class="divider" />
+
+	<!-- ===================================================== SLIDES -->
+	<section class="slides" aria-label="Aktuálně">
+		<div class="container">
+			<Carousel label="Aktuálně ze školy" slide="100%" variant="hero" autoplay>
+				{
+					slides.map((s, i) => (
+						<li class="carousel__slide">
+							<a class="slide" href={s.href}>
+								<Photo name={s.img} eager={i === 0} sizes="(width >= 82rem) 82rem, 100vw" class="slide__img" />
+								<span class="slide__body">
+									<span class="eyebrow slide__tag">{s.tag}</span>
+									<span class="slide__title">{s.title}</span>
+									<span class="slide__cta">
+										{s.cta} <Icon name="arrow" size="s" />
+									</span>
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</Carousel>
+		</div>
+	</section>
 
 	<!-- ===================================================== STACK SPLIT -->
 	<section class="section" id="stack">
 		<div class="container">
 			<div class="stack-split" data-reveal-group>
 				<div class="panel panel--accent panel--plus stack-split__claim" data-reveal>
-					<span class="meta stack-split__label">Co u nás studuješ</span>
+					<span class="eyebrow">Co u nás studuješ</span>
 					<p class="stack-split__headline">Elektro. IT. Strojírenství.</p>
 					<p class="stack-split__text">
 						Tři technické světy, jedna škola. Obory propojujeme tak, aby mezi nimi šlo přestoupit — z učebního do
@@ -66,9 +100,9 @@ const academies = [
 				<div class="panel panel--plus stack-split__media" data-reveal>
 					<div class="dots" aria-hidden="true"></div>
 					<figure class="frame stack-split__photo">
-						<img src="/images/pracoviste/mlade-buky.webp" alt="Pracoviště praktického vyučování v Mladých Bukách" width="960" height="640" loading="lazy" decoding="async" />
+						<Photo name="studentka-vyskok" sizes="(width >= 48rem) 40vw, 100vw" alt="Radostná studentka SPŠ Trutnov ve školním tričku" />
 					</figure>
-					<figcaption class="meta stack-split__caption">Mladé Buky 374 · praktické vyučování</figcaption>
+					<p class="meta stack-split__caption">Staň se hrdým žákem průmyslovky</p>
 				</div>
 			</div>
 		</div>
@@ -78,7 +112,10 @@ const academies = [
 	<section class="section section--flush-top">
 		<div class="container">
 			<div class="section-head section-head--split">
-				<h2 class="h-section" data-split>Vyber si cestu, která ti sedí.</h2>
+				<div class="stack stack--s">
+					<span class="eyebrow">Obory vzdělání</span>
+					<h2 class="h-section" data-split>Vyber si cestu, která ti sedí.</h2>
+				</div>
 				<a class="link-arrow" href="/studium/obory-vzdelani">Všechny obory <Icon name="arrow" size="s" /></a>
 			</div>
 			<div class="paths" data-reveal-group>
@@ -133,26 +170,39 @@ const academies = [
 		</div>
 	</section>
 
+	<!-- ===================================================== INDUSTRY 4.0 -->
+	<Industry40 />
+
 	<!-- ===================================================== NEWS -->
 	<section class="section">
 		<div class="container">
 			<div class="section-head section-head--split">
-				<h2 class="h-section" data-split>Co se u nás děje.</h2>
+				<div class="stack stack--s">
+					<span class="eyebrow">Novinky</span>
+					<h2 class="h-section" data-split>Co se u nás děje.</h2>
+				</div>
 				<a class="btn btn--outline" href="/novinky">Všechny novinky <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
 			</div>
-			<div class="news" data-reveal-group>
-				{lead && <div class="news__lead"><PostCard post={lead} size="large" /></div>}
-				<div class="news__grid">
-					{rest.slice(0, 4).map((p) => <PostCard post={p} />)}
-				</div>
-			</div>
+			<Carousel label="Nejnovější novinky" slide="min(85%, 23rem)">
+				{
+					posts.map((p, i) => (
+						<li class="carousel__slide">
+							<PostCard post={p} eager={i < 2} />
+						</li>
+					))
+				}
+			</Carousel>
 		</div>
 	</section>
+
+	<!-- ===================================================== VIDEOS -->
+	<Videos videos={videos} />
 
 	<!-- ===================================================== EVENTS + DOD -->
 	<section class="section section--surface">
 		<div class="container split split--wide-end">
 			<div class="panel panel--inverse panel--plus dod" data-reveal>
+				<span class="eyebrow">Ukážeme vám to!</span>
 				<h2 class="h-section">Den otevřených dveří</h2>
 				{
 					nextDod && (
@@ -165,7 +215,8 @@ const academies = [
 				<a class="btn btn--light" href="/studium/den-otevrenych-dveri">Naplánovat návštěvu <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
 			</div>
 			<div class="stack">
-				<div class="section-head section-head--split u-mt-0">
+				<div class="stack stack--s">
+					<span class="eyebrow">Kalendář</span>
 					<h2 class="h-section">Důležité termíny</h2>
 				</div>
 				<ol class="events" role="list" data-reveal-group>
@@ -193,15 +244,17 @@ const academies = [
 	<section class="section">
 		<div class="container">
 			<div class="section-head">
+				<span class="eyebrow">Certifikáty a programy</span>
 				<h2 class="h-section" data-split>Nadstandardní výuka ICT.</h2>
 				<p class="lead">Během studia můžeš získat celosvětově uznávané certifikáty a pracovat v profesionálním softwaru zdarma.</p>
 			</div>
 			<ul class="grid grid--s academies" role="list" data-reveal-group>
 				{
-					academies.map((a, i) => (
+					academies.map((a) => (
 						<li class="panel panel--plus academy" data-reveal>
-							<span class="academy__index meta">0{i + 1}</span>
-							<span class="tag">{a.tag}</span>
+							<span class="academy__logo">
+								<img src={a.logo} alt={a.name} width={a.w} height={a.h} loading="lazy" decoding="async" />
+							</span>
 							<h3 class="h-card">{a.name}</h3>
 							<p class="muted">{a.text}</p>
 						</li>
@@ -214,16 +267,24 @@ const academies = [
 	<!-- ===================================================== PARTNERS -->
 	<section class="partners" aria-labelledby="partners-title">
 		<div class="container partners__head">
-			<span class="eyebrow eyebrow--muted" id="partners-title">Nejvýznamnější partneři</span>
+			<div class="stack stack--s">
+				<span class="eyebrow">Partneři</span>
+				<h2 class="h-card" id="partners-title">Spolupracujeme s nejvýznamnějšími firmami regionu</h2>
+			</div>
 			<a class="link-arrow" href="/o-skole/partnerstvi-a-spoluprace">Partnerství a spolupráce <Icon name="arrow" size="s" /></a>
 		</div>
-		<div class="marquee" aria-label="Partneři školy">
-			<ul class="marquee__track" role="list">
-				{partners.map((p) => <li class="marquee__item">{p.name}</li>)}
-			</ul>
-			<ul class="marquee__track" role="list" aria-hidden="true">
-				{partners.map((p) => <li class="marquee__item">{p.name}</li>)}
-			</ul>
+		<div class="marquee">
+			{
+				[0, 1].map((copy) => (
+					<ul class="marquee__track" role="list" aria-hidden={copy === 1 ? "true" : undefined}>
+						{partners.map((p) => (
+							<li class="marquee__item">
+								{p.logo ? <img src={p.logo.src} alt={copy === 0 ? p.name : ""} width={p.logo.width ?? 270} height={p.logo.height ?? 90} loading="lazy" decoding="async" /> : <span>{p.name}</span>}
+							</li>
+						))}
+					</ul>
+				))
+			}
 		</div>
 	</section>
 
@@ -231,6 +292,7 @@ const academies = [
 	<section class="cta">
 		<SignalField variant="bars" class="cta__bars" />
 		<div class="container cta__inner">
+			<span class="eyebrow">Přihláška 2027</span>
 			<h2 class="h-display" data-split>Staň se hrdým žákem průmyslovky.</h2>
 			<p class="lead">Studium je zdarma — a ve vybraných oborech za něj dostaneš zaplaceno.</p>
 			<div class="cluster">
@@ -273,6 +335,105 @@ const academies = [
 	}
 	.hero__since {
 		margin-top: var(--space-s);
+	}
+
+	/* ---------- Slides -------------------------------------------------- */
+	.slides {
+		padding-bottom: var(--section-space-sm);
+	}
+	.slide {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		aspect-ratio: 4 / 3;
+		border-radius: var(--radius-l);
+		background: var(--prim-ink);
+		color: var(--prim-white);
+		text-decoration: none;
+		isolation: isolate;
+	}
+	@media (width >= 48rem) {
+		.slide {
+			aspect-ratio: 21 / 8;
+		}
+	}
+	.slide :global(.slide__img) {
+		position: absolute;
+		inset: 0;
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		z-index: -1;
+		transition: scale var(--duration-slower) var(--ease-out);
+	}
+	.slide:hover :global(.slide__img) {
+		scale: 1.03;
+	}
+	.slide::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(90deg, color-mix(in oklab, var(--prim-ink) 82%, transparent), transparent 70%);
+	}
+	.slide__body {
+		position: absolute;
+		inset: auto auto 0 0;
+		display: grid;
+		gap: var(--space-s);
+		justify-items: start;
+		max-inline-size: 34rem;
+		padding: var(--space-l);
+	}
+	.slide .slide__tag {
+		color: var(--prim-white);
+		background: color-mix(in oklab, var(--prim-white) 16%, transparent);
+		border-color: color-mix(in oklab, var(--prim-white) 40%, transparent);
+		backdrop-filter: blur(var(--space-2xs));
+	}
+	.slide__title {
+		font-size: var(--text-xl);
+		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
+		letter-spacing: var(--tracking-snug);
+	}
+	.slide__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		min-block-size: var(--tap-target);
+		padding-inline: var(--space-m);
+		border-radius: var(--radius-full);
+		background: var(--prim-white);
+		color: var(--prim-ink);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-medium);
+		transition: gap var(--duration-base) var(--ease-out);
+	}
+	.slide:hover .slide__cta {
+		gap: var(--space-s);
+	}
+	@media (width < 48rem) {
+		.slide {
+			aspect-ratio: auto;
+			display: grid;
+		}
+		.slide :global(.slide__img) {
+			position: relative;
+			aspect-ratio: 16 / 9;
+			z-index: auto;
+		}
+		.slide::after {
+			display: none;
+		}
+		.slide__body {
+			position: static;
+			padding: var(--space-m);
+		}
+		.slide__title {
+			font-size: var(--text-lg);
+			line-height: var(--leading-relaxed);
+		}
 	}
 
 	/* ---------- Stack split ---------------------------------------------- */
@@ -319,6 +480,13 @@ const academies = [
 		position: relative;
 		margin: 0 var(--space-l);
 		--frame-ratio: 4 / 3;
+		border-radius: var(--radius-l);
+	}
+	.stack-split__photo :global(img) {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		object-position: top;
 	}
 	.stack-split__caption {
 		position: relative;
@@ -544,8 +712,19 @@ const academies = [
 	.academy:hover {
 		border-color: var(--color-accent);
 	}
-	.academy__index {
-		color: var(--color-accent-text);
+	.academy__logo {
+		display: grid;
+		place-items: center;
+		inline-size: 100%;
+		block-size: calc(var(--tap-target) * 2.4);
+		padding: var(--space-xs);
+		background: var(--prim-white);
+		border-radius: var(--radius-m);
+	}
+	.academy__logo img {
+		block-size: 100%;
+		inline-size: auto;
+		object-fit: contain;
 	}
 
 	/* ---------- Partners marquee ----------------------------------------- */
@@ -568,23 +747,39 @@ const academies = [
 	.marquee__track {
 		display: flex;
 		flex: none;
-		gap: var(--space-2xl);
-		padding-inline-end: var(--space-2xl);
+		gap: var(--space-s);
+		padding-inline-end: var(--space-s);
 		animation: marquee calc(var(--duration-slower) * 30) linear infinite;
 	}
 	.marquee:hover .marquee__track {
 		animation-play-state: paused;
 	}
 	.marquee__item {
-		font-size: var(--text-xl);
+		display: grid;
+		place-items: center;
+		block-size: calc(var(--tap-target) * 1.8);
+		padding: var(--space-2xs) var(--space-l);
+		background: var(--prim-white);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-full);
+		color: var(--prim-ink);
 		font-weight: var(--weight-medium);
-		letter-spacing: var(--tracking-snug);
-		color: var(--color-text-muted);
 		white-space: nowrap;
-		transition: color var(--duration-fast) var(--ease-out);
+		filter: grayscale(1);
+		opacity: 0.85;
+		transition:
+			filter var(--duration-base) var(--ease-out),
+			opacity var(--duration-base) var(--ease-out);
 	}
 	.marquee__item:hover {
-		color: var(--color-text);
+		filter: none;
+		opacity: 1;
+	}
+	.marquee__item img {
+		block-size: 100%;
+		inline-size: auto;
+		max-inline-size: 9rem;
+		object-fit: contain;
 	}
 	@keyframes marquee {
 		to {
@@ -613,6 +808,7 @@ const academies = [
 		background: var(--prim-ink);
 		color: var(--prim-paper);
 		padding-block: var(--section-space);
+		--color-bg: var(--prim-ink);
 		--color-text-muted: var(--prim-slate-light);
 		--color-hero-line: color-mix(in oklab, var(--prim-paper) 22%, transparent);
 		--color-hero-line-accent: var(--prim-blue-500);

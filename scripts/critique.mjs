@@ -39,6 +39,9 @@ const RUNS = [
 ];
 
 process.env.CHROME_PATH ??= "/opt/pw-browsers/chromium";
+// Rules intentionally overridden by the client's design direction.
+// kicker-above-heading: pill eyebrows above section headings were explicitly requested.
+const ACCEPTED_RULES = new Set(["kicker-above-heading"]);
 const findings = [];
 for (const run of RUNS) {
 	for (const path of PAGES) {
@@ -52,7 +55,7 @@ for (const run of RUNS) {
 		} catch (e) {
 			out = e.stdout || "[]"; // exit code 2 = findings present
 		}
-		const items = JSON.parse(out || "[]");
+		const items = JSON.parse(out || "[]").filter((f) => !ACCEPTED_RULES.has(f.antipattern));
 		for (const f of items) findings.push({ ...run, path, rule: f.antipattern, detail: f.snippet, selector: f.selector });
 		console.log(`${items.length ? "✗" : "✓"} ${run.theme.padEnd(5)} ${run.viewport.padEnd(8)} ${path} ${items.length ? `(${items.length})` : ""}`);
 	}

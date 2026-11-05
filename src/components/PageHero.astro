@@ -1,23 +1,34 @@
 ---
+import type images from "../data/images.json";
 import Breadcrumbs from "./Breadcrumbs.astro";
+import Photo from "./Photo.astro";
 
 interface Props {
 	title: string;
 	eyebrow?: string;
 	lead?: string;
 	crumbs?: Array<{ label: string; href?: string }>;
+	image?: keyof typeof images;
 }
-const { title, lead, crumbs = [] } = Astro.props;
+const { title, eyebrow, lead, crumbs = [], image } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class:list={["page-hero", image && "page-hero--media"]}>
 	<div class="container page-hero__inner">
-		{crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
 		<div class="page-hero__text">
+			{crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
+			{eyebrow && <span class="eyebrow" data-reveal>{eyebrow}</span>}
 			<h1 class="page-hero__title" data-split>{title}</h1>
 			{lead && <p class="lead" data-reveal>{lead}</p>}
+			<slot />
 		</div>
-		<slot />
+		{
+			image && (
+				<figure class="page-hero__media" data-reveal>
+					<Photo name={image} eager sizes="(width >= 75rem) 40vw, 100vw" />
+				</figure>
+			)
+		}
 	</div>
 	<hr class="divider" />
 </section>
@@ -25,18 +36,42 @@ const { title, lead, crumbs = [] } = Astro.props;
 <style>
 	.page-hero {
 		padding-top: var(--section-space-sm);
+		background:
+			radial-gradient(var(--color-border) var(--border-width), transparent 0) 0 0 / var(--space-l) var(--space-l),
+			linear-gradient(180deg, var(--color-surface), var(--color-bg) 85%);
 	}
 	.page-hero__inner {
 		display: grid;
-		gap: var(--space-l);
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--space-xl);
+		align-items: center;
 		padding-bottom: var(--section-space-sm);
 	}
 	.page-hero__text {
 		display: grid;
 		gap: var(--space-m);
-		max-width: 60rem;
+		justify-items: start;
+		max-width: 52rem;
 	}
 	.page-hero__title {
 		font-size: var(--text-3xl);
+	}
+	.page-hero__media {
+		margin: 0;
+		overflow: hidden;
+		border-radius: var(--radius-l);
+		aspect-ratio: 4 / 3;
+		background: var(--color-surface-2);
+		box-shadow: var(--shadow-l);
+	}
+	.page-hero__media :global(img) {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+	@media (width >= 75rem) {
+		.page-hero--media .page-hero__inner {
+			grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+		}
 	}
 </style>

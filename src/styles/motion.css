@@ -80,6 +80,11 @@
 	html.js [data-reveal="fade"] {
 		translate: 0 0;
 	}
+	/* Carousel slides sit outside the viewport horizontally — never hide them. */
+	html.js .carousel [data-reveal] {
+		opacity: 1;
+		translate: 0 0;
+	}
 
 	/* Line-mask headline reveal */
 	html.js [data-split] .line {

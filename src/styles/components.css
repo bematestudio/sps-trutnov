@@ -1,13 +1,20 @@
 /* Shared UI components. All values come from tokens.css. */
 @layer components {
 	/* ---------- Text roles ------------------------------------------------ */
+	/* Eyebrows + taglines: rounded pills */
 	.eyebrow {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-2xs);
+		inline-size: fit-content;
+		padding: var(--space-3xs) var(--space-xs);
+		border: var(--border-width) solid color-mix(in oklab, var(--color-accent) 28%, transparent);
+		border-radius: var(--radius-full);
+		background: color-mix(in oklab, var(--color-accent) 8%, var(--color-bg));
 		font-family: var(--font-mono);
 		font-size: var(--text-xs);
 		font-weight: var(--weight-medium);
+		line-height: var(--leading-snug);
 		letter-spacing: var(--tracking-wide);
 		text-transform: uppercase;
 		color: var(--color-accent-text);
@@ -16,8 +23,18 @@
 		content: "";
 		inline-size: var(--marker-size);
 		block-size: var(--marker-size);
+		border-radius: var(--radius-full);
 		background: currentColor;
 		flex: none;
+	}
+	.panel--accent .eyebrow,
+	.panel--inverse .eyebrow,
+	.section--inverse .eyebrow {
+		background: transparent;
+		border-color: color-mix(in oklab, currentColor 40%, transparent);
+	}
+	.panel--accent .eyebrow {
+		color: var(--color-on-accent);
 	}
 	.eyebrow--plain::before {
 		display: none;
@@ -90,10 +107,10 @@
 		min-block-size: var(--tap-target);
 		padding: var(--space-2xs) var(--space-m);
 		border: var(--border-width) solid var(--btn-border);
-		border-radius: var(--radius-s);
+		border-radius: var(--radius-full);
 		background: var(--btn-bg);
 		color: var(--btn-fg);
-		font-size: var(--text-base);
+		font-size: var(--text-sm);
 		font-weight: var(--weight-medium);
 		line-height: var(--leading-snug);
 		text-decoration: none;
@@ -205,9 +222,9 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-2xs);
-		padding: var(--space-3xs) var(--space-2xs);
+		padding: var(--space-3xs) var(--space-xs);
 		border: var(--border-width) solid var(--color-border);
-		border-radius: var(--radius-s);
+		border-radius: var(--radius-full);
 		font-family: var(--font-mono);
 		font-size: var(--text-xs);
 		letter-spacing: var(--tracking-wide);
@@ -220,6 +237,7 @@
 	}
 	.tag--dot::before {
 		content: "";
+		border-radius: var(--radius-full);
 		inline-size: var(--marker-size);
 		block-size: var(--marker-size);
 		background: var(--tag-color, var(--color-accent));
@@ -749,5 +767,136 @@
 			opacity: 0;
 			translate: 0 var(--space-2xs);
 		}
+	}
+}
+
+@layer components {
+	/* ---------- ⌘K palette ------------------------------------------------ */
+	.cmdk {
+		inline-size: min(100% - var(--gutter) * 2, 40rem);
+		max-block-size: min(70dvh, 36rem);
+		margin: 12dvh auto auto;
+		padding: 0;
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-l);
+		background: var(--color-elevated);
+		color: var(--color-text);
+		box-shadow: var(--shadow-l);
+		overflow: hidden;
+	}
+	.cmdk[open] {
+		animation: cmdk-in var(--duration-base) var(--ease-emphasized);
+	}
+	.cmdk::backdrop {
+		background: var(--color-overlay);
+		backdrop-filter: blur(var(--space-3xs));
+	}
+	@keyframes cmdk-in {
+		from {
+			opacity: 0;
+			translate: 0 calc(var(--space-s) * -1);
+			scale: 0.98;
+		}
+	}
+	.cmdk__box {
+		display: grid;
+		grid-template-rows: auto minmax(0, 1fr) auto;
+		max-block-size: inherit;
+	}
+	.cmdk__field {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		padding: var(--space-xs) var(--space-m);
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+	.cmdk__field svg {
+		inline-size: var(--icon-m);
+		block-size: var(--icon-m);
+		color: var(--color-text-muted);
+		flex: none;
+	}
+	.cmdk__input {
+		flex: 1;
+		min-inline-size: 0;
+		min-block-size: var(--tap-target);
+		border: 0;
+		background: transparent;
+		font-size: var(--text-lg);
+		outline: none;
+	}
+	.cmdk__input::-webkit-search-cancel-button {
+		display: none;
+	}
+	.cmdk kbd {
+		padding: var(--space-3xs) var(--space-2xs);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius-s);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+	}
+	.cmdk__list {
+		margin: 0;
+		padding: var(--space-2xs);
+		list-style: none;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+	.cmdk__group {
+		padding: var(--space-s) var(--space-xs) var(--space-3xs);
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+	.cmdk__item a {
+		display: grid;
+		gap: var(--space-3xs);
+		padding: var(--space-2xs) var(--space-xs);
+		border-radius: var(--radius-m);
+		text-decoration: none;
+	}
+	.cmdk__item[aria-selected="true"] a {
+		background: var(--color-accent-soft);
+	}
+	.cmdk__title {
+		font-weight: var(--weight-medium);
+	}
+	.cmdk__desc {
+		color: var(--color-text-muted);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.cmdk mark {
+		background: transparent;
+		color: var(--color-accent-text);
+		font-weight: var(--weight-semibold);
+	}
+	.cmdk__empty {
+		padding: var(--space-l);
+		text-align: center;
+		color: var(--color-text-muted);
+	}
+	.cmdk__foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-s);
+		padding: var(--space-2xs) var(--space-m);
+		border-top: var(--border-width) solid var(--color-border);
+		color: var(--color-text-muted);
+	}
+	.cmdk__foot kbd + kbd {
+		margin-inline-start: var(--space-3xs);
+	}
+	.cmdk__all {
+		margin-inline-start: auto;
+		color: var(--color-accent-text);
+	}
+	html.cmdk-open {
+		overflow: hidden;
 	}
 }

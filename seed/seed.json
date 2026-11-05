@@ -516,6 +516,38 @@
 			]
 		},
 		{
+			"slug": "videos",
+			"label": "Videa",
+			"labelSingular": "Video",
+			"supports": [
+				"drafts"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Název",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "youtube_id",
+					"label": "YouTube ID videa",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "description",
+					"label": "Popis",
+					"type": "text"
+				},
+				{
+					"slug": "order",
+					"label": "Pořadí",
+					"type": "integer"
+				}
+			]
+		},
+		{
 			"slug": "partners",
 			"label": "Partneři",
 			"labelSingular": "Partner",
@@ -6242,92 +6274,184 @@
 		"partners": [
 			{
 				"id": "partner-1",
-				"slug": "partner-1",
+				"slug": "hitachi-energy",
 				"status": "published",
 				"data": {
-					"name": "Hitachi",
-					"order": 1
+					"name": "Hitachi Energy",
+					"url": "https://www.hitachienergy.com",
+					"order": 1,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/hitachi-energy.png",
+							"alt": "Hitachi Energy",
+							"filename": "hitachi-energy.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-2",
-				"slug": "partner-2",
+				"slug": "kasper",
 				"status": "published",
 				"data": {
 					"name": "Kasper",
-					"order": 2
+					"url": "https://www.kasperkovo.cz",
+					"order": 2,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/kasper.png",
+							"alt": "Kasper",
+							"filename": "kasper.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-3",
-				"slug": "partner-3",
+				"slug": "pepperl-fuchs",
 				"status": "published",
 				"data": {
 					"name": "Pepperl+Fuchs",
-					"order": 3
+					"url": "https://www.pepperl-fuchs.com",
+					"order": 3,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/pepperl-fuchs.png",
+							"alt": "Pepperl+Fuchs",
+							"filename": "pepperl-fuchs.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-4",
-				"slug": "partner-4",
+				"slug": "schaeffler",
 				"status": "published",
 				"data": {
 					"name": "Schaeffler",
-					"order": 4
+					"url": "https://www.schaeffler.cz",
+					"order": 4,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/schaeffler.png",
+							"alt": "Schaeffler",
+							"filename": "schaeffler.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-5",
-				"slug": "partner-5",
+				"slug": "siemens",
 				"status": "published",
 				"data": {
-					"name": "Hitachi Energy",
-					"order": 5
+					"name": "Siemens",
+					"url": "https://www.siemens.cz",
+					"order": 5,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/siemens.png",
+							"alt": "Siemens",
+							"filename": "siemens.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-6",
-				"slug": "partner-6",
+				"slug": "skoda",
 				"status": "published",
 				"data": {
-					"name": "Siemens",
-					"order": 6
+					"name": "Škoda Auto",
+					"url": "https://www.skoda-auto.cz",
+					"order": 6,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/skoda.png",
+							"alt": "Škoda Auto",
+							"filename": "skoda.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-7",
-				"slug": "partner-7",
+				"slug": "te",
 				"status": "published",
 				"data": {
-					"name": "Škoda",
-					"order": 7
+					"name": "TE Connectivity",
+					"url": "https://www.te.com",
+					"order": 7,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/te.png",
+							"alt": "TE Connectivity",
+							"filename": "te.png"
+						}
+					}
 				}
 			},
 			{
 				"id": "partner-8",
-				"slug": "partner-8",
-				"status": "published",
-				"data": {
-					"name": "TE Connectivity",
-					"order": 8
-				}
-			},
-			{
-				"id": "partner-9",
-				"slug": "partner-9",
+				"slug": "zpa",
 				"status": "published",
 				"data": {
 					"name": "ZPA Smart Energy",
-					"order": 9
+					"url": "https://www.zpa-smartenergy.cz",
+					"order": 8,
+					"logo": {
+						"$media": {
+							"url": "https://www.spstrutnov.cz/images/loga/zpa.png",
+							"alt": "ZPA Smart Energy",
+							"filename": "zpa.png"
+						}
+					}
+				}
+			}
+		],
+		"videos": [
+			{
+				"id": "video-1",
+				"slug": "kfwkxbyp84",
+				"status": "published",
+				"data": {
+					"title": "Praktické vyučování na SPŠ Trutnov",
+					"youtube_id": "KfWKXbyp-84",
+					"description": "Dílny, CNC a robotická pracoviště v Mladých Bukách.",
+					"order": 1
 				}
 			},
 			{
-				"id": "partner-10",
-				"slug": "partner-10",
+				"id": "video-2",
+				"slug": "mlgdvbe7o10",
 				"status": "published",
 				"data": {
-					"name": "Argo-Hytos",
-					"order": 10
+					"title": "Výrobní linka domina",
+					"youtube_id": "MLgdvbE7O10",
+					"description": "Automatizovaná linka postavená žáky — PLC, pneumatika a robotika.",
+					"order": 2
+				}
+			},
+			{
+				"id": "video-3",
+				"slug": "fgzwrpva2v8",
+				"status": "published",
+				"data": {
+					"title": "Kroužek robotiky",
+					"youtube_id": "FGZwrPVA2V8",
+					"description": "Stavíme a programujeme roboty na platformách Mindstorms a Dynamixel.",
+					"order": 3
+				}
+			},
+			{
+				"id": "video-4",
+				"slug": "bs04lgqfkq",
+				"status": "published",
+				"data": {
+					"title": "Kroužek mechatroniky",
+					"youtube_id": "Bs04LgQfk_Q",
+					"description": "Návrh, realizace a propagace vlastních mechatronických zařízení.",
+					"order": 4
 				}
 			}
 		]

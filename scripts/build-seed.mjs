@@ -710,14 +710,34 @@ const documents = [
 }));
 
 // ---------------------------------------------------------------- partners ---
-const partners = ["Hitachi", "Kasper", "Pepperl+Fuchs", "Schaeffler", "Hitachi Energy", "Siemens", "Škoda", "TE Connectivity", "ZPA Smart Energy", "Argo-Hytos"].map(
-	(name, i) => ({
-		id: `partner-${i + 1}`,
-		slug: `partner-${i + 1}`,
-		status: "published",
-		data: { name, order: i + 1 },
-	}),
-);
+const partners = [
+	["Hitachi Energy", "hitachi-energy", "https://www.hitachienergy.com"],
+	["Kasper", "kasper", "https://www.kasperkovo.cz"],
+	["Pepperl+Fuchs", "pepperl-fuchs", "https://www.pepperl-fuchs.com"],
+	["Schaeffler", "schaeffler", "https://www.schaeffler.cz"],
+	["Siemens", "siemens", "https://www.siemens.cz"],
+	["Škoda Auto", "skoda", "https://www.skoda-auto.cz"],
+	["TE Connectivity", "te", "https://www.te.com"],
+	["ZPA Smart Energy", "zpa", "https://www.zpa-smartenergy.cz"],
+].map(([name, file, url], i) => ({
+	id: `partner-${i + 1}`,
+	slug: file,
+	status: "published",
+	data: { name, url, order: i + 1, logo: media(`${LEGACY}/images/loga/${file}.png`, name, `${file}.png`) },
+}));
+
+// ------------------------------------------------------------------ videos ---
+const videos = [
+	["KfWKXbyp-84", "Praktické vyučování na SPŠ Trutnov", "Dílny, CNC a robotická pracoviště v Mladých Bukách."],
+	["MLgdvbE7O10", "Výrobní linka domina", "Automatizovaná linka postavená žáky — PLC, pneumatika a robotika."],
+	["FGZwrPVA2V8", "Kroužek robotiky", "Stavíme a programujeme roboty na platformách Mindstorms a Dynamixel."],
+	["Bs04LgQfk_Q", "Kroužek mechatroniky", "Návrh, realizace a propagace vlastních mechatronických zařízení."],
+].map(([youtube_id, title, description], i) => ({
+	id: `video-${i + 1}`,
+	slug: youtube_id.toLowerCase().replace(/[^a-z0-9]/g, ""),
+	status: "published",
+	data: { title, youtube_id, description, order: i + 1 },
+}));
 
 // -------------------------------------------------------------- collections ---
 const f = (slug, label, type, extra = {}) => ({ slug, label, type, ...extra });
@@ -875,6 +895,18 @@ const seed = {
 			],
 		},
 		{
+			slug: "videos",
+			label: "Videa",
+			labelSingular: "Video",
+			supports: ["drafts"],
+			fields: [
+				f("title", "Název", "string", { required: true }),
+				f("youtube_id", "YouTube ID videa", "string", { required: true }),
+				f("description", "Popis", "text"),
+				f("order", "Pořadí", "integer"),
+			],
+		},
+		{
 			slug: "partners",
 			label: "Partneři",
 			labelSingular: "Partner",
@@ -954,7 +986,7 @@ const seed = {
 			],
 		},
 	],
-	content: { posts, pages, programs, events, people, workplaces, faq, documents, partners },
+	content: { posts, pages, programs, events, people, workplaces, faq, documents, partners, videos },
 };
 
 writeFileSync(join(root, "seed/seed.json"), `${JSON.stringify(seed, null, "\t")}\n`);

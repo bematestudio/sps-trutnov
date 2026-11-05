@@ -2,6 +2,7 @@
 import ContactForm from "../../components/ContactForm.astro";
 import Icon from "../../components/Icon.astro";
 import PageHero from "../../components/PageHero.astro";
+import Photo from "../../components/Photo.astro";
 import Base from "../../layouts/Base.astro";
 import { createCms } from "../../lib/cms";
 import { formatDate, formatTime } from "../../lib/format";
@@ -12,7 +13,7 @@ const dods = events.filter((e) => e.kind === "dod");
 ---
 
 <Base title="Den otevřených dveří" description="Přijďte se podívat na SPŠ Trutnov — otevřeme všechna pracoviště, dílny, laboratoře i robotická pracoviště.">
-	<PageHero eyebrow="Studium / Den otevřených dveří" title="Ukážeme vám to!" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
+	<PageHero image="spstrutnov-dod-2026" eyebrow="Studium / Den otevřených dveří" title="Ukážeme vám to!" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
 		<div class="dates" data-reveal-group>
 			{
 				dods.map((d) => (
@@ -44,6 +45,13 @@ const dods = events.filter((e) => e.kind === "dod");
 					))
 				}
 			</div>
+		</div>
+	</section>
+
+	<section class="section section--sm section--flush-top">
+		<div class="container dod-photos" data-reveal-group>
+			<figure class="frame" data-reveal><Photo name="pneumatika-plc" sizes="(width >= 48rem) 50vw, 100vw" /><figcaption class="tag dod-photos__cap">Pneumatika a PLC</figcaption></figure>
+			<figure class="frame" data-reveal><Photo name="strojirenska-laborator" sizes="(width >= 48rem) 50vw, 100vw" /><figcaption class="tag dod-photos__cap">Strojírenská laboratoř</figcaption></figure>
 		</div>
 	</section>
 
@@ -84,6 +92,26 @@ const dods = events.filter((e) => e.kind === "dod");
 	}
 	.grid {
 		--grid-min: 16rem;
+	}
+	.dod-photos {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+		gap: var(--grid-gap);
+	}
+	.dod-photos .frame {
+		position: relative;
+		margin: 0;
+		border-radius: var(--radius-l);
+	}
+	.dod-photos :global(img) {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+	.dod-photos__cap {
+		position: absolute;
+		inset-block-end: var(--space-s);
+		inset-inline-start: var(--space-s);
 	}
 	.gift {
 		display: flex;

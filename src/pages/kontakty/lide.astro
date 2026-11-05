@@ -181,6 +181,11 @@ const initials = (name: string) =>
 			empty.hidden = visible > 0;
 		};
 		input.addEventListener("input", apply);
+		const q = new URLSearchParams(location.search).get("q");
+		if (q) {
+			input.value = q;
+			apply();
+		}
 		buttons.forEach((b) =>
 			b.addEventListener("click", () => {
 				dept = b.dataset.filter!;

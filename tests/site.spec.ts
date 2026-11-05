@@ -64,17 +64,19 @@ test("unknown URL returns branded 404", async ({ page }) => {
 	await expect(page.getByRole("heading", { level: 1 })).toContainText("Tady nic není");
 });
 
-test("running text is never smaller than 16px", async ({ page }) => {
+test("running text is never smaller than 16px", async ({ page, isMobile }) => {
 	for (const path of ["/", "/novinky/sps-trutnov-brana-do-sveta-modernich-technologii", "/studium/prijimaci-rizeni", "/kontakty/lide"]) {
 		await page.goto(path, { waitUntil: "networkidle" });
-		const offenders = await page.evaluate(() =>
+		const offenders = await page.evaluate((mobile) =>
 			[...document.querySelectorAll<HTMLElement>("p, li, td, dd, label, input, textarea, button, a")]
 				.filter((el) => el.offsetParent && el.textContent?.trim())
 				// Mono UI labels (dates, tags, eyebrows, codes) are not running text.
 				.filter((el) => !el.closest(".meta, .eyebrow, .tag, .breadcrumbs, th, .footer__heading, .logo__sub, .event__month, .doc__type, .program__code, .step__num, .toc"))
+				// Desktop UI chrome (nav, buttons, tabs) is intentionally 15px; phones get 16px everywhere.
+				.filter((el) => mobile || !el.closest(".btn, .nav, .bar__search, .i40__tab, .slide__cta, .tag"))
 				.filter((el) => parseFloat(getComputedStyle(el).fontSize) < 16)
 				.map((el) => `${el.tagName}.${el.className} ${getComputedStyle(el).fontSize} "${el.textContent!.trim().slice(0, 40)}"`),
-		);
+		isMobile);
 		expect(offenders, `${path}\n${offenders.join("\n")}`).toEqual([]);
 	}
 });
@@ -104,8 +106,14 @@ test("respects OS dark preference on first visit", async ({ page }) => {
 test("first visit shows the loader, which then gets out of the way", async ({ browser }) => {
 	const ctx = await browser.newContext();
 	const page = await ctx.newPage();
+	// Record whether the loader class was ever applied (it may finish before we look).
+	await page.addInitScript(() => {
+		new MutationObserver(() => {
+			if (document.documentElement?.classList.contains("is-loading")) (window as any).__sawLoader = true;
+		}).observe(document, { subtree: true, attributes: true, attributeFilter: ["class"] });
+	});
 	await page.goto("/");
-	await expect(page.locator("html")).toHaveClass(/is-loading/);
+	expect(await page.evaluate(() => (window as any).__sawLoader === true)).toBe(true);
 	await expect(page.locator("html")).not.toHaveClass(/is-loading/, { timeout: 5000 });
 	await expect(page.locator(".loader")).toBeHidden();
 	await ctx.close();
@@ -186,4 +194,59 @@ test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
 			});
 		}
 	}
+});
+
+test("⌘K palette loads lazily, finds programs and navigates", async ({ page }) => {
+	const requested: string[] = [];
+	page.on("request", (r) => requested.push(r.url()));
+	await page.goto("/", { waitUntil: "networkidle" });
+	expect(requested.some((u) => u.includes("search-index.json"))).toBe(false);
+	await page.keyboard.press("Control+k");
+	const input = page.locator(".cmdk__input");
+	await expect(input).toBeFocused();
+	await input.fill("strojirenstvi");
+	await expect(page.locator(".cmdk__item").first()).toContainText("Strojírenství");
+	await page.keyboard.press("Enter");
+	await expect(page).toHaveURL(/strojirenstvi-robotika/);
+});
+
+test("palette tolerates missing diacritics and supports arrows + Escape", async ({ page }) => {
+	await page.goto("/");
+	await page.locator("[data-cmdk]").first().click();
+	await page.locator(".cmdk__input").fill("prijimaci");
+	await expect(page.locator(".cmdk__item").first()).toContainText("Přijímací");
+	await page.keyboard.press("ArrowDown");
+	await expect(page.locator('.cmdk__item[aria-selected="true"]')).toHaveCount(1);
+	await page.keyboard.press("Escape");
+	await expect(page.locator(".cmdk")).not.toBeVisible();
+});
+
+test("news carousel scrolls with its controls", async ({ page }) => {
+	await page.goto("/");
+	const carousel = page.locator("[data-carousel]", { has: page.locator(".post") }).first();
+	await carousel.scrollIntoViewIfNeeded();
+	const track = carousel.locator(".carousel__track");
+	const prev = carousel.locator("[data-carousel-prev]");
+	await expect(prev).toBeDisabled();
+	await carousel.locator("[data-carousel-next]").click();
+	await expect.poll(() => track.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+	await expect(prev).toBeEnabled();
+});
+
+test("Průmysl 4.0 tabs switch the highlighted technology", async ({ page }) => {
+	await page.goto("/");
+	const section = page.locator("[data-i40]");
+	await section.scrollIntoViewIfNeeded();
+	await page.getByRole("tab", { name: /CNC obrábění/ }).click();
+	await expect(section).toHaveAttribute("data-active", "cnc");
+	await expect(section.locator('[data-card="cnc"]')).toBeVisible();
+	await page.keyboard.press("ArrowRight");
+	await expect(section).toHaveAttribute("data-active", "iot");
+});
+
+test("video facade loads YouTube only after click", async ({ page }) => {
+	await page.goto("/", { waitUntil: "networkidle" });
+	await expect(page.locator(".videos__player iframe")).toHaveCount(0);
+	await page.locator("[data-play]").click();
+	await expect(page.locator(".videos__player iframe")).toHaveAttribute("src", /youtube-nocookie\.com\/embed\//);
 });

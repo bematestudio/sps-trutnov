@@ -1,0 +1,302 @@
+{
+ "adb-small": {
+  "w": 600,
+  "h": 400,
+  "widths": [
+   480,
+   600
+  ],
+  "alpha": true,
+  "alt": "Produkty Adobe ve výuce — Photoshop, Illustrator, InDesign, Premiere, Acrobat, Bridge"
+ },
+ "banner-spstrutnov": {
+  "w": 483,
+  "h": 750,
+  "widths": [
+   480,
+   483
+  ],
+  "alpha": true,
+  "alt": "Propagační banner SPŠ Trutnov"
+ },
+ "bg-ele": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Elektroinstalace a zabezpečovací technika"
+ },
+ "bg-nas": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Detail obráběcího stroje"
+ },
+ "bg-sel": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Elektronické obvody a sedmisegmentové displeje"
+ },
+ "bg-str": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Robotické rameno a 3D modelování"
+ },
+ "elektrikar1": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Žák oboru elektrikář při zapojování rozvaděče"
+ },
+ "frezovani-nas": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Frézování v dílně oboru nástrojař"
+ },
+ "pneumatika-plc": {
+  "w": 540,
+  "h": 360,
+  "widths": [
+   480,
+   540
+  ],
+  "alpha": false,
+  "alt": "Výuka pneumatiky a PLC automatů"
+ },
+ "pocitacove-site-eps": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Výuka počítačových sítí"
+ },
+ "roboticke-pracoviste-wide": {
+  "w": 1920,
+  "h": 820,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Robotické pracoviště FANUC"
+ },
+ "roboticke-pracoviste": {
+  "w": 950,
+  "h": 950,
+  "widths": [
+   480,
+   950
+  ],
+  "alpha": false,
+  "alt": "Robotické pracoviště FANUC"
+ },
+ "router-site": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Síťové prvky a kabeláž"
+ },
+ "sachy-inventor": {
+  "w": 950,
+  "h": 950,
+  "widths": [
+   480,
+   950
+  ],
+  "alpha": false,
+  "alt": "3D model šachových figurek v Autodesk Inventor"
+ },
+ "slaboprouda-elektrotechnika1": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Žáci slaboproudé elektrotechniky programují robota"
+ },
+ "soustruzeni": {
+  "w": 960,
+  "h": 640,
+  "widths": [
+   480,
+   960
+  ],
+  "alpha": false,
+  "alt": "Žák při soustružení"
+ },
+ "spstrutnov-dod-2026": {
+  "w": 1920,
+  "h": 820,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Den otevřených dveří SPŠ Trutnov 2026"
+ },
+ "stavba-3d-tiskarny": {
+  "w": 960,
+  "h": 640,
+  "widths": [
+   480,
+   960
+  ],
+  "alpha": false,
+  "alt": "Žáci staví 3D tiskárnu"
+ },
+ "strojirenska-laborator": {
+  "w": 540,
+  "h": 360,
+  "widths": [
+   480,
+   540
+  ],
+  "alpha": false,
+  "alt": "Měření ve strojírenské laboratoři"
+ },
+ "strojirenstvi-pocitacova-grafika": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Počítačová grafika ve strojírenství"
+ },
+ "studenti-itm": {
+  "w": 1920,
+  "h": 600,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Studenti oboru Informatika a management"
+ },
+ "studenti-srdicko": {
+  "w": 1920,
+  "h": 843,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Studenti SPŠ Trutnov"
+ },
+ "studenti-trika": {
+  "w": 1920,
+  "h": 843,
+  "widths": [
+   480,
+   960,
+   1600,
+   1920
+  ],
+  "alpha": false,
+  "alt": "Studenti v tričkách SPŠ Trutnov"
+ },
+ "studentka-csi": {
+  "w": 513,
+  "h": 700,
+  "widths": [
+   480,
+   513
+  ],
+  "alpha": true,
+  "alt": "Studentka s logem České školní inspekce"
+ },
+ "studentka-klik": {
+  "w": 733,
+  "h": 800,
+  "widths": [
+   480,
+   733
+  ],
+  "alpha": true,
+  "alt": "Studentka ukazuje nahoru"
+ },
+ "studentka-tablet": {
+  "w": 700,
+  "h": 700,
+  "widths": [
+   480,
+   700
+  ],
+  "alpha": false,
+  "alt": "Studentka s tabletem"
+ },
+ "studentka-tablet-cut": {
+  "w": 645,
+  "h": 700,
+  "widths": [
+   480,
+   645
+  ],
+  "alpha": true,
+  "alt": "Studentka s tabletem"
+ },
+ "studentka-vyskok": {
+  "w": 793,
+  "h": 950,
+  "widths": [
+   480,
+   793
+  ],
+  "alpha": true,
+  "alt": "Radostný výskok studentky"
+ }
+}

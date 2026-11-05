@@ -122,6 +122,12 @@ export interface Partner {
 	logo?: Img;
 	url?: string;
 }
+export interface Video {
+	slug: string;
+	title: string;
+	youtubeId: string;
+	description: string;
+}
 export interface MenuItem {
 	label: string;
 	url: string;
@@ -267,11 +273,34 @@ const toDoc = (slug: string, d: Raw, r?: MediaResolver): Doc => {
 		year: str(d.year),
 	};
 };
-const toPartner = (slug: string, d: Raw, r?: MediaResolver): Partner => ({
+/** Bundled partner logos — used when the CMS entry has no uploaded logo. */
+const PARTNER_LOGOS: Record<string, string> = {
+	"hitachi energy": "hitachi-energy",
+	kasper: "kasper",
+	"pepperl+fuchs": "pepperl-fuchs",
+	schaeffler: "schaeffler",
+	siemens: "siemens",
+	"škoda": "skoda",
+	"škoda auto": "skoda",
+	"te connectivity": "te",
+	"zpa smart energy": "zpa",
+};
+const toPartner = (slug: string, d: Raw, r?: MediaResolver): Partner => {
+	const name = str(d.name);
+	const local = PARTNER_LOGOS[name.toLowerCase()];
+	const cmsLogo = d.logo && !d.logo.$media ? image(d.logo, r, name) : undefined;
+	return {
+		slug,
+		name,
+		logo: cmsLogo ?? (local ? { src: `/images/partneri/${local}.png`, alt: name, width: 270, height: 90 } : undefined),
+		url: str(d.url) || undefined,
+	};
+};
+const toVideo = (slug: string, d: Raw): Video => ({
 	slug,
-	name: str(d.name),
-	logo: image(d.logo, r, str(d.name)),
-	url: str(d.url) || undefined,
+	title: str(d.title),
+	youtubeId: str(d.youtube_id),
+	description: str(d.description),
 });
 
 const byOrder = (a: { data: Raw }, b: { data: Raw }) => Number(a.data.order ?? 0) - Number(b.data.order ?? 0);
@@ -379,6 +408,7 @@ export function createCms(locals?: App.Locals) {
 		faq: () => list("faq", (s, d) => toFaq(s, d)),
 		documents: () => list("documents", (s, d, r) => toDoc(s, d, r), resolve),
 		partners: () => list("partners", (s, d, r) => toPartner(s, d, r), resolve),
+		videos: () => list("videos", (s, d) => toVideo(s, d)).then((v) => v.filter((x) => x.youtubeId)),
 
 		async search(query: string) {
 			const q = query.trim();

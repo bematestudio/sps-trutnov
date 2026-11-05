@@ -1,0 +1,33 @@
+---
+/**
+ * Responsive local photo from src/data/images.json (generated WebP widths in
+ * /images/foto). Emits srcset/sizes, intrinsic size (no CLS) and lazy loading.
+ */
+import manifest from "../data/images.json";
+
+type Name = keyof typeof manifest;
+interface Props {
+	name: Name;
+	alt?: string;
+	sizes?: string;
+	eager?: boolean;
+	class?: string;
+}
+const { name, alt, sizes = "(width >= 75rem) 50vw, 100vw", eager = false, class: className } = Astro.props;
+const img = manifest[name];
+const src = (w: number) => `/images/foto/${name}-${w}.webp`;
+const largest = img.widths[img.widths.length - 1];
+---
+
+<img
+	class={className}
+	src={src(img.widths.find((w) => w >= 960) ?? largest)}
+	srcset={img.widths.map((w) => `${src(w)} ${w}w`).join(", ")}
+	sizes={sizes}
+	width={img.w}
+	height={img.h}
+	alt={alt ?? img.alt}
+	loading={eager ? "eager" : "lazy"}
+	fetchpriority={eager ? "high" : undefined}
+	decoding="async"
+/>
