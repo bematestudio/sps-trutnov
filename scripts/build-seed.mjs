@@ -278,7 +278,7 @@ const programs = [
 		color: "na",
 		workplace: "Horská 618, Trutnov + Mladé Buky",
 		summary:
-			"Výroba a opravy nástrojů a přípravků, soustružení, frézování a programování CNC strojů. Náročný a dobře placený řemeslný obor se stipendiem.",
+			"Výroba a opravy nástrojů a přípravků, soustružení, frézování a programování CNC strojů. Náročnější strojírenský učební obor podpořený stipendiem kraje.",
 		highlights: "Výroba a opravy nástrojů a přípravků\nProgramování CNC obráběcích strojů\nTváření za tepla i za studena\nSoustružení a frézování",
 		careers: "Nástrojař v kusové i sériové výrobě\nObsluha CNC strojů\nStrojní údržba\nKontrola jakosti\nSamostatná živnost",
 		content: [
@@ -554,32 +554,143 @@ const pages = [
 		],
 		6,
 	),
+	page(
+		"o-skole",
+		"certifikaty-akreditace-clenstvi-a-programy",
+		"Certifikáty, akreditace a členství",
+		"Jsme školou s nadstandardní výukou informačních a komunikačních technologií a členem významných organizací.",
+		[
+			h2("Certifikáty a programy"),
+			...ul([
+				"Cisco Networking Academy — celosvětově rozšířený vzdělávací systém v oblasti počítačových sítí.",
+				"Mikrotik Academy — správa a budování malých a středních počítačových a bezdrátových Wi-Fi sítí.",
+				"Autodesk Academia — nadstandardní úroveň výuky programů AutoCAD, Inventor a 3ds Max.",
+			]),
+			h2("Členství"),
+			...ul([
+				"Asociace školských sportovních klubů — každoročně se účastníme velkého množství sportovních aktivit středních škol.",
+				"Hospodářská komora České republiky — jsme aktivním a spoluzakládajícím členem regionální komory.",
+				"Asociace středních průmyslových škol ČR — přispíváme k rozvoji technického odborného školství.",
+			]),
+		],
+		7,
+	),
+	page(
+		"o-skole",
+		"nadacni-fond",
+		"Nadační fond",
+		"Nadační fond Střední průmyslové školy Trutnov, Školní 101 podporuje vzdělávání, kulturu, sport a soutěže žáků.",
+		[
+			p("Registrace fondu: Krajský soud v Hradci Králové, oddíl N, vložka 71. IČO: 49290151."),
+			p("Statutární zástupci: Mgr. Šárka Fibikarová (předsedkyně správní rady), Mgr. Lenka Horáková a Mgr. Nikola Šandová (členky správní rady). Revizor: Ing. Bronislav Gazda."),
+			p("Finanční prostředky fondu jsou získávány výhradně od žáků a sponzorů. Fond je samostatným subjektem, vede účetnictví a své hospodaření dokládá finančnímu úřadu."),
+			h2("Hlavní podporované akce"),
+			...ul([
+				"autobusové zájezdy na odborné výstavy a divadelní představení",
+				"jazykové zájezdy do měst okolních států",
+				"exkurze u významných zaměstnavatelů regionu",
+				"odborné soutěže a olympiády (matematika, český jazyk, cizí jazyky)",
+				"středoškolská odborná činnost a žákovské projekty",
+				"výjezdy žáků do krajských a celostátních kol soutěží",
+				"odměny pro žáky reprezentující školu a žáky s výbornými výsledky",
+			]),
+		],
+		8,
+	),
+	page(
+		"o-skole",
+		"fakultni-skola",
+		"Fakultní škola",
+		"Jsme fakultní školou Univerzity Hradec Králové.",
+		[
+			p("S Univerzitou Hradec Králové spolupracujeme na zajištění odborné praxe studentů, která je povinnou součástí studia na univerzitě. Praxe probíhá v souladu se studijními programy a umožňuje studentům získat zkušenosti v reálném prostředí školy."),
+		],
+		9,
+	),
+	page(
+		"o-skole",
+		"liga-vyjimecnych",
+		"Liga výjimečných",
+		"Příběhy absolventů a žáků, kteří z trutnovské průmyslovky vykročili do světa.",
+		[
+			...ul([
+				"Z trutnovské průmyslovky do světa Hitachi (2026)",
+				"Petr Králík — přes projektového manažera a vedoucího výroby vedoucím svářečské školy v KASPER KOVO",
+				"Michal Glaser a Štěpán Novák — NGIT: weby, grafika a servis počítačů",
+				"Marek Kovář — strojař na pozici technické podpory prodeje, mimo jiné pět měsíců v Číně",
+				"Filip Vaško — výroba posilovacích zařízení pro fitness centra na míru",
+				"Vlastimil Vykus — programátor řídicích systémů v ABB Trutnov",
+				"Radek Micopulos — vyučený nástrojař, výrobce originálních českých hlavolamů",
+				"Jakub Schwarz — technik úspěšným manažerem",
+				"Šimon Vaníček — mistr České republiky v cyklokrosu",
+				"Sandra Bartelová — mistryně světa v mažoretkovém sportu",
+			]),
+			p("Celé rozhovory najdete v archivu novinek původního webu školy."),
+		],
+		10,
+	),
+	page(
+		"o-skole",
+		"o-skole-projekty",
+		"Projekty",
+		"Projekty spolufinancované Evropskou unií, krajem a partnery, které zlepšují vybavení a výuku.",
+		[
+			...ul([
+				"SPŠ Trutnov OP JAK Šablony II (2026)",
+				"Sady elektrických obvodů PASCO — zápůjčka deseti sad v hodnotě 243 400 Kč (2023)",
+				"Implementace Krajského akčního plánu rozvoje vzdělávání v Královéhradeckém kraji II (2023)",
+				"SPŠ Trutnov – šablony IV (2023)",
+				"Digitální učební pomůcky — Next Generation EU (2023)",
+				"Prevence digitální propasti — Next Generation EU (2022)",
+				"Doučování žáků škol — Národní plán doučování MŠMT (2022)",
+				"SPŠ Trutnov – šablony 2 (2020)",
+				"Implementace Krajského akčního plánu rozvoje vzdělávání v Královéhradeckém kraji I (2018)",
+			]),
+		],
+		11,
+	),
+	page(
+		"o-skole",
+		"informacni-zpravodaje",
+		"Informační zpravodaje",
+		"Zpravodaj školy vychází dvakrát ročně — v červnu a v září. Všechna čísla najdete ke stažení.",
+		[p("Archiv zpravodajů od roku 2005 je v sekci Ke stažení, kategorie Propagační materiály.")],
+		12,
+	),
+	page(
+		"o-skole",
+		"o-nas-v-mediich",
+		"O nás v médiích",
+		"Články o škole a jejích aktivitách v regionálních a celostátních médiích.",
+		[p("Všechny články jsou ke stažení v sekci Ke stažení, kategorie O nás v médiích.")],
+		13,
+	),
+	page(
+		"vice",
+		"odkazy",
+		"Odkazy",
+		"Užitečné odkazy na instituce ve školství a v regionu.",
+		[
+			h2("Školství a další vzdělávání"),
+			...ul(["Cermat (Centrum pro zjišťování výsledků vzdělávání)", "Česká škola", "Česká školní inspekce", "Ministerstvo školství, tělovýchovy a mládeže ČR", "Nová maturita (maturitní web)", "Učitelské noviny"]),
+			h2("Region"),
+			...ul(["Královéhradecký kraj", "Město Trutnov"]),
+			h2("Různé"),
+			...ul(["Evropský sociální fond", "Pedagogicko-psychologická poradna Královéhradeckého kraje — pracoviště Trutnov", "Portál veřejné správy"]),
+		],
+		3,
+	),
 ];
 
 // ------------------------------------------------------------------- people ---
-const people = [
-	["ing-vladislav-sauer", "Ing. Vladislav Sauer", "ředitel", "vedeni", "Školní 101", "499 814 729", "sauer@spstrutnov.cz"],
-	["mgr-jakub-lattenberg", "Mgr. Jakub Lattenberg", "zástupce ředitele pro teoretické vyučování", "vedeni", "Školní 101", "499 813 071", "lattenberg@spstrutnov.cz"],
-	["mgr-sarka-fibikarova", "Mgr. Šárka Fibikarová", "zástupkyně ředitele, úsek Horská 618", "vedeni", "Horská 618", "499 813 879", "fibikarova@spstrutnov.cz"],
-	["ing-bronislav-gazda", "Ing. Bronislav Gazda", "zástupce ředitele pro teoretické vyučování", "vedeni", "Horská 59", "499 815 145", "gazda@spstrutnov.cz"],
-	["arnost-jager", "Arnošt Jäger, DiS.", "zástupce ředitele pro odborný výcvik", "vedeni", "Mladé Buky 374", "499 873 456", "jager@spstrutnov.cz"],
-	["bc-jiri-vesely", "Bc. Jiří Veselý", "vedoucí odloučeného pracoviště Mladé Buky", "vedeni", "Mladé Buky 374", "499 873 188", "vesely@spstrutnov.cz"],
-	["jana-krupkova", "Jana Krupková", "sekretářka ředitele", "sekretariat", "Školní 101", "499 813 071", "krupkova@spstrutnov.cz"],
-	["mgr-tomas-vanek", "Mgr. Tomáš Vaněk", "učitel matematiky", "pedagog", "Školní 101", "499 813 071", "vanek@spstrutnov.cz"],
-	["ing-jan-holy", "Ing. Jan Holý", "učitel odborných předmětů", "pedagog", "Horská 59", "499 815 145", "holy@spstrutnov.cz"],
-	["mgr-martin-kadrle", "Mgr. Martin Kádrle", "učitel tělesné výchovy", "pedagog", "Horská 618", "499 815 512", "kadrle@spstrutnov.cz"],
-	["mgr-zdenka-tezka", "Mgr. Zdeňka Těžká", "učitelka českého jazyka", "pedagog", "Školní 101", "499 813 071", "tezka@spstrutnov.cz"],
-	["mgr-martina-pradacova", "Mgr. Martina Pradáčová", "učitelka českého jazyka", "pedagog", "Horská 59", "499 815 145", "pradacova@spstrutnov.cz"],
-	["ludek-dusek", "Luděk Dušek", "koordinátor propagace", "pedagog", "Školní 101", "499 813 071", "dusek@spstrutnov.cz"],
-	["mgr-jaroslav-kabrhel", "Mgr. Jaroslav Kabrhel", "učitel fyziky", "pedagog", "Horská 618", "499 815 512", "kabrhel@spstrutnov.cz"],
-	["mgr-radana-navratova", "Mgr. Radana Návratová", "učitelka tělesné výchovy", "pedagog", "Horská 59", "499 815 145", "navratova@spstrutnov.cz"],
-	["ing-horst-anders", "Ing. Horst Anders", "učitel strojírenských předmětů", "pedagog", "Horská 618", "499 815 512", "anders@spstrutnov.cz"],
-	["ing-milos-zemek", "Ing. Miloš Zemek", "předseda školské rady, učitel", "pedagog", "Horská 618", "499 815 512", "zemek@spstrutnov.cz"],
-].map(([slug, name, role, department, workplace, phone, email], i) => ({
-	id: `person-${slug}`,
-	slug,
+const legacyExtra = JSON.parse(readFileSync(join(root, "seed/content/legacy-extra.json"), "utf8"));
+
+// Real staff directory, scraped from the legacy site (www.spstrutnov.cz/kontakty/lide, 2026-11-05).
+const people = legacyExtra.people.map((p, i) => ({
+	id: `person-${p.slug}`,
+	slug: p.slug,
 	status: "published",
-	data: { name, role, department, workplace, phone, email, order: i + 1 },
+	data: { name: p.name, role: p.role, department: p.department, workplace: p.workplace, phone: p.phone, email: p.email, order: i + 1 },
 }));
 
 // --------------------------------------------------------------- workplaces ---
@@ -685,28 +796,12 @@ const faq = [
 }));
 
 // --------------------------------------------------------------- documents ---
-const documents = [
-	["Školní vzdělávací program — Elektronické počítačové systémy", "studium", "PDF", "1,2 MB", "2026/2027"],
-	["Školní vzdělávací program — Informatika a management", "studium", "PDF", "1,1 MB", "2026/2027"],
-	["Školní vzdělávací program — Slaboproudá elektrotechnika", "studium", "PDF", "1,3 MB", "2026/2027"],
-	["Školní vzdělávací program — Strojírenství", "studium", "PDF", "1,4 MB", "2026/2027"],
-	["Kritéria přijímacího řízení 2027", "prijimaci-rizeni", "PDF", "240 kB", "2026/2027"],
-	["Lékařský posudek o zdravotní způsobilosti — vzor", "prijimaci-rizeni", "PDF", "90 kB", "2026/2027"],
-	["Výpis z informačního systému školy — vzor", "prijimaci-rizeni", "PDF", "70 kB", "2026/2027"],
-	["Omluvný list", "formulare", "PDF", "60 kB", ""],
-	["Žádost o uvolnění z vyučování", "formulare", "DOCX", "40 kB", ""],
-	["Žádost o přístup k osobním informacím", "formulare", "PDF", "80 kB", ""],
-	["Výroční zpráva o činnosti školy 2025/2026", "dokumenty", "PDF", "3,4 MB", "2025/2026"],
-	["Školní řád", "dokumenty", "PDF", "520 kB", "2026/2027"],
-	["Rozpočet školy 2026", "dokumenty", "PDF", "180 kB", "2026"],
-	["Postup při vyřizování žádostí dle zákona 106/1999 Sb.", "dokumenty", "PDF", "110 kB", ""],
-	["Informační zpravodaj — podzim 2026", "propagace", "PDF", "6,8 MB", "2026/2027"],
-	["Zápis ze zasedání školské rady — říjen 2026", "skolska-rada", "PDF", "150 kB", "2026/2027"],
-].map(([title, category, file_type, size, year], i) => ({
+// Real downloads, scraped from the legacy site's Phoca Download categories (2026-11-05).
+const documents = legacyExtra.documents.map((d, i) => ({
 	id: `doc-${i + 1}`,
-	slug: `dokument-${i + 1}`,
+	slug: `soubor-${i + 1}`,
 	status: "published",
-	data: { title, category, file_type, size, year, file_url: `${LEGACY}/ke-stazeni`, order: i + 1 },
+	data: { title: d.title, category: d.category, file_type: d.file_type, size: d.size, year: d.year, file_url: d.file_url, order: i + 1 },
 }));
 
 // ---------------------------------------------------------------- partners ---
@@ -718,12 +813,12 @@ const partners = [
 	["Siemens", "siemens", "https://www.siemens.cz"],
 	["Škoda Auto", "skoda", "https://www.skoda-auto.cz"],
 	["TE Connectivity", "te", "https://www.te.com"],
-	["ZPA Smart Energy", "zpa", "https://www.zpa-smartenergy.cz"],
+	["ZPA Smart Energy", "zpa", ""],
 ].map(([name, file, url], i) => ({
 	id: `partner-${i + 1}`,
 	slug: `partner-${i + 1}`,
 	status: "published",
-	data: { name, url, order: i + 1, logo: media(`${LEGACY}/images/loga/${file}.png`, name, `${file}.png`) },
+	data: { name, ...(url ? { url } : {}), order: i + 1, logo: media(`${LEGACY}/images/loga/${file}.png`, name, `${file}.png`) },
 }));
 
 // ------------------------------------------------------------------ videos ---
@@ -884,13 +979,13 @@ const seed = {
 			fields: [
 				f("title", "Název", "string", { required: true, searchable: true }),
 				f("category", "Kategorie", "select", {
-					validation: { options: ["studium", "prijimaci-rizeni", "formulare", "dokumenty", "propagace", "skolska-rada"] },
+					validation: { options: ["studium", "prijimaci-rizeni", "formulare", "dokumenty", "propagace", "skolska-rada", "media"] },
 				}),
 				f("file", "Soubor", "file"),
 				f("file_url", "Externí odkaz na soubor", "url"),
 				f("file_type", "Typ souboru", "string"),
 				f("size", "Velikost", "string"),
-				f("year", "Školní rok", "string"),
+				f("year", "Datum zveřejnění", "string"),
 				f("order", "Pořadí", "integer"),
 			],
 		},

@@ -479,7 +479,8 @@
 							"formulare",
 							"dokumenty",
 							"propagace",
-							"skolska-rada"
+							"skolska-rada",
+							"media"
 						]
 					}
 				},
@@ -505,7 +506,7 @@
 				},
 				{
 					"slug": "year",
-					"label": "Školní rok",
+					"label": "Datum zveřejnění",
 					"type": "string"
 				},
 				{
@@ -5053,6 +5054,980 @@
 					],
 					"order": 6
 				}
+			},
+			{
+				"id": "page-o-skole-certifikaty-akreditace-clenstvi-a-programy",
+				"slug": "certifikaty-akreditace-clenstvi-a-programy",
+				"status": "published",
+				"data": {
+					"title": "Certifikáty, akreditace a členství",
+					"section": "o-skole",
+					"lead": "Jsme školou s nadstandardní výukou informačních a komunikačních technologií a členem významných organizací.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "key",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kez",
+									"text": "Certifikáty a programy",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kf0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf1",
+									"text": "Cisco Networking Academy — celosvětově rozšířený vzdělávací systém v oblasti počítačových sítí.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kf2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf3",
+									"text": "Mikrotik Academy — správa a budování malých a středních počítačových a bezdrátových Wi-Fi sítí.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kf4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf5",
+									"text": "Autodesk Academia — nadstandardní úroveň výuky programů AutoCAD, Inventor a 3ds Max.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kf6",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf7",
+									"text": "Členství",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kf8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kf9",
+									"text": "Asociace školských sportovních klubů — každoročně se účastníme velkého množství sportovních aktivit středních škol.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfa",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfb",
+									"text": "Hospodářská komora České republiky — jsme aktivním a spoluzakládajícím členem regionální komory.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfd",
+									"text": "Asociace středních průmyslových škol ČR — přispíváme k rozvoji technického odborného školství.",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 7
+				}
+			},
+			{
+				"id": "page-o-skole-nadacni-fond",
+				"slug": "nadacni-fond",
+				"status": "published",
+				"data": {
+					"title": "Nadační fond",
+					"section": "o-skole",
+					"lead": "Nadační fond Střední průmyslové školy Trutnov, Školní 101 podporuje vzdělávání, kulturu, sport a soutěže žáků.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kfe",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kff",
+									"text": "Registrace fondu: Krajský soud v Hradci Králové, oddíl N, vložka 71. IČO: 49290151.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kfg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfh",
+									"text": "Statutární zástupci: Mgr. Šárka Fibikarová (předsedkyně správní rady), Mgr. Lenka Horáková a Mgr. Nikola Šandová (členky správní rady). Revizor: Ing. Bronislav Gazda.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kfi",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfj",
+									"text": "Finanční prostředky fondu jsou získávány výhradně od žáků a sponzorů. Fond je samostatným subjektem, vede účetnictví a své hospodaření dokládá finančnímu úřadu.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kfk",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfl",
+									"text": "Hlavní podporované akce",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kfm",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfn",
+									"text": "autobusové zájezdy na odborné výstavy a divadelní představení",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfo",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfp",
+									"text": "jazykové zájezdy do měst okolních států",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfr",
+									"text": "exkurze u významných zaměstnavatelů regionu",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfs",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kft",
+									"text": "odborné soutěže a olympiády (matematika, český jazyk, cizí jazyky)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfu",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfv",
+									"text": "středoškolská odborná činnost a žákovské projekty",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfx",
+									"text": "výjezdy žáků do krajských a celostátních kol soutěží",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kfy",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kfz",
+									"text": "odměny pro žáky reprezentující školu a žáky s výbornými výsledky",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 8
+				}
+			},
+			{
+				"id": "page-o-skole-fakultni-skola",
+				"slug": "fakultni-skola",
+				"status": "published",
+				"data": {
+					"title": "Fakultní škola",
+					"section": "o-skole",
+					"lead": "Jsme fakultní školou Univerzity Hradec Králové.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kg0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg1",
+									"text": "S Univerzitou Hradec Králové spolupracujeme na zajištění odborné praxe studentů, která je povinnou součástí studia na univerzitě. Praxe probíhá v souladu se studijními programy a umožňuje studentům získat zkušenosti v reálném prostředí školy.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 9
+				}
+			},
+			{
+				"id": "page-o-skole-liga-vyjimecnych",
+				"slug": "liga-vyjimecnych",
+				"status": "published",
+				"data": {
+					"title": "Liga výjimečných",
+					"section": "o-skole",
+					"lead": "Příběhy absolventů a žáků, kteří z trutnovské průmyslovky vykročili do světa.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kg2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg3",
+									"text": "Z trutnovské průmyslovky do světa Hitachi (2026)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kg4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg5",
+									"text": "Petr Králík — přes projektového manažera a vedoucího výroby vedoucím svářečské školy v KASPER KOVO",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kg6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg7",
+									"text": "Michal Glaser a Štěpán Novák — NGIT: weby, grafika a servis počítačů",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kg8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg9",
+									"text": "Marek Kovář — strojař na pozici technické podpory prodeje, mimo jiné pět měsíců v Číně",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kga",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgb",
+									"text": "Filip Vaško — výroba posilovacích zařízení pro fitness centra na míru",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgd",
+									"text": "Vlastimil Vykus — programátor řídicích systémů v ABB Trutnov",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kge",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgf",
+									"text": "Radek Micopulos — vyučený nástrojař, výrobce originálních českých hlavolamů",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgh",
+									"text": "Jakub Schwarz — technik úspěšným manažerem",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgi",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgj",
+									"text": "Šimon Vaníček — mistr České republiky v cyklokrosu",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgk",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgl",
+									"text": "Sandra Bartelová — mistryně světa v mažoretkovém sportu",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgm",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgn",
+									"text": "Celé rozhovory najdete v archivu novinek původního webu školy.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 10
+				}
+			},
+			{
+				"id": "page-o-skole-o-skole-projekty",
+				"slug": "o-skole-projekty",
+				"status": "published",
+				"data": {
+					"title": "Projekty",
+					"section": "o-skole",
+					"lead": "Projekty spolufinancované Evropskou unií, krajem a partnery, které zlepšují vybavení a výuku.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kgo",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgp",
+									"text": "SPŠ Trutnov OP JAK Šablony II (2026)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgr",
+									"text": "Sady elektrických obvodů PASCO — zápůjčka deseti sad v hodnotě 243 400 Kč (2023)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgs",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgt",
+									"text": "Implementace Krajského akčního plánu rozvoje vzdělávání v Královéhradeckém kraji II (2023)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgu",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgv",
+									"text": "SPŠ Trutnov – šablony IV (2023)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgx",
+									"text": "Digitální učební pomůcky — Next Generation EU (2023)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kgy",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kgz",
+									"text": "Prevence digitální propasti — Next Generation EU (2022)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kh0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh1",
+									"text": "Doučování žáků škol — Národní plán doučování MŠMT (2022)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kh2",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh3",
+									"text": "SPŠ Trutnov – šablony 2 (2020)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kh4",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh5",
+									"text": "Implementace Krajského akčního plánu rozvoje vzdělávání v Královéhradeckém kraji I (2018)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 11
+				}
+			},
+			{
+				"id": "page-o-skole-informacni-zpravodaje",
+				"slug": "informacni-zpravodaje",
+				"status": "published",
+				"data": {
+					"title": "Informační zpravodaje",
+					"section": "o-skole",
+					"lead": "Zpravodaj školy vychází dvakrát ročně — v červnu a v září. Všechna čísla najdete ke stažení.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kh6",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh7",
+									"text": "Archiv zpravodajů od roku 2005 je v sekci Ke stažení, kategorie Propagační materiály.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 12
+				}
+			},
+			{
+				"id": "page-o-skole-o-nas-v-mediich",
+				"slug": "o-nas-v-mediich",
+				"status": "published",
+				"data": {
+					"title": "O nás v médiích",
+					"section": "o-skole",
+					"lead": "Články o škole a jejích aktivitách v regionálních a celostátních médiích.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kh8",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kh9",
+									"text": "Všechny články jsou ke stažení v sekci Ke stažení, kategorie O nás v médiích.",
+									"marks": []
+								}
+							]
+						}
+					],
+					"order": 13
+				}
+			},
+			{
+				"id": "page-vice-odkazy",
+				"slug": "odkazy",
+				"status": "published",
+				"data": {
+					"title": "Odkazy",
+					"section": "vice",
+					"lead": "Užitečné odkazy na instituce ve školství a v regionu.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kha",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khb",
+									"text": "Školství a další vzdělávání",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "khc",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khd",
+									"text": "Cermat (Centrum pro zjišťování výsledků vzdělávání)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khe",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khf",
+									"text": "Česká škola",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khg",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khh",
+									"text": "Česká školní inspekce",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khi",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khj",
+									"text": "Ministerstvo školství, tělovýchovy a mládeže ČR",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khk",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khl",
+									"text": "Nová maturita (maturitní web)",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khm",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khn",
+									"text": "Učitelské noviny",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kho",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khp",
+									"text": "Region",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "khq",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khr",
+									"text": "Královéhradecký kraj",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khs",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kht",
+									"text": "Město Trutnov",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khu",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khv",
+									"text": "Různé",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "khw",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khx",
+									"text": "Evropský sociální fond",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "khy",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "khz",
+									"text": "Pedagogicko-psychologická poradna Královéhradeckého kraje — pracoviště Trutnov",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "ki0",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ki1",
+									"text": "Portál veřejné správy",
+									"marks": []
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						}
+					],
+					"order": 3
+				}
 			}
 		],
 		"programs": [
@@ -5458,7 +6433,7 @@
 					"health_required": true,
 					"color": "na",
 					"workplace": "Horská 618, Trutnov + Mladé Buky",
-					"summary": "Výroba a opravy nástrojů a přípravků, soustružení, frézování a programování CNC strojů. Náročný a dobře placený řemeslný obor se stipendiem.",
+					"summary": "Výroba a opravy nástrojů a přípravků, soustružení, frézování a programování CNC strojů. Náročnější strojírenský učební obor podpořený stipendiem kraje.",
 					"highlights": "Výroba a opravy nástrojů a přípravků\nProgramování CNC obráběcích strojů\nTváření za tepla i za studena\nSoustružení a frézování",
 					"careers": "Nástrojař v kusové i sériové výrobě\nObsluha CNC strojů\nStrojní údržba\nKontrola jakosti\nSamostatná živnost",
 					"content": [
@@ -5618,7 +6593,7 @@
 				"status": "published",
 				"data": {
 					"name": "Mgr. Jakub Lattenberg",
-					"role": "zástupce ředitele pro teoretické vyučování",
+					"role": "zástupce ředitele pro úsek teoretického vyučování",
 					"department": "vedeni",
 					"workplace": "Školní 101",
 					"phone": "499 813 071",
@@ -5632,7 +6607,7 @@
 				"status": "published",
 				"data": {
 					"name": "Mgr. Šárka Fibikarová",
-					"role": "zástupkyně ředitele, úsek Horská 618",
+					"role": "zástupce ředitele úseku H618",
 					"department": "vedeni",
 					"workplace": "Horská 618",
 					"phone": "499 813 879",
@@ -5646,7 +6621,7 @@
 				"status": "published",
 				"data": {
 					"name": "Ing. Bronislav Gazda",
-					"role": "zástupce ředitele pro teoretické vyučování",
+					"role": "zástupce ředitele pro úsek teoretického vyučování",
 					"department": "vedeni",
 					"workplace": "Horská 59",
 					"phone": "499 815 145",
@@ -5659,7 +6634,7 @@
 				"slug": "arnost-jager",
 				"status": "published",
 				"data": {
-					"name": "Arnošt Jäger, DiS.",
+					"name": "Arnošt Jäger",
 					"role": "zástupce ředitele pro odborný výcvik",
 					"department": "vedeni",
 					"workplace": "Mladé Buky 374",
@@ -5674,7 +6649,7 @@
 				"status": "published",
 				"data": {
 					"name": "Bc. Jiří Veselý",
-					"role": "vedoucí odloučeného pracoviště Mladé Buky",
+					"role": "vedoucí odloučeného pracoviště",
 					"department": "vedeni",
 					"workplace": "Mladé Buky 374",
 					"phone": "499 873 188",
@@ -5697,72 +6672,72 @@
 				}
 			},
 			{
-				"id": "person-mgr-tomas-vanek",
-				"slug": "mgr-tomas-vanek",
+				"id": "person-ing-horst-anders",
+				"slug": "ing-horst-anders",
 				"status": "published",
 				"data": {
-					"name": "Mgr. Tomáš Vaněk",
-					"role": "učitel matematiky",
+					"name": "Ing. Horst Anders",
+					"role": "učitel",
 					"department": "pedagog",
-					"workplace": "Školní 101",
-					"phone": "499 813 071",
-					"email": "vanek@spstrutnov.cz",
+					"workplace": "Horská 618",
+					"phone": "499 943 843",
+					"email": "anders@spstrutnov.cz",
 					"order": 8
 				}
 			},
 			{
-				"id": "person-ing-jan-holy",
-				"slug": "ing-jan-holy",
+				"id": "person-oldrich-benes",
+				"slug": "oldrich-benes",
 				"status": "published",
 				"data": {
-					"name": "Ing. Jan Holý",
-					"role": "učitel odborných předmětů",
+					"name": "Oldřich Beneš",
+					"role": "učitel odborného výcviku",
 					"department": "pedagog",
-					"workplace": "Horská 59",
-					"phone": "499 815 145",
-					"email": "holy@spstrutnov.cz",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "benes@spstrutnov.cz",
 					"order": 9
 				}
 			},
 			{
-				"id": "person-mgr-martin-kadrle",
-				"slug": "mgr-martin-kadrle",
+				"id": "person-ing-jaroslav-beran",
+				"slug": "ing-jaroslav-beran",
 				"status": "published",
 				"data": {
-					"name": "Mgr. Martin Kádrle",
-					"role": "učitel tělesné výchovy",
+					"name": "Ing. Jaroslav Beran",
+					"role": "učitel",
 					"department": "pedagog",
-					"workplace": "Horská 618",
-					"phone": "499 815 512",
-					"email": "kadrle@spstrutnov.cz",
+					"workplace": "Horská 59",
+					"phone": "499 943 852",
+					"email": "beran@spstrutnov.cz",
 					"order": 10
 				}
 			},
 			{
-				"id": "person-mgr-zdenka-tezka",
-				"slug": "mgr-zdenka-tezka",
+				"id": "person-ing-vladimir-beranek",
+				"slug": "ing-vladimir-beranek",
 				"status": "published",
 				"data": {
-					"name": "Mgr. Zdeňka Těžká",
-					"role": "učitelka českého jazyka",
+					"name": "Ing. Vladimír Beránek",
+					"role": "učitel",
 					"department": "pedagog",
-					"workplace": "Školní 101",
-					"phone": "499 813 071",
-					"email": "tezka@spstrutnov.cz",
+					"workplace": "Horská 59",
+					"phone": "499 943 852",
+					"email": "beranek@spstrutnov.cz",
 					"order": 11
 				}
 			},
 			{
-				"id": "person-mgr-martina-pradacova",
-				"slug": "mgr-martina-pradacova",
+				"id": "person-mgr-pavel-barta",
+				"slug": "mgr-pavel-barta",
 				"status": "published",
 				"data": {
-					"name": "Mgr. Martina Pradáčová",
-					"role": "učitelka českého jazyka",
+					"name": "Mgr. Pavel Bárta",
+					"role": "učitel",
 					"department": "pedagog",
-					"workplace": "Horská 59",
-					"phone": "499 815 145",
-					"email": "pradacova@spstrutnov.cz",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "barta@spstrutnov.cz",
 					"order": 12
 				}
 			},
@@ -5772,12 +6747,82 @@
 				"status": "published",
 				"data": {
 					"name": "Luděk Dušek",
-					"role": "koordinátor propagace",
+					"role": "učitel, oblast dalšího vzdělávání",
 					"department": "pedagog",
 					"workplace": "Školní 101",
-					"phone": "499 813 071",
+					"phone": "777 232 149",
 					"email": "dusek@spstrutnov.cz",
 					"order": 13
+				}
+			},
+			{
+				"id": "person-tomas-hobzik",
+				"slug": "tomas-hobzik",
+				"status": "published",
+				"data": {
+					"name": "Tomáš Hobzík",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "hobzik@spstrutnov.cz",
+					"order": 14
+				}
+			},
+			{
+				"id": "person-ing-jan-holy",
+				"slug": "ing-jan-holy",
+				"status": "published",
+				"data": {
+					"name": "Ing. Jan Holý",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 855",
+					"email": "holy@spstrutnov.cz",
+					"order": 15
+				}
+			},
+			{
+				"id": "person-milan-jandera",
+				"slug": "milan-jandera",
+				"status": "published",
+				"data": {
+					"name": "Milan Jandera",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "jandera@spstrutnov.cz",
+					"order": 16
+				}
+			},
+			{
+				"id": "person-ing-simona-jindova",
+				"slug": "ing-simona-jindova",
+				"status": "published",
+				"data": {
+					"name": "Ing. Simona Jindová",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 819",
+					"email": "jindova@spstrutnov.cz",
+					"order": 17
+				}
+			},
+			{
+				"id": "person-mgr-iva-jilkova",
+				"slug": "mgr-iva-jilkova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Iva Jílková",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 855",
+					"email": "jilkova@spstrutnov.cz",
+					"order": 18
 				}
 			},
 			{
@@ -5786,12 +6831,264 @@
 				"status": "published",
 				"data": {
 					"name": "Mgr. Jaroslav Kabrhel",
-					"role": "učitel fyziky",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 854",
+					"email": "kabrhel@spstrutnov.cz",
+					"order": 19
+				}
+			},
+			{
+				"id": "person-vaclav-klazar",
+				"slug": "vaclav-klazar",
+				"status": "published",
+				"data": {
+					"name": "Václav Klázar",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "klazar@spstrutnov.cz",
+					"order": 20
+				}
+			},
+			{
+				"id": "person-ing-petr-kosatko",
+				"slug": "ing-petr-kosatko",
+				"status": "published",
+				"data": {
+					"name": "Ing. Petr Košátko",
+					"role": "učitel, ICT koordinátor",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 817",
+					"email": "kosatko@spstrutnov.cz",
+					"order": 21
+				}
+			},
+			{
+				"id": "person-mgr-eva-kosatkova",
+				"slug": "mgr-eva-kosatkova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Eva Košátková",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 816",
+					"email": "kosatkova@spstrutnov.cz",
+					"order": 22
+				}
+			},
+			{
+				"id": "person-bc-jan-kozuch",
+				"slug": "bc-jan-kozuch",
+				"status": "published",
+				"data": {
+					"name": "Bc. Jan Kožuch",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "kozuch@spstrutnov.cz",
+					"order": 23
+				}
+			},
+			{
+				"id": "person-mgr-eva-kudynova",
+				"slug": "mgr-eva-kudynova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Eva Kudynová",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 856",
+					"email": "kudynova@spstrutnov.cz",
+					"order": 24
+				}
+			},
+			{
+				"id": "person-mgr-martin-kadrle",
+				"slug": "mgr-martin-kadrle",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Martin Kádrle",
+					"role": "učitel",
 					"department": "pedagog",
 					"workplace": "Horská 618",
-					"phone": "499 815 512",
-					"email": "kabrhel@spstrutnov.cz",
-					"order": 14
+					"phone": "499 943 841",
+					"email": "kadrle@spstrutnov.cz",
+					"order": 25
+				}
+			},
+			{
+				"id": "person-bc-josef-langfelner",
+				"slug": "bc-josef-langfelner",
+				"status": "published",
+				"data": {
+					"name": "Bc. Josef Langfelner",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 854",
+					"email": "langfelner@spstrutnov.cz",
+					"order": 26
+				}
+			},
+			{
+				"id": "person-mgr-jan-leskovsky",
+				"slug": "mgr-jan-leskovsky",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jan Leskovský",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 813 071",
+					"email": "leskovsky@spstrutnov.cz",
+					"order": 27
+				}
+			},
+			{
+				"id": "person-ing-vaclav-loufek",
+				"slug": "ing-vaclav-loufek",
+				"status": "published",
+				"data": {
+					"name": "Ing. Václav Loufek",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 816",
+					"email": "loufek@spstrutnov.cz",
+					"order": 28
+				}
+			},
+			{
+				"id": "person-ing-petr-luhan",
+				"slug": "ing-petr-luhan",
+				"status": "published",
+				"data": {
+					"name": "Ing. Petr Luhan",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "luhan@spstrutnov.cz",
+					"order": 29
+				}
+			},
+			{
+				"id": "person-mgr-martin-marcincin",
+				"slug": "mgr-martin-marcincin",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Martin Marcinčín",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "marcincin@spstrutnov.cz",
+					"order": 30
+				}
+			},
+			{
+				"id": "person-mgr-jaroslav-mares",
+				"slug": "mgr-jaroslav-mares",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jaroslav Mareš",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 854",
+					"email": "mares@spstrutnov.cz",
+					"order": 31
+				}
+			},
+			{
+				"id": "person-mgr-jan-matejec",
+				"slug": "mgr-jan-matejec",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jan Matějec",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 819",
+					"email": "matejec@spstrutnov.cz",
+					"order": 32
+				}
+			},
+			{
+				"id": "person-ondrej-michalicka",
+				"slug": "ondrej-michalicka",
+				"status": "published",
+				"data": {
+					"name": "Ondřej Michalička",
+					"role": "učitel, pracovník správy počítačové sítě",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 817",
+					"email": "michalicka@spstrutnov.cz",
+					"order": 33
+				}
+			},
+			{
+				"id": "person-josef-moravek",
+				"slug": "josef-moravek",
+				"status": "published",
+				"data": {
+					"name": "Josef Morávek",
+					"role": "vedoucí učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 943 872",
+					"email": "moravek@spstrutnov.cz",
+					"order": 34
+				}
+			},
+			{
+				"id": "person-mgr-alena-novakova",
+				"slug": "mgr-alena-novakova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Alena Nováková",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 856",
+					"email": "novakova@spstrutnov.cz",
+					"order": 35
+				}
+			},
+			{
+				"id": "person-mgr-lenka-novakova",
+				"slug": "mgr-lenka-novakova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Lenka Nováková",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 838",
+					"email": "novakoval@spstrutnov.cz",
+					"order": 36
+				}
+			},
+			{
+				"id": "person-ing-jan-nyms",
+				"slug": "ing-jan-nyms",
+				"status": "published",
+				"data": {
+					"name": "Ing. Jan Nymš",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 817",
+					"email": "nyms@spstrutnov.cz",
+					"order": 37
 				}
 			},
 			{
@@ -5800,26 +7097,194 @@
 				"status": "published",
 				"data": {
 					"name": "Mgr. Radana Návratová",
-					"role": "učitelka tělesné výchovy",
+					"role": "učitelka",
 					"department": "pedagog",
-					"workplace": "Horská 59",
-					"phone": "499 815 145",
+					"workplace": "Školní 101",
+					"phone": "499 943 820",
 					"email": "navratova@spstrutnov.cz",
-					"order": 15
+					"order": 38
 				}
 			},
 			{
-				"id": "person-ing-horst-anders",
-				"slug": "ing-horst-anders",
+				"id": "person-mgr-petra-ondrusova",
+				"slug": "mgr-petra-ondrusova",
 				"status": "published",
 				"data": {
-					"name": "Ing. Horst Anders",
-					"role": "učitel strojírenských předmětů",
+					"name": "Mgr. Petra Ondrušová",
+					"role": "učitelka",
 					"department": "pedagog",
 					"workplace": "Horská 618",
-					"phone": "499 815 512",
-					"email": "anders@spstrutnov.cz",
-					"order": 16
+					"phone": "499 943 838",
+					"email": "ondrusova@spstrutnov.cz",
+					"order": 39
+				}
+			},
+			{
+				"id": "person-max-pavelka",
+				"slug": "max-pavelka",
+				"status": "published",
+				"data": {
+					"name": "Max Pavelka",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "pavelka@spstrutnov.cz",
+					"order": 40
+				}
+			},
+			{
+				"id": "person-mgr-martina-pradacova",
+				"slug": "mgr-martina-pradacova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Martina Pradáčová",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 855",
+					"email": "pradacova@spstrutnov.cz",
+					"order": 41
+				}
+			},
+			{
+				"id": "person-martin-prokopenko",
+				"slug": "martin-prokopenko",
+				"status": "published",
+				"data": {
+					"name": "Martin Prokopenko",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "prokopenko@spstrutnov.cz",
+					"order": 42
+				}
+			},
+			{
+				"id": "person-ing-martin-schlindenbuch",
+				"slug": "ing-martin-schlindenbuch",
+				"status": "published",
+				"data": {
+					"name": "Ing. Martin Schlindenbuch",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 837",
+					"email": "schlindenbuch@spstrutnov.cz",
+					"order": 43
+				}
+			},
+			{
+				"id": "person-jan-schottner",
+				"slug": "jan-schottner",
+				"status": "published",
+				"data": {
+					"name": "Jan Schöttner",
+					"role": "školník",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 846",
+					"email": "skolnik@spstrutnov.cz",
+					"order": 44
+				}
+			},
+			{
+				"id": "person-mgr-petr-sedlacek",
+				"slug": "mgr-petr-sedlacek",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Petr Sedláček",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 854",
+					"email": "sedlacek@spstrutnov.cz",
+					"order": 45
+				}
+			},
+			{
+				"id": "person-bc-lubos-serbousek",
+				"slug": "bc-lubos-serbousek",
+				"status": "published",
+				"data": {
+					"name": "Bc. Luboš Serbousek",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 841",
+					"email": "serbousek@spstrutnov.cz",
+					"order": 46
+				}
+			},
+			{
+				"id": "person-mgr-zdenka-tezka",
+				"slug": "mgr-zdenka-tezka",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Zdeňka Těžká",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "tezka@spstrutnov.cz",
+					"order": 47
+				}
+			},
+			{
+				"id": "person-mgr-marek-tuma",
+				"slug": "mgr-marek-tuma",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Marek Tůma",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "tuma@spstrutnov.cz",
+					"order": 48
+				}
+			},
+			{
+				"id": "person-mgr-tomas-vanek",
+				"slug": "mgr-tomas-vanek",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Tomáš Vaněk",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 854",
+					"email": "vanek@spstrutnov.cz",
+					"order": 49
+				}
+			},
+			{
+				"id": "person-ing-katerina-vankova",
+				"slug": "ing-katerina-vankova",
+				"status": "published",
+				"data": {
+					"name": "Ing. Kateřina Vaňková",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 816",
+					"email": "vankova@spstrutnov.cz",
+					"order": 50
+				}
+			},
+			{
+				"id": "person-martin-voderacky",
+				"slug": "martin-voderacky",
+				"status": "published",
+				"data": {
+					"name": "Martin Voděracký",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "voderacky@spstrutnov.cz",
+					"order": 51
 				}
 			},
 			{
@@ -5828,12 +7293,208 @@
 				"status": "published",
 				"data": {
 					"name": "Ing. Miloš Zemek",
-					"role": "předseda školské rady, učitel",
+					"role": "učitel",
 					"department": "pedagog",
 					"workplace": "Horská 618",
-					"phone": "499 815 512",
+					"phone": "499 943 839",
 					"email": "zemek@spstrutnov.cz",
-					"order": 17
+					"order": 52
+				}
+			},
+			{
+				"id": "person-ladislav-zalis",
+				"slug": "ladislav-zalis",
+				"status": "published",
+				"data": {
+					"name": "Ladislav Záliš",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "zalis@spstrutnov.cz",
+					"order": 53
+				}
+			},
+			{
+				"id": "person-jaroslav-zaruba",
+				"slug": "jaroslav-zaruba",
+				"status": "published",
+				"data": {
+					"name": "Jaroslav Záruba",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "zaruba@spstrutnov.cz",
+					"order": 54
+				}
+			},
+			{
+				"id": "person-ing-ladislav-reznicek",
+				"slug": "ing-ladislav-reznicek",
+				"status": "published",
+				"data": {
+					"name": "Ing. Ladislav Řezníček",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 836",
+					"email": "reznicek@spstrutnov.cz",
+					"order": 55
+				}
+			},
+			{
+				"id": "person-mgr-nikola-sandova",
+				"slug": "mgr-nikola-sandova",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Nikola Šandová",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 818",
+					"email": "sandova@spstrutnov.cz",
+					"order": 56
+				}
+			},
+			{
+				"id": "person-bc-martin-sedivy",
+				"slug": "bc-martin-sedivy",
+				"status": "published",
+				"data": {
+					"name": "Bc. Martin Šedivý",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 852",
+					"email": "sedivy@spstrutnov.cz",
+					"order": 57
+				}
+			},
+			{
+				"id": "person-ing-jakub-senkyr",
+				"slug": "ing-jakub-senkyr",
+				"status": "published",
+				"data": {
+					"name": "Ing. Jakub Šenkýř",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 814",
+					"email": "senkyr@spstrutnov.cz",
+					"order": 58
+				}
+			},
+			{
+				"id": "person-ing-jitka-senkyrova",
+				"slug": "ing-jitka-senkyrova",
+				"status": "published",
+				"data": {
+					"name": "Ing. Jitka Šenkýřová",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 59",
+					"phone": "499 943 853",
+					"email": "senkyrova@spstrutnov.cz",
+					"order": 59
+				}
+			},
+			{
+				"id": "person-mgr-jan-simecek",
+				"slug": "mgr-jan-simecek",
+				"status": "published",
+				"data": {
+					"name": "Mgr. Jan Šimeček",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 834",
+					"email": "simecek@spstrutnov.cz",
+					"order": 60
+				}
+			},
+			{
+				"id": "person-ing-dan-sindler",
+				"slug": "ing-dan-sindler",
+				"status": "published",
+				"data": {
+					"name": "Ing. Dan Šindler",
+					"role": "učitel odborného výcviku",
+					"department": "pedagog",
+					"workplace": "Mladé Buky 374",
+					"phone": "499 873 189",
+					"email": "sindler@spstrutnov.cz",
+					"order": 61
+				}
+			},
+			{
+				"id": "person-ing-marek-svab",
+				"slug": "ing-marek-svab",
+				"status": "published",
+				"data": {
+					"name": "Ing. Marek Šváb",
+					"role": "učitel",
+					"department": "pedagog",
+					"workplace": "Školní 101",
+					"phone": "499 943 820",
+					"email": "svab@spstrutnov.cz",
+					"order": 62
+				}
+			},
+			{
+				"id": "person-ing-renata-zdarska",
+				"slug": "ing-renata-zdarska",
+				"status": "published",
+				"data": {
+					"name": "Ing. Renata Žďárská",
+					"role": "učitelka",
+					"department": "pedagog",
+					"workplace": "Horská 618",
+					"phone": "499 943 843",
+					"email": "zdarska@spstrutnov.cz",
+					"order": 63
+				}
+			},
+			{
+				"id": "person-ing-pavel-cink",
+				"slug": "ing-pavel-cink",
+				"status": "published",
+				"data": {
+					"name": "Ing. Pavel Cink",
+					"role": "vedoucí technického úseku",
+					"department": "provoz",
+					"workplace": "Horská 618",
+					"phone": "499 943 832",
+					"email": "cink@spstrutnov.cz",
+					"order": 64
+				}
+			},
+			{
+				"id": "person-marcela-kurova",
+				"slug": "marcela-kurova",
+				"status": "published",
+				"data": {
+					"name": "Marcela Kuřová",
+					"role": "odborný ekonom práce a mzdy",
+					"department": "provoz",
+					"workplace": "Horská 618",
+					"phone": "499 943 835",
+					"email": "kurova@spstrutnov.cz",
+					"order": 65
+				}
+			},
+			{
+				"id": "person-iva-mrkousova",
+				"slug": "iva-mrkousova",
+				"status": "published",
+				"data": {
+					"name": "Iva Mrkousová",
+					"role": "vedoucí ekonomického úseku",
+					"department": "provoz",
+					"workplace": "Horská 618",
+					"phone": "499 943 832",
+					"email": "mrkousova@spstrutnov.cz",
+					"order": 66
 				}
 			}
 		],
@@ -6048,226 +7709,2732 @@
 		"documents": [
 			{
 				"id": "doc-1",
-				"slug": "dokument-1",
+				"slug": "soubor-1",
 				"status": "published",
 				"data": {
-					"title": "Školní vzdělávací program — Elektronické počítačové systémy",
+					"title": "Školní vzdělávací program — Elektronické počítačové systémy (2026–2027)",
 					"category": "studium",
 					"file_type": "PDF",
-					"size": "1,2 MB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,67 MB",
+					"year": "17. 6. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/eps.pdf",
 					"order": 1
 				}
 			},
 			{
 				"id": "doc-2",
-				"slug": "dokument-2",
+				"slug": "soubor-2",
 				"status": "published",
 				"data": {
-					"title": "Školní vzdělávací program — Informatika a management",
+					"title": "Školní vzdělávací program — Informatika a management (2026–2027)",
 					"category": "studium",
 					"file_type": "PDF",
-					"size": "1,1 MB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,81 MB",
+					"year": "11. 6. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/itm.pdf",
 					"order": 2
 				}
 			},
 			{
 				"id": "doc-3",
-				"slug": "dokument-3",
+				"slug": "soubor-3",
 				"status": "published",
 				"data": {
-					"title": "Školní vzdělávací program — Slaboproudá elektrotechnika",
+					"title": "Školní vzdělávací program — Slaboproudá elektrotechnika (2026–2027)",
 					"category": "studium",
 					"file_type": "PDF",
-					"size": "1,3 MB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,70 MB",
+					"year": "11. 6. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/sel.pdf",
 					"order": 3
 				}
 			},
 			{
 				"id": "doc-4",
-				"slug": "dokument-4",
+				"slug": "soubor-4",
 				"status": "published",
 				"data": {
-					"title": "Školní vzdělávací program — Strojírenství",
+					"title": "Školní vzdělávací program — Strojírenství - robotika a 3D modelování (2026–2027)",
 					"category": "studium",
 					"file_type": "PDF",
-					"size": "1,4 MB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,82 MB",
+					"year": "2. 10. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/str.pdf",
 					"order": 4
 				}
 			},
 			{
 				"id": "doc-5",
-				"slug": "dokument-5",
+				"slug": "soubor-5",
 				"status": "published",
 				"data": {
-					"title": "Kritéria přijímacího řízení 2027",
-					"category": "prijimaci-rizeni",
+					"title": "Školní vzdělávací program — Elektrikář (2026–2027)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "240 kB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,29 MB",
+					"year": "5. 6. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/ele.pdf",
 					"order": 5
 				}
 			},
 			{
 				"id": "doc-6",
-				"slug": "dokument-6",
+				"slug": "soubor-6",
 				"status": "published",
 				"data": {
-					"title": "Lékařský posudek o zdravotní způsobilosti — vzor",
-					"category": "prijimaci-rizeni",
+					"title": "Školní vzdělávací program — Nástrojař (2026–2027)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "90 kB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,26 MB",
+					"year": "5. 6. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/nas.pdf",
 					"order": 6
 				}
 			},
 			{
 				"id": "doc-7",
-				"slug": "dokument-7",
+				"slug": "soubor-7",
 				"status": "published",
 				"data": {
-					"title": "Výpis z informačního systému školy — vzor",
-					"category": "prijimaci-rizeni",
+					"title": "Školní vzdělávací program — Elektronické počítačové systémy (2024–2026)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "70 kB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,80 MB",
+					"year": "18. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-eps.pdf",
 					"order": 7
 				}
 			},
 			{
 				"id": "doc-8",
-				"slug": "dokument-8",
+				"slug": "soubor-8",
 				"status": "published",
 				"data": {
-					"title": "Omluvný list",
-					"category": "formulare",
+					"title": "Školní vzdělávací program — Informatika a management (2024–2026)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "60 kB",
-					"year": "",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,78 MB",
+					"year": "18. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-itm.pdf",
 					"order": 8
 				}
 			},
 			{
 				"id": "doc-9",
-				"slug": "dokument-9",
+				"slug": "soubor-9",
 				"status": "published",
 				"data": {
-					"title": "Žádost o uvolnění z vyučování",
-					"category": "formulare",
-					"file_type": "DOCX",
-					"size": "40 kB",
-					"year": "",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"title": "Školní vzdělávací program — Slaboproudá elektrotechnika (2024–2026)",
+					"category": "studium",
+					"file_type": "PDF",
+					"size": "1,87 MB",
+					"year": "18. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-sel.pdf",
 					"order": 9
 				}
 			},
 			{
 				"id": "doc-10",
-				"slug": "dokument-10",
+				"slug": "soubor-10",
 				"status": "published",
 				"data": {
-					"title": "Žádost o přístup k osobním informacím",
-					"category": "formulare",
+					"title": "Školní vzdělávací program — Strojírenství - počítačová grafika (2024–2026)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "80 kB",
-					"year": "",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "2,00 MB",
+					"year": "18. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-str.pdf",
 					"order": 10
 				}
 			},
 			{
 				"id": "doc-11",
-				"slug": "dokument-11",
+				"slug": "soubor-11",
 				"status": "published",
 				"data": {
-					"title": "Výroční zpráva o činnosti školy 2025/2026",
-					"category": "dokumenty",
+					"title": "Školní vzdělávací program — Elektrikář (2024–2026)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "3,4 MB",
-					"year": "2025/2026",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,41 MB",
+					"year": "18. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-ele.pdf",
 					"order": 11
 				}
 			},
 			{
 				"id": "doc-12",
-				"slug": "dokument-12",
+				"slug": "soubor-12",
 				"status": "published",
 				"data": {
-					"title": "Školní řád",
-					"category": "dokumenty",
+					"title": "Školní vzdělávací program — Nástrojař (2024–2026)",
+					"category": "studium",
 					"file_type": "PDF",
-					"size": "520 kB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "1,26 MB",
+					"year": "2. 9. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/svp/2024-2026-nas.pdf",
 					"order": 12
 				}
 			},
 			{
 				"id": "doc-13",
-				"slug": "dokument-13",
+				"slug": "soubor-13",
 				"status": "published",
 				"data": {
-					"title": "Rozpočet školy 2026",
-					"category": "dokumenty",
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Elektronické počítačové systémy",
+					"category": "prijimaci-rizeni",
 					"file_type": "PDF",
-					"size": "180 kB",
-					"year": "2026",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "164,01 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-EPS.pdf",
 					"order": 13
 				}
 			},
 			{
 				"id": "doc-14",
-				"slug": "dokument-14",
+				"slug": "soubor-14",
 				"status": "published",
 				"data": {
-					"title": "Postup při vyřizování žádostí dle zákona 106/1999 Sb.",
-					"category": "dokumenty",
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Informatika a management",
+					"category": "prijimaci-rizeni",
 					"file_type": "PDF",
-					"size": "110 kB",
-					"year": "",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "168,14 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-ITM.pdf",
 					"order": 14
 				}
 			},
 			{
 				"id": "doc-15",
-				"slug": "dokument-15",
+				"slug": "soubor-15",
 				"status": "published",
 				"data": {
-					"title": "Informační zpravodaj — podzim 2026",
-					"category": "propagace",
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Slaboproudá elektrotechnika",
+					"category": "prijimaci-rizeni",
 					"file_type": "PDF",
-					"size": "6,8 MB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
+					"size": "171,58 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-SEL.pdf",
 					"order": 15
 				}
 			},
 			{
 				"id": "doc-16",
-				"slug": "dokument-16",
+				"slug": "soubor-16",
 				"status": "published",
 				"data": {
-					"title": "Zápis ze zasedání školské rady — říjen 2026",
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Strojírenství - počítačová grafika",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "150,40 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-STR.pdf",
+					"order": 16
+				}
+			},
+			{
+				"id": "doc-17",
+				"slug": "soubor-17",
+				"status": "published",
+				"data": {
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Elektrikář",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "175,69 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-ELE.pdf",
+					"order": 17
+				}
+			},
+			{
+				"id": "doc-18",
+				"slug": "soubor-18",
+				"status": "published",
+				"data": {
+					"title": "Výsledky přijímacího řízení 2026-2027 obor Nástrojař",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "132,99 kB",
+					"year": "14. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2026-2027-prijimaci-rizeni-NAS.pdf",
+					"order": 18
+				}
+			},
+			{
+				"id": "doc-19",
+				"slug": "soubor-19",
+				"status": "published",
+				"data": {
+					"title": "Odvolání proti rozhodnutí ředitele školy o nepřijetí ke střednímu vzdělávání",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "190,73 kB",
+					"year": "15. 5. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/2025-odvolani-proti-neprijeti.pdf",
+					"order": 19
+				}
+			},
+			{
+				"id": "doc-20",
+				"slug": "soubor-20",
+				"status": "published",
+				"data": {
+					"title": "Doporučení školského poradenského zařízení",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "156,20 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/doporuceni-skolskeho-poradenskeho-zarizeni.pdf",
+					"order": 20
+				}
+			},
+			{
+				"id": "doc-21",
+				"slug": "soubor-21",
+				"status": "published",
+				"data": {
+					"title": "Žádost pro uchazeče s dočasnou ochranou",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "142,92 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/zadost-uchazece-s-docasnou-ochranou.pdf",
+					"order": 21
+				}
+			},
+			{
+				"id": "doc-22",
+				"slug": "soubor-22",
+				"status": "published",
+				"data": {
+					"title": "Hodnocení na vysvědčení převádějící slovní hodnocení do klasifikace",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "933,25 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/hodnoceni-na-vysvedceni-slovni.pdf",
+					"order": 22
+				}
+			},
+			{
+				"id": "doc-23",
+				"slug": "soubor-23",
+				"status": "published",
+				"data": {
+					"title": "Hodnocení na vysvědčeních z předchozího vzdělávání",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "134,13 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/hodnoceni-na-vysvedceni.pdf",
+					"order": 23
+				}
+			},
+			{
+				"id": "doc-24",
+				"slug": "soubor-24",
+				"status": "published",
+				"data": {
+					"title": "Lékařský posudek o zdravotní způsobilosti ke vzdělávání",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "1014,06 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/lekarsky-posudek-edit.pdf",
+					"order": 24
+				}
+			},
+			{
+				"id": "doc-25",
+				"slug": "soubor-25",
+				"status": "published",
+				"data": {
+					"title": "Přihláška ke vzdělávání ve střední škole",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "241,58 kB",
+					"year": "28. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/prihlasky-ke-studiu/prihlaska-ke-studiu.pdf",
+					"order": 25
+				}
+			},
+			{
+				"id": "doc-26",
+				"slug": "soubor-26",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Elektronické počítačové systémy",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "1004,82 kB",
+					"year": "8. 8. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/elektronicke-pocitacove-systemy.pdf",
+					"order": 26
+				}
+			},
+			{
+				"id": "doc-27",
+				"slug": "soubor-27",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Informační technologie a management",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "637,91 kB",
+					"year": "8. 8. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/informatika-a-management.pdf",
+					"order": 27
+				}
+			},
+			{
+				"id": "doc-28",
+				"slug": "soubor-28",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Slaboproudá elektrotechnika",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "920,65 kB",
+					"year": "1. 9. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/slaboprouda-elektrotechnika.pdf",
+					"order": 28
+				}
+			},
+			{
+				"id": "doc-29",
+				"slug": "soubor-29",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Strojírenství - robotika a 3D modelování",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "675,42 kB",
+					"year": "5. 10. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/strojirenstvi-robotika-a-3d-modelovani.pdf",
+					"order": 29
+				}
+			},
+			{
+				"id": "doc-30",
+				"slug": "soubor-30",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Elektrikář",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "614,56 kB",
+					"year": "8. 8. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/elektrikar.pdf",
+					"order": 30
+				}
+			},
+			{
+				"id": "doc-31",
+				"slug": "soubor-31",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Nástrojař",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "1006,53 kB",
+					"year": "8. 8. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/nastrojar.pdf",
+					"order": 31
+				}
+			},
+			{
+				"id": "doc-32",
+				"slug": "soubor-32",
+				"status": "published",
+				"data": {
+					"title": "Leták s učebním plánem Strojní mechanik",
+					"category": "prijimaci-rizeni",
+					"file_type": "PDF",
+					"size": "630,76 kB",
+					"year": "8. 8. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/studium-a-prijimaci-rizeni/strojni-mechanik.pdf",
+					"order": 32
+				}
+			},
+			{
+				"id": "doc-33",
+				"slug": "soubor-33",
+				"status": "published",
+				"data": {
+					"title": "Žádost o umožnění přestupu z jiné školy – zletilí",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "112,95 kB",
+					"year": "17. 9. 2025",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=361:zadost-o-umozneni-prestupu-z-jine-skoly-zletili",
+					"order": 33
+				}
+			},
+			{
+				"id": "doc-34",
+				"slug": "soubor-34",
+				"status": "published",
+				"data": {
+					"title": "Žádost o umožnění přestupu z jiné školy – nezletilí",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "110,19 kB",
+					"year": "17. 9. 2025",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=360:zadost-o-umozneni-prestupu-z-jine-skoly-nezletili",
+					"order": 34
+				}
+			},
+			{
+				"id": "doc-35",
+				"slug": "soubor-35",
+				"status": "published",
+				"data": {
+					"title": "Žádost o přijetí do vyššího ročníku",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "96,37 kB",
+					"year": "10. 2. 2026",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=359:zadost-o-prijeti-do-vyssiho-rocniku",
+					"order": 35
+				}
+			},
+			{
+				"id": "doc-36",
+				"slug": "soubor-36",
+				"status": "published",
+				"data": {
+					"title": "Osobní list žáka",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "165,56 kB",
+					"year": "3. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/formulare/osobni-list-zaka.pdf",
+					"order": 36
+				}
+			},
+			{
+				"id": "doc-37",
+				"slug": "soubor-37",
+				"status": "published",
+				"data": {
+					"title": "Čestné prohlášení o neexistenci příznaků virového infekčního onemocnění",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "248,23 kB",
+					"year": "6. 5. 2020",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/formulare/cestne-prohlaseni-infekce.pdf",
+					"order": 37
+				}
+			},
+			{
+				"id": "doc-38",
+				"slug": "soubor-38",
+				"status": "published",
+				"data": {
+					"title": "Omluvný list",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "192,61 kB",
+					"year": "5. 9. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=205:omluvny-list",
+					"order": 38
+				}
+			},
+			{
+				"id": "doc-39",
+				"slug": "soubor-39",
+				"status": "published",
+				"data": {
+					"title": "Informace o zpracování osobních údajů",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "117,54 kB",
+					"year": "29. 10. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=208:informace-o-zpracovani-osobnich-udaju",
+					"order": 39
+				}
+			},
+			{
+				"id": "doc-40",
+				"slug": "soubor-40",
+				"status": "published",
+				"data": {
+					"title": "Námitka proti zpracování osobních údajů",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "195,71 kB",
+					"year": "16. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=196:namitka-proti-zpracovani-osobnich-udaju",
+					"order": 40
+				}
+			},
+			{
+				"id": "doc-41",
+				"slug": "soubor-41",
+				"status": "published",
+				"data": {
+					"title": "Žádost o přenesení osobních údajů",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "331,45 kB",
+					"year": "16. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=195:zadost-o-preneseni-osobnich-udaju",
+					"order": 41
+				}
+			},
+			{
+				"id": "doc-42",
+				"slug": "soubor-42",
+				"status": "published",
+				"data": {
+					"title": "Žádost o omezení zpracování osobních údajů",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "332,33 kB",
+					"year": "16. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=194:zadost-o-omezeni-zpracovani-osobnich-udaju",
+					"order": 42
+				}
+			},
+			{
+				"id": "doc-43",
+				"slug": "soubor-43",
+				"status": "published",
+				"data": {
+					"title": "Žádost o opravu osobních údajů",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "331,63 kB",
+					"year": "16. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=193:zadost-o-opravu-osobnich-udaju",
+					"order": 43
+				}
+			},
+			{
+				"id": "doc-44",
+				"slug": "soubor-44",
+				"status": "published",
+				"data": {
+					"title": "Žádost o přístup k osobním informacím",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "332,46 kB",
+					"year": "16. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=192:zadost-o-pristup-k-osobnim-informacim",
+					"order": 44
+				}
+			},
+			{
+				"id": "doc-45",
+				"slug": "soubor-45",
+				"status": "published",
+				"data": {
+					"title": "Žádost o vystavení stejnopisu",
+					"category": "formulare",
+					"file_type": "PDF",
+					"size": "110,85 kB",
+					"year": "10. 2. 2026",
+					"file_url": "https://www.spstrutnov.cz/ke-stazeni/formulare?download=107:zadost-a-vystaveni-stejnopisu",
+					"order": 45
+				}
+			},
+			{
+				"id": "doc-46",
+				"slug": "soubor-46",
+				"status": "published",
+				"data": {
+					"title": "Základní informace o zpracování osobních údajů",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "296,91 kB",
+					"year": "2. 12. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/GDPR.pdf",
+					"order": 46
+				}
+			},
+			{
+				"id": "doc-47",
+				"slug": "soubor-47",
+				"status": "published",
+				"data": {
+					"title": "Whistleblowing",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "174,97 kB",
+					"year": "18. 9. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/spstrutnov-whistleblowing.pdf",
+					"order": 47
+				}
+			},
+			{
+				"id": "doc-48",
+				"slug": "soubor-48",
+				"status": "published",
+				"data": {
+					"title": "Školní řád",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "309,27 kB",
+					"year": "28. 5. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/skolni-rad.pdf",
+					"order": 48
+				}
+			},
+			{
+				"id": "doc-49",
+				"slug": "soubor-49",
+				"status": "published",
+				"data": {
+					"title": "Sazebník úhrad nákladů za poskytnuté služby dle zákona č. 106/1999 Sb.",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "84,29 kB",
+					"year": "3. 2. 2013",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/A2-2010-sazebnik-uhrad.pdf",
+					"order": 49
+				}
+			},
+			{
+				"id": "doc-50",
+				"slug": "soubor-50",
+				"status": "published",
+				"data": {
+					"title": "Vyřizování stížností, oznámení a podnětů doručených SPŠ a SOU, Trutnov, Školní 101",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "96,82 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/A2-2000-vyrizovani-stiznosti.pdf",
+					"order": 50
+				}
+			},
+			{
+				"id": "doc-51",
+				"slug": "soubor-51",
+				"status": "published",
+				"data": {
+					"title": "Postup při vyřizování žádostí o poskytování informací dle zákona č. 106/1999 Sb., o svobodném přístupu k informacím",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "113,83 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/vydane-pravni-predpisy/A3-2000-zadosti-o-informace.pdf",
+					"order": 51
+				}
+			},
+			{
+				"id": "doc-52",
+				"slug": "soubor-52",
+				"status": "published",
+				"data": {
+					"title": "ICT plán",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "220,56 kB",
+					"year": "3. 1. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/ict-plan.pdf",
+					"order": 52
+				}
+			},
+			{
+				"id": "doc-53",
+				"slug": "soubor-53",
+				"status": "published",
+				"data": {
+					"title": "Rozpočtový výhled pro roky 2027-2028",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "138,03 kB",
+					"year": "13. 7. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2027-2028-rozpoctovy-vyhled.pdf",
+					"order": 53
+				}
+			},
+			{
+				"id": "doc-54",
+				"slug": "soubor-54",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2026",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "159,59 kB",
+					"year": "13. 7. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2026-financni-plan.pdf",
+					"order": 54
+				}
+			},
+			{
+				"id": "doc-55",
+				"slug": "soubor-55",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2025",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "131,19 kB",
+					"year": "18. 6. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2025-financni-plan.pdf",
+					"order": 55
+				}
+			},
+			{
+				"id": "doc-56",
+				"slug": "soubor-56",
+				"status": "published",
+				"data": {
+					"title": "Rozpočtový výhled pro roky 2026-2027",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "132,56 kB",
+					"year": "18. 6. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2026-2027-rozpoctovy-vyhled.pdf",
+					"order": 56
+				}
+			},
+			{
+				"id": "doc-57",
+				"slug": "soubor-57",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2024",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "167,72 kB",
+					"year": "17. 6. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2024-financni-plan.pdf",
+					"order": 57
+				}
+			},
+			{
+				"id": "doc-58",
+				"slug": "soubor-58",
+				"status": "published",
+				"data": {
+					"title": "Rozpočtový výhled pro roky 2024-2025",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "117,21 kB",
+					"year": "23. 11. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2024-2025-rozpoctovy-vyhled.pdf",
+					"order": 58
+				}
+			},
+			{
+				"id": "doc-59",
+				"slug": "soubor-59",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2023",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "164,00 kB",
+					"year": "23. 11. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2023-financni-plan.pdf",
+					"order": 59
+				}
+			},
+			{
+				"id": "doc-60",
+				"slug": "soubor-60",
+				"status": "published",
+				"data": {
+					"title": "Rozpočtový výhled pro roky 2023-2024",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "138,66 kB",
+					"year": "24. 6. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2023-2024-rozpoctovy-vyhled.pdf",
+					"order": 60
+				}
+			},
+			{
+				"id": "doc-61",
+				"slug": "soubor-61",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2022",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "161,64 kB",
+					"year": "24. 6. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2023-financni-plan.pdf",
+					"order": 61
+				}
+			},
+			{
+				"id": "doc-62",
+				"slug": "soubor-62",
+				"status": "published",
+				"data": {
+					"title": "Rozpočtový výhled pro roky 2022-2023",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "137,07 kB",
+					"year": "15. 6. 2021",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2022-2023-rozpoctovy-vyhled.pdf",
+					"order": 62
+				}
+			},
+			{
+				"id": "doc-63",
+				"slug": "soubor-63",
+				"status": "published",
+				"data": {
+					"title": "Finanční plán pro rok 2021",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "157,60 kB",
+					"year": "15. 6. 2021",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2021-financni-plan.pdf",
+					"order": 63
+				}
+			},
+			{
+				"id": "doc-64",
+				"slug": "soubor-64",
+				"status": "published",
+				"data": {
+					"title": "Rozpočet na rok 2020",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "77,16 kB",
+					"year": "3. 6. 2021",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2020-rozpocet.pdf",
+					"order": 64
+				}
+			},
+			{
+				"id": "doc-65",
+				"slug": "soubor-65",
+				"status": "published",
+				"data": {
+					"title": "Rozpočet na rok 2019",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "114,60 kB",
+					"year": "19. 6. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2019-rozpocet.pdf",
+					"order": 65
+				}
+			},
+			{
+				"id": "doc-66",
+				"slug": "soubor-66",
+				"status": "published",
+				"data": {
+					"title": "Rozpočet na rok 2018",
+					"category": "dokumenty",
+					"file_type": "PDF",
+					"size": "124,53 kB",
+					"year": "28. 5. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/dokumenty/rozpocet/2018-rozpocet.pdf",
+					"order": 66
+				}
+			},
+			{
+				"id": "doc-67",
+				"slug": "soubor-67",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2026/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,49 MB",
+					"year": "18. 8. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2026-06-zpravodaj.pdf",
+					"order": 67
+				}
+			},
+			{
+				"id": "doc-68",
+				"slug": "soubor-68",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2025/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "11,42 MB",
+					"year": "18. 8. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2025-09-zpravodaj.pdf",
+					"order": 68
+				}
+			},
+			{
+				"id": "doc-69",
+				"slug": "soubor-69",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2025/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,65 MB",
+					"year": "18. 8. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2025-06-zpravodaj.pdf",
+					"order": 69
+				}
+			},
+			{
+				"id": "doc-70",
+				"slug": "soubor-70",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2024/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "2,55 MB",
+					"year": "7. 10. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2024-09-zpravodaj.pdf",
+					"order": 70
+				}
+			},
+			{
+				"id": "doc-71",
+				"slug": "soubor-71",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2024/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "1,67 MB",
+					"year": "7. 10. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2024-06-zpravodaj.pdf",
+					"order": 71
+				}
+			},
+			{
+				"id": "doc-72",
+				"slug": "soubor-72",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2023/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "3,14 MB",
+					"year": "9. 10. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2023-09-zpravodaj.pdf",
+					"order": 72
+				}
+			},
+			{
+				"id": "doc-73",
+				"slug": "soubor-73",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2023/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "2,00 MB",
+					"year": "9. 10. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2023-06-zpravodaj.pdf",
+					"order": 73
+				}
+			},
+			{
+				"id": "doc-74",
+				"slug": "soubor-74",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2022/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "8,35 MB",
+					"year": "27. 9. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2022-09-zpravodaj.pdf",
+					"order": 74
+				}
+			},
+			{
+				"id": "doc-75",
+				"slug": "soubor-75",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2022/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,46 MB",
+					"year": "26. 5. 2022",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2022-06-zpravodaj.pdf",
+					"order": 75
+				}
+			},
+			{
+				"id": "doc-76",
+				"slug": "soubor-76",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2021/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "8,83 MB",
+					"year": "21. 9. 2021",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2021-09-zpravodaj.pdf",
+					"order": 76
+				}
+			},
+			{
+				"id": "doc-77",
+				"slug": "soubor-77",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2020/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,46 MB",
+					"year": "18. 9. 2020",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2020-09-zpravodaj.pdf",
+					"order": 77
+				}
+			},
+			{
+				"id": "doc-78",
+				"slug": "soubor-78",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2019/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,68 MB",
+					"year": "3. 10. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2019-09-zpravodaj.pdf",
+					"order": 78
+				}
+			},
+			{
+				"id": "doc-79",
+				"slug": "soubor-79",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2019/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,21 MB",
+					"year": "3. 10. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2019-06-zpravodaj.pdf",
+					"order": 79
+				}
+			},
+			{
+				"id": "doc-80",
+				"slug": "soubor-80",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2018/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,94 MB",
+					"year": "18. 9. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2018-09-zpravodaj.pdf",
+					"order": 80
+				}
+			},
+			{
+				"id": "doc-81",
+				"slug": "soubor-81",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2018/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,85 MB",
+					"year": "12. 6. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2018-06-zpravodaj.pdf",
+					"order": 81
+				}
+			},
+			{
+				"id": "doc-82",
+				"slug": "soubor-82",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2017/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,06 MB",
+					"year": "19. 9. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2017-09-zpravodaj.pdf",
+					"order": 82
+				}
+			},
+			{
+				"id": "doc-83",
+				"slug": "soubor-83",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2017/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,69 MB",
+					"year": "17. 8. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2017-06-zpravodaj.pdf",
+					"order": 83
+				}
+			},
+			{
+				"id": "doc-84",
+				"slug": "soubor-84",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2016/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,49 MB",
+					"year": "21. 9. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2016-09-zpravodaj.pdf",
+					"order": 84
+				}
+			},
+			{
+				"id": "doc-85",
+				"slug": "soubor-85",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2016/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,67 MB",
+					"year": "7. 6. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2016-06-zpravodaj.pdf",
+					"order": 85
+				}
+			},
+			{
+				"id": "doc-86",
+				"slug": "soubor-86",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2015/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,52 MB",
+					"year": "2. 10. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2015-09-zpravodaj.pdf",
+					"order": 86
+				}
+			},
+			{
+				"id": "doc-87",
+				"slug": "soubor-87",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2015/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,96 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2015-06-zpravodaj.pdf",
+					"order": 87
+				}
+			},
+			{
+				"id": "doc-88",
+				"slug": "soubor-88",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2014/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,38 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2014-09-zpravodaj.pdf",
+					"order": 88
+				}
+			},
+			{
+				"id": "doc-89",
+				"slug": "soubor-89",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2014/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,77 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2014-06-zpravodaj.pdf",
+					"order": 89
+				}
+			},
+			{
+				"id": "doc-90",
+				"slug": "soubor-90",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2013/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,17 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2013-09-zpravodaj.pdf",
+					"order": 90
+				}
+			},
+			{
+				"id": "doc-91",
+				"slug": "soubor-91",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2013/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,76 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2013-06-zpravodaj.pdf",
+					"order": 91
+				}
+			},
+			{
+				"id": "doc-92",
+				"slug": "soubor-92",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2012/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "6,46 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2012-09-zpravodaj.pdf",
+					"order": 92
+				}
+			},
+			{
+				"id": "doc-93",
+				"slug": "soubor-93",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2012/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "5,58 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2012-06-zpravodaj.pdf",
+					"order": 93
+				}
+			},
+			{
+				"id": "doc-94",
+				"slug": "soubor-94",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2011/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "7,37 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2011-09-zpravodaj.pdf",
+					"order": 94
+				}
+			},
+			{
+				"id": "doc-95",
+				"slug": "soubor-95",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2011/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "2,13 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2011-06-zpravodaj.pdf",
+					"order": 95
+				}
+			},
+			{
+				"id": "doc-96",
+				"slug": "soubor-96",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2010/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "2,46 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2010-09-zpravodaj.pdf",
+					"order": 96
+				}
+			},
+			{
+				"id": "doc-97",
+				"slug": "soubor-97",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2010/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "573,47 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2010-06-zpravodaj.pdf",
+					"order": 97
+				}
+			},
+			{
+				"id": "doc-98",
+				"slug": "soubor-98",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2009/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "395,71 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2009-06-zpravodaj.pdf",
+					"order": 98
+				}
+			},
+			{
+				"id": "doc-99",
+				"slug": "soubor-99",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2009/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "523,38 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2009-09-zpravodaj.pdf",
+					"order": 99
+				}
+			},
+			{
+				"id": "doc-100",
+				"slug": "soubor-100",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2008/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "461,66 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2008-09-zpravodaj.pdf",
+					"order": 100
+				}
+			},
+			{
+				"id": "doc-101",
+				"slug": "soubor-101",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2008/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "423,21 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2008-06-zpravodaj.pdf",
+					"order": 101
+				}
+			},
+			{
+				"id": "doc-102",
+				"slug": "soubor-102",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2007/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "2,06 MB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2007-09-zpravodaj.pdf",
+					"order": 102
+				}
+			},
+			{
+				"id": "doc-103",
+				"slug": "soubor-103",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2007/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "270,83 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2007-06-zpravodaj.pdf",
+					"order": 103
+				}
+			},
+			{
+				"id": "doc-104",
+				"slug": "soubor-104",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2006/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "371,91 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2006-09-zpravodaj.pdf",
+					"order": 104
+				}
+			},
+			{
+				"id": "doc-105",
+				"slug": "soubor-105",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2006/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "250,58 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2006-06-zpravodaj.pdf",
+					"order": 105
+				}
+			},
+			{
+				"id": "doc-106",
+				"slug": "soubor-106",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2004/11",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "423,10 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2004-11-zpravodaj.pdf",
+					"order": 106
+				}
+			},
+			{
+				"id": "doc-107",
+				"slug": "soubor-107",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2005/09",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "437,20 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2005-09-zpravodaj.pdf",
+					"order": 107
+				}
+			},
+			{
+				"id": "doc-108",
+				"slug": "soubor-108",
+				"status": "published",
+				"data": {
+					"title": "Zpravodaj 2004/06",
+					"category": "propagace",
+					"file_type": "PDF",
+					"size": "289,46 kB",
+					"year": "21. 8. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/propagacni-materialy/zpravodaje/2004-06-zpravodaj.pdf",
+					"order": 108
+				}
+			},
+			{
+				"id": "doc-109",
+				"slug": "soubor-109",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2026",
 					"category": "skolska-rada",
 					"file_type": "PDF",
-					"size": "150 kB",
-					"year": "2026/2027",
-					"file_url": "https://www.spstrutnov.cz/ke-stazeni",
-					"order": 16
+					"size": "111,69 kB",
+					"year": "19. 10. 2026",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2026-10-09-zapis-skolske-rady.pdf",
+					"order": 109
+				}
+			},
+			{
+				"id": "doc-110",
+				"slug": "soubor-110",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2026",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "175,02 kB",
+					"year": "9. 6. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2026-05-19-zapis-skolske-rady.pdf",
+					"order": 110
+				}
+			},
+			{
+				"id": "doc-111",
+				"slug": "soubor-111",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2025",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "175,02 kB",
+					"year": "9. 6. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2025-05-21-zapis-skolske-rady.pdf",
+					"order": 111
+				}
+			},
+			{
+				"id": "doc-112",
+				"slug": "soubor-112",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2024",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "375,98 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2024-11-12-zapis-skolske-rady.pdf",
+					"order": 112
+				}
+			},
+			{
+				"id": "doc-113",
+				"slug": "soubor-113",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2024",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "179,44 kB",
+					"year": "9. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2024-05-29-zapis-skolske-rady.pdf",
+					"order": 113
+				}
+			},
+			{
+				"id": "doc-114",
+				"slug": "soubor-114",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2023",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "356,74 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2023-10-18-zapis-skolske-rady.pdf",
+					"order": 114
+				}
+			},
+			{
+				"id": "doc-115",
+				"slug": "soubor-115",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2023",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "295,45 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2023-05-24-zapis-skolske-rady.pdf",
+					"order": 115
+				}
+			},
+			{
+				"id": "doc-116",
+				"slug": "soubor-116",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2022",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "966,52 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2022-11-07-zapis-skolske-rady.pdf",
+					"order": 116
+				}
+			},
+			{
+				"id": "doc-117",
+				"slug": "soubor-117",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2022",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "300,87 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2022-05-25-zapis-skolske-rady.pdf",
+					"order": 117
+				}
+			},
+			{
+				"id": "doc-118",
+				"slug": "soubor-118",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2021",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "326,56 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2021-11-02-zapis-skolske-rady.pdf",
+					"order": 118
+				}
+			},
+			{
+				"id": "doc-119",
+				"slug": "soubor-119",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2020",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "359,90 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2020-06-22-zapis-skolske-rady.pdf",
+					"order": 119
+				}
+			},
+			{
+				"id": "doc-120",
+				"slug": "soubor-120",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2019",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "524,90 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2019-10-22-zapis-skolske-rady.pdf",
+					"order": 120
+				}
+			},
+			{
+				"id": "doc-121",
+				"slug": "soubor-121",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2019",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "400,35 kB",
+					"year": "13. 12. 2024",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2019-05-28-zapis-skolske-rady.pdf",
+					"order": 121
+				}
+			},
+			{
+				"id": "doc-122",
+				"slug": "soubor-122",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2018",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "127,11 kB",
+					"year": "13. 6. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2018-05-24-zapis-skolske-rady.pdf",
+					"order": 122
+				}
+			},
+			{
+				"id": "doc-123",
+				"slug": "soubor-123",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2018",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "112,87 kB",
+					"year": "26. 1. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2018-01-15-zapis-skolske-rady.pdf",
+					"order": 123
+				}
+			},
+			{
+				"id": "doc-124",
+				"slug": "soubor-124",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2017",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "104,36 kB",
+					"year": "5. 3. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2017-02-20-zapis-skolske-rady.pdf",
+					"order": 124
+				}
+			},
+			{
+				"id": "doc-125",
+				"slug": "soubor-125",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2015",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "766,22 kB",
+					"year": "27. 1. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2015-10-22-zapis-skolske-rady.pdf",
+					"order": 125
+				}
+			},
+			{
+				"id": "doc-126",
+				"slug": "soubor-126",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2015",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "277,00 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2015-05-13-zapis-skolske-rady.pdf",
+					"order": 126
+				}
+			},
+			{
+				"id": "doc-127",
+				"slug": "soubor-127",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2013",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "114,06 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2013-10-21-zapis-skolske-rady.pdf",
+					"order": 127
+				}
+			},
+			{
+				"id": "doc-128",
+				"slug": "soubor-128",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 02/2012",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "116,80 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2012-10-22-zapis-skolske-rady.pdf",
+					"order": 128
+				}
+			},
+			{
+				"id": "doc-129",
+				"slug": "soubor-129",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2012",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "50,10 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2012-02-15-zapis-skolske-rady.pdf",
+					"order": 129
+				}
+			},
+			{
+				"id": "doc-130",
+				"slug": "soubor-130",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2009",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "84,37 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2009-10-22-zapis-skolske-rady.pdf",
+					"order": 130
+				}
+			},
+			{
+				"id": "doc-131",
+				"slug": "soubor-131",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2009",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "84,37 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2009-10-22-zapis-skolske-rady.pdf",
+					"order": 131
+				}
+			},
+			{
+				"id": "doc-132",
+				"slug": "soubor-132",
+				"status": "published",
+				"data": {
+					"title": "Zápis z voleb do Školské rady 2008",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "92,53 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2008-11-13-volby-skolske-rady.pdf",
+					"order": 132
+				}
+			},
+			{
+				"id": "doc-133",
+				"slug": "soubor-133",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2008",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "91,02 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2008-10-27-zapis-skolske-rady.pdf",
+					"order": 133
+				}
+			},
+			{
+				"id": "doc-134",
+				"slug": "soubor-134",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2007",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "101,55 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2007-09-27-zapis-skolske-rady.pdf",
+					"order": 134
+				}
+			},
+			{
+				"id": "doc-135",
+				"slug": "soubor-135",
+				"status": "published",
+				"data": {
+					"title": "Zápis Školské rady 2/2006",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "92,44 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2006-10-11-zapis-skolske-rady.pdf",
+					"order": 135
+				}
+			},
+			{
+				"id": "doc-136",
+				"slug": "soubor-136",
+				"status": "published",
+				"data": {
+					"title": "Zápis Školské rady 01/2006",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "140,66 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2006-06-08-zapis-skolske-rady.pdf",
+					"order": 136
+				}
+			},
+			{
+				"id": "doc-137",
+				"slug": "soubor-137",
+				"status": "published",
+				"data": {
+					"title": "Zápis školské rady 01/2005",
+					"category": "skolska-rada",
+					"file_type": "PDF",
+					"size": "68,65 kB",
+					"year": "24. 11. 1971",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/skolska-rada/2005-12-06-zapis-skolske-rady.pdf",
+					"order": 137
+				}
+			},
+			{
+				"id": "doc-138",
+				"slug": "soubor-138",
+				"status": "published",
+				"data": {
+					"title": "Spolupráce SPŠ Trutnov a TE Connectivity: Podpora mladých talentů",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "222,06 kB",
+					"year": "6. 1. 2025",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2025-01-trutnovinky-magazin.pdf",
+					"order": 138
+				}
+			},
+			{
+				"id": "doc-139",
+				"slug": "soubor-139",
+				"status": "published",
+				"data": {
+					"title": "Kybernetické partnerství Hitachi Energy a průmyslovky",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "251,49 kB",
+					"year": "15. 2. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2023-trutnovinky-magazin.pdf",
+					"order": 139
+				}
+			},
+			{
+				"id": "doc-140",
+				"slug": "soubor-140",
+				"status": "published",
+				"data": {
+					"title": "Trutnovští strojaři a nástrojáři dostanou nové vybavení pro výuku",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "1,31 MB",
+					"year": "31. 1. 2023",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2023-02-u-nas-v-kraji.pdf",
+					"order": 140
+				}
+			},
+			{
+				"id": "doc-141",
+				"slug": "soubor-141",
+				"status": "published",
+				"data": {
+					"title": "Online setkání se studenty Střední průmyslové školy Trutnov",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "341,99 kB",
+					"year": "27. 4. 2021",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2021-04-vitescoviny.pdf",
+					"order": 141
+				}
+			},
+			{
+				"id": "doc-142",
+				"slug": "soubor-142",
+				"status": "published",
+				"data": {
+					"title": "Kvarteto studentů vyrobilo Formuli 1, po dráze ji proženou při národním finále",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "592,62 kB",
+					"year": "20. 6. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2019-06-18-trutnovinky.pdf",
+					"order": 142
+				}
+			},
+			{
+				"id": "doc-143",
+				"slug": "soubor-143",
+				"status": "published",
+				"data": {
+					"title": "Trutnovští studenti mají tým jako v F1. I s vlastní formulí",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "394,91 kB",
+					"year": "20. 6. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2019-06-20-kd.pdf",
+					"order": 143
+				}
+			},
+			{
+				"id": "doc-144",
+				"slug": "soubor-144",
+				"status": "published",
+				"data": {
+					"title": "Trutnovská průmyslovka získala trenažer",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "738,54 kB",
+					"year": "9. 1. 2019",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2019-u-nas-v-kraji.pdf",
+					"order": 144
+				}
+			},
+			{
+				"id": "doc-145",
+				"slug": "soubor-145",
+				"status": "published",
+				"data": {
+					"title": "Dobré řemeslníky hledají už ve škole | Finanční podpora školy se firmě bohatě vyplatí. Přináší zručné zaměstnance",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "66,46 kB",
+					"year": "23. 4. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2018-04-21-kd.pdf",
+					"order": 145
+				}
+			},
+			{
+				"id": "doc-146",
+				"slug": "soubor-146",
+				"status": "published",
+				"data": {
+					"title": "Robotické pracoviště",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "955,26 kB",
+					"year": "9. 2. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2018-02-06-continental.pdf",
+					"order": 146
+				}
+			},
+			{
+				"id": "doc-147",
+				"slug": "soubor-147",
+				"status": "published",
+				"data": {
+					"title": "Roboti v továrně a také ve škole",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "136,58 kB",
+					"year": "5. 2. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2018-02-03-kd.pdf",
+					"order": 147
+				}
+			},
+			{
+				"id": "doc-148",
+				"slug": "soubor-148",
+				"status": "published",
+				"data": {
+					"title": "Studenti trutnovské průmyslovky se učí pracovat s roboty",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "3,06 MB",
+					"year": "2. 2. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2018-02-01-KK.pdf",
+					"order": 148
+				}
+			},
+			{
+				"id": "doc-149",
+				"slug": "soubor-149",
+				"status": "published",
+				"data": {
+					"title": "Budoucnost patří robotům! Průmyslovka otevřela zbrusu nové robotické pracoviště",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "2,06 MB",
+					"year": "2. 2. 2018",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2018-02-01-trutnovinky.pdf",
+					"order": 149
+				}
+			},
+			{
+				"id": "doc-150",
+				"slug": "soubor-150",
+				"status": "published",
+				"data": {
+					"title": "100.000 od společnosti Continental Trutnov",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "633,48 kB",
+					"year": "27. 12. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-12-rl.pdf",
+					"order": 150
+				}
+			},
+			{
+				"id": "doc-151",
+				"slug": "soubor-151",
+				"status": "published",
+				"data": {
+					"title": "Firma darovala průmyslovce 100 tisíc",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "36,36 kB",
+					"year": "15. 12. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-12-13-kd.pdf",
+					"order": 151
+				}
+			},
+			{
+				"id": "doc-152",
+				"slug": "soubor-152",
+				"status": "published",
+				"data": {
+					"title": "Republikové finále čeká na dvě trutnovské školy",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "250,16 kB",
+					"year": "9. 10. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-10-06-kd.pdf",
+					"order": 152
+				}
+			},
+			{
+				"id": "doc-153",
+				"slug": "soubor-153",
+				"status": "published",
+				"data": {
+					"title": "Atleti z průmyslovky nejlepší v kraji. Teď zamíří dobýt republiku",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "2,43 MB",
+					"year": "4. 10. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-09-29-kd.pdf",
+					"order": 153
+				}
+			},
+			{
+				"id": "doc-154",
+				"slug": "soubor-154",
+				"status": "published",
+				"data": {
+					"title": "Rudolf Kasper předal šek trutnovské průmyslovce",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "39,87 kB",
+					"year": "4. 5. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-05-04-kd.pdf",
+					"order": 154
+				}
+			},
+			{
+				"id": "doc-155",
+				"slug": "soubor-155",
+				"status": "published",
+				"data": {
+					"title": "Kasper daroval 200 tisíc průmyslovce a předal ceny mladým nástrojařům roku",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "684,46 kB",
+					"year": "4. 5. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-05-03-trutnovinky.pdf",
+					"order": 155
+				}
+			},
+			{
+				"id": "doc-156",
+				"slug": "soubor-156",
+				"status": "published",
+				"data": {
+					"title": "ZŠ V Domcích, Trutnov",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "71,37 kB",
+					"year": "27. 4. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-04-26-kd.pdf",
+					"order": 156
+				}
+			},
+			{
+				"id": "doc-157",
+				"slug": "soubor-157",
+				"status": "published",
+				"data": {
+					"title": "14. ročník mezitřídní halové kopané SPŠ Trutnov obhájilo družstvo 3. IT",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "240,46 kB",
+					"year": "10. 3. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-02-rl.pdf",
+					"order": 157
+				}
+			},
+			{
+				"id": "doc-158",
+				"slug": "soubor-158",
+				"status": "published",
+				"data": {
+					"title": "Fotbalisty z průmyslovky potěšily Nemesis",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "112,15 kB",
+					"year": "8. 2. 2017",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2017-02-04-kd.pdf",
+					"order": 158
+				}
+			},
+			{
+				"id": "doc-159",
+				"slug": "soubor-159",
+				"status": "published",
+				"data": {
+					"title": "Průmyslovka v Trutnově dostala dárkový šek",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "57,11 kB",
+					"year": "1. 12. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-12-01-kd.pdf",
+					"order": 159
+				}
+			},
+			{
+				"id": "doc-160",
+				"slug": "soubor-160",
+				"status": "published",
+				"data": {
+					"title": "Za SPŠ vynikal Jankovič",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "75,77 kB",
+					"year": "20. 10. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-10-08-kd.pdf",
+					"order": 160
+				}
+			},
+			{
+				"id": "doc-161",
+				"slug": "soubor-161",
+				"status": "published",
+				"data": {
+					"title": "Studenti z průmyslovky se vypravili na Sněžku",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "66,16 kB",
+					"year": "10. 10. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-10-06-kd.pdf",
+					"order": 161
+				}
+			},
+			{
+				"id": "doc-162",
+				"slug": "soubor-162",
+				"status": "published",
+				"data": {
+					"title": "Projekt Střední průmyslové školy v Trutnově se řadí k nejnákladnějším. Ale investice se vyplácí",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "35,81 kB",
+					"year": "9. 9. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-09-07-kd.pdf",
+					"order": 162
+				}
+			},
+			{
+				"id": "doc-163",
+				"slug": "soubor-163",
+				"status": "published",
+				"data": {
+					"title": "Podpora budoucích zaměstnanců",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "289,30 kB",
+					"year": "5. 9. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/contiintern-3-2016.pdf",
+					"order": 163
+				}
+			},
+			{
+				"id": "doc-164",
+				"slug": "soubor-164",
+				"status": "published",
+				"data": {
+					"title": "Motl promítl studentům Ozvěny lidické noci. Aby viděli, jak to bylo",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "503,41 kB",
+					"year": "13. 6. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-06-12-trn.pdf",
+					"order": 164
+				}
+			},
+			{
+				"id": "doc-165",
+				"slug": "soubor-165",
+				"status": "published",
+				"data": {
+					"title": "Cyklistický závod škol se daří pořádat už dvě desetiletí",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "152,09 kB",
+					"year": "10. 5. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-05-06-kd.pdf",
+					"order": 165
+				}
+			},
+			{
+				"id": "doc-166",
+				"slug": "soubor-166",
+				"status": "published",
+				"data": {
+					"title": "Kasper ocenil „Nástrojaře roku“ a škole věnoval dar 200 tisíc",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "408,29 kB",
+					"year": "5. 5. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-04-rlb.pdf",
+					"order": 166
+				}
+			},
+			{
+				"id": "doc-167",
+				"slug": "soubor-167",
+				"status": "published",
+				"data": {
+					"title": "Vítězství průmyslováků na Internetu věcí",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "391,95 kB",
+					"year": "5. 5. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-04-rla.pdf",
+					"order": 167
+				}
+			},
+			{
+				"id": "doc-168",
+				"slug": "soubor-168",
+				"status": "published",
+				"data": {
+					"title": "Podpora průmyslovky i ceny pro nejlepší nástrojaře",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "55,11 kB",
+					"year": "26. 4. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-04-14-kd.pdf",
+					"order": 168
+				}
+			},
+			{
+				"id": "doc-169",
+				"slug": "soubor-169",
+				"status": "published",
+				"data": {
+					"title": "Ředitel předal třináctý pohár",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "92,54 kB",
+					"year": "5. 2. 2016",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2016-02-02-kd.pdf",
+					"order": 169
+				}
+			},
+			{
+				"id": "doc-170",
+				"slug": "soubor-170",
+				"status": "published",
+				"data": {
+					"title": "Výrobní podniky a průmyslová škola se navzájem potřebují",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "49,18 kB",
+					"year": "16. 12. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-12-16-kd.pdf",
+					"order": 170
+				}
+			},
+			{
+				"id": "doc-171",
+				"slug": "soubor-171",
+				"status": "published",
+				"data": {
+					"title": "Spolupráce firmy Kasper Kovo a průmyslovky přináší úspěchy",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "306,08 kB",
+					"year": "24. 11. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-11-23-trn.pdf",
+					"order": 171
+				}
+			},
+			{
+				"id": "doc-172",
+				"slug": "soubor-172",
+				"status": "published",
+				"data": {
+					"title": "Trutnovští průmyslováci se na republikovém finále v přespolním běhu neztratili",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "127,18 kB",
+					"year": "30. 10. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-10-30-kd.pdf",
+					"order": 172
+				}
+			},
+			{
+				"id": "doc-173",
+				"slug": "soubor-173",
+				"status": "published",
+				"data": {
+					"title": "Trutnovští průmyslováci nenašli v krajském kole přespolního běhu přemožitele",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "135,76 kB",
+					"year": "30. 10. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-10-16-kd.pdf",
+					"order": 173
+				}
+			},
+			{
+				"id": "doc-174",
+				"slug": "soubor-174",
+				"status": "published",
+				"data": {
+					"title": "Různými cestami za jedním cílem",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "94,63 kB",
+					"year": "30. 10. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-10-10-kd.pdf",
+					"order": 174
+				}
+			},
+			{
+				"id": "doc-175",
+				"slug": "soubor-175",
+				"status": "published",
+				"data": {
+					"title": "Kasper předal ceny nástrojařům, průmyslovce věnoval dvě stě tisíc",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "204,52 kB",
+					"year": "17. 6. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-06-08-kj.pdf",
+					"order": 175
+				}
+			},
+			{
+				"id": "doc-176",
+				"slug": "soubor-176",
+				"status": "published",
+				"data": {
+					"title": "Trutnovštví průmyslováci se potopili na dno Bajkalu pro světový rekord",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "75,49 kB",
+					"year": "17. 6. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-06-11-kd.pdf",
+					"order": 176
+				}
+			},
+			{
+				"id": "doc-177",
+				"slug": "soubor-177",
+				"status": "published",
+				"data": {
+					"title": "Velká cena v silniční cyklistice pro žáky ZŠ a SŠ",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "39,95 kB",
+					"year": "10. 6. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-05-rl.pdf",
+					"order": 177
+				}
+			},
+			{
+				"id": "doc-178",
+				"slug": "soubor-178",
+				"status": "published",
+				"data": {
+					"title": "Průmyslováci se potopili na dno „Bajkalu“. Ve světovém rekordu!",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "282,62 kB",
+					"year": "10. 6. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-06-09-trn.pdf",
+					"order": 178
+				}
+			},
+			{
+				"id": "doc-179",
+				"slug": "soubor-179",
+				"status": "published",
+				"data": {
+					"title": "Žáci trutnovské průmyslovky prožili týden v přírodě",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "94,90 kB",
+					"year": "20. 5. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-05-20-kd.pdf",
+					"order": 179
+				}
+			},
+			{
+				"id": "doc-180",
+				"slug": "soubor-180",
+				"status": "published",
+				"data": {
+					"title": "Nástrojaři z trutnovské průmyslovky uspěli v soutěži odborných dovedností",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "40,17 kB",
+					"year": "29. 4. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-04-rl.pdf",
+					"order": 180
+				}
+			},
+			{
+				"id": "doc-181",
+				"slug": "soubor-181",
+				"status": "published",
+				"data": {
+					"title": "Na mistrovství ČR ve šplhu nechybělo družstvo z trutnovské průmyslovky",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "42,67 kB",
+					"year": "29. 4. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-04a-rl.pdf",
+					"order": 181
+				}
+			},
+			{
+				"id": "doc-182",
+				"slug": "soubor-182",
+				"status": "published",
+				"data": {
+					"title": "Vzdělávaní zaměstnanců je pro firmy důležité, proto některé neváhají s podporou školy",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "65,38 kB",
+					"year": "22. 4. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-04-22-kd.pdf",
+					"order": 182
+				}
+			},
+			{
+				"id": "doc-183",
+				"slug": "soubor-183",
+				"status": "published",
+				"data": {
+					"title": "Kasper předal ceny nástrojařům, průmyslovce věnoval dvě stě tisíc",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "187,93 kB",
+					"year": "22. 4. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-04-21-trn.pdf",
+					"order": 183
+				}
+			},
+			{
+				"id": "doc-184",
+				"slug": "soubor-184",
+				"status": "published",
+				"data": {
+					"title": "Na mistrovství České republiky ve šplhu nechybělo družstvo trutnovské průmyslovky",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "41,82 kB",
+					"year": "14. 4. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-04-09-kd.pdf",
+					"order": 184
+				}
+			},
+			{
+				"id": "doc-185",
+				"slug": "soubor-185",
+				"status": "published",
+				"data": {
+					"title": "Krajské kolo ve šplhu základních a středních škol zná své vítěze",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "180,88 kB",
+					"year": "31. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03a-rl.pdf",
+					"order": 185
+				}
+			},
+			{
+				"id": "doc-186",
+				"slug": "soubor-186",
+				"status": "published",
+				"data": {
+					"title": "Erasmus + na SPŠ Trutnov",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "16,29 kB",
+					"year": "31. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-rl.pdf",
+					"order": 186
+				}
+			},
+			{
+				"id": "doc-187",
+				"slug": "soubor-187",
+				"status": "published",
+				"data": {
+					"title": "Titul nástrojař roku zamířil na trutnovskou průmyslovku",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "53,16 kB",
+					"year": "26. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-25-kd.pdf",
+					"order": 187
+				}
+			},
+			{
+				"id": "doc-188",
+				"slug": "soubor-188",
+				"status": "published",
+				"data": {
+					"title": "Atleti z průmyslovky fandili na halovém mistrovství Evropy",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "1,50 MB",
+					"year": "17. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-14-kd.pdf",
+					"order": 188
+				}
+			},
+			{
+				"id": "doc-189",
+				"slug": "soubor-189",
+				"status": "published",
+				"data": {
+					"title": "Na Velké ceně Trutnova se šplhalo o tituly krajských přeborníků",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "381,08 kB",
+					"year": "12. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-06-trn.pdf",
+					"order": 189
+				}
+			},
+			{
+				"id": "doc-190",
+				"slug": "soubor-190",
+				"status": "published",
+				"data": {
+					"title": "Krajské kolo ve šplhu základních a středních škol zná své vítěze",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "102,36 kB",
+					"year": "12. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-11-kd.pdf",
+					"order": 190
+				}
+			},
+			{
+				"id": "doc-191",
+				"slug": "soubor-191",
+				"status": "published",
+				"data": {
+					"title": "Trutnovští průmyslováci jsou mistři okresu a vicemistři kraje v silovém čtyřboji družstev",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "69,87 kB",
+					"year": "3. 3. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-03-03-kd.pdf",
+					"order": 191
+				}
+			},
+			{
+				"id": "doc-192",
+				"slug": "soubor-192",
+				"status": "published",
+				"data": {
+					"title": "Fotbalový turnaj \"O pohár ředitele\" Střední průmyslové školy zná svého vítěze!",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "256,74 kB",
+					"year": "27. 2. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-02a-rl.pdf",
+					"order": 192
+				}
+			},
+			{
+				"id": "doc-193",
+				"slug": "soubor-193",
+				"status": "published",
+				"data": {
+					"title": "Průmyslováci lyžovali týden v Krkonoších",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "71,84 kB",
+					"year": "27. 2. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-02-rl.pdf",
+					"order": 193
+				}
+			},
+			{
+				"id": "doc-194",
+				"slug": "soubor-194",
+				"status": "published",
+				"data": {
+					"title": "Fotbalový turnaj O pohár ředitele průmyslovky zná vítěze",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "69,26 kB",
+					"year": "27. 2. 2015",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/o-nas-v-mediich/2015-02-05-kd.pdf",
+					"order": 194
+				}
+			},
+			{
+				"id": "doc-195",
+				"slug": "soubor-195",
+				"status": "published",
+				"data": {
+					"title": "Průmyslováci týden lyžovali v Krkonoších",
+					"category": "media",
+					"file_type": "PDF",
+					"size": "",
+					"year": "",
+					"file_url": "https://www.spstrutnov.cz/phocadownloadpap/napsali-o-nas/2015-01-27-kd.pdf",
+					"order": 195
 				}
 			}
 		],
@@ -6397,7 +10564,6 @@
 				"status": "published",
 				"data": {
 					"name": "ZPA Smart Energy",
-					"url": "https://www.zpa-smartenergy.cz",
 					"order": 8,
 					"logo": {
 						"$media": {
