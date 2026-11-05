@@ -2,7 +2,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { durableObjects, r2 } from "@emdash-cms/cloudflare";
-import { defineConfig, sessionDrivers } from "astro/config";
+import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
 /**
@@ -17,7 +17,11 @@ export default defineConfig({
 	output: "server",
 	adapter: cloudflare({ imageService: "passthrough" }),
 	session: {
-		driver: sessionDrivers.cloudflareR2Binding({ binding: "SESSIONS", base: "astro-sessions" }),
+		// Custom driver: reads the R2 binding via `cloudflare:workers` (see file header).
+		driver: {
+			entrypoint: new URL("./src/lib/session-r2-driver.ts", import.meta.url),
+			config: { binding: "SESSIONS", base: "astro-sessions" },
+		},
 	},
 	prefetch: { prefetchAll: true, defaultStrategy: "hover" },
 	image: {
