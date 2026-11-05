@@ -10,6 +10,8 @@ import Base from "../layouts/Base.astro";
 import { createCms } from "../lib/cms";
 import { eventKindLabel, formatDay, formatMonth, formatTime } from "../lib/format";
 
+const formatDayMonth = (d: Date) => new Intl.DateTimeFormat("cs-CZ", { day: "numeric", month: "numeric", timeZone: "Europe/Prague" }).format(d).replace(/\s/g, "\u00a0");
+
 const cms = createCms(Astro.locals);
 const [{ items: posts }, programs, events, partners, videos] = await Promise.all([
 	cms.posts({ limit: 9 }),
@@ -22,11 +24,42 @@ const maturita = programs.filter((p) => p.type === "maturita");
 const vyucni = programs.filter((p) => p.type === "vyucni-list");
 const nextDod = events.find((e) => e.kind === "dod");
 
+const dodDate = nextDod ? formatDayMonth(nextDod.start) : null;
+/** The original homepage slider of spstrutnov.cz (same four slides, same photos). */
 const slides = [
-	{ img: "spstrutnov-dod-2026", tag: "Den otevřených dveří", title: "Ukážeme vám to! Přijďte se podívat na všechna pracoviště.", href: "/studium/den-otevrenych-dveri", cta: "Termíny a program" },
-	{ img: "roboticke-pracoviste-wide", tag: "Průmysl 4.0", title: "Robotická pracoviště FANUC přímo ve výuce.", href: "#prumysl-4-0", cta: "Co se naučíš" },
-	{ img: "studenti-itm", tag: "Adobe ve výuce", title: "Grafika a multimédia v profesionálních nástrojích Adobe.", href: "/studium/obory-vzdelani/informatika-a-management", cta: "Informatika a management" },
-	{ img: "studenti-trika", tag: "Stipendium", title: "Studium zdarma — a ve vybraných oborech ještě stipendium.", href: "/studium/stipendium", cta: "Jak získat stipendium" },
+	{
+		kind: "photo",
+		img: "spstrutnov-dod-2026",
+		tag: "Den otevřených dveří",
+		title: dodDate ? `${dodDate} — ukážeme vám všechna pracoviště školy.` : "Ukážeme vám všechna pracoviště školy.",
+		href: "/studium/den-otevrenych-dveri",
+		cta: "Termíny a program",
+	},
+	{
+		kind: "adobe",
+		img: "adb-small",
+		tag: "Adobe ve výuce",
+		title: "Posouváme výuku grafiky a multimédií na vyšší úroveň.",
+		list: ["Photoshop", "Illustrator", "Premiere Pro", "InDesign", "Acrobat Pro", "Bridge"],
+		href: "/studium/obory-vzdelani/informatika-a-management",
+		cta: "Informatika a management",
+	},
+	{
+		kind: "photo",
+		img: "roboticke-pracoviste-wide",
+		tag: "Robotické pracoviště",
+		title: "Průmyslové roboty FANUC programuješ přímo ve výuce.",
+		href: "#prumysl-4-0",
+		cta: "Průmysl 4.0 u nás",
+	},
+	{
+		kind: "cutout",
+		img: "studentka-klik",
+		tag: "Stipendium",
+		title: "Stipendium až 30 000 Kč ročně ve vybraných oborech.",
+		href: "/studium/stipendium",
+		cta: "Jak ho získat",
+	},
 ] as const;
 
 const stats = [
@@ -45,34 +78,47 @@ const academies = [
 
 <Base exactTitle title="SPŠ Trutnov — Střední průmyslová škola: elektrotechnika, IT a strojírenství" description="Střední průmyslová škola Trutnov — maturitní a učební obory v elektrotechnice, IT a strojírenství. Druhá největší střední škola v Královéhradeckém kraji.">
 	<!-- ===================================================== HERO -->
-	<section class="hero">
-		<SignalField />
+	<section class="hero" aria-labelledby="hero-title">
 		<div class="container hero__inner">
-			<span class="eyebrow" data-reveal>Střední průmyslová škola · Trutnov · od roku 1952</span>
-			<h1 class="hero__title" data-split>Technika, která tě posune dál.</h1>
-			<p class="lead hero__lead" data-reveal>
-				Elektro. IT. Strojírenství. Čtyři maturitní a dva učební obory, špičkové laboratoře a praxe u firem, které tě
-				zaměstnají.
-			</p>
-			<div class="cluster hero__ctas" data-reveal>
-				<a class="btn" href="/studium/obory-vzdelani">Vybrat obor <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
-				<a class="btn btn--secondary" href="/studium/den-otevrenych-dveri">Den otevřených dveří</a>
+			<div class="hero__head">
+				<div class="stack stack--s">
+					<span class="eyebrow">Střední průmyslová škola · Trutnov · od roku 1952</span>
+					<h1 class="hero__title" id="hero-title">Technika, která tě posune dál.</h1>
+				</div>
+				<div class="stack stack--s hero__aside">
+					<p class="lead hero__lead">Elektro. IT. Strojírenství. Čtyři maturitní a dva učební obory, špičkové laboratoře a praxe u firem, které tě zaměstnají.</p>
+					<div class="cluster hero__ctas">
+						<a class="btn" href="/studium/obory-vzdelani">Vybrat obor <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+						<a class="btn btn--secondary" href="/studium/den-otevrenych-dveri">Den otevřených dveří</a>
+					</div>
+				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- ===================================================== SLIDES -->
-	<section class="slides" aria-label="Aktuálně">
-		<div class="container">
 			<Carousel label="Aktuálně ze školy" slide="100%" variant="hero" autoplay>
 				{
 					slides.map((s, i) => (
 						<li class="carousel__slide">
-							<a class="slide" href={s.href}>
-								<Photo name={s.img} eager={i === 0} sizes="(width >= 82rem) 82rem, 100vw" class="slide__img" />
+							<a class={`slide slide--${s.kind}`} href={s.href}>
+								{s.kind === "photo" && <Photo name={s.img} eager={i === 0} sizes="(width >= 82rem) 82rem, 100vw" class="slide__img" />}
+								{s.kind === "adobe" && (
+									<span class="slide__art" aria-hidden="true">
+										<Photo name={s.img} sizes="(width >= 48rem) 40vw, 80vw" alt="" class="slide__logo" />
+									</span>
+								)}
+								{s.kind === "cutout" && (
+									<span class="slide__art" aria-hidden="true">
+										<Photo name={s.img} sizes="(width >= 48rem) 40vw, 80vw" alt="" class="slide__cutout" />
+									</span>
+								)}
 								<span class="slide__body">
 									<span class="eyebrow slide__tag">{s.tag}</span>
 									<span class="slide__title">{s.title}</span>
+									{"list" in s && (
+										<span class="slide__list">
+											{s.list.map((x) => (
+												<span>{x}</span>
+											))}
+										</span>
+									)}
 									<span class="slide__cta">
 										{s.cta} <Icon name="arrow" size="s" />
 									</span>
@@ -308,43 +354,45 @@ const academies = [
 </Base>
 
 <style>
-	/* ---------- Hero ------------------------------------------------------ */
+	/* ---------- Hero (original homepage slider) ------------------------- */
 	.hero {
-		position: relative;
-		isolation: isolate;
-		overflow: hidden;
-		display: grid;
-		align-items: center;
-		min-block-size: min(88svh, 60rem);
-		padding-block: var(--section-space);
-	}
-	.hero :global(.signal) {
-		z-index: -1;
+		padding-block: var(--space-l) var(--section-space-sm);
 	}
 	.hero__inner {
 		display: grid;
-		justify-items: center;
+		gap: var(--space-l);
+	}
+	.hero__head {
+		display: grid;
 		gap: var(--space-m);
-		text-align: center;
+		align-items: end;
 	}
 	.hero__title {
-		max-width: 16ch;
+		max-width: 14ch;
 		font-size: var(--text-3xl);
 	}
 	.hero__lead {
-		max-width: 40rem;
+		max-width: 36rem;
 	}
-	.hero__ctas {
-		justify-content: center;
+	/* Phones: the original photos come first — the slides carry their own CTAs. */
+	@media (width < 48rem) {
+		.hero {
+			padding-block-start: var(--space-s);
+		}
+		.hero__inner {
+			gap: var(--space-m);
+		}
+		.hero__aside {
+			display: none;
+		}
 	}
-	.hero__since {
-		margin-top: var(--space-s);
+	@media (width >= 75rem) {
+		.hero__head {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+		}
 	}
 
 	/* ---------- Slides -------------------------------------------------- */
-	.slides {
-		padding-bottom: var(--section-space-sm);
-	}
 	.slide {
 		position: relative;
 		display: block;
@@ -417,26 +465,87 @@ const academies = [
 	.slide:hover .slide__cta {
 		gap: var(--space-s);
 	}
+	/* Adobe slide: the original blue gradient with the product logos. */
+	.slide--adobe {
+		background: linear-gradient(180deg, var(--brand-logo-blue), var(--brand-logo-navy));
+	}
+	.slide--cutout {
+		background: linear-gradient(180deg, var(--prim-white), var(--prim-paper-2));
+		color: var(--brand-logo-navy);
+	}
+	.slide--adobe::after,
+	.slide--cutout::after {
+		display: none;
+	}
+	.slide__art {
+		position: absolute;
+		inset: 0 0 0 auto;
+		display: grid;
+		place-items: center end;
+		inline-size: 55%;
+		padding: var(--space-l);
+		z-index: -1;
+	}
+	.slide__art :global(picture) {
+		display: contents;
+	}
+	.slide__art :global(img) {
+		max-block-size: 100%;
+		max-inline-size: 100%;
+		inline-size: auto;
+		block-size: auto;
+		object-fit: contain;
+	}
+	.slide--cutout .slide__art {
+		place-items: end end;
+		padding: var(--space-m) var(--space-l) 0;
+	}
+	.slide--cutout .slide__tag {
+		color: var(--brand-logo-navy);
+		background: color-mix(in oklab, var(--brand-logo-navy) 8%, transparent);
+		border-color: color-mix(in oklab, var(--brand-logo-navy) 30%, transparent);
+	}
+	.slide--cutout .slide__cta {
+		background: var(--brand-logo-navy);
+		color: var(--prim-white);
+	}
+	.slide__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3xs) var(--space-s);
+		font-size: var(--text-sm);
+		opacity: 0.9;
+	}
+	/* Phones: every slide the same size, text over the bottom of the picture. */
 	@media (width < 48rem) {
 		.slide {
-			aspect-ratio: auto;
-			display: grid;
-		}
-		.slide :global(.slide__img) {
-			position: relative;
-			aspect-ratio: 16 / 9;
-			z-index: auto;
+			aspect-ratio: 4 / 5;
 		}
 		.slide::after {
-			display: none;
+			background: linear-gradient(0deg, color-mix(in oklab, var(--prim-ink) 88%, transparent) 15%, transparent 65%);
+		}
+		.slide__art {
+			inset: 0 0 auto 0;
+			inline-size: 100%;
+			block-size: 55%;
+			place-items: center;
+		}
+		.slide--cutout .slide__art {
+			block-size: 52%;
+			place-items: end center;
 		}
 		.slide__body {
-			position: static;
+			inset: auto 0 0 0;
+			max-inline-size: none;
 			padding: var(--space-m);
+			gap: var(--space-xs);
 		}
 		.slide__title {
 			font-size: var(--text-lg);
-			line-height: var(--leading-relaxed);
+			line-height: var(--leading-snug);
+		}
+		.slide__list {
+			display: none;
 		}
 	}
 

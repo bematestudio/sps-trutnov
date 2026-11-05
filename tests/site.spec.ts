@@ -364,3 +364,20 @@ test("CMS maintenance endpoint rejects anonymous calls", async ({ request }) => 
 	const res = await request.post("/api/maintenance/migrate");
 	expect(res.status()).toBe(401);
 });
+
+test("landing hero is built from the original homepage slider photos", async ({ page }) => {
+	await page.goto("/");
+	const html = await page.locator(".hero .carousel").innerHTML();
+	for (const name of ["spstrutnov-dod-2026", "adb-small", "roboticke-pracoviste-wide", "studentka-klik"]) expect(html, name).toContain(`/images/foto/${name}-`);
+	await expect(page.locator(".hero h1")).toHaveText("Technika, která tě posune dál.");
+	await expect(page.locator(".hero .slide__img").first()).toHaveAttribute("fetchpriority", "high");
+});
+
+test("anonymous HTML is cached briefly, logged-in requests are not", async ({ request }) => {
+	await request.get("/o-skole");
+	const second = await request.get("/o-skole");
+	expect(second.headers()["x-cache"]).toMatch(/HIT/);
+	expect(second.headers()["content-security-policy"]).toContain("default-src 'self'");
+	const withCookie = await request.get("/o-skole", { headers: { cookie: "astro-session=x" } });
+	expect(withCookie.headers()["x-cache"] ?? "").not.toMatch(/HIT/);
+});

@@ -185,8 +185,34 @@ function termsOf(raw: Raw, entry: SeedEntry | undefined, name: string): Term[] {
 	return slugs.map((s) => seedTerms[name]?.find((t) => t.slug === s) ?? { slug: s, label: s });
 }
 
+/**
+ * Per-isolate memo for CMS reads (TTL 60 s). The CMS database is a single
+ * Durable Object, so every query is a network round trip; the same lists
+ * (menu, settings, events, partners…) are read on every page. Editors in
+ * visual-edit mode bypass it (see createCms).
+ */
+const MEMO_TTL_MS = 60_000;
+const memo = new Map<string, { at: number; value: Promise<unknown> }>();
+function memoize<T>(key: string, load: () => Promise<T>, enabled = true): Promise<T> {
+	if (!enabled) return load();
+	const now = Date.now();
+	const hit = memo.get(key);
+	if (hit && now - hit.at < MEMO_TTL_MS) return hit.value as Promise<T>;
+	const value = load().catch((e) => {
+		memo.delete(key);
+		throw e;
+	});
+	memo.set(key, { at: now, value });
+	if (memo.size > 200) memo.delete(memo.keys().next().value!);
+	return value;
+}
+let memoEnabled = true;
+
 /** Query EmDash; return null (→ seed fallback) when empty or failing. */
-async function live(collection: string, options: Raw = {}) {
+function live(collection: string, options: Raw = {}) {
+	return memoize(`live:${collection}:${JSON.stringify(options)}`, () => liveUncached(collection, options), memoEnabled);
+}
+async function liveUncached(collection: string, options: Raw = {}) {
 	try {
 		const result = await getEmDashCollection(collection as never, options as never);
 		if (result.error || !result.entries?.length) {
@@ -342,9 +368,14 @@ async function list<T>(
 
 export function createCms(locals?: App.Locals) {
 	const resolve: MediaResolver | undefined = (locals as any)?.emdash?.getPublicMediaUrl;
+	// Logged-in editors (visual editing) always see fresh data.
+	memoEnabled = !(locals as any)?.user;
 
 	return {
-		async settings() {
+		settings() {
+			return memoize("settings", () => this.settingsUncached(), memoEnabled);
+		},
+		async settingsUncached() {
 			try {
 				const s = (await getSiteSettings()) as Raw;
 				if (s?.title) return { title: str(s.title), tagline: str(s.tagline) };
@@ -354,7 +385,10 @@ export function createCms(locals?: App.Locals) {
 			return { title: (seed as any).settings.title as string, tagline: (seed as any).settings.tagline as string };
 		},
 
-		async menu(name = "primary"): Promise<MenuItem[]> {
+		menu(name = "primary"): Promise<MenuItem[]> {
+			return memoize(`menu:${name}`, () => this.menuUncached(name), memoEnabled);
+		},
+		async menuUncached(name = "primary"): Promise<MenuItem[]> {
 			const norm = (items: any[]): MenuItem[] =>
 				(items ?? []).map((i) => ({ label: str(i.label), url: str(i.url, "/"), children: norm(i.children ?? []) }));
 			try {
@@ -401,7 +435,10 @@ export function createCms(locals?: App.Locals) {
 			return e ? toPost(e.slug, e.data, resolve, e) : null;
 		},
 
-		async categories(): Promise<Term[]> {
+		categories(): Promise<Term[]> {
+			return memoize("categories", () => this.categoriesUncached(), memoEnabled);
+		},
+		async categoriesUncached(): Promise<Term[]> {
 			try {
 				const terms = (await getTaxonomyTerms("category")) as Raw[];
 				if (terms?.length) return terms.map((t) => ({ slug: t.slug, label: t.label }));

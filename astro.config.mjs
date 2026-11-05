@@ -37,4 +37,9 @@ export default defineConfig({
 		}),
 	],
 	devToolbar: { enabled: false },
+	vite: {
+		// Unique per build: part of the HTML cache key (src/middleware.ts), so a new
+		// deploy never serves cached HTML that points at the previous build's assets.
+		define: { __BUILD_ID__: JSON.stringify(Date.now().toString(36)) },
+	},
 });

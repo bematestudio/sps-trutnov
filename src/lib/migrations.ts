@@ -94,6 +94,7 @@ export const MIGRATIONS: Migration[] = [
 				.selectFrom("ec_documents")
 				.select(["slug", "title"])
 				.where("slug", "like", "dokument-%")
+				.where("status", "=", "published") // re-runs skip the already retired ones
 				.execute()
 				.catch(() => [])) as Array<{ slug: string; title: string }>;
 			const retired = old.map((d) => ({ id: `retired-${d.slug}`, slug: d.slug, status: "draft", data: { title: d.title } }));

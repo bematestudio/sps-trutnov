@@ -14,6 +14,7 @@ import { env } from "cloudflare:workers";
 import { after } from "emdash";
 import { cmsUser, loginUrl, ROLE_CONTRIBUTOR } from "./lib/auth";
 import { PRODUCTION_HOST, isProductionHost } from "./lib/site";
+import { edgeCache, HTML_MAX_STALE_S, HTML_TTL_S, htmlCacheKey, isCacheableRequest, REFRESH_HEADER, RENDERED_AT_HEADER } from "./lib/html-cache";
 import { pendingMigrations, runMigrations } from "./lib/migrations";
 
 /* --------------------------------------------------------------- redirects */
@@ -133,6 +134,31 @@ async function contentSecurityPolicy(html: string, upgrade: boolean) {
 	].join("; ");
 }
 
+/* -------------------------------------------------------------- HTML cache */
+
+/**
+ * Anonymous page views are served from cache for 60 s: first from this
+ * isolate's memory, then from the colo's Cache API (custom domains only —
+ * workers.dev has no Cache API). CMS changes therefore show up within a
+ * minute; logged-in editors (any cookie) always get a fresh render.
+ */
+const htmlMemo = new Map<string, { at: number; body: string; status: number; headers: [string, string][] }>();
+
+function fromMemo(key: string) {
+	const hit = htmlMemo.get(key);
+	if (!hit || Date.now() - hit.at > HTML_TTL_S * 1000) return null;
+	const headers = new Headers(hit.headers);
+	headers.set("x-cache", "HIT-memory");
+	headers.set("age", String(Math.round((Date.now() - hit.at) / 1000)));
+	return new Response(hit.body, { status: hit.status, headers });
+}
+
+function remember(key: string, body: string, status: number, headers: Headers) {
+	htmlMemo.set(key, { at: Date.now(), body, status, headers: [...headers] });
+	if (htmlMemo.size > 150) htmlMemo.delete(htmlMemo.keys().next().value!);
+}
+
+
 /* ------------------------------------------------------------- migrations */
 
 let migrationsChecked = false;
@@ -190,6 +216,23 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 	if (!isCms && !url.pathname.startsWith("/_astro") && !url.pathname.startsWith("/api/")) scheduleMigrations(context.locals);
 
+	const useCache = !isCms && isCacheableRequest(request, url);
+	const cacheKey = htmlCacheKey(url);
+	const refreshing = request.headers.has(REFRESH_HEADER);
+	if (useCache && !refreshing) {
+		const mem = fromMemo(cacheKey);
+		if (mem) return mem;
+		const edge = await edgeCache()?.match(cacheKey).catch(() => undefined);
+		const fresh = edge && (Date.now() - Number(edge.headers.get(RENDERED_AT_HEADER) ?? 0)) / 1000 <= HTML_TTL_S;
+		if (edge && fresh) {
+			const headers = new Headers(edge.headers);
+			const body = await edge.text();
+			remember(cacheKey, body, edge.status, headers);
+			headers.set("x-cache", "HIT-edge");
+			return new Response(body, { status: edge.status, headers });
+		}
+	}
+
 	let response: Response;
 	try {
 		response = await next();
@@ -217,6 +260,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		const html = await response.text();
 		headers.set("content-security-policy", await contentSecurityPolicy(html, !isLocal(host)));
 		headers.delete("content-length");
+		if (useCache && response.status === 200 && !headers.has("set-cookie")) {
+			headers.set("cache-control", `public, max-age=0, s-maxage=${HTML_MAX_STALE_S}`);
+			headers.set(RENDERED_AT_HEADER, String(Date.now()));
+			remember(cacheKey, html, 200, headers);
+			const toEdge = new Response(html, { status: 200, headers });
+			try {
+				after(() => edgeCache()?.put(cacheKey, toEdge).catch(() => {}));
+			} catch {}
+			headers.set("x-cache", "MISS");
+		}
 		return new Response(html, { status: response.status, statusText: response.statusText, headers });
 	}
 	return new Response(response.body, { status: response.status, statusText: response.statusText, headers });

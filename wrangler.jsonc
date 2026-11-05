@@ -5,6 +5,10 @@
 	"compatibility_date": "2026-10-01",
 	"compatibility_flags": ["nodejs_compat"],
 	"observability": { "enabled": true },
+	// Run the Worker next to the CMS database (one Durable Object) instead of next
+	// to the visitor: a page makes ~10 sequential DB queries, so this turns
+	// 10 long round trips into one.
+	"placement": { "mode": "smart" },
 	"workers_dev": true,
 	"preview_urls": true,
 	// EmDash CMS database: one SQLite-backed Durable Object

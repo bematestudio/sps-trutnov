@@ -11,8 +11,9 @@ function finishLoading() {
 	root.classList.add("is-loaded");
 	window.setTimeout(() => root.classList.remove("is-loading", "is-loaded"), 400);
 }
-if (document.readyState === "complete") window.setTimeout(finishLoading, 500);
-else window.addEventListener("load", () => window.setTimeout(finishLoading, 300), { once: true });
+// Never wait for images: this module runs once the HTML is parsed, so the
+// content is ready; the loader is only a short brand moment (first visit).
+window.setTimeout(finishLoading, 350);
 
 /* ----------------------------------------------------------------- theme */
 function setTheme(theme: "light" | "dark") {

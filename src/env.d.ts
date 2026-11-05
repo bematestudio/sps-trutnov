@@ -17,3 +17,6 @@ declare namespace App {
 		cmsUser?: { id: string; role: number; name: string; email: string };
 	}
 }
+
+/** Build identifier injected by Vite (astro.config.mjs). */
+declare const __BUILD_ID__: string;

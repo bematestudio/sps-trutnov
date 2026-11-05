@@ -89,6 +89,20 @@ HTTPS + `www` přesměrování, 301 mapa starých URL, CSP s hashi inline skript
 `/.well-known/security.txt`. Dokumenty starého webu jsou zrcadlené v R2 a dostupné na původních adresách
 `/phocadownloadpap/…` (`scripts/mirror-legacy-files.mjs`).
 
+## Výkon
+
+* **Cache HTML** (`src/lib/html-cache.ts`): anonymní návštěvy dostanou stránku z cache (paměť izolátu +
+  Cache API); po 60 s se stránka obnoví na pozadí, nejstarší podávaná kopie má 10 min. Kontrola cache
+  běží v `src/worker.ts` ještě před načtením Astro/EmDash. Klíč obsahuje ID buildu, takže po nasazení
+  se nikdy nepodá HTML odkazující na staré soubory. Přihlášení (jakákoli cookie) cache obcházejí.
+* **Cache dat CMS** v paměti izolátu (60 s) — `src/lib/cms.ts`.
+* **Smart Placement** (`wrangler.jsonc`): Worker běží u databáze (jeden Durable Object), takže
+  ~10 dotazů na stránku nejde přes oceán.
+* Změny v CMS se tak na webu projeví do ~1–2 minut.
+* Databáze (Durable Object) vznikla v USA, protože první požadavek přišel odtud. Pro produkci ji
+  doporučuji založit znovu s `locationHint: "weur"` (nebo přejít na D1), pak bude render bez cache
+  pro české návštěvníky ještě rychlejší.
+
 ## Fotky (AVIF / WebP)
 
 * **Fotky přibalené k webu** (`public/images/foto`, z původního webu) jsou v AVIF + WebP ve více šířkách,

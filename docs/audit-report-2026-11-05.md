@@ -58,7 +58,7 @@ přesměrování a sitemapy), Impeccable 0 nálezů, Lighthouse mobil výkon 98 
 | F26 | 🟡 | `robots.txt` pro produkci: vyhledávače a AI vyhledávání ano, trénovací crawleři ne (+ Content-Signal). **Zbývá škole:** potvrdit rozhodnutí a sladit s Cloudflare AI Crawl Control. |
 | F27 | ✅ | Fallback na seed se loguje (jednou za izolát a důvod). |
 | F28 | ✅ | `window.spsToast` typované, `as any` zbývá jen v datové vrstvě (typy EmDash). |
-| F29 | ⏳ | Beze změny (cache HTML až s invalidací při publikaci). |
+| F29 | ✅ | Cache hotového HTML pro anonymní návštěvy (paměť izolátu + Cache API, 60 s + obnova na pozadí, klíč obsahuje ID buildu), cache dat CMS v paměti, Smart Placement (Worker běží u databáze), líné načítání aplikace (studený start). Medián TTFB 0,3 s (dříve 1,3–1,7 s), Lighthouse mobil výkon 99. Změny v CMS se na webu projeví do ~1–2 minut. **Doporučeno:** produkční databázi založit s umístěním v Evropě (viz README). |
 | F30 | ⏳ | Po přepnutí domény. |
 
 **Aktualizované doporučení: GO pro přepnutí DNS po splnění 4 bodů školy** — kontrola obsahu v CMS (F01), schválení
