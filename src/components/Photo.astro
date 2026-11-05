@@ -1,6 +1,6 @@
 ---
 /**
- * Responsive local photo from src/data/images.json (generated WebP widths in
+ * Responsive local photo from src/data/images.json (AVIF + WebP widths in
  * /images/foto). Emits srcset/sizes, intrinsic size (no CLS) and lazy loading.
  */
 import manifest from "../data/images.json";
@@ -15,19 +15,23 @@ interface Props {
 }
 const { name, alt, sizes = "(width >= 75rem) 50vw, 100vw", eager = false, class: className } = Astro.props;
 const img = manifest[name];
-const src = (w: number) => `/images/foto/${name}-${w}.webp`;
+const src = (w: number, fmt = "webp") => `/images/foto/${name}-${w}.${fmt}`;
+const srcset = (fmt: string) => img.widths.map((w) => `${src(w, fmt)} ${w}w`).join(", ");
 const largest = img.widths[img.widths.length - 1];
 ---
 
-<img
-	class={className}
-	src={src(img.widths.find((w) => w >= 960) ?? largest)}
-	srcset={img.widths.map((w) => `${src(w)} ${w}w`).join(", ")}
-	sizes={sizes}
-	width={img.w}
-	height={img.h}
-	alt={alt ?? img.alt}
-	loading={eager ? "eager" : "lazy"}
-	fetchpriority={eager ? "high" : undefined}
-	decoding="async"
-/>
+<picture>
+	<source type="image/avif" srcset={srcset("avif")} sizes={sizes} />
+	<img
+		class={className}
+		src={src(img.widths.find((w) => w >= 960) ?? largest)}
+		srcset={srcset("webp")}
+		sizes={sizes}
+		width={img.w}
+		height={img.h}
+		alt={alt ?? img.alt}
+		loading={eager ? "eager" : "lazy"}
+		fetchpriority={eager ? "high" : undefined}
+		decoding="async"
+	/>
+</picture>

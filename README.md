@@ -81,6 +81,25 @@ do `localStorage` prohlížeče a rozhraní to jasně uvádí. Skutečná správ
 Kontaktní formulář (`/api/contact`) data validuje, ale zatím je nikam neodesílá (místo pro napojení
 Cloudflare Email Routing je označeno v kódu).
 
+## Fotky (AVIF / WebP)
+
+* **Fotky přibalené k webu** (`public/images/foto`, z původního webu) jsou v AVIF + WebP ve více šířkách,
+  komponenta `<Photo>` je servíruje přes `<picture>` se `srcset`.
+* **Fotky nahrané do CMS** (R2 bucket `sps-trutnov-media`) převádí `pnpm optimize:media` na AVIF + WebP
+  v šířkách 480/720/960/1600 px do `opt/…`. Web je servíruje přes `/media/opt/…` (`<CmsImage>`);
+  dokud fotka převedená není, automaticky se použije originál. Po nahrání nových fotek spusťte:
+
+```bash
+CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… pnpm optimize:media
+```
+
+## Migrace obsahu v živém CMS
+
+EmDash aplikuje seed jen na prázdnou databázi. Nové části schématu/obsahu pro už nastavený web doplní
+`POST /api/maintenance/migrate` (idempotentní). Spouští se tlačítkem **Spustit migraci CMS** v
+`/admin/nastaveni` — vyžaduje přihlášení do EmDash CMS jako administrátor (případně Worker secret
+`MAINTENANCE_TOKEN` pro skripty).
+
 ## Kontrola kvality
 
 ```bash

@@ -158,6 +158,22 @@ export interface Program {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Video {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  youtube_id: string;
+  description?: string;
+  order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Workplace {
   id: string;
   slug: string | null;
@@ -191,6 +207,7 @@ declare module "emdash" {
     people: People;
     posts: Post;
     programs: Program;
+    videos: Video;
     workplaces: Workplace;
   }
 }

@@ -21,9 +21,38 @@ const settings = await createCms(Astro.locals).settings();
 			<button class="btn" type="submit">Uložit nastavení</button>
 		</section>
 	</form>
+	<section class="a-card a-form" aria-labelledby="maint-title">
+		<h2 class="a-card__title" id="maint-title">Údržba CMS</h2>
+		<p class="muted">
+			Doplní do živého EmDash CMS nové části schématu a obsahu (kolekce Videa, loga a weby partnerů). Bezpečné spustit
+			opakovaně — existující úpravy editorů nepřepíše. Vyžaduje přihlášení do <a class="link" href="/_emdash/admin">EmDash CMS</a> jako
+			administrátor.
+		</p>
+		<div class="cluster">
+			<button class="btn" type="button" data-migrate>Spustit migraci CMS</button>
+			<output class="muted" data-migrate-out></output>
+		</div>
+	</section>
 </AdminLayout>
 
 <script>
+	const migrate = document.querySelector<HTMLButtonElement>("[data-migrate]");
+	const out = document.querySelector<HTMLOutputElement>("[data-migrate-out]");
+	migrate?.addEventListener("click", async () => {
+		migrate.disabled = true;
+		out!.textContent = "Probíhá…";
+		try {
+			const res = await fetch("/api/maintenance/migrate", { method: "POST", credentials: "same-origin" });
+			const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; videos?: { created: number }; partners?: { updated: number } };
+			out!.textContent = data.ok
+				? `Hotovo — videa: ${data.videos?.created ?? 0} nových, partneři: ${data.partners?.updated ?? 0} aktualizováno.`
+				: (data.error ?? `Chyba ${res.status}`);
+		} catch {
+			out!.textContent = "Migrace se nezdařila.";
+		} finally {
+			migrate.disabled = false;
+		}
+	});
 	const form = document.querySelector<HTMLFormElement>("[data-settings]");
 	form?.addEventListener("submit", (e) => {
 		e.preventDefault();

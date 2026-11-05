@@ -1,5 +1,7 @@
 ---
+import CmsImage from "../components/CmsImage.astro";
 import Icon from "../components/Icon.astro";
+import { variantUrl } from "../lib/media";
 import PageHero from "../components/PageHero.astro";
 import Base from "../layouts/Base.astro";
 import { createCms } from "../lib/cms";
@@ -17,8 +19,8 @@ const photos = items.filter((p) => p.image);
 				{
 					photos.map((p, i) => (
 						<li class:list={["gallery__item", i % 5 === 0 && "gallery__item--wide"]} data-reveal>
-							<button class="gallery__btn" type="button" data-lightbox={p.image!.src} data-caption={p.title} data-href={`/novinky/${p.slug}`} aria-label={`Zvětšit fotografii: ${p.title}`}>
-								<img src={p.image!.src} alt={p.image!.alt} width={p.image!.width ?? 960} height={p.image!.height ?? 640} loading={i < 4 ? "eager" : "lazy"} decoding="async" />
+							<button class="gallery__btn" type="button" data-lightbox={p.image!.key ? variantUrl(p.image!.key, 1600, "webp") : p.image!.src} data-caption={p.title} data-href={`/novinky/${p.slug}`} aria-label={`Zvětšit fotografii: ${p.title}`}>
+								<CmsImage image={p.image!} eager={i < 4} sizes="(width >= 48rem) 33vw, 100vw" />
 								<span class="gallery__caption">
 									<span class="meta">{formatDate(p.date)}</span>
 									<span>{p.title}</span>
@@ -72,13 +74,13 @@ const photos = items.filter((p) => p.image);
 		background: var(--color-skeleton);
 		text-align: start;
 	}
-	.gallery__btn img {
+	.gallery__btn :global(img) {
 		inline-size: 100%;
 		block-size: 100%;
 		object-fit: cover;
 		transition: scale var(--duration-slower) var(--ease-out);
 	}
-	.gallery__btn:hover img {
+	.gallery__btn:hover :global(img) {
 		scale: 1.06;
 	}
 	.gallery__caption {

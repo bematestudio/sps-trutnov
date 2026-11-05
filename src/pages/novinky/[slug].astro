@@ -2,6 +2,7 @@
 import { PortableText } from "emdash/ui";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Carousel from "../../components/Carousel.astro";
+import CmsImage from "../../components/CmsImage.astro";
 import Icon from "../../components/Icon.astro";
 import PostCard from "../../components/PostCard.astro";
 import Base from "../../layouts/Base.astro";
@@ -67,7 +68,7 @@ const jsonLd = {
 					post.image && (
 						<figure class="article-hero__media" data-reveal>
 							<div class="frame article__frame">
-								<img src={post.image.src} alt={post.image.alt} width={post.image.width ?? 1600} height={post.image.height ?? 1067} fetchpriority="high" decoding="async" />
+								<CmsImage image={post.image} eager sizes="(width >= 75rem) 40vw, 100vw" />
 							</div>
 							<figcaption class="article-hero__badge">
 								<span class="article-hero__day">{post.date.getDate()}.</span>

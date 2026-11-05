@@ -692,7 +692,7 @@
 		border-radius: var(--radius-xs);
 		aspect-ratio: var(--frame-ratio, 3 / 2);
 	}
-	.frame > img {
+	.frame img {
 		inline-size: 100%;
 		block-size: 100%;
 		object-fit: cover;

@@ -6274,7 +6274,7 @@
 		"partners": [
 			{
 				"id": "partner-1",
-				"slug": "hitachi-energy",
+				"slug": "partner-1",
 				"status": "published",
 				"data": {
 					"name": "Hitachi Energy",
@@ -6291,7 +6291,7 @@
 			},
 			{
 				"id": "partner-2",
-				"slug": "kasper",
+				"slug": "partner-2",
 				"status": "published",
 				"data": {
 					"name": "Kasper",
@@ -6308,7 +6308,7 @@
 			},
 			{
 				"id": "partner-3",
-				"slug": "pepperl-fuchs",
+				"slug": "partner-3",
 				"status": "published",
 				"data": {
 					"name": "Pepperl+Fuchs",
@@ -6325,7 +6325,7 @@
 			},
 			{
 				"id": "partner-4",
-				"slug": "schaeffler",
+				"slug": "partner-4",
 				"status": "published",
 				"data": {
 					"name": "Schaeffler",
@@ -6342,7 +6342,7 @@
 			},
 			{
 				"id": "partner-5",
-				"slug": "siemens",
+				"slug": "partner-5",
 				"status": "published",
 				"data": {
 					"name": "Siemens",
@@ -6359,7 +6359,7 @@
 			},
 			{
 				"id": "partner-6",
-				"slug": "skoda",
+				"slug": "partner-6",
 				"status": "published",
 				"data": {
 					"name": "Škoda Auto",
@@ -6376,7 +6376,7 @@
 			},
 			{
 				"id": "partner-7",
-				"slug": "te",
+				"slug": "partner-7",
 				"status": "published",
 				"data": {
 					"name": "TE Connectivity",
@@ -6393,7 +6393,7 @@
 			},
 			{
 				"id": "partner-8",
-				"slug": "zpa",
+				"slug": "partner-8",
 				"status": "published",
 				"data": {
 					"name": "ZPA Smart Energy",

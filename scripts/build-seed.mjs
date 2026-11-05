@@ -721,7 +721,7 @@ const partners = [
 	["ZPA Smart Energy", "zpa", "https://www.zpa-smartenergy.cz"],
 ].map(([name, file, url], i) => ({
 	id: `partner-${i + 1}`,
-	slug: file,
+	slug: `partner-${i + 1}`,
 	status: "published",
 	data: { name, url, order: i + 1, logo: media(`${LEGACY}/images/loga/${file}.png`, name, `${file}.png`) },
 }));

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Web Střední průmyslové školy Trutnov — Astro + EmDash CMS na Cloudflare Workers",
+  "description": "Web St\u0159edn\u00ed pr\u016fmyslov\u00e9 \u0161koly Trutnov \u2014 Astro + EmDash CMS na Cloudflare Workers",
   "emdash": {
     "seed": "seed/seed.json"
   },
@@ -15,7 +15,9 @@
     "typecheck": "astro check",
     "lint:tokens": "node scripts/check-tokens.mjs",
     "test:e2e": "playwright test",
-    "critique": "node scripts/critique.mjs"
+    "critique": "node scripts/critique.mjs",
+    "optimize:media": "node scripts/optimize-media.mjs",
+    "migrate:cms": "node -e \"fetch(process.env.SITE_URL+'/api/maintenance/migrate',{method:'POST',headers:{authorization:'Bearer '+process.env.MAINTENANCE_TOKEN}}).then(r=>r.text()).then(console.log)\""
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.4.4",
@@ -35,6 +37,7 @@
     "@cloudflare/workers-types": "5.20261104.1",
     "@playwright/test": "1.64.1",
     "impeccable": "4.8.0",
+    "sharp": "0.35.5",
     "typescript": "^5.9.3",
     "wrangler": "4.157.0"
   }

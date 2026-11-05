@@ -250,3 +250,20 @@ test("video facade loads YouTube only after click", async ({ page }) => {
 	await page.locator("[data-play]").click();
 	await expect(page.locator(".videos__player iframe")).toHaveAttribute("src", /youtube-nocookie\.com\/embed\//);
 });
+
+test("photos are served as AVIF/WebP via <picture>", async ({ page }) => {
+	await page.goto("/novinky", { waitUntil: "networkidle" });
+	const avif = page.locator('.post picture source[type="image/avif"]').first();
+	await expect(avif).toHaveAttribute("srcset", /\/media\/opt\/.+\/480\.avif 480w/);
+	await expect(page.locator('.post picture source[type="image/webp"]').first()).toHaveAttribute("srcset", /\.webp/);
+	// The rendered image must actually load (variant or fallback to the original).
+	const loaded = await page.locator(".post picture img").first().evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0);
+	expect(loaded).toBe(true);
+	await page.goto("/studium/obory-vzdelani");
+	await expect(page.locator('picture source[type="image/avif"]').first()).toHaveAttribute("srcset", /\/images\/foto\/.+\.avif/);
+});
+
+test("CMS maintenance endpoint rejects anonymous calls", async ({ request }) => {
+	const res = await request.post("/api/maintenance/migrate");
+	expect(res.status()).toBe(401);
+});

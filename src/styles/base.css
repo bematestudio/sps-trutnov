@@ -37,6 +37,10 @@
 	img {
 		height: auto;
 	}
+	/* <picture> wrappers must not disturb layouts that size the <img> */
+	picture {
+		display: contents;
+	}
 	input,
 	button,
 	textarea,

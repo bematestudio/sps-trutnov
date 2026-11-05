@@ -1,6 +1,7 @@
 ---
 import type { Post } from "../lib/cms";
 import { formatDate } from "../lib/format";
+import CmsImage from "./CmsImage.astro";
 import Icon from "./Icon.astro";
 
 interface Props {
@@ -16,15 +17,7 @@ const { post, size = "default", headingLevel: H = "h3", eager = false } = Astro.
 	{
 		post.image && size !== "compact" && (
 			<div class="card__media">
-				<img
-					src={post.image.src}
-					alt=""
-					width={post.image.width ?? 960}
-					height={post.image.height ?? 640}
-					loading={eager ? "eager" : "lazy"}
-					decoding="async"
-					fetchpriority={eager ? "high" : undefined}
-				/>
+				<CmsImage image={post.image} alt="" eager={eager} sizes="(width >= 75rem) 24rem, (width >= 48rem) 45vw, 85vw" />
 			</div>
 		)
 	}

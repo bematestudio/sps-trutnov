@@ -23,6 +23,8 @@ export type PortableText = Array<Record<string, unknown>>;
 export interface Img {
 	src: string;
 	alt: string;
+	/** R2 storage key — present for CMS media (enables AVIF/WebP variants). */
+	key?: string;
 	width?: number;
 	height?: number;
 }
@@ -160,7 +162,7 @@ function image(raw: any, resolve: MediaResolver | undefined, alt = ""): Img | un
 	const key = raw.meta?.storageKey;
 	const src = key ? (resolve?.(key) ?? `/_emdash/api/media/file/${key}`) : raw.src || raw.url;
 	if (!src) return undefined;
-	return { src, alt: raw.alt || alt, width: raw.width, height: raw.height };
+	return { src, alt: raw.alt || alt, width: raw.width, height: raw.height, key: key || undefined };
 }
 
 function termsOf(raw: Raw, entry: SeedEntry | undefined, name: string): Term[] {

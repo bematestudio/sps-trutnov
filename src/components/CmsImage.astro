@@ -1,0 +1,45 @@
+---
+/**
+ * Image from the CMS. Emits AVIF + WebP sources (pre-generated in R2 by
+ * scripts/optimize-media.mjs) with the original as the <img> fallback.
+ * External/legacy images render as a plain <img>.
+ */
+import type { Img } from "../lib/cms";
+import { variantUrl, variantWidths } from "../lib/media";
+
+interface Props {
+	image: Img;
+	alt?: string;
+	sizes?: string;
+	eager?: boolean;
+	class?: string;
+	width?: number;
+	height?: number;
+}
+const { image, alt = image.alt, sizes = "100vw", eager = false, class: className } = Astro.props;
+const width = Astro.props.width ?? image.width ?? 1600;
+const height = Astro.props.height ?? image.height ?? Math.round(width * (2 / 3));
+const widths = image.key && image.width ? variantWidths(image.width) : [];
+const srcset = (fmt: string) => widths.map((w) => `${variantUrl(image.key!, w, fmt)} ${Math.min(w, image.width!)}w`).join(", ");
+const imgProps = {
+	class: className,
+	alt,
+	width,
+	height,
+	loading: eager ? ("eager" as const) : ("lazy" as const),
+	fetchpriority: eager ? ("high" as const) : undefined,
+	decoding: "async" as const,
+};
+---
+
+{
+	widths.length ? (
+		<picture>
+			<source type="image/avif" srcset={srcset("avif")} sizes={sizes} />
+			<source type="image/webp" srcset={srcset("webp")} sizes={sizes} />
+			<img src={image.src} {...imgProps} />
+		</picture>
+	) : (
+		<img src={image.src} {...imgProps} />
+	)
+}
