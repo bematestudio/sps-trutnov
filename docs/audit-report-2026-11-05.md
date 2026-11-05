@@ -22,7 +22,7 @@ ani nastavení se v rámci auditu neměnily, opravy jsou navržené k samostatn�
 neověřený obsah a právní texty (§1.3), chybějící přesměrování ze starého webu (§20.1), indexovatelný staging (§11.1)
 a kontaktní formulář, který potvrzuje odeslání, ale zprávu nikam nedoručí (§2.5).
 
-## Stav po opravách (2026-11-05, nasazená verze `3e7716f8`, commit `04f9bc5`)
+## Stav po opravách (2026-11-05, nasazená verze `3e7716f8`, commit `d78cf12`)
 
 Opravy schválené zadavatelem („Yes made all fixes“) jsou nasazené na https://sps-trutnov.marketing-830.workers.dev a
 ověřené: **128/128 Playwright testů na živém webu** (desktop + Pixel 7, vč. axe WCAG 2.2 AA, 320 px, hlaviček,
