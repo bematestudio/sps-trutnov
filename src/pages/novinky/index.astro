@@ -93,10 +93,8 @@ const href = (opts: { kategorie?: string; strana?: number }) => {
 <style>
 	.filters {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--space-2xs);
-		overflow-x: auto;
-		padding-bottom: var(--space-3xs);
-		scrollbar-width: thin;
 	}
 	.grid {
 		--grid-min: 20rem;
