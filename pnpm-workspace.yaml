@@ -3,3 +3,17 @@ allowBuilds:
   esbuild: true
   workerd: true
   sharp: false
+
+# Supply-chain cooldown: only resolve versions published at least 3 days ago.
+minimumReleaseAge: 4320
+# Cloudflare's runtime ships daily and is pinned through wrangler's exact version.
+minimumReleaseAgeExclude:
+  - wrangler
+  - miniflare
+  - workerd
+  - "@cloudflare/workerd-*"
+  - "@cloudflare/workers-types"
+
+overrides:
+  # GHSA-mrhx-c7xc-m3w5 (zod < 4.6.6) via @emdash-cms/admin > @cloudflare/kumo
+  "zod@<4.6.6": "^4.6.7"

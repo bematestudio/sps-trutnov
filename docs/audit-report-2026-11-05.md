@@ -22,6 +22,48 @@ ani nastavení se v rámci auditu neměnily, opravy jsou navržené k samostatn�
 neověřený obsah a právní texty (§1.3), chybějící přesměrování ze starého webu (§20.1), indexovatelný staging (§11.1)
 a kontaktní formulář, který potvrzuje odeslání, ale zprávu nikam nedoručí (§2.5).
 
+## Stav po opravách (2026-11-05, nasazená verze `3e7716f8`, commit `04f9bc5`)
+
+Opravy schválené zadavatelem („Yes made all fixes“) jsou nasazené na https://sps-trutnov.marketing-830.workers.dev a
+ověřené: **128/128 Playwright testů na živém webu** (desktop + Pixel 7, vč. axe WCAG 2.2 AA, 320 px, hlaviček,
+přesměrování a sitemapy), `astro check` 0 chyb, token lint OK, `pnpm audit --prod` 0 zranitelností.
+
+| ID | Stav | Co se udělalo / co zbývá |
+|---|---|---|
+| F01 | 🟡 částečně | Lidé (66) a dokumenty (194) převzaty ze skutečného starého webu, soubory zrcadleny do R2 (`/phocadownloadpap/…`, staré odkazy fungují i po přepnutí DNS); „dobře placený“ a smyšlený trend v adminu odstraněny; ZPA bez neověřeného odkazu. **Zbývá škole:** zkontrolovat lidi, popisy videí a texty novinek v CMS. |
+| F02 | 🟡 částečně | GDPR stránka přepsána podle školního dokumentu „Základní informace o zpracování osobních údajů“ (správce, pověřenec CIRI, práva) + skutečné chování webu (úložiště, YouTube, Cloudflare, formulář); prohlášení o přístupnosti ve struktuře zákona 99/2019 Sb. **Zbývá škole:** schválení pověřencem. |
+| F03 | ✅ | `X-Robots-Tag: noindex, nofollow` na všech hostech kromě www.spstrutnov.cz; `robots.txt` mimo produkci `Disallow: /`. |
+| F04 | ✅ | 301 mapa v `src/middleware.ts` (novinky/kategorie, kontakty, `component/contact`, `ke-stazeni/*`, `?download=` odkazy, galerie, `index.php`); 8 chybějících stránek doplněno do CMS. **Doporučeno:** po spuštění projít 404 v Search Console. |
+| F05 | ✅ | Formulář už nic nepředstírá: otevře e-mail s předvyplněnou zprávou na skola@spstrutnov.cz; `/api/contact` odstraněno. **Zbývá škole:** rozhodnout o e-mailové službě, pokud chce odesílání přímo z webu. |
+| F06 | 🟡 částečně | Strukturované logy chyb (5xx, výjimky, fallback CMS → seed, migrace) do Workers Observability. **Zbývá:** alerty (Cloudflare Notifications / Sentry) — vyžaduje účet a příjemce. |
+| F07 | 🟡 částečně | Worker přesměruje `http→https` a `spstrutnov.cz→www` (301), posílá HSTS. **Zbývá:** na zóně spstrutnov.cz zapnout Always Use HTTPS (workers.dev to neumožňuje). |
+| F08 | ✅ | CSP s hashi inline skriptů (bez `unsafe-inline` pro skripty), HSTS, COOP, frame-ancestors; test hlídá i konzoli na porušení CSP. |
+| F09 | ✅ | `pnpm.overrides` zod → 4.6.7 (0 zranitelností), `minimumReleaseAge` 3 dny, Renovate. |
+| F10 | ✅ | `safeSnippet()` (povolen jen `<mark>`), `jsonLd()` escapuje `<`, ⌘K povoluje jen relativní a http(s) odkazy. |
+| F11 | ✅ | Vlastní `/sitemap.xml` (statické stránky + CMS ve správném tvaru, host www.spstrutnov.cz); `sitemap-*.xml` → 301. |
+| F12 | ✅ | Jediný description/canonical (z EmDashHead); titulek úvodu „SPŠ Trutnov — Střední průmyslová škola: elektrotechnika, IT a strojírenství“. |
+| F13 | ✅ | Výchozí OG obrázek 1200×630 (`/og-default.png`), `summary_large_image`. |
+| F14 | ✅ | `favicon.ico`, `apple-touch-icon.png`, ikony 192/512 + maskable, `manifest.webmanifest`. |
+| F15 | ✅ | `EducationalOrganization` JSON-LD na úvodu, `Event` na stránce Den otevřených dveří. |
+| F16 | ✅ | Logo v liště se na nejužších displejích zmenší, dlouhé štítky se zalomí; test 320 px. |
+| F17 | ✅ | Tlačítko „Pozastavit animace“ v patičce i u partnerů (pamatuje si volbu), pauza u autoplay slideru, canvas i diagram se zastaví. |
+| F18 | ✅ | Náhledy videí přes vlastní `/media/yt/…` (cache na edge); Google dostane data až po kliknutí. |
+| F19 | ✅ | `czTypo()` (příloha B.8) na všechny texty z CMS vč. Portable Text. |
+| F20 | ✅ | `/admin/*` vyžaduje přihlášení do EmDash CMS (role ≥ přispěvatel); falešné přihlášení odstraněno, admin ukazuje skutečného uživatele a umí se odhlásit. |
+| F21 | ✅ | `AGENTS.md`. |
+| F22 | 🟡 částečně | `docs/ci-workflow.yml` → zkopírovat do `.github/workflows/ci.yml` (audit, typecheck, token lint, build, Playwright + axe; akce pinované na SHA). **Zbývá:** přidat soubor do `.github/workflows/` (push vyžaduje oprávnění „workflow“) a ochrana větve `main`. |
+| F23 | ✅ | `<caption>` u všech tabulek. |
+| F24 | ❔ | Rozsah tokenu nelze ověřit. **Doporučeno:** pro produkci vytvořit token jen na tento Worker + 3 buckety. |
+| F25 | ✅ | `/.well-known/security.txt` (Expires 2027-11-05). |
+| F26 | 🟡 | `robots.txt` pro produkci: vyhledávače a AI vyhledávání ano, trénovací crawleři ne (+ Content-Signal). **Zbývá škole:** potvrdit rozhodnutí a sladit s Cloudflare AI Crawl Control. |
+| F27 | ✅ | Fallback na seed se loguje (jednou za izolát a důvod). |
+| F28 | ✅ | `window.spsToast` typované, `as any` zbývá jen v datové vrstvě (typy EmDash). |
+| F29 | ⏳ | Beze změny (cache HTML až s invalidací při publikaci). |
+| F30 | ⏳ | Po přepnutí domény. |
+
+**Aktualizované doporučení: GO pro přepnutí DNS po splnění 4 bodů školy** — kontrola obsahu v CMS (F01), schválení
+GDPR a prohlášení o přístupnosti (F02), Always Use HTTPS na zóně (F07) a nastavení alertů (F06).
+
 ## Nálezy (nejzávažnější první)
 
 | ID | Sev. | § | Nález | Důkaz | Navržená oprava |

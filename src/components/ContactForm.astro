@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import { SCHOOL_EMAIL } from "../lib/site";
 interface Props {
 	title?: string;
 	topic?: string;
@@ -8,12 +9,18 @@ const { title = "Napište nám", topic = "obecný dotaz" } = Astro.props;
 const id = `cf-${Math.random().toString(36).slice(2, 7)}`;
 ---
 
-<form class="contact-form panel panel--plus" method="post" action="/api/contact" data-contact-form novalidate>
+<!--
+	No server-side delivery yet (audit F05): the form validates the input and
+	opens the visitor's e-mail program with a pre-filled message to the school.
+	Swap to a POST endpoint once an e-mail service (e.g. Cloudflare Email
+	Routing / Resend) is set up.
+-->
+<form class="contact-form panel panel--plus" action={`mailto:${SCHOOL_EMAIL}`} method="get" data-contact-form data-to={SCHOOL_EMAIL} novalidate>
 	<div class="stack stack--s">
 		<h2 class="h-card contact-form__title">{title}</h2>
-		<p class="meta">Kontaktní formulář</p>
+		<p class="meta">Odešle se z vašeho e-mailu na <a class="link" href={`mailto:${SCHOOL_EMAIL}`}>{SCHOOL_EMAIL}</a></p>
 	</div>
-	<input type="hidden" name="topic" value={topic} />
+	<input type="hidden" name="topic" value={topic} data-topic />
 	<div class="contact-form__row">
 		<div class="field">
 			<label class="field__label" for={`${id}-name`}>Jméno a příjmení</label>
@@ -34,7 +41,7 @@ const id = `cf-${Math.random().toString(36).slice(2, 7)}`;
 	</label>
 	<p class="contact-form__error" data-error role="alert" hidden></p>
 	<button class="btn" type="submit">
-		<span data-label>Odeslat zprávu</span>
+		<span data-label>Připravit e-mail</span>
 		<Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" />
 	</button>
 </form>
@@ -74,7 +81,7 @@ const id = `cf-${Math.random().toString(36).slice(2, 7)}`;
 		form.dataset.ready = "true";
 		const error = form.querySelector<HTMLElement>("[data-error]")!;
 		const label = form.querySelector<HTMLElement>("[data-label]")!;
-		form.addEventListener("submit", async (e) => {
+		form.addEventListener("submit", (e) => {
 			e.preventDefault();
 			error.hidden = true;
 			if (!form.checkValidity()) {
@@ -84,22 +91,18 @@ const id = `cf-${Math.random().toString(36).slice(2, 7)}`;
 				first?.focus();
 				return;
 			}
-			form.dataset.state = "sending";
-			label.textContent = "Odesílám…";
-			try {
-				const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { accept: "application/json" } });
-				const data = (await res.json().catch(() => ({}))) as { error?: string };
-				if (!res.ok) throw new Error(data.error ?? "Odeslání se nezdařilo.");
-				form.dataset.state = "sent";
-				label.textContent = "Odesláno";
-				form.reset();
-				(window as any).spsToast?.("Děkujeme! Vaši zprávu jsme přijali.");
-			} catch (err) {
-				form.dataset.state = "";
-				label.textContent = "Odeslat zprávu";
-				error.textContent = (err as Error).message;
-				error.hidden = false;
-			}
+			const data = new FormData(form);
+			const topic = String(data.get("topic") ?? "dotaz");
+			const subject = `Web SPŠ Trutnov — ${topic}`;
+			const body = `${String(data.get("message") ?? "").trim()}\n\n—\n${String(data.get("name") ?? "").trim()}\n${String(data.get("email") ?? "").trim()}`;
+			const href = `mailto:${form.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+			form.dataset.state = "sent";
+			label.textContent = "Otevírám e-mail…";
+			window.location.href = href;
+			window.setTimeout(() => {
+				label.textContent = "Připravit e-mail";
+				window.spsToast?.("Zpráva je připravená ve vašem e-mailovém programu — stačí ji odeslat.");
+			}, 600);
 		});
 	});
 </script>

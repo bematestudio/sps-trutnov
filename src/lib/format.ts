@@ -41,4 +41,5 @@ export const docCategoryLabel: Record<string, string> = {
 	dokumenty: "Dokumenty školy",
 	propagace: "Propagační materiály",
 	"skolska-rada": "Školská rada",
+	media: "O nás v médiích",
 };

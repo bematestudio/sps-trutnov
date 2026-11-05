@@ -109,11 +109,17 @@ const { variant = "wave", class: className } = Astro.props;
 				draw(performance.now());
 			}).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 			if (reduced) return;
-			new IntersectionObserver(([entry]) => {
-				running = entry.isIntersecting;
+			let inView = false;
+			const sync = () => {
+				running = inView && document.documentElement.dataset.motion !== "paused";
 				cancelAnimationFrame(raf);
 				if (running) raf = requestAnimationFrame(loop);
+			};
+			new IntersectionObserver(([entry]) => {
+				inView = entry.isIntersecting;
+				sync();
 			}).observe(canvas);
+			document.addEventListener("sps:motion", sync);
 		});
 	}
 	initSignals();

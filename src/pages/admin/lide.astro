@@ -19,7 +19,7 @@ const dept: Record<string, string> = { vedeni: "Vedení", sekretariat: "Sekretar
 			</label>
 		</div>
 		<div class="table-wrap">
-			<table class="table">
+			<table class="table"><caption class="visually-hidden">Zaměstnanci</caption>
 				<thead><tr><th scope="col">Jméno</th><th scope="col">Funkce</th><th scope="col">Útvar</th><th scope="col">Pracoviště</th><th scope="col">E-mail</th></tr></thead>
 				<tbody>
 					{people.map((p) => (

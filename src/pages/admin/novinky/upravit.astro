@@ -187,7 +187,7 @@ const bodyText = (post?.content ?? [])
 			const intent = ((e as SubmitEvent).submitter as HTMLButtonElement | null)?.value ?? "draft";
 			const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
 			if (!data.title?.trim()) {
-				(window as any).spsToast?.("Doplňte prosím titulek.");
+				window.spsToast?.("Doplňte prosím titulek.");
 				(form.elements.namedItem("title") as HTMLInputElement).focus();
 				return;
 			}
@@ -197,7 +197,7 @@ const bodyText = (post?.content ?? [])
 			try {
 				localStorage.setItem("sps-drafts", JSON.stringify(next));
 			} catch {}
-			(window as any).spsToast?.(intent === "publish" ? "Uloženo k publikaci (ukázkový režim)." : "Koncept uložen v prohlížeči.");
+			window.spsToast?.(intent === "publish" ? "Uloženo k publikaci (ukázkový režim)." : "Koncept uložen v prohlížeči.");
 		});
 	}
 </script>

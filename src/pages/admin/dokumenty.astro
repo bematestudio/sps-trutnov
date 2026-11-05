@@ -28,7 +28,7 @@ const docs = await createCms(Astro.locals).documents();
 			</label>
 		</div>
 		<div class="table-wrap">
-			<table class="table">
+			<table class="table"><caption class="visually-hidden">Dokumenty ke stažení</caption>
 				<thead><tr><th scope="col">Název</th><th scope="col">Kategorie</th><th scope="col">Typ</th><th scope="col">Velikost</th><th scope="col"><span class="visually-hidden">Akce</span></th></tr></thead>
 				<tbody>
 					{docs.map((d) => (

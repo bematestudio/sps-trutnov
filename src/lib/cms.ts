@@ -15,6 +15,7 @@ import {
 	search as emSearch,
 } from "emdash";
 import seed from "../../seed/seed.json";
+import { czTypo, czTypoBlocks, searchNorm } from "./typo";
 
 /* ------------------------------------------------------------------ types */
 
@@ -148,8 +149,20 @@ const seedTerms: Record<string, Term[]> = Object.fromEntries(
 );
 
 const str = (v: unknown, fallback = "") => (typeof v === "string" ? v : fallback);
+/** Display text from the CMS, with Czech typography applied. */
+const txt = (v: unknown, fallback = "") => czTypo(str(v, fallback));
+const blocks = (v: unknown) => czTypoBlocks((v as PortableText) ?? []);
+
+/** Log why we fell back to the bundled seed (once per isolate and reason). */
+const logged = new Set<string>();
+function logFallback(where: string, error?: unknown) {
+	const key = `${where}:${error instanceof Error ? error.message : String(error ?? "empty")}`;
+	if (logged.has(key)) return;
+	logged.add(key);
+	console.warn(JSON.stringify({ msg: "cms fallback to seed", where, error: error instanceof Error ? error.message : error ? String(error) : "empty" }));
+}
 const lines = (v: unknown) =>
-	str(v)
+	txt(v)
 		.split("\n")
 		.map((l) => l.trim())
 		.filter(Boolean);
@@ -176,9 +189,13 @@ function termsOf(raw: Raw, entry: SeedEntry | undefined, name: string): Term[] {
 async function live(collection: string, options: Raw = {}) {
 	try {
 		const result = await getEmDashCollection(collection as never, options as never);
-		if (result.error || !result.entries?.length) return null;
+		if (result.error || !result.entries?.length) {
+			logFallback(collection, result.error);
+			return null;
+		}
 		return result as { entries: Array<{ id: string; data: Raw }>; nextCursor?: string };
-	} catch {
+	} catch (e) {
+		logFallback(collection, e);
 		return null;
 	}
 }
@@ -189,21 +206,21 @@ const toPost = (slug: string, d: Raw, r?: MediaResolver, e?: SeedEntry): Post =>
 	const terms = termsOf(d, e, "category");
 	return {
 		slug,
-		title: str(d.title),
-		excerpt: str(d.excerpt),
+		title: txt(d.title),
+		excerpt: txt(d.excerpt),
 		image: image(d.featured_image, r, str(d.title)),
 		author: str(d.author),
 		date: toDate(d.published_on ?? d.publishedAt),
 		featured: Boolean(d.featured),
 		category: terms[0],
 		tags: termsOf(d, e, "tag"),
-		content: (d.content as PortableText) ?? [],
+		content: blocks(d.content),
 	};
 };
 const toProgram = (slug: string, d: Raw): Program => ({
 	slug,
-	title: str(d.title),
-	shortTitle: str(d.short_title),
+	title: txt(d.title),
+	shortTitle: txt(d.short_title),
 	type: d.type === "vyucni-list" ? "vyucni-list" : "maturita",
 	code: str(d.code),
 	svp: str(d.svp),
@@ -213,32 +230,32 @@ const toProgram = (slug: string, d: Raw): Program => ({
 	healthRequired: Boolean(d.health_required),
 	color: (str(d.color, "eps") as ProgramColor) || "eps",
 	workplace: str(d.workplace),
-	summary: str(d.summary),
+	summary: txt(d.summary),
 	highlights: lines(d.highlights),
 	careers: lines(d.careers),
-	content: (d.content as PortableText) ?? [],
+	content: blocks(d.content),
 });
 const toPage = (slug: string, d: Raw): Page => ({
 	slug,
-	title: str(d.title),
+	title: txt(d.title),
 	section: str(d.section, "o-skole") as Section,
-	lead: str(d.lead),
-	content: (d.content as PortableText) ?? [],
+	lead: txt(d.lead),
+	content: blocks(d.content),
 	order: Number(d.order ?? 0),
 });
 const toEvent = (slug: string, d: Raw): SchoolEvent => ({
 	slug,
-	title: str(d.title),
+	title: txt(d.title),
 	start: toDate(d.starts_at),
 	end: d.ends_at ? toDate(d.ends_at) : undefined,
-	location: str(d.location),
+	location: txt(d.location),
 	kind: (str(d.kind, "skola") as SchoolEvent["kind"]) || "skola",
-	description: str(d.description),
+	description: txt(d.description),
 });
 const toPerson = (slug: string, d: Raw): Person => ({
 	slug,
 	name: str(d.name),
-	role: str(d.role),
+	role: txt(d.role),
 	department: str(d.department),
 	workplace: str(d.workplace),
 	phone: str(d.phone),
@@ -251,23 +268,23 @@ const toWorkplace = (slug: string, d: Raw): Workplace => ({
 	address: str(d.address),
 	phone: str(d.phone),
 	email: str(d.email),
-	manager: str(d.manager),
+	manager: txt(d.manager),
 	image: str(d.image),
 	programs: lines(d.programs),
-	description: str(d.description),
+	description: txt(d.description),
 	mapUrl: str(d.map_url),
 });
 const toFaq = (slug: string, d: Raw): Faq => ({
 	slug,
-	question: str(d.question),
-	answer: str(d.answer),
+	question: txt(d.question),
+	answer: txt(d.answer),
 	group: d.group === "prijimaci-rizeni" ? "prijimaci-rizeni" : "studium",
 });
 const toDoc = (slug: string, d: Raw, r?: MediaResolver): Doc => {
 	const key = d.file?.meta?.storageKey;
 	return {
 		slug,
-		title: str(d.title),
+		title: txt(d.title),
 		category: str(d.category),
 		url: key ? (r?.(key) ?? `/_emdash/api/media/file/${key}`) : str(d.file_url) || str(d.file?.src),
 		fileType: str(d.file_type, "PDF"),
@@ -300,9 +317,9 @@ const toPartner = (slug: string, d: Raw, r?: MediaResolver): Partner => {
 };
 const toVideo = (slug: string, d: Raw): Video => ({
 	slug,
-	title: str(d.title),
+	title: txt(d.title),
 	youtubeId: str(d.youtube_id),
-	description: str(d.description),
+	description: txt(d.description),
 });
 
 const byOrder = (a: { data: Raw }, b: { data: Raw }) => Number(a.data.order ?? 0) - Number(b.data.order ?? 0);
@@ -331,7 +348,9 @@ export function createCms(locals?: App.Locals) {
 			try {
 				const s = (await getSiteSettings()) as Raw;
 				if (s?.title) return { title: str(s.title), tagline: str(s.tagline) };
-			} catch {}
+			} catch (e) {
+				logFallback("settings", e);
+			}
 			return { title: (seed as any).settings.title as string, tagline: (seed as any).settings.tagline as string };
 		},
 
@@ -341,7 +360,9 @@ export function createCms(locals?: App.Locals) {
 			try {
 				const m = (await getMenu(name)) as Raw | null;
 				if (m?.items?.length) return norm(m.items);
-			} catch {}
+			} catch (e) {
+				logFallback(`menu:${name}`, e);
+			}
 			return norm((seed as any).menus.find((m: Raw) => m.name === name)?.items ?? []);
 		},
 
@@ -373,7 +394,9 @@ export function createCms(locals?: App.Locals) {
 			try {
 				const { entry } = await getEmDashEntry("posts" as never, slug);
 				if (entry) return toPost((entry as any).id, (entry as any).data, resolve);
-			} catch {}
+			} catch (e) {
+				logFallback("post", e);
+			}
 			const e = seedContent.posts?.find((x) => x.slug === slug);
 			return e ? toPost(e.slug, e.data, resolve, e) : null;
 		},
@@ -382,7 +405,9 @@ export function createCms(locals?: App.Locals) {
 			try {
 				const terms = (await getTaxonomyTerms("category")) as Raw[];
 				if (terms?.length) return terms.map((t) => ({ slug: t.slug, label: t.label }));
-			} catch {}
+			} catch (e) {
+				logFallback("categories", e);
+			}
 			return seedTerms.category ?? [];
 		},
 
@@ -415,36 +440,50 @@ export function createCms(locals?: App.Locals) {
 		async search(query: string) {
 			const q = query.trim();
 			if (!q) return [];
+			const pages = await this.pages();
+			const pageUrl = new Map(pages.map((p) => [p.slug, `/${p.section}/${p.slug}`]));
+			const linkFor = (collection: string, slug: string) =>
+				collection === "pages" ? (pageUrl.get(slug) ?? "/vyhledavani") : urlFor(collection, slug);
 			try {
 				const res = (await emSearch(q, { collections: ["posts", "pages", "programs"] } as never)) as Raw;
 				const items = (res?.items ?? res?.results ?? res) as Raw[];
 				if (Array.isArray(items) && items.length) {
-					return items.map((i) => ({
-						title: str(i.title ?? i.data?.title),
-						excerpt: str(i.snippet ?? i.excerpt ?? i.data?.excerpt),
-						url: str(i.url) || urlFor(str(i.collection), str(i.slug ?? i.id)),
-						type: str(i.collection),
-					}));
+					return items.map((i) => {
+						const collection = str(i.collection);
+						return {
+							title: txt(i.title ?? i.data?.title),
+							excerpt: safeSnippet(str(i.snippet ?? i.excerpt ?? i.data?.excerpt)),
+							url: linkFor(collection, str(i.slug ?? i.id)),
+							type: collection,
+						};
+					});
 				}
-			} catch {}
-			// Fallback: simple diacritics-insensitive match over seed + live data.
-			const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-			const needle = norm(q);
-			const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
-			const [posts, pages, programs] = await Promise.all([this.posts({ limit: 500 }), this.pages(), this.programs()]);
+			} catch (e) {
+				logFallback("search", e);
+			}
+			// Fallback: simple diacritics-insensitive match over the same content.
+			const needle = searchNorm(q);
+			const [posts, programs] = await Promise.all([this.posts({ limit: 500 }), this.programs()]);
 			const hits = [
 				...programs.map((p) => ({ title: p.title, excerpt: p.summary, url: urlFor("programs", p.slug), type: "programs" })),
 				...pages.map((p) => ({ title: p.title, excerpt: p.lead, url: `/${p.section}/${p.slug}`, type: "pages" })),
 				...posts.items.map((p) => ({ title: p.title, excerpt: p.excerpt, url: urlFor("posts", p.slug), type: "posts" })),
 			];
 			return hits
-				.filter((h) => norm(`${h.title} ${h.excerpt}`).includes(needle))
+				.filter((h) => searchNorm(`${h.title} ${h.excerpt}`).includes(needle))
 				.slice(0, 30)
-				.map((h) => ({ ...h, excerpt: esc(h.excerpt) }));
+				.map((h) => ({ ...h, excerpt: escapeHtml(h.excerpt) }));
 		},
 	};
 }
 
+const escapeHtml = (s: string) =>
+	s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+/** Search snippets are rendered as HTML: escape everything, then allow only <mark>. */
+export const safeSnippet = (s: string) => escapeHtml(s).replace(/&lt;(\/?)mark&gt;/g, "<$1mark>");
+
+/** Public URL of an entry. Pages need their section — use `/${page.section}/${page.slug}`. */
 export function urlFor(collection: string, slug: string) {
 	if (collection === "posts") return `/novinky/${slug}`;
 	if (collection === "programs") return `/studium/obory-vzdelani/${slug}`;

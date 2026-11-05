@@ -1,7 +1,9 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
 import { createCms } from "../../lib/cms";
+import { MIGRATIONS, pendingMigrations } from "../../lib/migrations";
 const settings = await createCms(Astro.locals).settings();
+const pending = new Set((await pendingMigrations().catch(() => MIGRATIONS)).map((m) => m.id));
 ---
 
 <AdminLayout title="Nastavení" heading="Nastavení webu">
@@ -24,10 +26,17 @@ const settings = await createCms(Astro.locals).settings();
 	<section class="a-card a-form" aria-labelledby="maint-title">
 		<h2 class="a-card__title" id="maint-title">Údržba CMS</h2>
 		<p class="muted">
-			Doplní do živého EmDash CMS nové části schématu a obsahu (kolekce Videa, loga a weby partnerů). Bezpečné spustit
-			opakovaně — existující úpravy editorů nepřepíše. Vyžaduje přihlášení do <a class="link" href="/_emdash/admin">EmDash CMS</a> jako
-			administrátor.
+			Migrace doplňují do živého EmDash CMS nové části schématu a obsahu. Spouštějí se automaticky po nasazení; tlačítkem je
+			lze spustit hned. Bezpečné spustit opakovaně. Vyžaduje roli administrátor v <a class="link" href="/_emdash/admin">EmDash CMS</a>.
 		</p>
+		<ul class="migrations" role="list" data-migrations>
+			{MIGRATIONS.map((m) => (
+				<li>
+					<span class="tag">{pending.has(m.id) ? "čeká" : "hotovo"}</span>
+					<span>{m.label}</span>
+				</li>
+			))}
+		</ul>
 		<div class="cluster">
 			<button class="btn" type="button" data-migrate>Spustit migraci CMS</button>
 			<output class="muted" data-migrate-out></output>
@@ -43,10 +52,13 @@ const settings = await createCms(Astro.locals).settings();
 		out!.textContent = "Probíhá…";
 		try {
 			const res = await fetch("/api/maintenance/migrate", { method: "POST", credentials: "same-origin" });
-			const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; videos?: { created: number }; partners?: { updated: number } };
-			out!.textContent = data.ok
-				? `Hotovo — videa: ${data.videos?.created ?? 0} nových, partneři: ${data.partners?.updated ?? 0} aktualizováno.`
-				: (data.error ?? `Chyba ${res.status}`);
+			const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; ran?: Array<{ id: string; error?: string }>; pending?: number };
+			if (data.ok) {
+				out!.textContent = data.ran?.length ? `Hotovo — provedeno migrací: ${data.ran.length}. Obnovuji…` : "Vše je aktuální.";
+				if (data.ran?.length) window.setTimeout(() => location.reload(), 900);
+			} else {
+				out!.textContent = data.error ?? data.ran?.find((r) => r.error)?.error ?? `Chyba ${res.status}`;
+			}
 		} catch {
 			out!.textContent = "Migrace se nezdařila.";
 		} finally {
@@ -59,6 +71,18 @@ const settings = await createCms(Astro.locals).settings();
 		try {
 			localStorage.setItem("sps-settings", JSON.stringify(Object.fromEntries(new FormData(form))));
 		} catch {}
-		(window as any).spsToast?.("Nastavení uloženo v prohlížeči (ukázkový režim).");
+		window.spsToast?.("Nastavení uloženo v prohlížeči (ukázkový režim).");
 	});
 </script>
+
+<style>
+	.migrations {
+		display: grid;
+		gap: var(--space-xs);
+	}
+	.migrations li {
+		display: flex;
+		gap: var(--space-s);
+		align-items: baseline;
+	}
+</style>

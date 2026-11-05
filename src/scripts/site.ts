@@ -51,6 +51,28 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
 	if (!stored) setTheme(e.matches ? "dark" : "light");
 });
 
+/* ------------------------------------------------- pause all animation */
+// WCAG 2.2.2: anything that moves on its own (carousel autoplay, partner
+// marquee, Průmysl 4.0 diagram, signal canvas) can be paused site-wide.
+function setMotion(paused: boolean) {
+	if (paused) root.dataset.motion = "paused";
+	else delete root.dataset.motion;
+	try {
+		if (paused) localStorage.setItem("motion", "paused");
+		else localStorage.removeItem("motion");
+	} catch {}
+	document.querySelectorAll<HTMLButtonElement>("[data-motion-toggle]").forEach((btn) => {
+		btn.setAttribute("aria-pressed", String(paused));
+		const label = btn.querySelector("[data-motion-label]");
+		if (label) label.textContent = paused ? "Spustit animace" : "Pozastavit animace";
+	});
+	document.dispatchEvent(new CustomEvent("sps:motion", { detail: { paused } }));
+}
+setMotion(root.dataset.motion === "paused");
+document.addEventListener("click", (event) => {
+	if ((event.target as HTMLElement).closest("[data-motion-toggle]")) setMotion(root.dataset.motion !== "paused");
+});
+
 /* ------------------------------------------------------- split headlines */
 function splitLines(el: HTMLElement) {
 	if (el.dataset.splitDone) return;
@@ -173,7 +195,7 @@ export function toast(message: string) {
 		window.setTimeout(() => el.remove(), 800);
 	}, 2600);
 }
-(window as any).spsToast = toast;
+window.spsToast = toast;
 
 /* ------------------------------------------------- footer wordmark parallax */
 const wordmark = document.querySelector<HTMLElement>(".footer__wordmark");

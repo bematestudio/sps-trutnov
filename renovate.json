@@ -1,0 +1,28 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", "helpers:pinGitHubActionDigests", ":semanticCommitsDisabled"],
+	"timezone": "Europe/Prague",
+	"schedule": ["before 6am on monday"],
+	"minimumReleaseAge": "3 days",
+	"internalChecksFilter": "strict",
+	"labels": ["dependencies"],
+	"vulnerabilityAlerts": { "minimumReleaseAge": null, "schedule": ["at any time"] },
+	"packageRules": [
+		{
+			"description": "Astro + adapter + EmDash move together",
+			"matchPackageNames": ["astro", "@astrojs/**", "emdash", "@emdash-cms/**"],
+			"groupName": "astro and emdash"
+		},
+		{
+			"description": "Cloudflare runtime + tooling (released daily) — weekly group",
+			"matchPackageNames": ["wrangler", "@cloudflare/workers-types", "miniflare", "workerd"],
+			"groupName": "cloudflare tooling",
+			"minimumReleaseAge": "1 day"
+		},
+		{
+			"description": "Test tooling",
+			"matchPackageNames": ["@playwright/test", "@axe-core/playwright", "impeccable"],
+			"groupName": "test tooling"
+		}
+	]
+}

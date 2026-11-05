@@ -6,13 +6,14 @@ import Photo from "../../components/Photo.astro";
 import Base from "../../layouts/Base.astro";
 import { createCms } from "../../lib/cms";
 import { formatDate, formatTime } from "../../lib/format";
+import { eventLd } from "../../lib/json-ld";
 
 const cms = createCms(Astro.locals);
 const [events, workplaces] = await Promise.all([cms.events({ upcoming: true }), cms.workplaces()]);
 const dods = events.filter((e) => e.kind === "dod");
 ---
 
-<Base title="Den otevřených dveří" description="Přijďte se podívat na SPŠ Trutnov — otevřeme všechna pracoviště, dílny, laboratoře i robotická pracoviště.">
+<Base structuredData={dods.map((e) => eventLd(e, "/studium/den-otevrenych-dveri"))} title="Den otevřených dveří" description="Přijďte se podívat na SPŠ Trutnov — otevřeme všechna pracoviště, dílny, laboratoře i robotická pracoviště.">
 	<PageHero image="spstrutnov-dod-2026" eyebrow="Studium / Den otevřených dveří" title="Ukážeme vám to!" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
 		<div class="dates" data-reveal-group>
 			{

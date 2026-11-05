@@ -1,4 +1,5 @@
 ---
+import { jsonLd as toJsonLd } from "../lib/json-ld";
 import type { Faq } from "../lib/cms";
 interface Props {
 	items: Faq[];
@@ -26,4 +27,4 @@ const jsonLd = {
 		))
 	}
 </div>
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script type="application/ld+json" set:html={toJsonLd(jsonLd)} />

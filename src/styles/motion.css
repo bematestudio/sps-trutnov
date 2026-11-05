@@ -237,3 +237,10 @@
 		}
 	}
 }
+
+/* Site-wide "pause animations" (footer toggle, partners section) — WCAG 2.2.2. */
+:root[data-motion="paused"] *,
+:root[data-motion="paused"] *::before,
+:root[data-motion="paused"] *::after {
+	animation-play-state: paused !important;
+}

@@ -1,21 +1,58 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import Base from "../layouts/Base.astro";
+import { SCHOOL_EMAIL } from "../lib/site";
+/* Prohlášení o přístupnosti podle zákona č. 99/2019 Sb. (audit F28: datum a
+ * výsledek nezávislého posouzení doplnit po předání webu škole). */
 ---
 
-<Base title="Prohlášení o přístupnosti">
-	<PageHero eyebrow="Přístupnost" title="Web pro všechny." lead="Snažíme se, aby web splňoval požadavky zákona č. 99/2019 Sb. a standardu WCAG 2.2 na úrovni AA." crumbs={[{ label: "Přístupnost" }]} />
+<Base title="Prohlášení o přístupnosti" description="Prohlášení o přístupnosti webu SPŠ Trutnov podle zákona č. 99/2019 Sb.">
+	<PageHero eyebrow="Přístupnost" title="Web pro všechny." lead="Střední průmyslová škola, Trutnov, Školní 101 se zavazuje zpřístupnit svůj web v souladu se zákonem č. 99/2019 Sb., o přístupnosti internetových stránek a mobilních aplikací." crumbs={[{ label: "Přístupnost" }]} />
 	<section class="section">
 		<div class="container container--narrow prose">
-			<h2>Co jsme udělali</h2>
+			<p>Toto prohlášení se vztahuje na web www.spstrutnov.cz.</p>
+
+			<h2>Stav souladu</h2>
+			<p>
+				Web je <strong>částečně v souladu</strong> s normou ČSN EN 301 549 a standardem WCAG 2.2 na úrovni AA, a to kvůli
+				nepřístupnému obsahu uvedenému níže.
+			</p>
+
+			<h2>Nepřístupný obsah</h2>
 			<ul>
-				<li>Běžný text má na všech zařízeních velikost nejméně 16 px a dostatečný kontrast v obou barevných režimech.</li>
-				<li>Celý web je ovladatelný klávesnicí, s viditelným zaměřením a odkazem „Přeskočit na obsah“.</li>
-				<li>Animace respektují nastavení „omezit pohyb“ v operačním systému.</li>
-				<li>Interaktivní prvky mají cílovou plochu alespoň 44 × 44 px.</li>
+				<li>
+					Část starších dokumentů ke stažení (PDF převzaté z původního webu) nemusí mít strukturu přístupnou pro čtečky obrazovky.
+					Dokumenty postupně nahrazujeme; přístupnou verzi kteréhokoli dokumentu vám na požádání pošleme.
+				</li>
+				<li>Videa z YouTube nemusí mít české titulky.</li>
 			</ul>
-			<h2>Zpětná vazba</h2>
-			<p>Narazili jste na problém s přístupností? Napište nám na skola@spstrutnov.cz.</p>
+
+			<h2>Co pro přístupnost děláme</h2>
+			<ul>
+				<li>Běžný text má na všech zařízeních nejméně 16 px a dostatečný kontrast ve světlém i tmavém režimu.</li>
+				<li>Web je ovladatelný klávesnicí, má viditelné zaměření a odkaz „Přeskočit na obsah“.</li>
+				<li>Animace respektují nastavení „omezit pohyb“; všechny pohyblivé prvky lze pozastavit tlačítkem „Pozastavit animace“ v patičce.</li>
+				<li>Interaktivní prvky mají dostatečnou cílovou plochu; obsah funguje při zvětšení na 400 % a od šířky 320 px.</li>
+				<li>Hlavní stránky pravidelně testujeme automaticky nástrojem axe (WCAG 2.2 AA) v rámci každé změny webu.</li>
+			</ul>
+
+			<h2>Vypracování prohlášení</h2>
+			<p>
+				Prohlášení bylo vypracováno 5. listopadu 2026 na základě vlastního posouzení provedeného dodavatelem webu (automatické
+				testy a ruční kontrola). Prohlášení bylo naposledy přezkoumáno 5. listopadu 2026.
+			</p>
+
+			<h2>Zpětná vazba a kontakt</h2>
+			<p>
+				Narazili jste na problém s přístupností nebo potřebujete obsah v jiné podobě? Napište na
+				<a href={`mailto:${SCHOOL_EMAIL}`}>{SCHOOL_EMAIL}</a> nebo volejte +420 499 813 071. Odpovíme nejpozději do 30 dnů.
+			</p>
+
+			<h2>Vymáhání</h2>
+			<p>
+				Pokud nebudete spokojeni s vyřízením svého podnětu, můžete se obrátit na Ministerstvo vnitra ČR, odbor eGovernmentu,
+				Náměstí Hrdinů 1634/3, 140 21 Praha 4 (<a href="https://www.mvcr.cz">www.mvcr.cz</a>).
+			</p>
 		</div>
 	</section>
 </Base>

@@ -86,7 +86,8 @@ const socials = [
 			<li><a href="/o-skole/povinne-zverejnovane-informace">Povinné informace</a></li>
 			<li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
 			<li><a href="/pristupnost">Přístupnost</a></li>
-			<li><a href="/admin">Administrace</a></li>
+			<li><a href="/prihlaseni">Administrace</a></li>
+			<li><button class="footer__motion" type="button" data-motion-toggle aria-pressed="false"><span data-motion-label>Pozastavit animace</span></button></li>
 		</ul>
 	</div>
 
@@ -189,7 +190,19 @@ const socials = [
 		flex-wrap: wrap;
 		gap: var(--space-s);
 	}
-	.footer__legal a:hover {
+	.footer__motion {
+		min-block-size: var(--tap-target);
+		padding: 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+		cursor: pointer;
+	}
+	.footer__legal a:hover,
+	.footer__motion:hover {
 		color: var(--color-on-accent);
 	}
 	.footer__wordmark {

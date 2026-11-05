@@ -12,7 +12,7 @@ interface Props {
 }
 const { videos } = Astro.props;
 const [first, ...rest] = videos;
-const thumb = (id: string, q = "hqdefault") => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+const thumb = (id: string, q = "hqdefault") => `/media/yt/${id}/${q}.jpg`;
 ---
 
 {

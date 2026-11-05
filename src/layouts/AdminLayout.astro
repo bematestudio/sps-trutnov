@@ -16,6 +16,16 @@ interface Props {
 	description?: string;
 }
 const { title, heading = title, description } = Astro.props;
+const user = Astro.locals.cmsUser;
+const userName = user?.name || user?.email || "Uživatel CMS";
+const initials =
+	userName
+		.split(/[\s@.]+/)
+		.filter((w) => w && !/^(ing|mgr|bc|phdr|rndr|paeddr)$/i.test(w))
+		.map((w) => w[0])
+		.join("")
+		.slice(0, 2)
+		.toUpperCase() || "U";
 const path = Astro.url.pathname.replace(/\/$/, "");
 const nav: Array<{ href: string; label: string; icon: IconName }> = [
 	{ href: "/admin", label: "Přehled", icon: "grid" },
@@ -64,8 +74,8 @@ const isActive = (href: string) => (href === "/admin" ? path === "/admin" : path
 					<slot name="actions" />
 					<ThemeToggle />
 					<span class="admin__user" title="Přihlášený uživatel">
-						<span class="admin__avatar" aria-hidden="true" data-admin-initials>VS</span>
-						<span class="admin__user-name" data-admin-name>Ing. Vladislav Sauer</span>
+						<span class="admin__avatar" aria-hidden="true">{initials}</span>
+						<span class="admin__user-name">{userName}</span>
 					</span>
 				</div>
 			</header>
@@ -423,23 +433,10 @@ const isActive = (href: string) => (href === "/admin" ? path === "/admin" : path
 	menu?.addEventListener("click", () => toggle(!side?.hasAttribute("data-open")));
 	document.addEventListener("keydown", (e) => e.key === "Escape" && toggle(false));
 
-	// Demo session (set by /prihlaseni)
-	try {
-		const user = JSON.parse(sessionStorage.getItem("sps-admin") ?? "null");
-		if (user?.name) {
-			document.querySelector("[data-admin-name]")!.textContent = user.name;
-			document.querySelector("[data-admin-initials]")!.textContent = user.name
-				.split(/\s+/)
-				.filter((w: string) => !w.endsWith("."))
-				.map((w: string) => w[0])
-				.join("")
-				.slice(0, 2)
-				.toUpperCase();
-		}
-	} catch {}
-	document.querySelector("[data-logout]")?.addEventListener("click", () => {
-		try {
-			sessionStorage.removeItem("sps-admin");
-		} catch {}
+	// Log out of the EmDash CMS session (the same session that unlocks /admin).
+	document.querySelector<HTMLAnchorElement>("[data-logout]")?.addEventListener("click", async (e) => {
+		e.preventDefault();
+		await fetch("/_emdash/api/auth/logout", { method: "POST", headers: { "X-EmDash-Request": "1" }, credentials: "same-origin" }).catch(() => {});
+		location.href = "/prihlaseni?odhlaseno=1";
 	});
 </script>

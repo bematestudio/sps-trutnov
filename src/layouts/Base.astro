@@ -12,6 +12,8 @@ import Logo from "../components/Logo.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { createCms } from "../lib/cms";
+import { jsonLd } from "../lib/json-ld";
+import { PRODUCTION_ORIGIN, SCHOOL_EMAIL } from "../lib/site";
 
 interface Props {
 	title: string;
@@ -21,16 +23,44 @@ interface Props {
 	content?: { collection: string; id: string; slug?: string | null };
 	noindex?: boolean;
 	bare?: boolean;
+	/** Use `title` as the full <title> (no " — SPŠ Trutnov" suffix). */
+	exactTitle?: boolean;
+	/** Extra structured data for this page (rendered as JSON-LD). */
+	structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, image, content, noindex = false, bare = false } = Astro.props;
+const { title, description, image, content, noindex = false, bare = false, exactTitle = false, structuredData } = Astro.props;
 const cms = createCms(Astro.locals);
 const [settings, menu, events] = await Promise.all([cms.settings(), cms.menu(), cms.events({ upcoming: true })]);
 const announcement = events.find((e) => e.kind === "dod");
 
-const fullTitle = title === settings.title ? title : `${title} — ${settings.title}`;
+const fullTitle = exactTitle || title === settings.title ? title : `${title} — ${settings.title}`;
 const pageDescription = description ?? settings.tagline;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const ogImage = new URL(image ?? "/og-default.png", PRODUCTION_ORIGIN).href;
+const isHome = Astro.url.pathname === "/";
+const organization = {
+	"@context": "https://schema.org",
+	"@type": ["EducationalOrganization", "HighSchool"],
+	"@id": `${PRODUCTION_ORIGIN}/#organization`,
+	name: "Střední průmyslová škola, Trutnov, Školní 101",
+	alternateName: "SPŠ Trutnov",
+	url: `${PRODUCTION_ORIGIN}/`,
+	logo: `${PRODUCTION_ORIGIN}/icon-512.png`,
+	image: `${PRODUCTION_ORIGIN}/og-default.png`,
+	email: SCHOOL_EMAIL,
+	telephone: "+420 499 813 071",
+	foundingDate: "1952",
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: "Školní 101",
+		addressLocality: "Trutnov",
+		postalCode: "541 01",
+		addressCountry: "CZ",
+	},
+	sameAs: ["https://www.facebook.com/spstrutnov", "https://www.instagram.com/spstrutnov/", "https://www.youtube.com/spstrutnov"],
+};
+const extraLd = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 
 const pageCtx = createPublicPageContext({
 	Astro,
@@ -40,7 +70,7 @@ const pageCtx = createPublicPageContext({
 	pageTitle: title,
 	description: pageDescription,
 	canonical,
-	image,
+	image: ogImage,
 	content,
 	siteName: settings.title,
 });
@@ -52,11 +82,13 @@ const pageCtx = createPublicPageContext({
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<title>{fullTitle}</title>
-		<meta name="description" content={pageDescription} />
-		<link rel="canonical" href={canonical} />
+		<!-- description, canonical, Open Graph and Twitter tags come from <EmDashHead> -->
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="color-scheme" content="light dark" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/manifest.webmanifest" />
 		<link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href={geistLatinExt} as="font" type="font/woff2" crossorigin />
 		<meta property="og:locale" content="cs_CZ" />
@@ -72,6 +104,7 @@ const pageCtx = createPublicPageContext({
 				try { if (!t) t = localStorage.getItem("theme"); } catch (e) {}
 				if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 				d.dataset.theme = t;
+				try { if (localStorage.getItem("motion") === "paused") d.dataset.motion = "paused"; } catch (e) {}
 				try {
 					if (!sessionStorage.getItem("sps-loaded") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
 						d.classList.add("is-loading");
@@ -81,6 +114,10 @@ const pageCtx = createPublicPageContext({
 			})();
 		</script>
 		<EmDashHead page={pageCtx} />
+		{!image && <meta property="og:image:width" content="1200" />}
+		{!image && <meta property="og:image:height" content="630" />}
+		{isHome && <script type="application/ld+json" set:html={jsonLd(organization)} />}
+		{extraLd.map((d) => <script type="application/ld+json" set:html={jsonLd({ "@context": "https://schema.org", ...d })} />)}
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />

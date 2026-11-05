@@ -2,6 +2,7 @@
   "name": "sps-trutnov-web",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.28.0",
   "type": "module",
   "description": "Web St\u0159edn\u00ed pr\u016fmyslov\u00e9 \u0161koly Trutnov \u2014 Astro + EmDash CMS na Cloudflare Workers",
   "emdash": {

@@ -26,7 +26,7 @@ export function initAdminTable() {
 		if (!row) return;
 		row.style.opacity = "0.4";
 		row.hidden = true;
-		const toast = (window as any).spsToast as ((m: string) => void) | undefined;
+		const toast = window.spsToast as ((m: string) => void) | undefined;
 		toast?.("Položka skryta (ukázkový režim — nic nebylo smazáno).");
 	});
 }

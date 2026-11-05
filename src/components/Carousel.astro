@@ -33,6 +33,12 @@ const { label, slide = "min(85%, 22rem)", autoplay = false, variant = "cards", c
 	</ul>
 	<div class="carousel__controls">
 		<div class="carousel__progress" aria-hidden="true"><span data-carousel-bar></span></div>
+		{autoplay && (
+			<button class="carousel__btn" type="button" data-carousel-pause aria-pressed="false" aria-label="Pozastavit automatické přehrávání">
+				<svg class="carousel__pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10" /><rect x="9" y="3" width="3" height="10" /></svg>
+				<svg class="carousel__play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5z" /></svg>
+			</button>
+		)}
 		<button class="carousel__btn" type="button" data-carousel-prev aria-label="Předchozí"><Icon name="arrow-left" size="s" /></button>
 		<button class="carousel__btn" type="button" data-carousel-next aria-label="Další"><Icon name="arrow" size="s" /></button>
 	</div>
@@ -43,6 +49,19 @@ const { label, slide = "min(85%, 22rem)", autoplay = false, variant = "cards", c
 		display: grid;
 		gap: var(--space-m);
 		min-inline-size: 0;
+	}
+	.carousel__pause,
+	.carousel__play {
+		inline-size: var(--icon-s);
+		block-size: var(--icon-s);
+		fill: currentColor;
+	}
+	.carousel__play,
+	[aria-pressed="true"] > .carousel__pause {
+		display: none;
+	}
+	[aria-pressed="true"] > .carousel__play {
+		display: block;
 	}
 	.carousel__track {
 		display: grid;
@@ -202,10 +221,23 @@ const { label, slide = "min(85%, 22rem)", autoplay = false, variant = "cards", c
 			let timer = 0;
 			let visible = false;
 			let paused = false;
+			let stopped = false; // pause button or site-wide "pause animations"
+			const pauseBtn = root.querySelector<HTMLButtonElement>("[data-carousel-pause]");
+			const globallyPaused = () => document.documentElement.dataset.motion === "paused";
 			const tick = () => {
 				window.clearTimeout(timer);
-				if (visible && !paused && !document.hidden) timer = window.setTimeout(() => (go(1), tick()), 5500);
+				if (visible && !paused && !stopped && !globallyPaused() && !document.hidden)
+					timer = window.setTimeout(() => (go(1), tick()), 5500);
 			};
+			const setStopped = (v: boolean) => {
+				stopped = v;
+				pauseBtn?.setAttribute("aria-pressed", String(v));
+				pauseBtn?.setAttribute("aria-label", v ? "Spustit automatické přehrávání" : "Pozastavit automatické přehrávání");
+				tick();
+			};
+			pauseBtn?.addEventListener("click", () => setStopped(!stopped));
+			document.addEventListener("sps:motion", (e) => setStopped((e as CustomEvent<{ paused: boolean }>).detail.paused));
+			if (globallyPaused()) setStopped(true);
 			const pause = (v: boolean) => ((paused = v), tick());
 			root.addEventListener("pointerenter", () => pause(true));
 			root.addEventListener("pointerleave", () => pause(false));

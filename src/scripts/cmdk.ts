@@ -34,13 +34,16 @@ const QUICK: Item[] = [
 const norm = (s: string) =>
 	s
 		.normalize("NFD")
-		.replace(/[̀-ͯ]/g, "")
+		.replace(/[\u0300-\u036f]/g, "")
+		.replace(/\u00a0/g, " ")
 		.toLowerCase();
+/** Only site-relative paths and http(s) links may become hrefs. */
+const safeHref = (url: string) => (/^\/(?!\/)/.test(url) || /^https?:\/\//i.test(url) ? url : "/vyhledavani");
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 const toEntry = ([kind, title, url, desc, kw]: Item): Entry => ({
 	kind,
 	title,
-	url,
+	url: safeHref(url),
 	desc,
 	nTitle: norm(title),
 	nAll: norm(`${title} ${desc} ${kw}`),

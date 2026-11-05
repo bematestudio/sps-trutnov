@@ -14,6 +14,11 @@ const cats = ["vse", ...new Set(docs.map((d) => d.category))];
 	<PageHero image="banner-spstrutnov" eyebrow="Ke stažení" title="Dokumenty a formuláře." lead="Školní vzdělávací programy, dokumenty k přijímacímu řízení, formuláře pro žáky a zákonné zástupce a povinné dokumenty školy." crumbs={[{ label: "Ke stažení" }]} />
 	<section class="section section--sm" data-docs>
 		<div class="container stack stack--l">
+			<div class="docfilter">
+				<label class="field__label" for="doc-q">Hledat v dokumentech</label>
+				<input class="input" id="doc-q" type="search" placeholder="např. přihláška, ŠVP, výroční zpráva…" autocomplete="off" data-doc-q />
+				<p class="meta" aria-live="polite" data-doc-count>{docs.length} dokumentů</p>
+			</div>
 			<div class="cluster" role="group" aria-label="Kategorie dokumentů">
 				{
 					cats.map((c) => (
@@ -26,7 +31,7 @@ const cats = ["vse", ...new Set(docs.map((d) => d.category))];
 			<ul class="docs" role="list">
 				{
 					docs.map((d) => (
-						<li class="doc" data-doc data-category={d.category} hidden={active !== "vse" && d.category !== active}>
+						<li class="doc" data-doc data-category={d.category} data-text={`${d.title} ${d.year}`} hidden={active !== "vse" && d.category !== active}>
 							<span class="doc__type">{d.fileType}</span>
 							<div class="doc__body">
 								<a class="doc__title stretched" href={d.url} target="_blank" rel="noopener">{d.title}</a>
@@ -46,6 +51,11 @@ const cats = ["vse", ...new Set(docs.map((d) => d.category))];
 </Base>
 
 <style>
+	.docfilter {
+		display: grid;
+		gap: var(--space-2xs);
+		max-width: 36rem;
+	}
 	.docs {
 		display: grid;
 		gap: 0;
@@ -117,11 +127,28 @@ const cats = ["vse", ...new Set(docs.map((d) => d.category))];
 	if (root) {
 		const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-cat]")];
 		const docs = [...root.querySelectorAll<HTMLElement>("[data-doc]")];
+		const input = root.querySelector<HTMLInputElement>("[data-doc-q]")!;
+		const count = root.querySelector<HTMLElement>("[data-doc-count]")!;
+		const norm = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\u00a0/g, " ").toLowerCase();
+		const texts = docs.map((d) => norm(d.dataset.text ?? ""));
+		let cat = buttons.find((b) => b.getAttribute("aria-pressed") === "true")?.dataset.cat ?? "vse";
+		const apply = () => {
+			const words = norm(input.value).split(/\s+/).filter(Boolean);
+			let n = 0;
+			docs.forEach((d, i) => {
+				const show = (cat === "vse" || d.dataset.category === cat) && words.every((w) => texts[i].includes(w));
+				d.hidden = !show;
+				if (show) n++;
+			});
+			count.textContent = n === 1 ? "1 dokument" : n >= 2 && n <= 4 ? `${n} dokumenty` : `${n} dokumentů`;
+		};
+		input.addEventListener("input", apply);
+		apply();
 		buttons.forEach((b) =>
 			b.addEventListener("click", () => {
-				const cat = b.dataset.cat!;
+				cat = b.dataset.cat!;
 				buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-				docs.forEach((d) => (d.hidden = cat !== "vse" && d.dataset.category !== cat));
+				apply();
 				const url = new URL(location.href);
 				if (cat === "vse") url.searchParams.delete("kategorie");
 				else url.searchParams.set("kategorie", cat);

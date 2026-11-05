@@ -43,7 +43,7 @@ const academies = [
 ];
 ---
 
-<Base title="SPŠ Trutnov" description="Střední průmyslová škola Trutnov — maturitní a učební obory v elektrotechnice, IT a strojírenství. Druhá největší střední škola v Královéhradeckém kraji.">
+<Base exactTitle title="SPŠ Trutnov — Střední průmyslová škola: elektrotechnika, IT a strojírenství" description="Střední průmyslová škola Trutnov — maturitní a učební obory v elektrotechnice, IT a strojírenství. Druhá největší střední škola v Královéhradeckém kraji.">
 	<!-- ===================================================== HERO -->
 	<section class="hero">
 		<SignalField />
@@ -271,7 +271,10 @@ const academies = [
 				<span class="eyebrow">Partneři</span>
 				<h2 class="h-card" id="partners-title">Spolupracujeme s nejvýznamnějšími firmami regionu</h2>
 			</div>
-			<a class="link-arrow" href="/o-skole/partnerstvi-a-spoluprace">Partnerství a spolupráce <Icon name="arrow" size="s" /></a>
+			<div class="cluster">
+				<button class="btn btn--ghost" type="button" data-motion-toggle aria-pressed="false"><span data-motion-label>Pozastavit animace</span></button>
+				<a class="link-arrow" href="/o-skole/partnerstvi-a-spoluprace">Partnerství a spolupráce <Icon name="arrow" size="s" /></a>
+			</div>
 		</div>
 		<div class="marquee">
 			{
@@ -752,7 +755,8 @@ const academies = [
 		padding-inline-end: var(--space-s);
 		animation: marquee calc(var(--duration-slower) * 30) linear infinite;
 	}
-	.marquee:hover .marquee__track {
+	.marquee:hover .marquee__track,
+	.marquee:focus-within .marquee__track {
 		animation-play-state: paused;
 	}
 	.marquee__item {

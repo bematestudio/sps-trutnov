@@ -1,20 +1,73 @@
 ---
 import PageHero from "../components/PageHero.astro";
 import Base from "../layouts/Base.astro";
+import { SCHOOL_EMAIL } from "../lib/site";
+/*
+ * Facts about the controller and the DPO come from the school's own document
+ * "Základní informace o zpracování osobních údajů" (GDPR.pdf, 2. 12. 2025).
+ * The website section describes what this site technically does. Reviewed by
+ * the school before publication on the production domain (audit F28).
+ */
+const gdprPdf = "/phocadownloadpap/dokumenty/vydane-pravni-predpisy/GDPR.pdf";
 ---
 
-<Base title="Ochrana osobních údajů">
-	<PageHero eyebrow="GDPR" title="Ochrana osobních údajů." lead="Jak Střední průmyslová škola, Trutnov, Školní 101 zpracovává osobní údaje žáků, zákonných zástupců a návštěvníků webu." crumbs={[{ label: "Ochrana osobních údajů" }]} />
+<Base title="Ochrana osobních údajů" description="Jak Střední průmyslová škola, Trutnov, Školní 101 zpracovává osobní údaje a co ukládá tento web.">
+	<PageHero eyebrow="GDPR" title="Ochrana osobních údajů." lead="Jak Střední průmyslová škola, Trutnov, Školní 101 zpracovává osobní údaje žáků, zákonných zástupců, zaměstnanců a návštěvníků webu." crumbs={[{ label: "Ochrana osobních údajů" }]} />
 	<section class="section">
 		<div class="container container--narrow prose">
 			<h2>Správce osobních údajů</h2>
-			<p>Správcem je Střední průmyslová škola, Trutnov, Školní 101, IČ 69174415. Kontakt: skola@spstrutnov.cz, tel. 499 813 071.</p>
-			<h2>Účel zpracování</h2>
-			<p>Osobní údaje zpracováváme pouze v rozsahu nezbytném pro plnění právních povinností školy, pro vzdělávání a pro vyřízení dotazů zaslaných kontaktním formulářem.</p>
-			<h2>Cookies</h2>
-			<p>Web používá pouze technicky nezbytné úložiště prohlížeče (např. pro zapamatování světlého či tmavého režimu). Nepoužíváme reklamní ani sledovací cookies.</p>
+			<p>
+				Střední průmyslová škola, Trutnov, Školní 101, IČ 69174415, se sídlem Školní 101, Vnitřní Město, 541 01 Trutnov.<br />
+				E-mail: <a href={`mailto:${SCHOOL_EMAIL}`}>{SCHOOL_EMAIL}</a>, telefon: +420 499 813 071, datová schránka: j4px8nw.
+			</p>
+
+			<h2>Pověřenec pro ochranu osobních údajů</h2>
+			<p>
+				Centrum investic, rozvoje a inovací (příspěvková organizace Královéhradeckého kraje), IČ 71218840.<br />
+				E-mail: <a href="mailto:vz@cirihk.cz">vz@cirihk.cz</a>, telefon: +420 725 928 567.
+			</p>
+
+			<h2>Zpracování osobních údajů školou</h2>
+			<p>
+				Škola zpracovává osobní údaje žáků, zákonných zástupců, uchazečů a zaměstnanců v rozsahu daném zejména školským zákonem
+				(č. 561/2004 Sb.), zákoníkem práce a dalšími předpisy. Přehled oblastí, účelů, právních základů a dob zpracování
+				obsahuje dokument <a href={gdprPdf}>Základní informace o zpracování osobních údajů (PDF)</a>. Formuláře pro uplatnění
+				práv najdete v sekci <a href="/ke-stazeni?kategorie=formulare">Ke stažení → Formuláře</a>.
+			</p>
+
+			<h2>Tento web</h2>
+			<h3>Kontaktní formulář</h3>
+			<p>
+				Formulář na webu nic neodesílá na server. Po vyplnění otevře váš e-mailový program s předvyplněnou zprávou na
+				{SCHOOL_EMAIL}; zprávu odešlete sami. Údaje ze zprávy (jméno, e-mail, text) zpracováváme jen k vyřízení vašeho dotazu.
+			</p>
+			<h3>Úložiště v prohlížeči a cookies</h3>
+			<p>Web nepoužívá reklamní ani analytické cookies a nesleduje návštěvníky. Ve vašem prohlížeči ukládá pouze:</p>
+			<ul>
+				<li><code>theme</code> (localStorage) — zvolený světlý nebo tmavý režim,</li>
+				<li><code>motion</code> (localStorage) — volba „Pozastavit animace“,</li>
+				<li><code>sps-loaded</code> (sessionStorage) — úvodní animace se zobrazí jen jednou za návštěvu,</li>
+				<li>přihlašovací cookie redakčního systému — jen u zaměstnanců, kteří se přihlásí ke správě obsahu.</li>
+			</ul>
+			<p>Jde o technicky nezbytné údaje, které neopouštějí váš prohlížeč (kromě přihlašovací cookie), proto k nim není potřeba souhlas.</p>
+			<h3>Videa z YouTube</h3>
+			<p>
+				Náhledy videí načítáme z našeho serveru. Teprve když video spustíte, přehraje se v rozšířeném režimu ochrany soukromí
+				(youtube-nocookie.com) a společnost Google získá údaje o přehrání podle svých zásad.
+			</p>
+			<h3>Hosting</h3>
+			<p>
+				Web běží na infrastruktuře Cloudflare, která pro doručení stránek zpracovává technické údaje o požadavku (např. IP adresu)
+				po dobu nezbytnou pro provoz a zabezpečení.
+			</p>
+
 			<h2>Vaše práva</h2>
-			<p>Máte právo na přístup k údajům, jejich opravu, výmaz, omezení zpracování a právo podat stížnost u Úřadu pro ochranu osobních údajů.</p>
+			<p>
+				Máte právo na přístup ke svým osobním údajům, jejich opravu nebo výmaz, omezení zpracování, přenositelnost, právo vznést
+				námitku a odvolat souhlas, pokud je zpracování na souhlasu založeno. Obrátit se můžete na školu (e-mailem, datovou
+				schránkou, poštou nebo osobně) i na pověřence. Máte také právo podat stížnost u Úřadu pro ochranu osobních údajů,
+				Pplk. Sochora 27, 170 00 Praha 7 (<a href="https://uoou.gov.cz">uoou.gov.cz</a>).
+			</p>
 		</div>
 	</section>
 </Base>

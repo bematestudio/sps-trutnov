@@ -11,11 +11,13 @@ const [{ items: posts, total }, events, docs, people] = await Promise.all([
 	cms.documents(),
 	cms.people(),
 ]);
+const monthAgo = Date.now() - 30 * 864e5;
+const recent = posts.filter((p) => p.date.getTime() >= monthAgo).length;
 const kpis = [
-	{ label: "Publikované novinky", value: total, trend: "+4 tento měsíc", icon: "news" },
+	{ label: "Publikované novinky", value: total, trend: posts[0] ? `poslední ${formatShortDate(posts[0].date)}${recent ? ` · ${recent} za 30 dní` : ""}` : "—", icon: "news" },
 	{ label: "Nadcházející akce", value: events.length, trend: `nejbližší ${events[0] ? formatShortDate(events[0].start) : "—"}`, icon: "calendar" },
-	{ label: "Dokumenty ke stažení", value: docs.length, trend: "aktualizováno dnes", icon: "file" },
-	{ label: "Kontakty v adresáři", value: people.length, trend: "vedení + pedagogové", icon: "users" },
+	{ label: "Dokumenty ke stažení", value: docs.length, trend: `${new Set(docs.map((d) => d.category)).size} kategorií`, icon: "file" },
+	{ label: "Kontakty v adresáři", value: people.length, trend: `${new Set(people.map((p) => p.department).filter(Boolean)).size} oddělení`, icon: "users" },
 ] as const;
 const quick = [
 	{ href: "/admin/novinky/upravit", label: "Napsat novinku", icon: "edit" },
@@ -50,7 +52,7 @@ const quick = [
 				<a class="link-arrow" href="/admin/novinky">Spravovat <Icon name="arrow" size="s" /></a>
 			</div>
 			<div class="table-wrap">
-				<table class="table">
+				<table class="table"><caption class="visually-hidden">Poslední novinky</caption>
 					<thead><tr><th scope="col">Titulek</th><th scope="col">Kategorie</th><th scope="col">Stav</th><th scope="col">Datum</th></tr></thead>
 					<tbody>
 						{posts.map((p) => (

@@ -21,13 +21,8 @@ const PAGES = [
 	"/ke-stazeni",
 	"/vyhledavani?q=robot",
 	"/prihlaseni",
-	"/admin",
-	"/admin/novinky",
-	"/admin/novinky/upravit",
-	"/admin/akce",
-	"/admin/dokumenty",
-	"/admin/lide",
-	"/admin/nastaveni",
+	"/ochrana-osobnich-udaju",
+	"/pristupnost",
 ];
 
 /** Skip the first-visit loader so tests see the page immediately. */
@@ -157,32 +152,133 @@ test("people directory search filters contacts", async ({ page }) => {
 	await expect(page.locator("[data-directory-empty]")).toBeVisible();
 });
 
-test("contact form validates and submits", async ({ page }) => {
+test("contact form validates and prepares an e-mail to the school", async ({ page }) => {
 	await page.goto("/kontakty");
 	const form = page.locator("[data-contact-form]").first();
-	await form.getByRole("button", { name: /Odeslat/ }).click();
+	await expect(form).toHaveAttribute("action", "mailto:skola@spstrutnov.cz");
+	await form.getByRole("button", { name: /Připravit e-mail/ }).click();
 	await expect(form.locator("[data-error]")).toBeVisible();
 	await form.getByLabel("Jméno a příjmení").fill("Jan Novák");
 	await form.getByLabel("E-mail").fill("jan@example.com");
 	await form.getByLabel("Zpráva").fill("Dobrý den, mám dotaz k přijímacímu řízení.");
 	await form.getByRole("checkbox").check();
-	await form.getByRole("button", { name: /Odeslat/ }).click();
+	await form.getByRole("button", { name: /Připravit e-mail/ }).click();
 	await expect(form).toHaveAttribute("data-state", "sent");
 });
 
-test("admin demo: login leads to dashboard", async ({ page }) => {
+test("staff admin requires an EmDash CMS login", async ({ page }) => {
+	for (const path of ["/admin", "/admin/novinky", "/admin/nastaveni"]) {
+		await page.goto(path);
+		await expect(page).toHaveURL(new RegExp(`/_emdash/admin/login\\?redirect=${encodeURIComponent(path)}$`));
+	}
 	await page.goto("/prihlaseni");
-	await page.getByLabel("Školní e-mail").fill("novak@spstrutnov.cz");
-	await page.locator("#login-password").fill("tajne-heslo");
-	await page.getByRole("button", { name: /Přihlásit se/ }).click();
-	await expect(page).toHaveURL(/\/admin$/);
-	await expect(page.locator("[data-admin-name]")).toHaveText("Novak");
-	await expect(page.locator(".a-kpi")).toHaveCount(4);
+	await expect(page.getByRole("link", { name: "Přihlásit se" })).toHaveAttribute("href", "/_emdash/admin/login?redirect=%2Fadmin");
+	await expect(page.locator("input[type=password]")).toHaveCount(0);
+});
+
+test("security headers, CSP and noindex outside production", async ({ request }) => {
+	const res = await request.get("/");
+	const h = res.headers();
+	expect(h["content-security-policy"]).toMatch(/default-src 'self'/);
+	expect(h["content-security-policy"]).toMatch(/script-src 'self'( 'sha256-[^']+')+/);
+	expect(h["content-security-policy"]).toContain("frame-ancestors 'self'");
+	expect(h["x-content-type-options"]).toBe("nosniff");
+	expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+	expect(h["cross-origin-opener-policy"]).toBe("same-origin");
+	expect(h["x-robots-tag"]).toContain("noindex");
+	const robots = await (await request.get("/robots.txt")).text();
+	expect(robots).toContain("Disallow: /");
+});
+
+test("no CSP violations on interactive pages", async ({ page }) => {
+	const violations: string[] = [];
+	page.on("console", (m) => /Content Security Policy/i.test(m.text()) && violations.push(m.text()));
+	for (const path of ["/", "/novinky/sps-trutnov-brana-do-sveta-modernich-technologii", "/kontakty", "/ke-stazeni", "/studium/casto-kladene-dotazy"]) {
+		await page.goto(path, { waitUntil: "networkidle" });
+	}
+	await page.keyboard.press("Control+k");
+	await page.waitForTimeout(300);
+	expect(violations).toEqual([]);
+});
+
+test("old site URLs redirect permanently", async ({ request }) => {
+	const cases: Array<[string, string]> = [
+		["/novinky/sport/jsme-opet-mistry-okresu-v-atletice", "/novinky/jsme-opet-mistry-okresu-v-atletice"],
+		["/novinky/souteze", "/novinky?kategorie=souteze"],
+		["/kontakty/sidlo-a-pracoviste", "/kontakty"],
+		["/component/contact/contact/86-arnost-jager", "/kontakty/lide"],
+		["/ke-stazeni/formulare", "/ke-stazeni?kategorie=formulare"],
+		["/index.php/o-skole", "/"],
+	];
+	for (const [from, to] of cases) {
+		const res = await request.get(from, { maxRedirects: 0 });
+		expect(res.status(), from).toBe(301);
+		expect(res.headers().location, from).toBe(to);
+	}
+});
+
+test("sitemap lists production URLs that exist", async ({ request }) => {
+	const xml = await (await request.get("/sitemap.xml")).text();
+	expect(xml).toContain("<loc>https://www.spstrutnov.cz/</loc>");
+	expect(xml).toContain("<loc>https://www.spstrutnov.cz/o-skole/charakteristika-a-historie</loc>");
+	expect(xml).toContain("<loc>https://www.spstrutnov.cz/studium/obory-vzdelani/elektrikar</loc>");
+	const sample = [...xml.matchAll(/<loc>https:\/\/www\.spstrutnov\.cz([^<]*)<\/loc>/g)].map((m) => m[1]).slice(0, 25);
+	for (const path of sample) expect((await request.get(path || "/", { maxRedirects: 0 })).status(), path).toBe(200);
+	expect((await request.get("/sitemap-pages.xml", { maxRedirects: 0 })).status()).toBe(301);
+});
+
+test("icons, manifest, security.txt and default share image", async ({ page, request }) => {
+	for (const path of ["/favicon.ico", "/apple-touch-icon.png", "/icon-192.png", "/icon-512.png", "/manifest.webmanifest", "/.well-known/security.txt", "/og-default.png"]) {
+		expect((await request.get(path)).status(), path).toBe(200);
+	}
+	await page.goto("/kontakty");
+	await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://www.spstrutnov.cz/og-default.png");
+	await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
+	await expect(page.locator('meta[name="description"]')).toHaveCount(1);
+	await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
+	await page.goto("/");
+	const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
+	expect(ld.some((t) => t.includes("EducationalOrganization"))).toBe(true);
+});
+
+test("site-wide pause stops moving content and persists", async ({ page }) => {
+	await page.goto("/", { waitUntil: "networkidle" });
+	const toggle = page.locator(".site-footer [data-motion-toggle]");
+	await toggle.click();
+	await expect(page.locator("html")).toHaveAttribute("data-motion", "paused");
+	await expect(toggle).toHaveAttribute("aria-pressed", "true");
+	const state = await page.locator(".marquee__track").first().evaluate((el) => getComputedStyle(el).animationPlayState);
+	expect(state).toBe("paused");
+	await expect(page.locator("[data-carousel-pause]").first()).toHaveAttribute("aria-pressed", "true");
+	await page.reload();
+	await expect(page.locator("html")).toHaveAttribute("data-motion", "paused");
+	await page.locator(".site-footer [data-motion-toggle]").click();
+	await expect(page.locator("html")).not.toHaveAttribute("data-motion", "paused");
+});
+
+test("no horizontal scroll at 320 px", async ({ browser }) => {
+	const page = await browser.newPage({ viewport: { width: 320, height: 800 } });
+	await prime(page);
+	for (const path of ["/", "/novinky/sps-trutnov-brana-do-sveta-modernich-technologii", "/studium/prijimaci-rizeni", "/kontakty", "/ke-stazeni"]) {
+		await page.goto(path, { waitUntil: "networkidle" });
+		const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+		expect(overflow, path).toBeLessThanOrEqual(0);
+	}
+	await page.close();
+});
+
+test("downloads can be filtered by text", async ({ page }) => {
+	await page.goto("/ke-stazeni");
+	const all = await page.locator("[data-doc]:visible").count();
+	await page.locator("[data-doc-q]").fill("prihlaska");
+	const some = await page.locator("[data-doc]:visible").count();
+	expect(some).toBeGreaterThan(0);
+	expect(some).toBeLessThan(all);
 });
 
 test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
 	for (const theme of ["light", "dark"] as const) {
-		for (const path of ["/", "/novinky", "/studium/obory-vzdelani/slaboprouda-elektrotechnika", "/studium/prijimaci-rizeni", "/kontakty", "/kontakty/lide", "/prihlaseni", "/admin"]) {
+		for (const path of ["/", "/novinky", "/studium/obory-vzdelani/slaboprouda-elektrotechnika", "/studium/prijimaci-rizeni", "/kontakty", "/kontakty/lide", "/prihlaseni", "/ke-stazeni", "/pristupnost"]) {
 			test(`${theme}: ${path}`, async ({ page }) => {
 				await page.goto(`${path}?theme=${theme}`, { waitUntil: "networkidle" });
 				// Let reveal animations settle so axe measures final colours.
@@ -247,6 +343,7 @@ test("Průmysl 4.0 tabs switch the highlighted technology", async ({ page }) => 
 test("video facade loads YouTube only after click", async ({ page }) => {
 	await page.goto("/", { waitUntil: "networkidle" });
 	await expect(page.locator(".videos__player iframe")).toHaveCount(0);
+	await expect(page.locator(".videos__player img").first()).toHaveAttribute("src", /^\/media\/yt\//);
 	await page.locator("[data-play]").click();
 	await expect(page.locator(".videos__player iframe")).toHaveAttribute("src", /youtube-nocookie\.com\/embed\//);
 });

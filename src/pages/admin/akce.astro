@@ -20,7 +20,7 @@ const events = await createCms(Astro.locals).events();
 			</label>
 		</div>
 		<div class="table-wrap">
-			<table class="table">
+			<table class="table"><caption class="visually-hidden">Akce a termíny</caption>
 				<thead><tr><th scope="col">Akce</th><th scope="col">Typ</th><th scope="col">Datum</th><th scope="col">Místo</th><th scope="col"><span class="visually-hidden">Akce</span></th></tr></thead>
 				<tbody data-events>
 					{events.map((e) => (
@@ -111,6 +111,6 @@ const events = await createCms(Astro.locals).events();
 		tr.children[3].textContent = d.location;
 		document.querySelector("[data-events]")?.prepend(tr);
 		form.reset();
-		(window as any).spsToast?.("Akce přidána (ukázkový režim).");
+		window.spsToast?.("Akce přidána (ukázkový režim).");
 	});
 </script>

@@ -76,10 +76,18 @@ animace, `font-size` bez tokenu nebo jiný breakpoint.
 ## Administrace (`/prihlaseni`, `/admin`)
 
 Frontendové rozhraní pro zaměstnance — přehled, novinky + editor, akce, dokumenty, lidé, nastavení.
-**Zatím není napojené na backend:** seznamy čtou živý obsah z EmDash (jen čtení), úpravy se ukládají
-do `localStorage` prohlížeče a rozhraní to jasně uvádí. Skutečná správa obsahu běží v EmDash CMS.
-Kontaktní formulář (`/api/contact`) data validuje, ale zatím je nikam neodesílá (místo pro napojení
-Cloudflare Email Routing je označeno v kódu).
+`/admin/*` je dostupné jen po přihlášení do EmDash CMS (`/prihlaseni` → přihlášení passkey/e-mailem).
+Seznamy čtou živý obsah z EmDash; úpravy v tomto rozhraní se zatím ukládají jen do prohlížeče
+(rozhraní to uvádí) — skutečná správa obsahu běží v `/_emdash/admin`.
+Kontaktní formulář nic neposílá na server: po validaci otevře e-mail s předvyplněnou zprávou na
+skola@spstrutnov.cz (až škola zvolí e-mailovou službu, lze přepnout na odesílání z webu).
+
+## Zabezpečení a SEO (`src/middleware.ts`)
+
+HTTPS + `www` přesměrování, 301 mapa starých URL, CSP s hashi inline skriptů, HSTS, COOP, `nosniff`,
+`X-Robots-Tag: noindex` na všech hostech kromě www.spstrutnov.cz, vlastní `robots.txt` a `sitemap.xml`,
+`/.well-known/security.txt`. Dokumenty starého webu jsou zrcadlené v R2 a dostupné na původních adresách
+`/phocadownloadpap/…` (`scripts/mirror-legacy-files.mjs`).
 
 ## Fotky (AVIF / WebP)
 
@@ -95,10 +103,10 @@ CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… pnpm optimize:media
 
 ## Migrace obsahu v živém CMS
 
-EmDash aplikuje seed jen na prázdnou databázi. Nové části schématu/obsahu pro už nastavený web doplní
-`POST /api/maintenance/migrate` (idempotentní). Spouští se tlačítkem **Spustit migraci CMS** v
-`/admin/nastaveni` — vyžaduje přihlášení do EmDash CMS jako administrátor (případně Worker secret
-`MAINTENANCE_TOKEN` pro skripty).
+EmDash aplikuje seed jen na prázdnou databázi. Nové části schématu/obsahu pro už nastavený web jsou
+číslované idempotentní migrace v `src/lib/migrations.ts`. Po nasazení se spustí **automaticky** (po první
+obsloužené žádosti, stav v tabulce `options` EmDash); stav a ruční spuštění najdete v `/admin/nastaveni`
+(role administrátor), pro skripty `POST /api/maintenance/migrate` s Worker secretem `MAINTENANCE_TOKEN`.
 
 ## Kontrola kvality
 
@@ -110,8 +118,9 @@ pnpm test:e2e            # Playwright: všechny stránky, overflow, 16px text, t
 pnpm critique            # Impeccable: 18 stránek × (světlý, tmavý, mobil) → reports/critique.json
 ```
 
-Stav při odevzdání: `astro check` 0 chyb, token lint OK, **104/104 Playwright testů** (desktop + Pixel 7),
-**0 nálezů Impeccable**.
+Stav při odevzdání: `astro check` 0 chyb, token lint OK, `pnpm audit --prod` 0 zranitelností,
+**128/128 Playwright testů** na živém webu (desktop + Pixel 7). CI: `docs/ci-workflow.yml` (zkopírovat do `.github/workflows/`).
+Audit a stav oprav: `docs/audit-report-2026-11-05.md`.
 
 ## Nasazení na Cloudflare
 
