@@ -105,3 +105,36 @@ export async function relocateDatabase(ns: Namespace) {
 	await target.query(`INSERT INTO ${q(MARKER)} VALUES (?, ?, ?, ?)`, [SOURCE_DB, new Date().toISOString(), tables.length, total]);
 	return { status: "copied" as const, tables: tables.length, rows: total, virtual: virtual.length, indexes: indexes.length, triggers: triggers.length };
 }
+
+/**
+ * Empties the old (US) instance once the European copy is confirmed: the
+ * target must carry the relocation marker and real content. A Durable Object
+ * without stored data no longer exists for storage/billing purposes.
+ * Idempotent: an already-empty source is reported as such.
+ */
+export async function decommissionSource(ns: Namespace) {
+	const target = ns.get(ns.idFromName(TARGET_DB));
+	const marker = await target.query(`SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?`, [MARKER]);
+	if (!marker.rows.length) return { status: "target-not-ready" as const };
+	const content = await target.query(`SELECT (SELECT COUNT(*) FROM ec_posts) + (SELECT COUNT(*) FROM ec_people) AS n`);
+	if (Number(content.rows[0]?.n ?? 0) === 0) return { status: "target-empty" as const };
+
+	const source = ns.get(ns.idFromName(SOURCE_DB));
+	const objects = (
+		await source.query(`SELECT type, name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND type IN ('table','view','trigger')`)
+	).rows as Array<{ type: string; name: string }>;
+	if (!objects.length) return { status: "source-already-empty" as const };
+	const virtual = (
+		await source.query(`SELECT name FROM sqlite_master WHERE type = 'table' AND sql LIKE 'CREATE VIRTUAL TABLE%'`)
+	).rows.map((r) => String(r.name));
+	const shadow = new Set(virtual.flatMap((v) => FTS_SHADOW.map((s) => v + s)));
+	await source.query(`PRAGMA foreign_keys = OFF`).catch(() => undefined);
+	for (const o of objects.filter((x) => x.type === "trigger")) await source.query(`DROP TRIGGER IF EXISTS ${q(o.name)}`);
+	for (const o of objects.filter((x) => x.type === "view")) await source.query(`DROP VIEW IF EXISTS ${q(o.name)}`);
+	for (const name of virtual) await source.query(`DROP TABLE IF EXISTS ${q(name)}`);
+	for (const o of objects.filter((x) => x.type === "table" && !virtual.includes(x.name) && !shadow.has(x.name))) {
+		await source.query(`DROP TABLE IF EXISTS ${q(o.name)}`);
+	}
+	const left = (await source.query(`SELECT COUNT(*) AS n FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%'`)).rows[0]?.n;
+	return { status: "source-emptied" as const, dropped: objects.length, remaining: Number(left ?? -1) };
+}
