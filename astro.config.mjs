@@ -33,7 +33,7 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
-			// "emdash-eu": the database instance created in Europe (see src/lib/db-relocate.ts).
+			// "emdash-eu": the database instance created in Europe (locationHint "weur").
 			database: durableObjects({ binding: "EMDASH_DB", name: "emdash-eu" }),
 			storage: r2({ binding: "MEDIA" }),
 		}),

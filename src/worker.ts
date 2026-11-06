@@ -1,6 +1,5 @@
 // Durable Object class that hosts the EmDash SQLite database (binding EMDASH_DB).
 export { EmDashDB } from "@emdash-cms/cloudflare/db/do-sql";
-import { relocateDatabase } from "./lib/db-relocate";
 import { edgeCache, HTML_TTL_S, htmlCacheKey, isCacheableRequest, REFRESH_HEADER, RENDERED_AT_HEADER } from "./lib/html-cache";
 
 type Ctx = { waitUntil(p: Promise<unknown>): void };
@@ -48,13 +47,6 @@ export default {
 		return (mod.default as unknown as Handler).fetch(request, env, ctx);
 	},
 	async scheduled(controller: unknown, env: unknown, ctx: unknown) {
-		// One-off: copy the CMS database to its new European instance (no-op once done).
-		try {
-			const result = await relocateDatabase((env as { EMDASH_DB: Parameters<typeof relocateDatabase>[0] }).EMDASH_DB);
-			if (result.status !== "already-done") console.log(JSON.stringify({ msg: "db relocation", ...result }));
-		} catch (error) {
-			console.error(JSON.stringify({ msg: "db relocation failed", error: error instanceof Error ? error.message : String(error) }));
-		}
 		const mod = await loadApp();
 		return (mod.createScheduledHandler() as (c: unknown, e: unknown, x: unknown) => Promise<void>)(controller, env, ctx);
 	},

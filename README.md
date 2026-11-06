@@ -102,9 +102,8 @@ HTTPS + `www` přesměrování, 301 mapa starých URL, CSP s hashi inline skript
 * **Vše běží v Evropě:** databáze CMS je instance Durable Objectu `emdash-eu` založená
   s `locationHint: "weur"` (západní/střední Evropa), média, dokumenty a session jsou v R2 bucketech
   v **jurisdikci EU** (`sps-trutnov-media-eu`, `sps-trutnov-sessions-eu`, umístění EEUR) a Worker díky
-  Smart Placement běží u databáze. Původní instance `emdash` a buckety v USA zůstaly jako záloha.
-  Přesun dělá `src/lib/db-relocate.ts` (jednorázově z cronu, ověří počty řádků) a
-  `scripts/copy-r2-bucket.mjs`.
+  Smart Placement běží u databáze. Původní instance `emdash` (USA) byla po ověřeném přesunu
+  vyprázdněna a buckety v USA smazány (6. 11. 2026). Kopírování mezi buckety: `scripts/copy-r2-bucket.mjs`.
 
 ## Fotky (AVIF / WebP)
 

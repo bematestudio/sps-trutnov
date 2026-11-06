@@ -379,10 +379,10 @@ test("anonymous HTML is cached briefly, logged-in requests are not", async ({ re
 	let hit: Awaited<ReturnType<typeof request.get>> | undefined;
 	for (let i = 0; i < 5 && !hit; i++) {
 		const res = await request.get("/o-skole");
-		if (/HIT/.test(res.headers()["x-cache"] ?? "")) hit = res;
+		if (/HIT|STALE/.test(res.headers()["x-cache"] ?? "")) hit = res;
 	}
 	expect(hit, "one of five requests is served from cache").toBeTruthy();
 	expect(hit!.headers()["content-security-policy"]).toContain("default-src 'self'");
 	const withCookie = await request.get("/o-skole", { headers: { cookie: "astro-session=x" } });
-	expect(withCookie.headers()["x-cache"] ?? "").not.toMatch(/HIT/);
+	expect(withCookie.headers()["x-cache"] ?? "").not.toMatch(/HIT|STALE/);
 });
