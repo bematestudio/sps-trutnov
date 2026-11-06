@@ -56,7 +56,7 @@ test.describe("every page", () => {
 test("unknown URL returns branded 404", async ({ page }) => {
 	const res = await page.goto("/tato-stranka-neexistuje");
 	expect(res?.status()).toBe(404);
-	await expect(page.getByRole("heading", { level: 1 })).toContainText("Tady nic není");
+	await expect(page.getByRole("heading", { level: 1 })).toContainText("Stránka nenalezena");
 });
 
 test("running text is never smaller than 16px", async ({ page, isMobile }) => {
@@ -65,8 +65,8 @@ test("running text is never smaller than 16px", async ({ page, isMobile }) => {
 		const offenders = await page.evaluate((mobile) =>
 			[...document.querySelectorAll<HTMLElement>("p, li, td, dd, label, input, textarea, button, a")]
 				.filter((el) => el.offsetParent && el.textContent?.trim())
-				// Mono UI labels (dates, tags, eyebrows, codes) are not running text.
-				.filter((el) => !el.closest(".meta, .eyebrow, .tag, .breadcrumbs, th, .footer__heading, .logo__sub, .event__month, .doc__type, .program__code, .step__num, .toc"))
+				// Small UI labels (dates, tags, codes, title-block captions) are not running text.
+				.filter((el) => !el.closest(".meta, .tag, .titleblock dt, .breadcrumbs, th, .footer__heading, .logo__sub, .event__month, .doc__type, .program__code, .step__num, .toc"))
 				// Desktop UI chrome (nav, buttons, tabs) is intentionally 15px; phones get 16px everywhere.
 				.filter((el) => mobile || !el.closest(".btn, .nav, .bar__search, .i40__tab, .slide__cta, .tag"))
 				.filter((el) => parseFloat(getComputedStyle(el).fontSize) < 16)
@@ -370,15 +370,19 @@ test("landing hero is built from the original homepage slider (photos + Adobe ap
 	const html = await page.locator(".hero .carousel").innerHTML();
 	for (const name of ["spstrutnov-dod-2026", "roboticke-pracoviste-wide", "studentka-klik"]) expect(html, name).toContain(`/images/foto/${name}-`);
 	await expect(page.locator(".hero .app__tile")).toHaveText(["Ps", "Ai", "Id", "Pr", "Ac", "Br"]);
-	await expect(page.locator(".hero h1")).toHaveText("Technika, která tě posune dál.");
+	await expect(page.locator(".hero h1")).toHaveText("Střední průmyslová škola Trutnov");
 	await expect(page.locator(".hero .slide__img").first()).toHaveAttribute("fetchpriority", "high");
 });
 
 test("anonymous HTML is cached briefly, logged-in requests are not", async ({ request }) => {
-	await request.get("/o-skole");
-	const second = await request.get("/o-skole");
-	expect(second.headers()["x-cache"]).toMatch(/HIT/);
-	expect(second.headers()["content-security-policy"]).toContain("default-src 'self'");
+	// Requests may land on different isolates/colos, so allow a few tries.
+	let hit: Awaited<ReturnType<typeof request.get>> | undefined;
+	for (let i = 0; i < 5 && !hit; i++) {
+		const res = await request.get("/o-skole");
+		if (/HIT/.test(res.headers()["x-cache"] ?? "")) hit = res;
+	}
+	expect(hit, "one of five requests is served from cache").toBeTruthy();
+	expect(hit!.headers()["content-security-policy"]).toContain("default-src 'self'");
 	const withCookie = await request.get("/o-skole", { headers: { cookie: "astro-session=x" } });
 	expect(withCookie.headers()["x-cache"] ?? "").not.toMatch(/HIT/);
 });

@@ -99,9 +99,12 @@ HTTPS + `www` přesměrování, 301 mapa starých URL, CSP s hashi inline skript
 * **Smart Placement** (`wrangler.jsonc`): Worker běží u databáze (jeden Durable Object), takže
   ~10 dotazů na stránku nejde přes oceán.
 * Změny v CMS se tak na webu projeví do ~1–2 minut.
-* Databáze (Durable Object) vznikla v USA, protože první požadavek přišel odtud. Pro produkci ji
-  doporučuji založit znovu s `locationHint: "weur"` (nebo přejít na D1), pak bude render bez cache
-  pro české návštěvníky ještě rychlejší.
+* **Vše běží v Evropě:** databáze CMS je instance Durable Objectu `emdash-eu` založená
+  s `locationHint: "weur"` (západní/střední Evropa), média, dokumenty a session jsou v R2 bucketech
+  v **jurisdikci EU** (`sps-trutnov-media-eu`, `sps-trutnov-sessions-eu`, umístění EEUR) a Worker díky
+  Smart Placement běží u databáze. Původní instance `emdash` a buckety v USA zůstaly jako záloha.
+  Přesun dělá `src/lib/db-relocate.ts` (jednorázově z cronu, ověří počty řádků) a
+  `scripts/copy-r2-bucket.mjs`.
 
 ## Fotky (AVIF / WebP)
 
@@ -140,14 +143,15 @@ Audit a stav oprav: `docs/audit-report-2026-11-05.md`.
 
 Dev nasazení: **https://sps-trutnov.marketing-830.workers.dev**
 
-Databáze CMS běží v **Durable Objectu se SQLite** (`EmDashDB`, binding `EMDASH_DB`), média v R2
-(`sps-trutnov-media`), Astro session pro přihlášení do EmDash v R2 (`sps-trutnov-sessions`).
+Databáze CMS běží v **Durable Objectu se SQLite** (`EmDashDB`, binding `EMDASH_DB`, instance
+`emdash-eu` v Evropě), média v R2 (`sps-trutnov-media-eu`, jurisdikce EU), Astro session pro
+přihlášení do EmDash v R2 (`sps-trutnov-sessions-eu`, jurisdikce EU, mazání po 30 dnech).
 Stačí tedy API token s právy *Workers Scripts* a *R2* — D1 ani KV potřeba nejsou.
 (Až bude token mít práva na D1, lze v `astro.config.mjs` přepnout na `d1({ binding: "DB" })`.)
 
 ```bash
-npx wrangler r2 bucket create sps-trutnov-media
-npx wrangler r2 bucket create sps-trutnov-sessions
+npx wrangler r2 bucket create sps-trutnov-media-eu --jurisdiction eu
+npx wrangler r2 bucket create sps-trutnov-sessions-eu --jurisdiction eu
 pnpm deploy                                 # astro build && wrangler deploy
 ```
 

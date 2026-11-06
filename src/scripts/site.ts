@@ -198,22 +198,6 @@ export function toast(message: string) {
 }
 window.spsToast = toast;
 
-/* ------------------------------------------------- footer wordmark parallax */
-const wordmark = document.querySelector<HTMLElement>(".footer__wordmark");
-if (wordmark && !reducedMotion && "IntersectionObserver" in window) {
-	let active = false;
-	const update = () => {
-		const r = wordmark.getBoundingClientRect();
-		const progress = Math.min(1, Math.max(0, (innerHeight - r.top) / (r.height + innerHeight * 0.4)));
-		wordmark.style.setProperty("--wordmark-shift", `${(1 - progress) * 40}%`);
-		if (active) requestAnimationFrame(update);
-	};
-	new IntersectionObserver(([entry]) => {
-		active = entry.isIntersecting;
-		if (active) requestAnimationFrame(update);
-	}).observe(wordmark);
-}
-
 /* ------------------------------------------------------- ⌘K search palette */
 // The palette module + index are fetched only on intent (hover/focus) or use.
 const loadCmdk = () => import("./cmdk");

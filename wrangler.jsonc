@@ -16,9 +16,10 @@
 		"bindings": [{ "name": "EMDASH_DB", "class_name": "EmDashDB" }]
 	},
 	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["EmDashDB"] }],
+	// Both buckets are in the EU jurisdiction (data stays in the EU).
 	"r2_buckets": [
-		{ "binding": "MEDIA", "bucket_name": "sps-trutnov-media" },
-		{ "binding": "SESSIONS", "bucket_name": "sps-trutnov-sessions" }
+		{ "binding": "MEDIA", "bucket_name": "sps-trutnov-media-eu", "jurisdiction": "eu" },
+		{ "binding": "SESSIONS", "bucket_name": "sps-trutnov-sessions-eu", "jurisdiction": "eu" }
 	],
 	// Scheduled publishing + maintenance for EmDash
 	"triggers": {

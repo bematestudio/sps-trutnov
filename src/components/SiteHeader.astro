@@ -59,7 +59,7 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 									</button>
 									<div class="nav__panel" id={`nav-panel-${i}`} data-dropdown-panel>
 										<div class="nav__panel-head">
-											<span class="eyebrow">{item.label}</span>
+											<span class="nav__panel-title">{item.label}</span>
 											<a class="link-arrow" href={item.url}>
 												Přehled sekce <Icon name="arrow" size="s" />
 											</a>
@@ -214,30 +214,23 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 	}
 
 	/* ---------- Floating bar ------------------------------------------- */
+	/* Solid bar with a hairline rule — no floating glass pill. */
 	.site-header {
 		position: sticky;
 		inset-block-start: 0;
 		z-index: var(--z-header);
-		padding-block: var(--space-2xs);
+		background: var(--color-bg);
+		border-block-end: var(--border-width) solid var(--color-border);
+		transition: border-color var(--duration-base) var(--ease-out);
+	}
+	.site-header[data-scrolled] {
+		border-block-end-color: var(--color-border-strong);
 	}
 	.bar {
 		display: flex;
 		align-items: center;
 		gap: var(--space-s);
 		min-block-size: var(--header-height);
-		padding: var(--space-3xs) var(--space-3xs) var(--space-3xs) var(--space-s);
-		background: var(--color-glass);
-		backdrop-filter: blur(var(--space-m)) saturate(1.6);
-		-webkit-backdrop-filter: blur(var(--space-m)) saturate(1.6);
-		border: var(--border-width) solid var(--color-border);
-		border-radius: var(--radius-full);
-		transition:
-			box-shadow var(--duration-base) var(--ease-out),
-			border-color var(--duration-base) var(--ease-out),
-			background-color var(--duration-base) var(--ease-out);
-	}
-	.site-header[data-scrolled] .bar {
-		box-shadow: var(--shadow-m);
 	}
 	.bar__brand {
 		/* Scales down on the narrowest phones so the bar never overflows (320 px). */
@@ -288,6 +281,10 @@ const isActive = (url: string) => url !== "/" && (path === url || path.startsWit
 		background: var(--color-surface);
 		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
+	}
+
+	.nav__panel-title {
+		font-weight: var(--weight-semibold);
 	}
 
 	/* ---------- Desktop nav --------------------------------------------- */

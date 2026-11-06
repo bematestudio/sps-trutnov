@@ -5,7 +5,8 @@ Instructions for AI coding agents (and humans) working in this repository.
 ## Stack
 
 Astro 7 (`output: "server"`) on Cloudflare Workers, EmDash CMS (database in a SQLite Durable Object,
-media in R2), pnpm 10, TypeScript. Czech-language site; code comments in English.
+instance `emdash-eu` placed in Europe; media in EU-jurisdiction R2), pnpm 10, TypeScript.
+Czech-language site; code comments in English. One typeface: Inter.
 
 ## Commands
 
@@ -37,6 +38,12 @@ Run `typecheck`, `lint:tokens` and the e2e suite before every commit that touche
 - **Security headers and CSP** are set in `src/middleware.ts`. Inline scripts are allowed by hash
   automatically; do not add inline event handlers (`onclick=`) or third-party scripts without updating
   the CSP.
+- **No eyebrows / taglines / slogan headings.** Headings name the thing ("Novinky", "Kontakty");
+  no kicker labels above headings, no decorative dot patterns, no glass/pill UI. Shape language is
+  sharp (technical drawing); colours are the logo's navy and azure.
+- **Data stays in the EU.** New R2 buckets need `--jurisdiction eu`; scripts send `cf-r2-jurisdiction`.
+- **Never share in-flight promises between requests** (Workers I/O is per request) — cache settled
+  values only (see `memoize` in `src/lib/cms.ts`).
 - **Moving content** (autoplay, marquees, canvas) must stop with `prefers-reduced-motion` and with the
   site-wide `data-motion="paused"` toggle.
 - **Secrets** live in Wrangler secrets / environment variables, never in the repo or in output.

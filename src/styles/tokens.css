@@ -26,12 +26,14 @@
 		--prim-ink-line: #2a2e37;
 		--prim-slate: #5c6270;
 		--prim-slate-light: #9aa1ad;
-		--prim-blue-700: #1550c4;
-		--prim-blue-600: #1a5fe0;
-		--prim-blue-500: #2f6ff0;
-		--prim-blue-300: #7aa7ff;
-		--prim-blue-100: #e3ecff;
-		--prim-blue-950: #0d1a3a;
+		/* School blues, derived from the logo: navy #2f2483 (primary) and azure #008acc. */
+		--prim-blue-700: #221a66;
+		--prim-blue-600: #2f2483;
+		--prim-blue-500: #008acc;
+		--prim-azure-700: #0071a6;
+		--prim-blue-300: #6fc6f0;
+		--prim-blue-100: #e9e7f6;
+		--prim-blue-950: #120d3a;
 		--prim-green-600: #13804a;
 		--prim-green-300: #5fd39a;
 		--prim-amber-500: #c27a06;
@@ -117,7 +119,7 @@
 		--text-xl: clamp(1.375rem, 1.2rem + 0.75vw, 1.875rem);
 		--text-2xl: clamp(1.875rem, 1.45rem + 1.9vw, 3rem);
 		--text-3xl: clamp(2.375rem, 1.5rem + 3.9vw, 4.75rem);
-		/* Oversized footer wordmark only */
+		/* Oversized display text (404) */
 		--text-display: clamp(4rem, 15.5vw, 20rem);
 
 		--leading-tight: 1.02;
@@ -161,11 +163,13 @@
 		--marker-size: 0.5rem;
 
 		/* ---------- Shape -------------------------------------------------- */
-		--radius-xs: 0.125rem;
-		--radius-s: 0.25rem;
-		--radius-m: 0.5rem;
-		--radius-l: 0.875rem;
-		--radius-full: 999rem;
+		/* Shape language: sharp, like a technical drawing. "full" stays round only for true dots. */
+		--radius-xs: 0.0625rem;
+		--radius-s: 0.125rem;
+		--radius-m: 0.1875rem;
+		--radius-l: 0.25rem;
+		--radius-full: 0.125rem;
+		--radius-round: 999rem;
 		--border-width: 1px;
 		--border-width-strong: 2px;
 		--focus-ring: 0 0 0 var(--border-width-strong) var(--color-bg), 0 0 0 calc(var(--border-width-strong) * 2) var(--color-focus);
@@ -208,8 +212,8 @@
 		--color-text-muted: var(--prim-slate-light);
 		--color-border: var(--prim-ink-line);
 		--color-border-strong: var(--prim-paper);
-		--color-accent: var(--prim-blue-500);
-		--color-accent-hover: var(--prim-blue-600);
+		--color-accent: var(--prim-azure-700);
+		--color-accent-hover: var(--prim-blue-500);
 		--color-accent-text: var(--prim-blue-300);
 		--color-accent-soft: var(--prim-blue-950);
 		--color-on-accent: var(--prim-white);

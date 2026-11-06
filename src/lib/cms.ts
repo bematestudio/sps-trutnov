@@ -192,17 +192,18 @@ function termsOf(raw: Raw, entry: SeedEntry | undefined, name: string): Term[] {
  * visual-edit mode bypass it (see createCms).
  */
 const MEMO_TTL_MS = 60_000;
-const memo = new Map<string, { at: number; value: Promise<unknown> }>();
-function memoize<T>(key: string, load: () => Promise<T>, enabled = true): Promise<T> {
+const memo = new Map<string, { at: number; value: unknown }>();
+/**
+ * Only *settled* values are shared between requests. Sharing an in-flight
+ * promise is unsafe on Workers: its I/O belongs to the request that started
+ * it, and if that request ends first the other one waits forever.
+ */
+async function memoize<T>(key: string, load: () => Promise<T>, enabled = true): Promise<T> {
 	if (!enabled) return load();
-	const now = Date.now();
 	const hit = memo.get(key);
-	if (hit && now - hit.at < MEMO_TTL_MS) return hit.value as Promise<T>;
-	const value = load().catch((e) => {
-		memo.delete(key);
-		throw e;
-	});
-	memo.set(key, { at: now, value });
+	if (hit && Date.now() - hit.at < MEMO_TTL_MS) return hit.value as T;
+	const value = await load();
+	memo.set(key, { at: Date.now(), value });
 	if (memo.size > 200) memo.delete(memo.keys().next().value!);
 	return value;
 }

@@ -5,7 +5,6 @@ import Videos from "../components/home/Videos.astro";
 import Icon from "../components/Icon.astro";
 import Photo from "../components/Photo.astro";
 import PostCard from "../components/PostCard.astro";
-import SignalField from "../components/SignalField.astro";
 import Base from "../layouts/Base.astro";
 import { createCms } from "../lib/cms";
 import { eventKindLabel, formatDay, formatMonth, formatTime } from "../lib/format";
@@ -68,11 +67,14 @@ const slides = [
 	},
 ] as const;
 
-const stats = [
-	{ value: 613, label: "žáků ve 25 třídách", tone: "accent" },
-	{ value: 57, label: "kvalifikovaných pedagogů", tone: "ink" },
-	{ value: 300, suffix: "+", label: "počítačů a notebooků v síti", tone: "surface" },
-	{ value: 4, label: "pracoviště a 10 laboratoří", tone: "plain" },
+/** Facts in the style of a technical drawing's title block (rohové razítko). */
+const titleBlock = [
+	{ label: "Založeno", value: "1952" },
+	{ label: "Žáci", value: "613 ve 25 třídách" },
+	{ label: "Pedagogové", value: "57" },
+	{ label: "Obory", value: `${maturita.length} maturitní · ${vyucni.length} učební` },
+	{ label: "Pracoviště", value: "4 a 10 laboratoří" },
+	{ label: "Sídlo", value: "Školní 101, Trutnov" },
 ];
 const academies = [
 	{ name: "Cisco Networking Academy", text: "Celosvětový vzdělávací systém v oblasti počítačových sítí.", logo: "/images/akademie/cisco-networking-academy.png", w: 300, h: 150 },
@@ -87,17 +89,24 @@ const academies = [
 	<section class="hero" aria-labelledby="hero-title">
 		<div class="container hero__inner">
 			<div class="hero__head">
-				<div class="stack stack--s">
-					<span class="eyebrow">Střední průmyslová škola · Trutnov · od roku 1952</span>
-					<h1 class="hero__title" id="hero-title">Technika, která tě posune dál.</h1>
-				</div>
-				<div class="stack stack--s hero__aside">
-					<p class="lead hero__lead">Elektro. IT. Strojírenství. Čtyři maturitní a dva učební obory, špičkové laboratoře a praxe u firem, které tě zaměstnají.</p>
+				<div class="stack hero__intro">
+					<h1 class="hero__title" id="hero-title">Střední průmyslová škola Trutnov</h1>
+					<p class="lead hero__lead">Elektrotechnika, informační technologie a strojírenství — maturitní i učební obory, vlastní laboratoře a praxe ve firmách regionu.</p>
 					<div class="cluster hero__ctas">
-						<a class="btn" href="/studium/obory-vzdelani">Vybrat obor <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
-						<a class="btn btn--secondary" href="/studium/den-otevrenych-dveri">Den otevřených dveří</a>
+						<a class="btn" href="/studium/obory-vzdelani">Obory vzdělání <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
+						<a class="btn btn--outline" href="/studium/prijimaci-rizeni">Přijímací řízení</a>
 					</div>
 				</div>
+				<dl class="titleblock" aria-label="Škola v číslech">
+					{
+						titleBlock.map((f) => (
+							<div class="titleblock__cell">
+								<dt>{f.label}</dt>
+								<dd>{f.value}</dd>
+							</div>
+						))
+					}
+				</dl>
 			</div>
 			<Carousel label="Aktuálně ze školy" slide="100%" variant="hero" autoplay>
 				{
@@ -121,7 +130,6 @@ const academies = [
 									</span>
 								)}
 								<span class="slide__body">
-									<span class="eyebrow slide__tag">{s.tag}</span>
 									<span class="slide__title">{s.title}</span>
 									<span class="slide__cta">
 										{s.cta} <Icon name="arrow" size="s" />
@@ -140,7 +148,6 @@ const academies = [
 		<div class="container">
 			<div class="stack-split" data-reveal-group>
 				<div class="panel panel--accent panel--plus stack-split__claim" data-reveal>
-					<span class="eyebrow">Co u nás studuješ</span>
 					<p class="stack-split__headline">Elektro. IT. Strojírenství.</p>
 					<p class="stack-split__text">
 						Tři technické světy, jedna škola. Obory propojujeme tak, aby mezi nimi šlo přestoupit — z učebního do
@@ -148,11 +155,9 @@ const academies = [
 					</p>
 				</div>
 				<div class="panel panel--plus stack-split__media" data-reveal>
-					<div class="dots" aria-hidden="true"></div>
 					<figure class="frame stack-split__photo">
 						<Photo name="studentka-vyskok" sizes="(width >= 48rem) 40vw, 100vw" alt="Radostná studentka SPŠ Trutnov ve školním tričku" />
 					</figure>
-					<p class="meta stack-split__caption">Staň se hrdým žákem průmyslovky</p>
 				</div>
 			</div>
 		</div>
@@ -163,8 +168,7 @@ const academies = [
 		<div class="container">
 			<div class="section-head section-head--split">
 				<div class="stack stack--s">
-					<span class="eyebrow">Obory vzdělání</span>
-					<h2 class="h-section" data-split>Vyber si cestu, která ti sedí.</h2>
+					<h2 class="h-section" data-split>Obory vzdělání</h2>
 				</div>
 				<a class="link-arrow" href="/studium/obory-vzdelani">Všechny obory <Icon name="arrow" size="s" /></a>
 			</div>
@@ -202,24 +206,6 @@ const academies = [
 		</div>
 	</section>
 
-	<!-- ===================================================== STATS -->
-	<section aria-labelledby="stats-title">
-		<h2 id="stats-title" class="visually-hidden">Škola v číslech</h2>
-		<div class="stats" data-reveal-group>
-			{
-				stats.map((s) => (
-					<div class={`stat stat--${s.tone}`} data-reveal>
-						<span class="stat__value" data-count={s.value} data-suffix={s.suffix ?? ""}>
-							{s.value}
-							{s.suffix}
-						</span>
-						<span class="stat__label">{s.label}</span>
-					</div>
-				))
-			}
-		</div>
-	</section>
-
 	<!-- ===================================================== INDUSTRY 4.0 -->
 	<Industry40 />
 
@@ -228,8 +214,7 @@ const academies = [
 		<div class="container">
 			<div class="section-head section-head--split">
 				<div class="stack stack--s">
-					<span class="eyebrow">Novinky</span>
-					<h2 class="h-section" data-split>Co se u nás děje.</h2>
+					<h2 class="h-section" data-split>Novinky</h2>
 				</div>
 				<a class="btn btn--outline" href="/novinky">Všechny novinky <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
 			</div>
@@ -252,7 +237,6 @@ const academies = [
 	<section class="section section--surface">
 		<div class="container split split--wide-end">
 			<div class="panel panel--inverse panel--plus dod" data-reveal>
-				<span class="eyebrow">Ukážeme vám to!</span>
 				<h2 class="h-section">Den otevřených dveří</h2>
 				{
 					nextDod && (
@@ -266,7 +250,6 @@ const academies = [
 			</div>
 			<div class="stack">
 				<div class="stack stack--s">
-					<span class="eyebrow">Kalendář</span>
 					<h2 class="h-section">Důležité termíny</h2>
 				</div>
 				<ol class="events" role="list" data-reveal-group>
@@ -294,8 +277,7 @@ const academies = [
 	<section class="section">
 		<div class="container">
 			<div class="section-head">
-				<span class="eyebrow">Certifikáty a programy</span>
-				<h2 class="h-section" data-split>Nadstandardní výuka ICT.</h2>
+				<h2 class="h-section" data-split>Certifikáty a akademie</h2>
 				<p class="lead">Během studia můžeš získat celosvětově uznávané certifikáty a pracovat v profesionálním softwaru zdarma.</p>
 			</div>
 			<ul class="grid grid--s academies" role="list" data-reveal-group>
@@ -318,7 +300,6 @@ const academies = [
 	<section class="partners" aria-labelledby="partners-title">
 		<div class="container partners__head">
 			<div class="stack stack--s">
-				<span class="eyebrow">Partneři</span>
 				<h2 class="h-card" id="partners-title">Spolupracujeme s nejvýznamnějšími firmami regionu</h2>
 			</div>
 			<div class="cluster">
@@ -344,10 +325,8 @@ const academies = [
 
 	<!-- ===================================================== CTA -->
 	<section class="cta">
-		<SignalField variant="bars" class="cta__bars" />
 		<div class="container cta__inner">
-			<span class="eyebrow">Přihláška 2027</span>
-			<h2 class="h-display" data-split>Staň se hrdým žákem průmyslovky.</h2>
+			<h2 class="h-display" data-split>Přihláška ke studiu 2027</h2>
 			<p class="lead">Studium je zdarma — a ve vybraných oborech za něj dostaneš zaplaceno.</p>
 			<div class="cluster">
 				<a class="btn" href="/studium/prijimaci-rizeni">Přijímací řízení <Icon name="arrow" size="s" class="btn__icon btn__icon--arrow" /></a>
@@ -358,41 +337,88 @@ const academies = [
 </Base>
 
 <style>
-	/* ---------- Hero (original homepage slider) ------------------------- */
+	/* ---------- Hero: school name + title block + the original slider --- */
 	.hero {
-		padding-block: var(--space-l) var(--section-space-sm);
+		padding-block: var(--space-xl) var(--section-space-sm);
 	}
 	.hero__inner {
 		display: grid;
-		gap: var(--space-l);
+		gap: var(--space-xl);
 	}
 	.hero__head {
 		display: grid;
-		gap: var(--space-m);
+		gap: var(--space-l);
 		align-items: end;
 	}
+	.hero__intro {
+		--stack-space: var(--space-m);
+	}
 	.hero__title {
-		max-width: 14ch;
+		max-width: 12ch;
 		font-size: var(--text-3xl);
+		font-weight: var(--weight-semibold);
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
 	}
 	.hero__lead {
-		max-width: 36rem;
+		max-width: 34rem;
 	}
-	/* Phones: the original photos come first — the slides carry their own CTAs. */
+	/* Phones: name → the original photos → title block. */
 	@media (width < 48rem) {
 		.hero {
-			padding-block-start: var(--space-s);
+			padding-block-start: var(--space-m);
 		}
 		.hero__inner {
 			gap: var(--space-m);
 		}
-		.hero__aside {
+		.hero__head {
+			display: contents;
+		}
+		.hero__intro {
+			order: 0;
+		}
+		.hero__intro .hero__lead,
+		.hero__intro .hero__ctas {
 			display: none;
 		}
+		.hero__inner > :global(.carousel) {
+			order: 1;
+		}
+		.titleblock {
+			order: 2;
+		}
+	}
+
+	/* Title block (rohové razítko): hairline grid of facts, like on a drawing sheet. */
+	.titleblock {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin: 0;
+		border-block-start: var(--border-width-strong) solid var(--color-border-strong);
+		border-inline-start: var(--border-width) solid var(--color-border-strong);
+	}
+	.titleblock__cell {
+		display: grid;
+		gap: var(--space-3xs);
+		padding: var(--space-xs) var(--space-s);
+		border-inline-end: var(--border-width) solid var(--color-border-strong);
+		border-block-end: var(--border-width) solid var(--color-border-strong);
+	}
+	.titleblock dt {
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+	}
+	.titleblock dd {
+		margin: 0;
+		font-weight: var(--weight-medium);
+		font-variant-numeric: tabular-nums;
 	}
 	@media (width >= 75rem) {
 		.hero__head {
-			grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+			grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+		}
+		.titleblock {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 
@@ -646,13 +672,6 @@ const academies = [
 		gap: var(--space-s);
 		background: var(--color-bg);
 	}
-	.dots {
-		position: absolute;
-		inset: var(--space-l);
-		background-image: radial-gradient(var(--color-text-muted) var(--border-width), transparent 0);
-		background-size: var(--space-xl) var(--space-xl);
-		opacity: 0.5;
-	}
 	.stack-split__photo {
 		position: relative;
 		margin: 0 var(--space-l);
@@ -757,32 +776,6 @@ const academies = [
 		}
 	}
 
-	/* ---------- Stats ----------------------------------------------------- */
-	.stats {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-	@media (width >= 48rem) {
-		.stats {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-		}
-	}
-	.stat--accent {
-		--stat-bg: var(--color-accent);
-		--stat-fg: var(--color-on-accent);
-	}
-	.stat--ink {
-		--stat-bg: var(--color-inverse-bg);
-		--stat-fg: var(--color-inverse-text);
-	}
-	.stat--surface {
-		--stat-bg: var(--color-surface-2);
-	}
-	.stat--plain {
-		--stat-bg: var(--color-bg);
-		box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
-	}
-
 	/* ---------- News ------------------------------------------------------ */
 	.news {
 		display: grid;
@@ -862,8 +855,6 @@ const academies = [
 	.event__month {
 		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wide);
 		color: var(--color-accent-text);
 	}
 	.event__body {
@@ -983,19 +974,15 @@ const academies = [
 		position: relative;
 		isolation: isolate;
 		overflow: hidden;
-		background: var(--prim-ink);
-		color: var(--prim-paper);
+		background: var(--brand-logo-navy);
+		color: var(--prim-white);
 		padding-block: var(--section-space);
-		--color-bg: var(--prim-ink);
-		--color-text-muted: var(--prim-slate-light);
+		--color-bg: var(--brand-logo-navy);
+		--color-text-muted: color-mix(in oklab, var(--prim-white) 82%, var(--brand-logo-navy));
 		--color-hero-line: color-mix(in oklab, var(--prim-paper) 22%, transparent);
 		--color-hero-line-accent: var(--prim-blue-500);
 		--color-accent-text: var(--prim-blue-300);
 		--color-focus: var(--prim-blue-300);
-	}
-	.cta :global(.cta__bars) {
-		z-index: -1;
-		mask-image: none;
 	}
 	.cta__inner {
 		display: grid;

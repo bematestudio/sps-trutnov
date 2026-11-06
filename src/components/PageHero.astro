@@ -5,19 +5,17 @@ import Photo from "./Photo.astro";
 
 interface Props {
 	title: string;
-	eyebrow?: string;
 	lead?: string;
 	crumbs?: Array<{ label: string; href?: string }>;
 	image?: keyof typeof images;
 }
-const { title, eyebrow, lead, crumbs = [], image } = Astro.props;
+const { title, lead, crumbs = [], image } = Astro.props;
 ---
 
 <section class:list={["page-hero", image && "page-hero--media"]}>
 	<div class="container page-hero__inner">
 		<div class="page-hero__text">
 			{crumbs.length > 0 && <Breadcrumbs items={crumbs} />}
-			{eyebrow && <span class="eyebrow" data-reveal>{eyebrow}</span>}
 			<h1 class="page-hero__title" data-split>{title}</h1>
 			{lead && <p class="lead" data-reveal>{lead}</p>}
 			<slot />
@@ -36,9 +34,7 @@ const { title, eyebrow, lead, crumbs = [], image } = Astro.props;
 <style>
 	.page-hero {
 		padding-top: var(--section-space-sm);
-		background:
-			radial-gradient(var(--color-border) var(--border-width), transparent 0) 0 0 / var(--space-l) var(--space-l),
-			linear-gradient(180deg, var(--color-surface), var(--color-bg) 85%);
+		background: var(--color-surface);
 	}
 	.page-hero__inner {
 		display: grid;

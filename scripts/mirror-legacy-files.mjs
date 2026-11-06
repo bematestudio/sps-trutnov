@@ -13,17 +13,24 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 
+/** MEDIA bucket from wrangler.jsonc (EU-jurisdiction buckets need the cf-r2-jurisdiction header). */
+function mediaBucket() {
+	const text = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8").replace(/^\s*\/\/.*$/gm, "");
+	return JSON.parse(text).r2_buckets.find((b) => b.binding === "MEDIA");
+}
+const jurisdictionHeader = mediaBucket().jurisdiction ? { "cf-r2-jurisdiction": mediaBucket().jurisdiction } : {};
+
 const token = process.env.CLOUDFLARE_API_TOKEN;
 if (!token) throw new Error("Set CLOUDFLARE_API_TOKEN (needs R2 read/write).");
 const api = "https://api.cloudflare.com/client/v4";
 const cf = async (path, init = {}) => {
-	const res = await fetch(`${api}${path}`, { ...init, headers: { Authorization: `Bearer ${token}`, ...init.headers } });
+	const res = await fetch(`${api}${path}`, { ...init, headers: { Authorization: `Bearer ${token}`, ...jurisdictionHeader, ...init.headers } });
 	if (!res.ok) throw new Error(`${init.method ?? "GET"} ${path} → ${res.status} ${await res.text()}`);
 	return res;
 };
 const account = process.env.CLOUDFLARE_ACCOUNT_ID ?? (await (await cf("/accounts")).json()).result?.[0]?.id;
 const wrangler = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8").replace(/^\s*\/\/.*$/gm, "");
-const bucket = JSON.parse(wrangler).r2_buckets.find((b) => b.binding === "MEDIA").bucket_name;
+const bucket = mediaBucket().bucket_name;
 const base = `/accounts/${account}/r2/buckets/${bucket}/objects`;
 
 const existing = new Set();

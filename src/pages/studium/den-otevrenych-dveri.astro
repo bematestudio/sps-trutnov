@@ -14,7 +14,7 @@ const dods = events.filter((e) => e.kind === "dod");
 ---
 
 <Base structuredData={dods.map((e) => eventLd(e, "/studium/den-otevrenych-dveri"))} title="Den otevřených dveří" description="Přijďte se podívat na SPŠ Trutnov — otevřeme všechna pracoviště, dílny, laboratoře i robotická pracoviště.">
-	<PageHero image="spstrutnov-dod-2026" eyebrow="Studium / Den otevřených dveří" title="Ukážeme vám to!" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
+	<PageHero image="spstrutnov-dod-2026" title="Den otevřených dveří" lead="Otevřeme všechna pracoviště školy — ukázky výuky automatizace, strojírenství a ICT na špičkové úrovni." crumbs={[{ label: "Studium", href: "/studium" }, { label: "Den otevřených dveří" }]}>
 		<div class="dates" data-reveal-group>
 			{
 				dods.map((d) => (

@@ -26,8 +26,7 @@ const href = (opts: { kategorie?: string; strana?: number }) => {
 
 <Base title={active ? `Novinky — ${active.label}` : "Novinky"} description="Aktuality, úspěchy žáků, exkurze, soutěže a sport ze života SPŠ Trutnov.">
 	<PageHero
-		eyebrow="Novinky — blog"
-		title={active ? active.label : "Ze života školy."}
+		title={active ? active.label : "Novinky"}
 		lead="Soutěže, exkurze, sport, partnerství s firmami a vše, co se na průmyslovce děje."
 		crumbs={[{ label: "Novinky", href: "/novinky" }, ...(active ? [{ label: active.label }] : [])]}
 	/>

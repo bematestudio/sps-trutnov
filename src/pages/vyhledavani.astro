@@ -11,7 +11,7 @@ const suggestions = ["přijímací zkoušky", "stipendium", "robotika", "den ote
 ---
 
 <Base title={q ? `Hledání: ${q}` : "Vyhledávání"} noindex>
-	<PageHero eyebrow="Vyhledávání" title={q ? `„${q}“` : "Co hledáte?"} crumbs={[{ label: "Vyhledávání" }]}>
+	<PageHero title={q ? `„${q}“` : "Co hledáte?"} crumbs={[{ label: "Vyhledávání" }]}>
 		<form class="searchbar" role="search" action="/vyhledavani">
 			<label class="visually-hidden" for="q">Hledaný výraz</label>
 			<Icon name="search" />

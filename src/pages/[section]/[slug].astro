@@ -25,7 +25,7 @@ const headings = page.content
 ---
 
 <Base title={page.title} description={page.lead} content={{ collection: "pages", id: page.slug, slug: page.slug }}>
-	<PageHero image={pageHeroImage[page.slug]} eyebrow={sectionLabel[section]} title={page.title} lead={page.lead} crumbs={[{ label: sectionLabel[section], href: `/${section}` }, { label: page.title }]} />
+	<PageHero image={pageHeroImage[page.slug]} title={page.title} lead={page.lead} crumbs={[{ label: sectionLabel[section], href: `/${section}` }, { label: page.title }]} />
 	<section class="section">
 		<div class="container sidebar-layout">
 			<div class="prose" data-prose data-reveal><PortableText value={page.content} /></div>

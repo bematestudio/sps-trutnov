@@ -14,6 +14,13 @@
 import { readFileSync } from "node:fs";
 import sharp from "sharp";
 
+/** MEDIA bucket from wrangler.jsonc (EU-jurisdiction buckets need the cf-r2-jurisdiction header). */
+function mediaBucket() {
+	const text = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8").replace(/^\s*\/\/.*$/gm, "");
+	return JSON.parse(text).r2_buckets.find((b) => b.binding === "MEDIA");
+}
+const jurisdictionHeader = mediaBucket().jurisdiction ? { "cf-r2-jurisdiction": mediaBucket().jurisdiction } : {};
+
 const WIDTHS = [480, 720, 960, 1600];
 const FORMATS = {
 	avif: (img) => img.avif({ quality: 52, effort: 5 }),
@@ -29,7 +36,7 @@ const api = "https://api.cloudflare.com/client/v4";
 const headers = { Authorization: `Bearer ${token}` };
 
 async function cf(path, init = {}) {
-	const res = await fetch(`${api}${path}`, { ...init, headers: { ...headers, ...init.headers } });
+	const res = await fetch(`${api}${path}`, { ...init, headers: { ...headers, ...jurisdictionHeader, ...init.headers } });
 	if (!res.ok) throw new Error(`${init.method ?? "GET"} ${path} → ${res.status} ${await res.text()}`);
 	return res;
 }
@@ -39,7 +46,7 @@ const account =
 const wrangler = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8").replace(/^\s*\/\/.*$/gm, "");
 const bucket =
 	process.env.MEDIA_BUCKET ??
-	JSON.parse(wrangler).r2_buckets.find((b) => b.binding === "MEDIA").bucket_name;
+	mediaBucket().bucket_name;
 const base = `/accounts/${account}/r2/buckets/${bucket}/objects`;
 
 async function list(prefix = "") {

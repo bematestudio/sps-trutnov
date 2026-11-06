@@ -44,7 +44,7 @@ const jsonLd = {
 				<div class="article-hero__text">
 					<Breadcrumbs items={[{ label: "Novinky", href: "/novinky" }, ...(post.category ? [{ label: post.category.label, href: `/novinky?kategorie=${post.category.slug}` }] : [])]} />
 					<div class="cluster">
-						{post.category && <a class="eyebrow" href={`/novinky?kategorie=${post.category.slug}`}>{post.category.label}</a>}
+						{post.category && <a class="tag" href={`/novinky?kategorie=${post.category.slug}`}>{post.category.label}</a>}
 						<span class="tag"><Icon name="clock" size="s" /> {minutes} min čtení</span>
 					</div>
 					<h1 class="article__title" data-split>{post.title}</h1>
@@ -145,9 +145,7 @@ const jsonLd = {
 	.article-hero {
 		position: relative;
 		padding-block: var(--section-space-sm);
-		background:
-			radial-gradient(var(--color-border) var(--border-width), transparent 0) 0 0 / var(--space-l) var(--space-l),
-			linear-gradient(180deg, var(--color-surface), var(--color-bg));
+		background: var(--color-surface);
 		border-bottom: var(--border-width) solid var(--color-border);
 	}
 	.article-hero__grid {

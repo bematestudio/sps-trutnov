@@ -7,9 +7,10 @@ import emdash from "emdash/astro";
 
 /**
  * Storage choices (all bound in wrangler.jsonc):
- * - CMS database: a SQLite-backed Durable Object (`EmDashDB`, binding EMDASH_DB).
+ * - CMS database: a SQLite-backed Durable Object (`EmDashDB`, binding EMDASH_DB), instance
+ *   "emdash-eu" located in Western Europe.
  *   Swap to `d1({ binding: "DB", session: "auto" })` once the API token has D1 rights.
- * - Media: R2 bucket (binding MEDIA).
+ * - Media: R2 bucket in the EU jurisdiction (binding MEDIA).
  * - Astro sessions (EmDash admin auth): R2 bucket (binding SESSIONS) instead of KV.
  */
 export default defineConfig({
@@ -32,7 +33,8 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
-			database: durableObjects({ binding: "EMDASH_DB" }),
+			// "emdash-eu": the database instance created in Europe (see src/lib/db-relocate.ts).
+			database: durableObjects({ binding: "EMDASH_DB", name: "emdash-eu" }),
 			storage: r2({ binding: "MEDIA" }),
 		}),
 	],
